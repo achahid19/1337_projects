@@ -30,19 +30,19 @@ void	*ft_calloc(size_t count, size_t size)
 	ft_bzero(ptr, count * size);
 	return (ptr);
 }
-/* #include <stdio.h> */
-/* int main(void) */
-/* { */
-/*  	/\* int *str; *\/ */
-/*  	int *ptr; */
+/*#include <stdio.h>
+int main(void)
+{
+ 	int *str;
+	int *ptr;
 
-/*  	/\* str = ft_calloc(-5, -5); *\/ */
-/* 	ptr = calloc(-5, -5); */
-/*  	/\* printf("%d\n", str[0]); *\/ */
-/*  	/\* printf("%d\n", str[1]); *\/ */
-/*  	/\* printf("%d\n", str[2]); *\/ */
-/*  	printf("%d\n", ptr[0]); */
-/*  	printf("%d\n", ptr[1]); */
-/*  	printf("%d\n", ptr[2]); */
-/*  	return (0); */
-/* } */
+	str = ft_calloc(-5, -5);
+	ptr = calloc(-5, -5);
+	printf("%d\n", str[0]);
+	printf("%d\n", str[1]);
+	printf("%d\n", str[2]);
+	printf("%d\n", ptr[0]);
+	printf("%d\n", ptr[1]);
+ 	printf("%d\n", ptr[2]);
+ 	return (0);
+} */
