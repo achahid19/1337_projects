@@ -90,8 +90,6 @@ char	**ft_split(const char *s, char c)
 				return (NULL);
 			count++;
 		}
-		if (*s)
-			s++;
 		while (*s && !ft_check_sep(*s, c))
 			s++;
 	}
@@ -108,6 +106,5 @@ int main(void)
     av = ft_split(str, ',');
 	for (int count = 0; count < 2; count++)
 		printf("av[%d]: %s\n", count, av[count]);
-	printf("%s\n", av[1]);
     return (0);
 } */
