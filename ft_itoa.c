@@ -57,7 +57,7 @@ static void	ft_length(int temp, int *l)
 
 	count = 0;
 	*l = count;
-	if (n == 0)
+	if (temp == 0)
 		count++;
 	while (temp != 0)
 	{
