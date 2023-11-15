@@ -51,7 +51,7 @@ static void	ft_negative(char *ptr, int length, int n)
  * @temp: variable that holds n value
  * Return: void.
 */
-static void	ft_length(int temp, int *l, int n)
+static void	ft_length(int temp, int *l)
 {
 	int	count;
 
@@ -93,7 +93,7 @@ char	*ft_itoa(int n)
 	char	*str;
 	int		length;
 
-	ft_length(n, &length, n);
+	ft_length(n, &length);
 	str = malloc(sizeof(*str) * length + 1);
 	if (!str)
 		return (NULL);
