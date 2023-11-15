@@ -9,38 +9,46 @@
 #    Updated: 2023/11/05 17:09:32 by achahid-         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
-SRCS := isalnum.c isprint.c memcmp.c \
-        strlcat.c strncmp.c substr.c atoi.c isalpha.c \
-        memcpy.c strchr.c strlcpy.c \
-        strnstr.c tolower.c bzero.c  isascii.c \
-        memmove.c strdup.c strlen.c strrchr.c \
-        toupper.c calloc.c isdigit.c memchr.c memset.c \
+
+CFILES = isalnum.c isprint.c memcmp.c \
+		strlcat.c strncmp.c substr.c atoi.c isalpha.c \
+		memcpy.c strchr.c strlcpy.c \
+		strnstr.c tolower.c bzero.c  isascii.c \
+		memmove.c strdup.c strlen.c strrchr.c \
+		toupper.c calloc.c isdigit.c memchr.c memset.c \
 		strjoin.c strtrim.c last_split.c itoa.c strmapi.c \
 		ft_striteri.c putchar_fd.c  putstr_fd.c putendl_fd.c \
-		putnbr_fd.c lstnew.c lstadd_front.c lstsize.c lstlast.c \
-		lstadd_back.c lstdelone.c lstclear.c lstiter.c lstmap.c\
+		putnbr_fd.c \
 
-OBJS := $(SRCS:.c=.o)
+CFILES_B = lstnew.c lstadd_front.c lstsize.c lstlast.c \
+			lstadd_back.c lstdelone.c lstclear.c lstiter.c lstmap.c \
 
-CC := cc
-RM := rm -f
-CFLAGS := -Wall -Wextra -Werror
+OBJECTS = $(CFILES:.c=.o)
 
-NAME := libft.a
+OBJECTS_B = $(CFILES_B:.c=.o)
 
-all:			$(NAME)
+CC = cc
 
-$(NAME):		$(OBJS)
-				ar rcs $(NAME) $(OBJS)
-clean:
-				$(RM) $(OBJS) $(BONUS_OBJS)
+FLAGS = -Werror -Wextra -Wall
 
-fclean:			clean
-				$(RM) $(NAME)
+NAME = libft.a
 
-re:				fclean $(NAME)
+AR = ar rcs
 
-bonus:			$(OBJS) $(BONUS_OBJS)
-				ar rcs $(NAME) $(OBJS) $(BONUS_OBJS)
+all: $(NAME)
 
-.PHONY:			all clean fclean re bonus
+bonus:  $(OBJECTS_B) $(CFILES_B)
+		$(CC) $(FLAGS) -c $(CFILES_B)
+		$(AR) $(NAME) $(OBJECTS_B)
+
+$(NAME): $(OBJECTS) $(CFILES)
+		$(CC) $(FLAGS) -c $(CFILES)
+		$(AR) $(NAME) $(OBJECTS)
+
+clean: 
+		rm -f $(OBJECTS) $(OBJECTS_B)
+
+fclean: clean
+		rm -f $(NAME)
+
+re: clean fclean all
