@@ -22,7 +22,7 @@ void	ft_putstr_fd(char *s, int fd)
 {
 	size_t	count;
 
-	if (!s)
+	if (!s || fd < 0)
 		return ;
 	count = 0;
 	while (s[count])
