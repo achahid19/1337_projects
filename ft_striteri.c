@@ -21,7 +21,7 @@ void	ft_striteri(char *s, void (*f)(unsigned int, char*))
 {
 	unsigned int	count;
 
-	if (!s)
+	if (!s || !f)
 		return ;
 	count = 0;
 	while (s[count])
