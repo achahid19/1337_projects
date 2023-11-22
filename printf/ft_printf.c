@@ -27,7 +27,7 @@ int	ft_printf(const char *format, ...)
 		return (-1);
 	va_start(args, format);
 	len = 0;
-	ft_process_fs(format, &len, args);
+	ft_conversion(format, &len, args);
 	va_end(args);
 	return (len);
 }

@@ -9,7 +9,7 @@ int	ft_printf(const char *format, ...);
 
 /* helpers function's prototypes */
 int		(*ft_get_func(char c))(va_list args);
-void	ft_process_fs(const char *format, size_t *len, va_list args);
+void	ft_conversion(const char *format, size_t *len, va_list args);
 int		ft_check_specifier(char c);
 int		ft_putchar(va_list args);
 int		ft_putstr(va_list args);

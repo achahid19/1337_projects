@@ -31,7 +31,7 @@ int	ft_check_specifier(char c)
  * @args: list of all arguments
  * Return: void.
 */
-void	ft_process_fs(const char *format, size_t *len, va_list args)
+void	ft_conversion(const char *format, size_t *len, va_list args)
 {
 	size_t	l;
 	size_t	count;
