@@ -3,7 +3,6 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdarg.h>
-# include <limits.h>
 
 /* ft_printf's prototype */
 int	ft_printf(const char *format, ...);
