@@ -13,14 +13,15 @@
 #include "ft_printf.h"
 
 /**
- * ft_check_specifier - function that checks if the specifier given is adequate or not
+ * ft_check_specifier - function that checks if the specifier given
+ * is adequate or not
  * @c: specifier to check
  * Return: 1 if true, 0 if false
 */
 int	ft_check_specifier(char c)
 {
-	return (c == 'c' || c == '%' || c == 's' || c == 'i' || c == 'd' ||
-			c == 'x' || c == 'X');
+	return (c == 'c' || c == '%' || c == 's' || c == 'i' || c == 'd'
+		|| c == 'x' || c == 'X');
 }
 
 /**
@@ -45,7 +46,7 @@ void	ft_conversion(const char *format, size_t *len, va_list args)
 			write (1, &format[count], 1);
 		else if (format[count] == '%')
 		{
-			if (!ft_check_specifier(format[count + 1])) /* if *format is not matching in format specifier */
+			if (!ft_check_specifier(format[count + 1]))
 			{
 				write (1, &format[count++], 1);
 				continue ;

@@ -21,7 +21,7 @@
 */
 int	(*ft_get_func(char c))(va_list args)
 {
-	get_func_t	list[5];
+	t_get_func	list[5];
 	size_t		count;
 
 	count = 0;

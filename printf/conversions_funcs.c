@@ -54,7 +54,7 @@ int	ft_putnbr(va_list args)
 	size_t		count;
 	long int	temp;
 	char		buffer[12];
-	
+
 	l = va_arg(args, int);
 	chars_n = 0;
 	if (l < 0)
