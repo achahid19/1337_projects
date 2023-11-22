@@ -25,7 +25,7 @@ int	ft_check_specifier(char c)
 }
 
 /**
- * ft_process_fs - function that processes the format string, matches the format
+ * ft_conversion - function that processes the format string, matches the format
  * specifier with the corresponding function, and output the formated output
  * @format: pointer to the string format
  * @len: pointer to the lenght of the formated output
