@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   functions.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/22 10:32:32 by achahid-          #+#    #+#             */
+/*   Updated: 2023/11/22 10:32:34 by achahid-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 /**
@@ -7,7 +19,7 @@
 */
 int	ft_putchar(va_list args)
 {
-	unsigned char	c;
+	char	c;
 
 	c = va_arg(args, int);
 	write (1, &c, 1);
@@ -21,7 +33,7 @@ int	ft_putchar(va_list args)
 */
 int	ft_putstr(va_list args)
 {
-	unsigned char	*str;
+	char	*str;
 
 	str = va_arg(args, char *);
 	if (!str)
@@ -41,29 +53,37 @@ int	ft_putnbr(va_list args)
 	size_t		chars_n;
 	size_t		count;
 	long int	temp;
+	char		buffer[12];
 	
-	l = va_arg(args, long int);
+	l = va_arg(args, int);
 	chars_n = 0;
 	if (l < 0)
 	{
-		l = -l;
-		write (1, "-", 1);
+		buffer[0] = '-';
 		chars_n++;
+		l *= -1;
 	}
 	else if (l == 0)
-		chars_n++;
-	temp = l;
-	while (temp--)
-		chars_n++;
-	count = 0;
-	temp = 0;
-	while (count < chars_n)
 	{
-		temp = l % 10 + 48;
-		write (1, &temp, 1);
-		l /= 10;
-		count++;
+		buffer[0] = '0';
+		chars_n++;
 	}
+	temp = l;
+	while (temp > 0)
+	{
+		chars_n++;
+		temp /= 10;
+	}
+	count = chars_n - 1;
+	temp = 0;
+	while (l > 0)
+	{
+		buffer[count] = l % 10 + 48;
+		l /= 10;
+		count--;
+	}
+	buffer[chars_n] = '\0';
+	write (1, buffer, chars_n);
 	return ((int)chars_n);
 }
 

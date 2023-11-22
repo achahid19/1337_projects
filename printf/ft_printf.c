@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/22 10:32:12 by achahid-          #+#    #+#             */
+/*   Updated: 2023/11/22 10:32:17 by achahid-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
 
 /**
@@ -9,33 +21,13 @@
 int	ft_printf(const char *format, ...)
 {
 	va_list	args;
-	size_t	count;
 	size_t	len;
-	int		(*f)(va_list);
 
 	if (!format || (format[0] == '%' && !format[1]))
 		return (-1);
 	va_start(args, format);
-	count = 0;
 	len = 0;
-	while (format[count])
-	{
-		if (format[count] != '%')
-			write (1, &format[count], 1);
-		else if (format[count] == '%')
-		{
-			if (!ft_check_specifier(format[count + 1])) /* if *format not match any specifier */
-			{
-				write (1, &format[count++], 1);
-				continue;
-			}
-			count++;
-			len -= 2;
-			f = ft_get_func(format[count]);
-			len += (*f)(args);
-		}
-		count++;
-	}
+	ft_process_fs(format, &len, args);
 	va_end(args);
-	return (count + len);
+	return (len);
 }
