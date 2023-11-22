@@ -58,3 +58,48 @@ void	ft_conversion(const char *format, size_t *len, va_list args)
 	}
 	*len = l + count;
 }
+
+/**
+ * ft_negative - function that handles the case if a negative
+ * integer is passed to ft_putnbr function
+ * @l: integer passed as argument
+ * @buffer: the temporary memory area where to store the digits
+ * of l to output it when the buffer is filled
+ * @n: number of chars to output
+ * Return: void
+*/
+void	ft_negative(size_t *l, char *buffer, size_t *n)
+{
+	buffer[0] = '-';
+	*n = *n + 1;
+	*l = *l * -1;
+}
+
+/**
+ * ft_zero - handles the case of zero is passed to
+ * ft_putnbr function
+ * @buffer: temporary memory area
+ * @n: counts the number of chars to output
+ * Return: void.
+*/
+void	ft_zero(char *buffer, size_t *n)
+{
+	buffer[0] = '0';
+	*n = *n + 1;
+}
+
+/**
+ * ft_length - function that counts the length
+ * of the integer l
+ * @l: integer
+ * @n: counts number of chars to output
+ * Return: void.
+*/
+void	ft_length(size_t l, size_t *n)
+{
+	while (l > 0)
+	{
+		*n = *n + 1;
+		l /= 10;
+	}
+}

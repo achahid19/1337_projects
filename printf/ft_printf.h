@@ -19,16 +19,24 @@
 /* ft_printf's prototype */
 int		ft_printf(const char *format, ...);
 
-/* helpers function's prototypes */
+/* conversion function's prototypes */
 int		(*ft_get_func(char c))(va_list args);
-int		ft_check_specifier(char c);
 int		ft_putchar(va_list args);
 int		ft_putstr(va_list args);
 int		ft_putnbr(va_list args);
-int		ft_putc(int c);
 int		ft_percent(va_list args);
-size_t	ft_strlen(char *str);
+
+/* helper functions prototypes */
 void	ft_conversion(const char *format, size_t *len, va_list args);
+int		ft_check_specifier(char c);
+void	ft_negative(size_t *l, char *buffer, size_t *n);
+void	ft_zero(char *buffer, size_t *n);
+void	ft_length(size_t l, size_t *n);
+
+/* libft's functions */
+int		ft_putc(int c);
+size_t	ft_strlen(char *str);
+
 /* Struct to get the corresponding function, depending in format identifier */
 typedef struct s_get_func
 {

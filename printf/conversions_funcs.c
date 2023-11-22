@@ -58,22 +58,10 @@ int	ft_putnbr(va_list args)
 	l = va_arg(args, int);
 	chars_n = 0;
 	if (l < 0)
-	{
-		buffer[0] = '-';
-		chars_n++;
-		l *= -1;
-	}
+		ft_negative(&l, buffer, &chars_n);
 	else if (l == 0)
-	{
-		buffer[0] = '0';
-		chars_n++;
-	}
-	temp = l;
-	while (temp > 0)
-	{
-		chars_n++;
-		temp /= 10;
-	}
+		ft_zero(buffer, &chars_n);
+	ft_length(l, &chars_n);
 	count = chars_n - 1;
 	temp = 0;
 	while (l > 0)
