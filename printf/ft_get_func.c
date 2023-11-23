@@ -11,20 +11,14 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-
 /**
- * ft_get_func - function that matches the format specifier given with
- * the corresponding function to process
- * @c: format specifier to check
- * @list: list of arguments given to printf functions
- * Return: The length of the return value of the corresponding function
+ * ft_fill_list - function that fills the data of each structure
+ * in the list
+ * @list: list of structures
+ * Returns: void
 */
-int	(*ft_get_func(char c))(va_list args)
+static void	ft_fill_list(t_get_func *list)
 {
-	t_get_func	list[8];
-	size_t		count;
-
-	count = 0;
 	list[0].c = 'c';
 	list[0].f = ft_putchar;
 	list[1].c = 'd';
@@ -41,6 +35,22 @@ int	(*ft_get_func(char c))(va_list args)
 	list[6].f = ft_printlow_hexa;
 	list[7].c = 'X';
 	list[7].f = ft_printup_hexa;
+}
+
+/**
+ * ft_get_func - function that matches the format specifier given with
+ * the corresponding function to process
+ * @c: format specifier to check
+ * @list: list of arguments given to printf functions
+ * Return: The length of the return value of the corresponding function
+*/
+int	(*ft_get_func(char c))(va_list args)
+{
+	t_get_func	list[8];
+	size_t		count;
+
+	count = 0;
+	ft_fill_list(list);
 	while (count < 8)
 	{
 		if (list[count].c == c)
