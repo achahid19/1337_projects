@@ -1,4 +1,5 @@
 #include "../ft_printf.h"
+
 /**
  * ft_strrev - function that reverses the indexs of an array
  * @str: pointer to the string to reverse

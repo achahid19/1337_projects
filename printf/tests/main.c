@@ -84,4 +84,13 @@ int main(void)
 	len1 = ft_printf("%x, %X, %x\n", INT_MAX, - 1, INT_MIN);
 
 	ft_print(len, len1);
+
+	int	num = 42;
+	int *ptr = NULL;
+	int *ctr = &num;
+
+	len = printf("The address of num is: %p, %p\n",  ptr, ctr);
+	len1 = ft_printf("The address of num is: %p, %p\n", ptr, ctr);
+
+	ft_print(len, len1);
 }

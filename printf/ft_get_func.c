@@ -35,6 +35,8 @@ static void	ft_fill_list(t_get_func *list)
 	list[6].f = ft_printlow_hexa;
 	list[7].c = 'X';
 	list[7].f = ft_printup_hexa;
+	list[8].c = 'p';
+	list[8].f = ft_print_pointer;
 }
 
 /**
@@ -46,12 +48,12 @@ static void	ft_fill_list(t_get_func *list)
 */
 int	(*ft_get_func(char c))(va_list args)
 {
-	t_get_func	list[8];
+	t_get_func	list[9];
 	size_t		count;
 
 	count = 0;
 	ft_fill_list(list);
-	while (count < 8)
+	while (count < 9)
 	{
 		if (list[count].c == c)
 			return (list[count].f);

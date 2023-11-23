@@ -12,5 +12,12 @@ int main(void)
 
     printf("Size of long int: %zu bits\n", 8 * sizeof(long int));
 	printf("%X\n", x);
+
+    int number = 42;
+    int *ptr = &number;
+
+    printf("Address of the variable 'number': %p\n", (void*)ptr);
+    printf("hexa of the number 42 is: %x\n", *ptr);
+
     return 0;
 }

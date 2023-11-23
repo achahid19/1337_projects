@@ -17,7 +17,7 @@
  * @str: string
  * Return: the length of the string
 */
-size_t	ft_strlen(char *str)
+size_t	ft_strlen(const char *str)
 {
 	size_t	count;
 

@@ -28,6 +28,7 @@ int		ft_percent(va_list args);
 int		ft_unsigned_nbr(va_list args);
 int		ft_printlow_hexa(va_list args);
 int		ft_printup_hexa(va_list args);
+int		ft_print_pointer(va_list args);
 
 /* helper functions prototypes */
 void	ft_conversion(const char *format, size_t *len, va_list args);
@@ -35,10 +36,11 @@ int		ft_check_specifier(char c);
 void	ft_negative(long int *l, char *buffer, size_t *n);
 void	ft_zero(char *buffer, size_t *n);
 void	ft_length(size_t l, size_t *n);
+int		ft_printlow_hex(long int n);
 
 /* libft's functions */ /* must create a headre file for libft functions */
 int		ft_putc(int c);
-size_t	ft_strlen(char *str);
+size_t	ft_strlen(const char *str);
 void	ft_strrev(char *str);
 
 /* Struct to get the corresponding function, depending in format identifier */
