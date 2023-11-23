@@ -25,17 +25,21 @@ int		ft_putchar(va_list args);
 int		ft_putstr(va_list args);
 int		ft_putnbr(va_list args);
 int		ft_percent(va_list args);
+int		ft_unsigned_nbr(va_list args);
+int		ft_printlow_hexa(va_list args);
+int		ft_printup_hexa(va_list args);
 
 /* helper functions prototypes */
 void	ft_conversion(const char *format, size_t *len, va_list args);
 int		ft_check_specifier(char c);
-void	ft_negative(size_t *l, char *buffer, size_t *n);
+void	ft_negative(long int *l, char *buffer, size_t *n);
 void	ft_zero(char *buffer, size_t *n);
 void	ft_length(size_t l, size_t *n);
 
-/* libft's functions */
+/* libft's functions */ /* must create a headre file for libft functions */
 int		ft_putc(int c);
 size_t	ft_strlen(char *str);
+void	ft_strrev(char *str);
 
 /* Struct to get the corresponding function, depending in format identifier */
 typedef struct s_get_func

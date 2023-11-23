@@ -21,7 +21,7 @@
 */
 int	(*ft_get_func(char c))(va_list args)
 {
-	t_get_func	list[5];
+	t_get_func	list[8];
 	size_t		count;
 
 	count = 0;
@@ -35,7 +35,13 @@ int	(*ft_get_func(char c))(va_list args)
 	list[3].f = ft_percent;
 	list[4].c = 's';
 	list[4].f = ft_putstr;
-	while (count < 5)
+	list[5].c = 'u';
+	list[5].f = ft_unsigned_nbr;
+	list[6].c = 'x';
+	list[6].f = ft_printlow_hexa;
+	list[7].c = 'X';
+	list[7].f = ft_printup_hexa;
+	while (count < 8)
 	{
 		if (list[count].c == c)
 			return (list[count].f);

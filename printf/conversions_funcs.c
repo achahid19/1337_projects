@@ -39,12 +39,12 @@ int	ft_putstr(va_list args)
 	if (!str)
 		str = "(null)";
 	write (1, str, ft_strlen(str));
-	return (ft_strlen(str));
+	return ((int)ft_strlen(str));
 }
 
 /**
  * ft_putnbr - funtion that takes a integer as argument and prints it on stdout
- * @n: the list that contains the integer to prints
+ * @args: the list that contains the integer to prints
  * Return: number of digits printed on stdout
 */
 int	ft_putnbr(va_list args)
@@ -52,7 +52,6 @@ int	ft_putnbr(va_list args)
 	long int	l;
 	size_t		chars_n;
 	size_t		count;
-	long int	temp;
 	char		buffer[12];
 
 	l = va_arg(args, int);
@@ -63,11 +62,40 @@ int	ft_putnbr(va_list args)
 		ft_zero(buffer, &chars_n);
 	ft_length(l, &chars_n);
 	count = chars_n - 1;
-	temp = 0;
 	while (l > 0)
 	{
 		buffer[count] = l % 10 + 48;
 		l /= 10;
+		count--;
+	}
+	buffer[chars_n] = '\0';
+	write (1, buffer, chars_n);
+	return ((int)chars_n);
+}
+
+/**
+ * ft_unsigned_nbr - function that takes an integer as arg
+ * and output it as unsigned int
+ * @args: list of arguments
+ * Return: length of formated output.
+*/
+int	ft_unsigned_nbr(va_list args)
+{
+	unsigned int	n;
+	size_t			chars_n;
+	size_t			count;
+	char			buffer[11];
+
+	chars_n = 0;
+	n = (unsigned int)va_arg(args, int);
+	if (n == 0)
+		ft_zero(buffer, &chars_n);
+	ft_length(n, &chars_n);
+	count = chars_n - 1;
+	while (n > 0)
+	{
+		buffer[count] = n % 10 + 48;
+		n /= 10;
 		count--;
 	}
 	buffer[chars_n] = '\0';

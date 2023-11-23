@@ -21,7 +21,7 @@
 int	ft_check_specifier(char c)
 {
 	return (c == 'c' || c == '%' || c == 's' || c == 'i' || c == 'd'
-		|| c == 'x' || c == 'X');
+		|| c == 'x' || c == 'X' || c == 'p' || c == 'u');
 }
 
 /**
@@ -68,11 +68,11 @@ void	ft_conversion(const char *format, size_t *len, va_list args)
  * @n: number of chars to output
  * Return: void
 */
-void	ft_negative(size_t *l, char *buffer, size_t *n)
+void	ft_negative(long int *l, char *buffer, size_t *n)
 {
 	buffer[0] = '-';
-	*n = *n + 1;
-	*l = *l * -1;
+	*n += 1;
+	*l *= -1;
 }
 
 /**
@@ -85,7 +85,7 @@ void	ft_negative(size_t *l, char *buffer, size_t *n)
 void	ft_zero(char *buffer, size_t *n)
 {
 	buffer[0] = '0';
-	*n = *n + 1;
+	*n += 1;
 }
 
 /**
@@ -99,7 +99,7 @@ void	ft_length(size_t l, size_t *n)
 {
 	while (l > 0)
 	{
-		*n = *n + 1;
+		*n += 1;
 		l /= 10;
 	}
 }

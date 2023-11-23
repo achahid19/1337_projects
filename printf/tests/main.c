@@ -54,8 +54,8 @@ int main(void)
     len1 = ft_printf("%%%c%%%s\n", 43, "\0''fds");
 
 	ft_print(len, len1);
-							/* tests %d and %i */
-	ft_printf("                %%d, %%i TESTS\n"); 
+							/* tests %d, %i and %u */
+	ft_printf("                %%d, %%i and %%u TESTS\n"); 
 	len = printf("%%, %d, %i\n", x, x);
 	len1 = ft_printf("%%, %d, %i\n", x, x);
 
@@ -70,6 +70,18 @@ int main(void)
 	x = -0x7fffffff - 1;
 	len = printf("%%, %d, %i\n", x, x);
 	len1 = ft_printf("%%, %d, %i\n", x, x);
+
+	ft_print(len, len1);
+
+	len = printf("%u, %u, %u, %u\n", INT_MIN + 10, -1, 0, -10);
+	len1 = ft_printf("%u, %u, %u, %u\n", INT_MIN + 10, -1, 0, -10);
+
+	ft_print(len, len1);
+
+							/* tests %X, %x */
+	ft_printf("                %%X, %%x TESTS\n"); 
+	len = printf("%x, %X, %x\n", INT_MAX, - 1, INT_MIN);
+	len1 = ft_printf("%x, %X, %x\n", INT_MAX, - 1, INT_MIN);
 
 	ft_print(len, len1);
 }
