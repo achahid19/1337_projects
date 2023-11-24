@@ -1,4 +1,17 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_print_pointer.c                                 :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2023/11/24 08:27:32 by achahid-          #+#    #+#             */
+/*   Updated: 2023/11/24 08:27:34 by achahid-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_printf.h"
+#include "libft.h"
 
 /**
  * ft_printlow_hex - function that converts a base 10 to base 16
@@ -20,9 +33,12 @@ int	ft_print_pointer(va_list args)
 	long int			a;
 
 	str = "(nil)";
-	ptr = va_arg(args, void*);
+	ptr = va_arg(args, void *);
 	if (ptr == NULL)
-		return (write(1, "(nil)", 5));		
+	{
+		len = write (1, "(nil)", 5);
+		return (len);
+	}
 	a = (long int)ptr;
 	write (1, "0x", 2);
 	len = ft_printlow_hex(a);

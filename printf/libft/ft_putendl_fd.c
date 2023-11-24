@@ -1,24 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_putchar.c                                       :+:      :+:    :+:   */
+/*   putendl_fd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/11/22 10:32:59 by achahid-          #+#    #+#             */
-/*   Updated: 2023/11/22 10:33:01 by achahid-         ###   ########.fr       */
+/*   Created: 2023/11/12 14:24:13 by achahid-          #+#    #+#             */
+/*   Updated: 2023/11/12 14:24:15 by achahid-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
-#include "../ft_printf.h"
+#include "libft.h"
 
 /**
- * ft_putchar - function that prints a char on stdout
- * @c: character to prints
- * Return: void
+ * ft_putendl_fd - function that outputs the string s to the given
+ * file descriptor
+ * @s: pointer to the string
+ * @fd: index of the file descriptor
+ * Return: void.
 */
-int	ft_putc(int c)
+void	ft_putendl_fd(char *s, int fd)
 {
-	write (1, &c, 1);
-	return (1);
+	if (!s || fd < 0)
+		return ;
+	ft_putstr_fd(s, fd);
+	write (fd, "\n", 1);
 }

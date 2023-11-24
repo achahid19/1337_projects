@@ -1,27 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strlen.c                                           :+:      :+:    :+:   */
+/*   lstadd_front.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 12:30:09 by achahid-          #+#    #+#             */
-/*   Updated: 2023/10/31 12:30:11 by achahid-         ###   ########.fr       */
+/*   Created: 2023/11/13 10:25:30 by achahid-          #+#    #+#             */
+/*   Updated: 2023/11/13 10:25:32 by achahid-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
 /**
-*ft_strlen - function that computes the length of a string
-*@s: string
-*Return: string's length
+ * ft_lstadd_front - function that adds the node new at the beginning of the list
+ * @lst: pointer to pointer to head (first node)
+ * @new: pointer to the new node to add
+ * Return: void.
 */
-size_t	ft_strlen(const char *s)
+void	ft_lstadd_front(t_list **lst, t_list *new)
 {
-	size_t	count;
-
-	count = 0;
-	while (s[count])
-		count++;
-	return (count);
+	new->next = *lst;
+	*lst = new;
 }

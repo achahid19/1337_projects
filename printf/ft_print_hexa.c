@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
 /**
  * ft_printlow_hexa - function that converts a base 10 to base 16

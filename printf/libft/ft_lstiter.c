@@ -1,27 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strlen.c                                           :+:      :+:    :+:   */
+/*   lstiter.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 12:30:09 by achahid-          #+#    #+#             */
-/*   Updated: 2023/10/31 12:30:11 by achahid-         ###   ########.fr       */
+/*   Created: 2023/11/13 15:01:01 by achahid-          #+#    #+#             */
+/*   Updated: 2023/11/13 15:01:03 by achahid-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
 /**
-*ft_strlen - function that computes the length of a string
-*@s: string
-*Return: string's length
+ * ft_lstiter - function that iterates the list lst and applies the function f
+ * on the content of each node
+ * @lst: pointer to head (first node)
+ * @f: pointer to the function to apply on each node
+ * Return: void.
 */
-size_t	ft_strlen(const char *s)
+void	ft_lstiter(t_list *lst, void (*f)(void *))
 {
-	size_t	count;
+	t_nodeptr	node;
 
-	count = 0;
-	while (s[count])
-		count++;
-	return (count);
+	if (lst == NULL)
+		return ;
+	node = lst;
+	while (node != NULL)
+	{
+		(*f)(node->content);
+		node = node->next;
+	}
 }

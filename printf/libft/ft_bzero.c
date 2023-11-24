@@ -1,27 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strlen.c                                           :+:      :+:    :+:   */
+/*   bzero.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 12:30:09 by achahid-          #+#    #+#             */
-/*   Updated: 2023/10/31 12:30:11 by achahid-         ###   ########.fr       */
+/*   Created: 2023/11/01 11:51:39 by achahid-          #+#    #+#             */
+/*   Updated: 2023/11/01 11:51:41 by achahid-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
 /**
-*ft_strlen - function that computes the length of a string
-*@s: string
-*Return: string's length
+ * ft_bzero - function that fill a buffer (s) with n zeroed bytes
+ * @s: buffer to fill
+ * @n: number of bytes
+ * Return: void.
 */
-size_t	ft_strlen(const char *s)
+void	ft_bzero(void *s, size_t n)
 {
-	size_t	count;
-
-	count = 0;
-	while (s[count])
-		count++;
-	return (count);
+	if (n == 0)
+		return ;
+	ft_memset(s, 0, n);
 }

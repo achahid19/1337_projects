@@ -1,27 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   strlen.c                                           :+:      :+:    :+:   */
+/*   putchar_fd.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/10/31 12:30:09 by achahid-          #+#    #+#             */
-/*   Updated: 2023/10/31 12:30:11 by achahid-         ###   ########.fr       */
+/*   Created: 2023/11/12 10:40:59 by achahid-          #+#    #+#             */
+/*   Updated: 2023/11/12 10:41:01 by achahid-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "libft.h"
 
 /**
-*ft_strlen - function that computes the length of a string
-*@s: string
-*Return: string's length
+ * ft_putchar_fd - function the display the output in the corresponding
+ * file descriptor.
+ * @c: character to output
+ * @fd: The file descriptor on which to write
+ * Return: void.
 */
-size_t	ft_strlen(const char *s)
+int	ft_putchar_fd(char c, int fd)
 {
-	size_t	count;
+	int	len;
 
-	count = 0;
-	while (s[count])
-		count++;
-	return (count);
+	if (fd < 0)
+		return ;
+	len = write (fd, &c, 1);
+	return (len);
 }

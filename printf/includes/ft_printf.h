@@ -39,7 +39,7 @@ void	ft_length(size_t l, size_t *n);
 int		ft_printlow_hex(long int n);
 
 /* libft's functions */ /* must create a headre file for libft functions */
-int		ft_putc(int c);
+int		ft_putchar_fd(char c, int fd);
 size_t	ft_strlen(const char *str);
 void	ft_strrev(char *str);
 

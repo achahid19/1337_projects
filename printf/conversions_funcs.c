@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
+#include "libft.h"
 
 /**
  * ft_putchar - function that prints a char on stdout
@@ -111,5 +112,5 @@ int	ft_unsigned_nbr(va_list args)
 int	ft_percent(va_list args)
 {
 	(void)args;
-	return (ft_putc('%'));
+	return (ft_putchar_fd('%', 1));
 }
