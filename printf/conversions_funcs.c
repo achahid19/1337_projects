@@ -111,5 +111,5 @@ int	ft_unsigned_nbr(va_list args)
 int	ft_percent(va_list args)
 {
 	(void)args;
-	return (ft_putchar_fd('%', 1));
+	return (ft_putc('%'));
 }

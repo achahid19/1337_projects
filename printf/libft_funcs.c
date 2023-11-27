@@ -41,13 +41,11 @@ void	ft_strrev(char *str)
  * @fd: The file descriptor on which to write
  * Return: void.
 */
-int	ft_putchar_fd(char c, int fd)
+int	ft_putc(char c)
 {
 	int	len;
 
-	if (fd < 0)
-		return (0);
-	len = write (fd, &c, 1);
+	len = write (1, &c, 1);
 	return (len);
 }
 
