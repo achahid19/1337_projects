@@ -17,7 +17,7 @@
  * @n: number to convert
  * Return: length of formated output
 */
-int	ft_printlow_hex(long int n);
+int	ft_printlow_hex(unsigned long int n);
 
 /**
  * ft_print_prointer - function that prints an address in hexadecimal format
@@ -26,10 +26,10 @@ int	ft_printlow_hex(long int n);
 */
 int	ft_print_pointer(va_list args)
 {
-	void				*ptr;
-	char				*str;
-	int					len;
-	long int			a;
+	void						*ptr;
+	char						*str;
+	int							len;
+	unsigned long int			a;
 
 	str = "(nil)";
 	ptr = va_arg(args, void *);
@@ -38,15 +38,15 @@ int	ft_print_pointer(va_list args)
 		len = write (1, str, ft_strlen(str));
 		return (len);
 	}
-	a = (long int)ptr;
+	a = (unsigned long int)ptr;
 	write (1, "0x", 2);
 	len = ft_printlow_hex(a);
 	return (len + 2);
 }
 
-int	ft_printlow_hex(long int n)
+int	ft_printlow_hex(unsigned long int n)
 {
-	long int	l;
+	unsigned long int	l;
 	size_t		count;
 	char		buffer[17];
 	int			remainder;
