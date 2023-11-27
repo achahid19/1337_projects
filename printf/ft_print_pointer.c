@@ -47,9 +47,9 @@ int	ft_print_pointer(va_list args)
 int	ft_printlow_hex(unsigned long int n)
 {
 	unsigned long int	l;
-	size_t		count;
-	char		buffer[17];
-	int			remainder;
+	size_t				count;
+	char				buffer[17];
+	int					remainder;
 
 	l = n;
 	count = 0;
