@@ -11,7 +11,6 @@
 /* ************************************************************************** */
 
 #include "ft_printf.h"
-#include "libft.h"
 
 /**
  * ft_putchar - function that prints a char on stdout
