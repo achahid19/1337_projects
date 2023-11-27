@@ -15,7 +15,7 @@ OBJ = $(SRCS:.c=.o)
 
 NAME = libftprintf.a
 
-# TARGET
+# TARGETS
 
 all: $(NAME)
 

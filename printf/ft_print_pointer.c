@@ -48,7 +48,7 @@ int	ft_printlow_hex(long int n)
 {
 	long int	l;
 	size_t		count;
-	char		buffer[13];
+	char		buffer[17];
 	int			remainder;
 
 	l = n;

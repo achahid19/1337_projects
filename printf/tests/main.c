@@ -80,8 +80,8 @@ int main(void)
 
 							/* tests %X, %x */
 	ft_printf("                %%X, %%x TESTS\n"); 
-	len = printf("%x, %X, %x\n", INT_MAX, - 1, INT_MIN);
-	len1 = ft_printf("%x, %X, %x\n", INT_MAX, - 1, INT_MIN);
+	len = printf("%x, %X, %x\n", -77, - 1, INT_MIN);
+	len1 = ft_printf("%x, %X, %x\n", -77, - 1, INT_MIN);
 
 	ft_print(len, len1);
 
