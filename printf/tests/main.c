@@ -1,6 +1,7 @@
 #include "../ft_printf.h"
 #include <stdio.h>
 #include <limits.h>
+#include <stdint.h>
 
 void	ft_print(int len, int len1)
 {
@@ -85,9 +86,9 @@ int main(void)
 
 	ft_print(len, len1);
 
-	int	num = 42;
+	unsigned long num = SIZE_MAX;
 	int *ptr = NULL;
-	int *ctr = &num;
+	unsigned long int *ctr = &num;
 
 	len = printf("The address of num is: %p, %p\n",  ptr, ctr);
 	len1 = ft_printf("The address of num is: %p, %p\n", ptr, ctr);
