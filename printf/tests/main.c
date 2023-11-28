@@ -34,8 +34,8 @@ int main(void)
 
 	ft_print(len, len1);
 
-	len = printf("%%%");
-	len1 = ft_printf("%%%");
+	len = printf("func1: %%%\n");
+	len1 = ft_printf("func2: %%%\n");
 
 	ft_print(len, len1);
 							/* tests %s */
