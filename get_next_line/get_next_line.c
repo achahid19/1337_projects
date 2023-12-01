@@ -20,17 +20,21 @@
 #include <stdio.h>
 char	*get_next_line(int fd)
 {
-	
-	char	*buffer;
+	static char	*buffer; /* initialized automaticly to 0 in bss */
 	char	*bytes_readed;
 	ssize_t	bytes_count;
 	static int	count = 0;
 
 	bytes_count = 1;
-	if (count > 0) /* freeing the buffer of the previous line
-	if a while loop is used */
+	printf("WE ARE IN CALL: %d\n", count);
+	printf("--------------------------------------\n");
+/* 	if (count > 0) freeing the buffer of the previous line if a while loop is used
+	{
 		free (buffer);
+		printf("freed\n");
+	} */
 	buffer = NULL;
+	printf("buffer1: %s, in call: %d\n", buffer, count);
 	count++;
 	if (fd < 0 || BUFFER_SIZE > INT_MAX || BUFFER_SIZE <= 0)
 		return (NULL);
@@ -49,6 +53,8 @@ char	*get_next_line(int fd)
 		}
 		bytes_readed[bytes_count] = '\0';
 		buffer = ft_strjoin(buffer, bytes_readed);
+		if (buffer == NULL)
+			return (NULL);
 		printf("call: %d and str: %s\n", count, buffer);
 	}
 	free(bytes_readed);
@@ -65,10 +71,15 @@ int main(void)
 	{
 		str = get_next_line(fd);
 		printf("str: %s\n", str);
+		free(str);
 		ptr = get_next_line(cd);
 		printf("ptr: %s\n", ptr);
+		free(ptr);
 	}
+/* 	str = get_next_line(fd);
+	printf("str: %s\n", str);
+	free(str);
 	close(fd);
-	close(cd);
+	close(cd); */
 	return (0);
 }

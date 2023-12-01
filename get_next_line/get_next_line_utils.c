@@ -39,8 +39,8 @@ int	ft_strchr(const char *s, int c)
 	return (0);
 }
 
-static void	ft_strcpy(char *dst, const char *src);
-static size_t	ft_strlen(const char *str);
+static void	ft_strcpy(char *dst, char *src);
+static size_t	ft_strlen(char *str);
 
 /**
  * ft_strjoin - function that concatenates s1 and s2
@@ -49,7 +49,7 @@ static size_t	ft_strlen(const char *str);
  * @s2: The suffix string
  * Return: The new string, othewise NULL
 */
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin(char *s1, char *s2)
 {
 	char	*new_str;
 	size_t	len_s1;
@@ -70,6 +70,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		ft_strcpy(new_str, s1);
 	if (s2 != NULL)
 		ft_strcpy(new_str + len_s1, s2);
+	free(s1);
 	return (new_str);
 }
 
@@ -79,7 +80,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
  * @dst: destination
  * Return: void.
 */
-static void	ft_strcpy(char *dst, const char *src)
+static void	ft_strcpy(char *dst, char *src)
 {
 	int	count;
 
@@ -97,7 +98,7 @@ static void	ft_strcpy(char *dst, const char *src)
  * @str: pointer to string
  * Return: length of str
 */
-static size_t	ft_strlen(const char *str)
+static size_t	ft_strlen(char *str)
 {
 	size_t	count;
 
