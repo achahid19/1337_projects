@@ -104,7 +104,7 @@ char	*get_next_line(int fd)
 	bytes_readed = (char *)malloc(BUFFER_SIZE + 1);
 	if (bytes_readed == NULL)
 		return (NULL);
-	while (bytes_count != 0 && !ft_strchr(buffer, '\n')) /* bytes_count == 0 for EOF */
+	while (bytes_count != 0 && !ft_strchr(buffer, '\n')) /* bytes_count != 0 for EOF */
 	{
 		bytes_count = read(fd, bytes_readed, BUFFER_SIZE); /* the read function moves * if a byte is readed */
 		if (bytes_count == -1)
