@@ -40,7 +40,6 @@ int	ft_strchr(const char *s, int c)
 }
 
 static void	ft_strcpy(char *dst, char *src);
-static size_t	ft_strlen(char *str);
 
 /**
  * ft_strjoin - function that concatenates s1 and s2
@@ -98,7 +97,7 @@ static void	ft_strcpy(char *dst, char *src)
  * @str: pointer to string
  * Return: length of str
 */
-static size_t	ft_strlen(char *str)
+size_t	ft_strlen(char *str)
 {
 	size_t	count;
 
