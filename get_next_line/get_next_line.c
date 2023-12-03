@@ -14,7 +14,7 @@
 
 static size_t	new_line_finder(char *str);
 static char		*substr(char *str);
-static char		*get_line(char *str);
+static char		*get_line(char *str, char *tmp);
 static void		free_buffers(char *s1, char *s2);
 
 /**
@@ -45,8 +45,7 @@ char	*get_next_line(int fd)
 		bytes_readed[bytes_count] = '\0';
 		buffer = ft_strjoin(buffer, bytes_readed);
 	}
-	free(bytes_readed);
-	bytes_readed = get_line(buffer);
+	bytes_readed = get_line(buffer, bytes_readed);
 	buffer = substr(buffer); /* this is the value I asign to buffer to make several calls */
 	return (bytes_readed);
 }
@@ -82,10 +81,7 @@ static char	*substr(char *str)
 	count = 0;
 	count1 = 0;
 	if (!*str)
-	{
-		free(str);
-		return (NULL);
-	}
+		return (free(str), NULL);
 	count = new_line_finder(str);
 	substr = (char *)malloc((ft_strlen(str) - count) + 1);
 	if (substr == NULL)
@@ -108,11 +104,12 @@ static char	*substr(char *str)
  * @str: the string form where the line is retrieved
  * Return: the line, otherwise NULL
 */
-static char	*get_line(char *str) /* DONE */
+static char	*get_line(char *str, char *tmp) /* DONE */
 {
 	char	*new_line;
 	size_t	count;
 
+	free(tmp);
 	count = 0;
 	if (!str || *str == '\0')
 		return (NULL);
@@ -138,8 +135,8 @@ static char	*get_line(char *str) /* DONE */
 
 /**
  * free_buffers - function that frees buffers
- * @s1: first buffer
- * @s2: second buffer
+ * @s1: pointer to the first buffer
+ * @s2: pointer to the second buffer
  * Return: void.
 */
 static void	free_buffers(char *s1, char *s2)
@@ -148,7 +145,7 @@ static void	free_buffers(char *s1, char *s2)
 	free(s2);
 }
 
-int main(void)
+/* int main(void)
 {
 	int fd = open("test.txt", O_CREAT, "rw");
 	int st = open("test1.txt", O_CREAT, "rw");
@@ -159,11 +156,8 @@ int main(void)
 		str = get_next_line(fd);
 		printf("str: %s\n", str);
 		free(str);
-	/* 	ptr = get_next_line(st);
-		printf("ptr: %s\n", ptr);
-		free(ptr); */
 	}
 	close(fd);
 	close(st);
 	return (0);
-}
+} */
