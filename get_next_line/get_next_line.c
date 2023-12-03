@@ -11,9 +11,52 @@
 /* ************************************************************************** */
 
 #include "get_next_line.h"
-#include <fcntl.h>
-#include <stdio.h>
-static size_t	new_line_finder(char *str) /* DONE */
+
+static size_t	new_line_finder(char *str);
+static char		*substr(char *str);
+static char		*get_line(char *str);
+static void		free_buffers(char *s1, char *s2);
+
+/**
+ * get_next_line - function that reads a line by line form a fd
+ * @fd: file descriptor
+ * Return: the line readed from the fd
+*/
+char	*get_next_line(int fd)
+{
+	static char	*buffer; /* initialized automaticly to 0 in bss */
+	char		*bytes_readed;
+	ssize_t		bytes_count;
+
+	bytes_count = 1;
+	if (BUFFER_SIZE <= 0 || fd < 0)
+		return (NULL);
+	bytes_readed = (char *)malloc(BUFFER_SIZE + 1);
+	if (bytes_readed == NULL)
+		return (NULL);
+	while (bytes_count != 0 && !ft_strchr(buffer, '\n')) /* bytes_count != 0 for EOF */
+	{
+		bytes_count = read(fd, bytes_readed, BUFFER_SIZE); /* the read function moves * if a byte is readed */
+		if (bytes_count == -1)
+		{
+			free_buffers(bytes_readed, buffer);
+			return (NULL);
+		}
+		bytes_readed[bytes_count] = '\0';
+		buffer = ft_strjoin(buffer, bytes_readed);
+	}
+	free(bytes_readed);
+	bytes_readed = get_line(buffer);
+	buffer = substr(buffer); /* this is the value I asign to buffer to make several calls */
+	return (bytes_readed);
+}
+
+/**
+ * new_line_finder - function that search for new line in str or eof
+ * @str: the string
+ * Return: index of the byte after '\n' or index of eof
+*/
+static size_t	new_line_finder(char *str)
 {
 	size_t	count;
 
@@ -25,6 +68,11 @@ static size_t	new_line_finder(char *str) /* DONE */
 	return (count);
 }
 
+/**
+ * substr - function that allocates memory to create a substring
+ * @str: the string from where the substr is created
+ * Return: the substring, othewise NULL
+*/
 static char	*substr(char *str)
 {
 	char	*substr;
@@ -55,6 +103,11 @@ static char	*substr(char *str)
 	return (substr);
 }
 
+/**
+ * get_line - function that allocate memory to retrieve a line from str
+ * @str: the string form where the line is retrieved
+ * Return: the line, otherwise NULL
+*/
 static char	*get_line(char *str) /* DONE */
 {
 	char	*new_line;
@@ -82,67 +135,35 @@ static char	*get_line(char *str) /* DONE */
 	new_line[count] = '\0';
 	return (new_line);
 }
+
 /**
- * get_next_line - function that reads a line by line form a fd
- * @fd: file descriptor
- * Return: the line readed from the fd
+ * free_buffers - function that frees buffers
+ * @s1: first buffer
+ * @s2: second buffer
+ * Return: void.
 */
-
-char	*get_next_line(int fd)
+static void	free_buffers(char *s1, char *s2)
 {
-	static char	*buffer; /* initialized automaticly to 0 in bss */
-	char		*bytes_readed;
-	ssize_t		bytes_count;
-	static int	count = 0;
-
-	count++;
-	if (count > 1)
-		printf("buffer is: %s, in call: %d\n", buffer, count);
-	bytes_count = 1;
-	if (fd < 0 || BUFFER_SIZE > INT_MAX || BUFFER_SIZE <= 0)
-		return (NULL);
-	bytes_readed = (char *)malloc(BUFFER_SIZE + 1);
-	if (bytes_readed == NULL)
-		return (NULL);
-	while (bytes_count != 0 && !ft_strchr(buffer, '\n')) /* bytes_count != 0 for EOF */
-	{
-		bytes_count = read(fd, bytes_readed, BUFFER_SIZE); /* the read function moves * if a byte is readed */
-		if (bytes_count == -1)
-		{
-			free(bytes_readed);
-			free(buffer);
-			return (NULL);
-		}
-		bytes_readed[bytes_count] = '\0';
-		buffer = ft_strjoin(buffer, bytes_readed);
-	}
-	free(bytes_readed);
-	bytes_readed = get_line(buffer);
-	printf("buffer before substring: %s\n", buffer);
-	buffer = substr(buffer); /* this is the value I asign to buffer to make several calls */
-	printf("buffer is: %s----------\n", buffer);
-	return (bytes_readed);
+	free(s1);
+	free(s2);
 }
 
 int main(void)
 {
-	int		fd = open("test.txt", O_CREAT, "rw");
-	int		cd = open("test1.txt", O_CREAT, "rw");
-	char	*str;
-	char	*ptr;
-	for (size_t count = 0; count < 2; count++)
+	int fd = open("test.txt", O_CREAT, "rw");
+	int st = open("test1.txt", O_CREAT, "rw");
+	char *str, *ptr;
+
+	for (int count = 0; count < 2; count++)
 	{
 		str = get_next_line(fd);
 		printf("str: %s\n", str);
 		free(str);
-	/* 	ptr = get_next_line(cd);
+	/* 	ptr = get_next_line(st);
 		printf("ptr: %s\n", ptr);
 		free(ptr); */
 	}
-/* 	str = get_next_line(fd);
-	printf("str: %s\n", str);
-	free(str);
 	close(fd);
-	close(cd); */
+	close(st);
 	return (0);
 }
