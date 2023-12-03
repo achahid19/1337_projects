@@ -18,13 +18,13 @@ static char		*get_line(char *str, char *tmp);
 static void		free_buffers(char *s1, char *s2);
 
 /**
- * get_next_line - function that reads a line by line form a fd
+ * get_next_line - function that reads a line by line from a fd
  * @fd: file descriptor
  * Return: the line readed from the fd
 */
 char	*get_next_line(int fd)
 {
-	static char	*buffer; /* initialized automaticly to 0 in bss */
+	static char	*buffer;
 	char		*bytes_readed;
 	ssize_t		bytes_count;
 
@@ -34,9 +34,9 @@ char	*get_next_line(int fd)
 	bytes_readed = (char *)malloc(BUFFER_SIZE + 1);
 	if (bytes_readed == NULL)
 		return (NULL);
-	while (bytes_count != 0 && !ft_strchr(buffer, '\n')) /* bytes_count != 0 for EOF */
+	while (bytes_count != 0 && !ft_strchr(buffer, '\n'))
 	{
-		bytes_count = read(fd, bytes_readed, BUFFER_SIZE); /* the read function moves * if a byte is readed */
+		bytes_count = read(fd, bytes_readed, BUFFER_SIZE);
 		if (bytes_count == -1)
 		{
 			free_buffers(bytes_readed, buffer);
@@ -46,7 +46,7 @@ char	*get_next_line(int fd)
 		buffer = ft_strjoin(buffer, bytes_readed);
 	}
 	bytes_readed = get_line(buffer, bytes_readed);
-	buffer = substr(buffer); /* this is the value I asign to buffer to make several calls */
+	buffer = substr(buffer);
 	return (bytes_readed);
 }
 
@@ -104,7 +104,7 @@ static char	*substr(char *str)
  * @str: the string form where the line is retrieved
  * Return: the line, otherwise NULL
 */
-static char	*get_line(char *str, char *tmp) /* DONE */
+static char	*get_line(char *str, char *tmp)
 {
 	char	*new_line;
 	size_t	count;
@@ -126,7 +126,7 @@ static char	*get_line(char *str, char *tmp) /* DONE */
 		{
 			new_line[count] = str[count];
 			count++;
-			break;
+			break ;
 		}
 	}
 	new_line[count] = '\0';
@@ -145,11 +145,13 @@ static void	free_buffers(char *s1, char *s2)
 	free(s2);
 }
 
-/* int main(void)
+/* #include <stdio.h>
+#include <fcntl.h>
+int main(void)
 {
 	int fd = open("test.txt", O_CREAT, "rw");
 	int st = open("test1.txt", O_CREAT, "rw");
-	char *str, *ptr;
+	char *str;
 
 	for (int count = 0; count < 2; count++)
 	{
