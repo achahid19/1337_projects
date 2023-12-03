@@ -24,7 +24,7 @@ static void		free_buffers(char *s1, char *s2);
 */
 char	*get_next_line(int fd)
 {
-	static char	*buffer;
+	static char	*buffer[1024];
 	char		*bytes_readed;
 	ssize_t		bytes_count;
 
@@ -34,19 +34,19 @@ char	*get_next_line(int fd)
 	bytes_readed = (char *)malloc(BUFFER_SIZE + 1);
 	if (bytes_readed == NULL)
 		return (NULL);
-	while (bytes_count != 0 && !ft_strchr(buffer, '\n'))
+	while (bytes_count != 0 && !ft_strchr(buffer[fd], '\n'))
 	{
 		bytes_count = read(fd, bytes_readed, BUFFER_SIZE);
 		if (bytes_count == -1)
 		{
-			free_buffers(bytes_readed, buffer);
+			free_buffers(bytes_readed, buffer[fd]);
 			return (NULL);
 		}
 		bytes_readed[bytes_count] = '\0';
-		buffer = ft_strjoin(buffer, bytes_readed);
+		buffer[fd] = ft_strjoin(buffer[fd], bytes_readed);
 	}
-	bytes_readed = get_line(buffer, bytes_readed);
-	buffer = substr(buffer);
+	bytes_readed = get_line(buffer[fd], bytes_readed);
+	buffer[fd] = substr(buffer[fd]);
 	return (bytes_readed);
 }
 
@@ -144,22 +144,25 @@ static void	free_buffers(char *s1, char *s2)
 	free(s1);
 	free(s2);
 }
-/* 
+
 #include <stdio.h>
 #include <fcntl.h>
 int main(void)
 {
 	int fd = open("test.txt", O_CREAT, "rw");
 	int st = open("test1.txt", O_CREAT, "rw");
-	char *str;
+	char *str, *ptr;
 
 	for (int count = 0; count < 2; count++)
 	{
 		str = get_next_line(fd);
 		printf("str: %s\n", str);
 		free(str);
+		ptr = get_next_line(st);
+		printf("ptr: %s\n", ptr);
+		free(ptr);
 	}
 	close(fd);
 	close(st);
 	return (0);
-} */
+}
