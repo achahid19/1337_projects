@@ -145,7 +145,7 @@ static void	free_buffers(char *s1, char *s2)
 	free(s2);
 }
 
-#include <stdio.h>
+/* #include <stdio.h>
 #include <fcntl.h>
 int main(void)
 {
@@ -166,3 +166,4 @@ int main(void)
 	close(st);
 	return (0);
 }
+ */
