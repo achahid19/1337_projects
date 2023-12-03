@@ -37,6 +37,7 @@ char	*get_next_line(int fd)
 	while (bytes_count != 0 && !ft_strchr(buffer, '\n'))
 	{
 		bytes_count = read(fd, bytes_readed, BUFFER_SIZE);
+		printf("%ld\n", bytes_count);
 		if (bytes_count == -1)
 		{
 			free_buffers(bytes_readed, buffer);
@@ -122,12 +123,11 @@ static char	*get_line(char *str, char *tmp)
 	{
 		new_line[count] = str[count];
 		count++;
-		if (str[count] == '\n')
-		{
-			new_line[count] = str[count];
-			count++;
-			break ;
-		}
+	}	
+	if (str[count] == '\n')
+	{
+		new_line[count] = str[count];
+		count++;
 	}
 	new_line[count] = '\0';
 	return (new_line);
@@ -144,22 +144,16 @@ static void	free_buffers(char *s1, char *s2)
 	free(s1);
 	free(s2);
 }
-/* 
-#include <stdio.h>
+
+/* #include <stdio.h>
 #include <fcntl.h>
 int main(void)
 {
 	int fd = open("test.txt", O_CREAT, "rw");
-	int st = open("test1.txt", O_CREAT, "rw");
 	char *str;
 
-	for (int count = 0; count < 2; count++)
-	{
-		str = get_next_line(fd);
-		printf("str: %s\n", str);
-		free(str);
-	}
-	close(fd);
-	close(st);
+	str = get_next_line(fd);
+	printf("str: %s\n", str);
+	free(str);
 	return (0);
 } */

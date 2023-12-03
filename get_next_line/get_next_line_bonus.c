@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.c                                    :+:      :+:    :+:   */
+/*   get_next_line_bonus.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/12/01 08:45:45 by achahid-          #+#    #+#             */
-/*   Updated: 2023/12/01 08:45:50 by achahid-         ###   ########.fr       */
+/*   Created: 2023/12/03 15:36:00 by achahid-          #+#    #+#             */
+/*   Updated: 2023/12/03 15:36:29 by achahid-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,12 +122,11 @@ static char	*get_line(char *str, char *tmp)
 	{
 		new_line[count] = str[count];
 		count++;
-		if (str[count] == '\n')
-		{
-			new_line[count] = str[count];
-			count++;
-			break ;
-		}
+	}
+	if (str[count] == '\n')
+	{
+		new_line[count] = str[count];
+		count++;
 	}
 	new_line[count] = '\0';
 	return (new_line);
@@ -144,8 +143,8 @@ static void	free_buffers(char *s1, char *s2)
 	free(s1);
 	free(s2);
 }
-
-/* #include <stdio.h>
+/*
+#include <stdio.h>
 #include <fcntl.h>
 int main(void)
 {
@@ -162,8 +161,5 @@ int main(void)
 		printf("ptr: %s\n", ptr);
 		free(ptr);
 	}
-	close(fd);
-	close(st);
 	return (0);
-}
- */
+} */
