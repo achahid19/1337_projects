@@ -193,5 +193,3 @@ Defaults:	badpass_message="Your msg goes here"
 mkdir /var/log/sudo, then create a file in sudo dir.
 Defaults:	logfile="/var/log/sudo/<filename>"
 
-
-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
