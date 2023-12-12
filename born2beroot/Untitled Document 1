@@ -1,0 +1,197 @@
+LVM stands for Logical Volume Manager, and it is a software-based system for managing disk drives and storage devices on Unix-like operating systems. LVM provides a layer of abstraction between the operating system and the physical storage devices, allowing for more flexibility and dynamic management of storage.
+
+Here are some key concepts associated with LVM:
+
+    Physical Volumes (PV): Physical volumes are the actual storage devices, such as hard drives or partitions, that LVM manages. These are the building blocks of the storage pool.
+
+    Volume Groups (VG): Volume groups are created by grouping one or more physical volumes together. This allows you to aggregate the storage capacity of multiple devices into a single logical storage pool.
+
+    Logical Volumes (LV): Logical volumes are virtual partitions created from the space within a volume group. They serve as the logical counterparts to traditional partitions. Logical volumes can be resized dynamically, providing flexibility in managing storage space.
+
+    Extents: LVM divides physical volumes and logical volumes into units called extents. An extent is a fixed-size block of storage. The size of an extent is configurable when creating a volume group.
+
+    Striping and Mirroring: LVM supports striping (dividing data across multiple physical volumes for improved performance) and mirroring (creating duplicate copies of data on separate physical volumes for fault tolerance). 
+
+The benefits of using LVM include:
+
+    Dynamic resizing: Logical volumes can be resized without the need to repartition disks.
+    Volume snapshots: LVM allows for the creation of snapshots, which are point-in-time copies of a logical volume. This is useful for backups and testing.
+    Flexibility: LVM provides flexibility in managing storage resources, making it easier to adapt to changing storage needs.
+
+LVM is commonly used in enterprise environments and on servers where the ability to manage storage dynamically is crucial. It is frequently encountered in Linux distributions and other Unix-like systems.
+--------------------------------------------------------------------
+
+Let's simplify it further:
+
+Imagine you have a CD with your favorite songs. An ISO image is like taking a complete picture of that CD(Snapshot), capturing every detail – the songs, the order, and how the CD is organized.
+
+Now, this picture (ISO image) can be stored on your computer. If you want another CD with the same songs, you can use this picture to create an identical copy. It's a way to keep a digital version of your CD so you can use it without needing the actual physical CD.
+
+-----------------------------------------------------------------------
+
+No, the terms "ext2," "ext3," and "ext4" refer to different versions of the ext file system used in Linux, not to partitions themselves. Let me clarify:
+
+    Partitions: Think of partitions as slices or sections of a hard drive. When you set up a hard drive, you can divide it into separate partitions to organize your data. Each partition can have its own file system, and it's like a separate area on the hard drive.
+
+    File Systems (ext2, ext3, ext4): Once you create a partition, you need to decide how the data inside that partition will be organized and managed. That's where file systems like ext2, ext3, and ext4 come in. They determine how files are stored, accessed, and managed within a specific partition.
+
+So, to be clear:
+
+    Partition: A section of a hard drive.
+    File System (ext2, ext3, ext4): The method used to organize and manage data within a specific partition.
+    
+Sure, let's break it down in a simple way:
+
+Primary Partition:
+
+    Think of the primary partition as the main sections of your room.
+    You have up to four "main sections" (primary partitions) to organize your things.
+    Each "main section" can be a separate area with its own purpose.
+
+Logical Partition:
+
+    Now, imagine one of those "main sections" is like a big box.
+    Inside that box (primary partition), you can have smaller compartments (logical partitions).
+    These smaller compartments help you organize your stuff even more within one of the main sections.
+-----------------------------------------------------------------------
+In the context of configuring partitions, "SCSI2" likely refers to the SCSI (Small Computer System Interface) standard, specifically the second version, SCSI-2.
+
+SCSI (Small Computer System Interface): SCSI is a set of standards for connecting and transferring data between computers and peripheral devices, such as hard drives, CD/DVD drives, and scanners. SCSI was widely used in the past but has been largely replaced by newer interfaces like SATA and SAS.
+
+SCSI-2: SCSI-2 is an older version of the SCSI standard that introduced improvements over the original SCSI. It provided faster data transfer rates, support for more devices, and additional features compared to SCSI-1.
+
+When configuring partitions, mentioning "SCSI2" might be related to the choice of disk interface or disk type, indicating that the system is using a SCSI-2 compatible disk. However, in modern systems, especially on personal computers and laptops, other interfaces like SATA (Serial ATA) or NVMe are more common for connecting hard drives and SSDs.
+
+If you are configuring partitions on a modern system, you might not need to explicitly mention SCSI2, as the partitioning tools usually detect and work with the available storage interfaces. It's essential to consider the specific context or documentation you are working with to understand how SCSI2 is relevant to your partitioning configuration.
+-------------------------------------------------------------------
+Check if the sudo Group Exists:
+Before adding a user to the sudo group, check if the group already exists. You can do this by running the following command:
+
+bash
+
+grep -Ei '^sudo' /etc/group
+
+If the group exists, you'll see an output like sudo:x:27:your_user. If it doesn't exist, you can proceed to the next step.
+
+Add User to the sudo Group:
+Use the usermod command to add your user to the sudo group. Replace <username> with the actual username:
+su
+
+usermod -aG sudo <username>
+To change the password: sudo passwd <login>
+
+usermod: The command itself for modifying user account properties.
+-a: Appends the user to the specified group.
+-G sudo: Specifies the group to which the user should be added, in this case, the sudo group.
+
+Verify Group Membership:
+You can verify that the user has been added to the sudo group by checking the /etc/group file or by running the following command:
+
+bash
+
+groups <username>
+
+Replace <username> with the actual username. The output should include the sudo group.
+
+Test sudo Access:
+To test if the user has sudo access, you can use the sudo command with a harmless command, like sudo ls:
+--------------------------------------------------------------------
+The dpkg command is a package management tool used in Debian-based Linux distributions. It is responsible for the low-level operations related to the installation, removal, and management of software packages. The name "dpkg" stands for "Debian Package."
+
+Here are some common use cases for the dpkg command:
+
+    Install a Package:
+
+    bash
+
+dpkg -i package.deb
+
+Installs the specified Debian package file (package.deb).
+
+Remove a Package:
+
+bash
+
+dpkg -r package_name
+
+Removes the specified package without removing its configuration files.
+
+Remove a Package and its Configuration Files:
+
+bash
+
+dpkg -P package_name
+--------------------------------------------------------------
+useradd <username>
+change password for a user:
+passwd <username>
+sudo -s / switch form user to sudo
+
+https://www.youtube.com/watch?v=uQHdE_2ALro
+
+SHOW THE OS-RELEASE: cat /etc/debian_version
+
+WHAT TO KNOW YOUR ADDRESS ?? ip --brief addr show
+
+copr to a server: scp -r (for dirs) /home ip_add:(dir_add_at_host).
+
+-----------------------------------------------------------------
+bookworm non-free-firmware
+sudo service ssh status
+-----------------------------------------------------------------
+In standars, the root not must be logged directly when we are ssh to a server
+
+sudo userdel -r username
+
+--------------------------------------------------------------------
+Certainly! The second statement is providing two important pieces of information about the configuration of the SSH (Secure Shell) service on a server:
+
+    SSH Service Running on Port 4242:
+        This indicates that the SSH service, which allows users to connect to the server securely, is configured to run on a specific port, which is 4242 in this case.
+        By default, SSH runs on port 22, but for security reasons, the administrator has chosen to use a different port (4242 in this case). This is a common practice to make it harder for potential attackers to find and target the SSH service.
+
+    Disallowing SSH Login as Root:
+        The statement also mentions that it must not be possible to connect using SSH as the root user. The "root" user is the superuser or administrator with the highest level of privileges on a Unix/Linux system.
+        Disallowing direct SSH access as the root user is a security measure. Instead, users should connect using their regular user accounts and then, if necessary, use tools like sudo to perform administrative tasks with elevated privileges.
+        This helps prevent unauthorized users or automated attacks from attempting to gain direct access to the root account, which could have significant security implications.
+
+In summary, the server's SSH service is configured to run on port 4242 for security reasons, and direct SSH login as the root user is disabled to enhance security and force users to log in with regular accounts first.
+User
+the second statement means that if you are conneted to the server using ssh, you can not use sudo command, for instance use the following command: sudo apt update
+ChatGPT
+
+No, that's not the correct interpretation. Disallowing SSH login as the root user doesn't mean you can't use sudo after connecting with a regular user account. When you connect to the server using SSH with a non-root user, you can still use sudo to execute commands with elevated privileges.
+
+For example, after connecting to the server using SSH as a non-root user, you can use commands like:
+
+bash
+
+sudo apt update
+sudo apt install some_package
+
+The restriction typically only applies to direct SSH login as the root user. It is considered a security best practice to log in as a regular user, and if administrative tasks need to be performed, the user can use sudo to execute those tasks with elevated privileges.
+
+So, in short, you should be able to use sudo commands after connecting with SSH as a non-root user, and it's a secure practice to avoid direct SSH login as the root user.
+
+-----------------------------------------------------------------
+The hostname, u will find it in the config file /etc/hostname
+
+-----------------------------------------------------------
+		UFW:
+sudo apt install ufw -y
+sudo ufw enable
+sudo ufw status
+sudo ufw allow 4242
+
+________________________________________________________-
+		Set the config file for sudo:
+#Set passwd limits to 3 times:
+Defaults:	passwd_tires=3
+#Customize the error message in the event of wrong passwd:
+Defaults:	badpass_message="Your msg goes here"
+#save the log commands of each user by creating a dir called sudo in /var/log:
+mkdir /var/log/sudo, then create a file in sudo dir.
+Defaults:	logfile="/var/log/sudo/<filename>"
+
+
+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
