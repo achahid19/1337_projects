@@ -1,25 +1,5 @@
 #include "./pipex.h"
 
-char	*ft_addpath(char *path_to_cmd, char *cmd)
-{
-	char	path[] = "/usr/bin/";
-	size_t	index;
-	size_t	index2;
-
-	index = 0;
-	index2 = 0;
-	path_to_cmd = (char *)malloc(sizeof(char) * (ft_strlen(cmd) + ft_strlen(path)) + 1);
-	while (path[index])
-	{
-		path_to_cmd[index] = path[index];
-		index++;
-	}
-	while (cmd[index2])
-		path_to_cmd[index++] = cmd[index2++];
-	path_to_cmd[index] = '\0';
-	return (path_to_cmd);
-}
-
 char *get_path(char **envp)
 {
 	while (ft_strncmp(*envp, "PATH", 4) != 0)
@@ -83,7 +63,6 @@ int main(int ac, char *av[], char *envp[])
 
 		close(end[0]); // close reading end since we're writing
 		close(end[1]); // closing the writing end because the dup2 duplicate the file
-		
 		path_of_cmd = execute_cmd(av[1], envp); /* build your own getenv *//*  <====  */ 
 		cmd = ft_split(av[1], ' ');
 		if (execve(path_of_cmd, cmd, envp) == -1) /* how I can redirect the output of execve ? */
@@ -102,9 +81,9 @@ int main(int ac, char *av[], char *envp[])
 		 * up to 4096 is writed before the process got suspended, until reading...
 		*/
 		close(end[0]);
-		char **args2 = ft_split(av[2], ' ');
-		char *path2 = ft_addpath(path2, args2[0]);
-		execve(path2, args2, NULL);
+		path_of_cmd = execute_cmd(av[2], envp);
+		cmd = ft_split(av[2], ' ');
+		execve(path_of_cmd, cmd, NULL);
 	}
 	/* close the pipe for the main process, cause the end[0] will still wait for data if we do not close it */
 	close(end[0]);
