@@ -20,13 +20,22 @@ char	*ft_addpath(char *path_to_cmd, char *cmd)
 	return (path_to_cmd);
 }
 
-char	*execute_cmd(char *cmd, char *env)
+char *get_path(char **envp)
+{
+	while (ft_strncmp(*envp, "PATH", 4) != 0)
+		**envp++;
+	return (*envp);
+}
+
+char	*execute_cmd(char *cmd, char **envp)
 {
 	char **token;
 	char **path;
 	char *path_to_cmd;
+	char *env;
 	size_t i;
 
+	env = get_path(envp);
 	i = 0;
 	path_to_cmd = NULL;
 	/* first we need to split the cmd array into a 2d array for execve func */
@@ -41,10 +50,14 @@ char	*execute_cmd(char *cmd, char *env)
 	}
 	/* Since we have the full Path where to seatch the exec, we can know check for the exec if there is in any path */	
 	i = 0;
-	while (access(path[i], F_OK) != 0)
+	while (access(path[i], X_OK) != 0) /**
+										* F_OK checks for if the file exist in the PATH or not
+										* we need to check if the cmd file is an executable or not
+										* so should work with X_OK
+										*/
 	{
 		i++;
-		if (access(path[i], F_OK) == 0)
+		if (access(path[i], X_OK) == 0)
 			path_to_cmd = path[i];
 	}
 	return (path_to_cmd);
@@ -71,7 +84,7 @@ int main(int ac, char *av[], char *envp[])
 		close(end[0]); // close reading end since we're writing
 		close(end[1]); // closing the writing end because the dup2 duplicate the file
 		
-		path_of_cmd = execute_cmd(av[1], getenv("PATH"));
+		path_of_cmd = execute_cmd(av[1], envp); /* build your own getenv *//*  <====  */ 
 		cmd = ft_split(av[1], ' ');
 		if (execve(path_of_cmd, cmd, envp) == -1) /* how I can redirect the output of execve ? */
 			return (3); // unsuccessful call of execve

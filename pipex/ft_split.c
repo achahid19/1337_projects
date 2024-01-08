@@ -146,3 +146,23 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		ft_strcpy(new_str + len_s1 + 1, s2);
 	return (new_str);
 }
+
+int	ft_strncmp(const char *s1, const char *s2, size_t n)
+{
+	size_t	count;
+
+	if (n == 0)
+		return (n);
+	count = 0;
+	n -= 1;
+	while (n-- && (s1[count] || s2[count]))
+	{
+		if (s1[count] - s2[count] == 0)
+		{
+			count++;
+			continue ;
+		}
+		break ;
+	}
+	return ((unsigned char)s1[count] - (unsigned char)s2[count]);
+}
