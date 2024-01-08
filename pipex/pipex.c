@@ -1,15 +1,5 @@
 #include "./pipex.h"
 
-size_t	ft_strlen(const char *str)
-{
-	size_t	index;
-
-	index = 0;
-	while (str[index])
-		index++;
-	return (index);
-}
-
 char	*ft_addpath(char *path_to_cmd, char *cmd)
 {
 	char	path[] = "/usr/bin/";
@@ -30,13 +20,44 @@ char	*ft_addpath(char *path_to_cmd, char *cmd)
 	return (path_to_cmd);
 }
 
+char	*execute_cmd(char *cmd, char *env)
+{
+	char **token;
+	char **path;
+	char *path_to_cmd;
+	size_t i;
+
+	i = 0;
+	path_to_cmd = NULL;
+	/* first we need to split the cmd array into a 2d array for execve func */
+	token = ft_split(cmd, ' ');
+	/* the we move the env to 2D array too */
+	path = ft_split(env, ':');
+	/* then have to join the cmd in each path of the PATH variable */
+	while (path[i] != NULL)
+	{
+		path[i] = ft_strjoin(path[i], token[0]);
+		i++;
+	}
+	/* Since we have the full Path where to seatch the exec, we can know check for the exec if there is in any path */	
+	i = 0;
+	while (access(path[i], F_OK) != 0)
+	{
+		i++;
+		if (access(path[i], F_OK) == 0)
+			path_to_cmd = path[i];
+	}
+	return (path_to_cmd);
+}
+
 int main(int ac, char *av[], char *envp[])
 {
 	int		end[2];
 	pid_t	pid1;
 	pid_t	pid2;
-	char	**args;
+	char	**cmd;
 	char	*path;
+	char *path_of_cmd;
 
 	if (pipe(end) == -1) // Cheking if the pipe was created with no erros
 		return (1); // replace this with exit status
@@ -49,9 +70,10 @@ int main(int ac, char *av[], char *envp[])
 
 		close(end[0]); // close reading end since we're writing
 		close(end[1]); // closing the writing end because the dup2 duplicate the file
-		args = ft_split(av[1], ' ');
-		path = ft_addpath(path, args[0]); // add the command PATH
-		if (execve(path, args, NULL) == -1) /* how I can redirect the output of execve ? */
+		
+		path_of_cmd = execute_cmd(av[1], getenv("PATH"));
+		cmd = ft_split(av[1], ' ');
+		if (execve(path_of_cmd, cmd, envp) == -1) /* how I can redirect the output of execve ? */
 			return (3); // unsuccessful call of execve
 	}
 	/* The next statements of code will not be executed, since the execve replace all the process */
@@ -72,7 +94,6 @@ int main(int ac, char *av[], char *envp[])
 		execve(path2, args2, NULL);
 	}
 	/* close the pipe for the main process, cause the end[0] will still wait for data if we do not close it */
-	printf("%s\n", getenv("PATH"));
 	close(end[0]);
 	close(end[1]);
 	if (waitpid(pid1, NULL, 0) != -1) // Make the main process waits for his child
