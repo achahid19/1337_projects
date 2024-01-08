@@ -59,8 +59,9 @@ int main(int ac, char *av[], char *envp[])
 		return (2);
 	else if (pid1 == 0) // We are on the child process
 	{
+		int er = open(av[3], O_RDONLY);
 		dup2(end[1], STDOUT_FILENO); /* anything which goes to stdout,(such as through printf), comes out pipe[0].*/
-
+		dup2(er, STDIN_FILENO);
 		close(end[0]); // close reading end since we're writing
 		close(end[1]); // closing the writing end because the dup2 duplicate the file
 		path_of_cmd = execute_cmd(av[1], envp); /* build your own getenv *//*  <====  */ 
@@ -75,7 +76,9 @@ int main(int ac, char *av[], char *envp[])
 		return (2);
 	else if (pid2 == 0)
 	{		
+		int ar = open(av[4], O_WRONLY | O_CREAT |O_TRUNC, 0644);
 		dup2(end[0], STDIN_FILENO);
+		dup2(ar, STDOUT_FILENO);
 		close(end[1]);
 		/**
 		 * up to 4096 is writed before the process got suspended, until reading...

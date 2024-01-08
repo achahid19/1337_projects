@@ -5,6 +5,7 @@
 #include <sys/wait.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <fcntl.h>
 
 char **ft_split(const char *s, char c);
 static void	ft_strcpy(char *dst, const char *src);
