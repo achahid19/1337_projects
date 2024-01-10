@@ -50,9 +50,9 @@ char	*ft_find_cmd(char *cmd, char **envp)
 	char *env;
 	size_t i;
 
+	path_to_cmd = NULL;
 	env = ft_get_path(envp);
 	i = 0;
-	path_to_cmd = NULL;
 	/* first we need to split the cmd array into a 2d array for execve func */
 	token = ft_split(cmd, ' ');
 	/* the we move the env to 2D array too */
@@ -61,19 +61,19 @@ char	*ft_find_cmd(char *cmd, char **envp)
 	while (path[i] != NULL)
 	{
 		path[i] = ft_strjoin(path[i], token[0]);
+		if (access(path[i], X_OK) == 0)
+		{
+			path_to_cmd = path[i];
+			break;
+		}
 		i++;
 	}
 	/* Since we have the full Path where to seatch the exec, we can know check for the exec if there is in any path */	
-	i = 0;
-	while (access(path[i], X_OK) != 0) /**
-										* F_OK checks for if the file exist in the PATH or not
-										* we need to check if the cmd file is an executable or not
-										* so should work with X_OK
-										*/
-	{
-		i++;
-		if (access(path[i], X_OK) == 0)
-			path_to_cmd = path[i];
-	}
+	/**
+		* F_OK checks for if the file exist in the PATH or not
+		* we need to check if the cmd file is an executable or not
+		* so should work with X_OK
+		*/
+	
 	return (path_to_cmd);
 }

@@ -10,7 +10,7 @@
 void	ft_child1_process(char **av, char **envp, int *end)
 {
 	int		file1;
-	char	*path_to_cmd;
+	char	*path_to_cmd = NULL;
 	char	**cmd;
 
 	file1 = open(av[1], O_RDONLY);
