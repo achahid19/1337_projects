@@ -4,7 +4,7 @@ SRC = $(addprefix src/, pipex.c pipex_utils.c)
 LIBFT = ./libft/libft.a
 NAME = pipex
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address
 RM = rm -rf
 MAKE = make
 

@@ -43,8 +43,13 @@ char	*ft_get_path(char **envp)
 	size_t	count;
 
 	count = 0;
+	
 	while (ft_strncmp(envp[count], "PATH", 4) != 0)
+	{
 		count++;
+		if (ft_strncmp(envp[count], "PATH", 4) == -1)
+			return (NULL);
+	}
 	return (envp[count]);
 }
 
@@ -64,8 +69,10 @@ char	*ft_find_cmd(char *cmd, char **envp)
 	size_t	i;
 
 	path_to_cmd = NULL;
-	env = ft_get_path(envp);
 	i = 0;
+	env = ft_get_path(envp);
+	if (env == NULL)
+		return (NULL);
 	token = ft_split(cmd, ' ');
 	path = ft_split(env, ':');
 	while (path[i] != NULL)
