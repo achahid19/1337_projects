@@ -1,7 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   pipex.c                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/10 18:45:46 by achahid-          #+#    #+#             */
+/*   Updated: 2024/01/10 18:45:47 by achahid-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../inc/pipex.h"
 
 /**
- * ft_child1_process - execute the 1st child's cmd and write it through the write end of the pipe
+ * ft_child1_process - execute the 1st child's cmd and write it
+ * through the write end of the pipe
  * @av: program's arguments
  * @envp: variables of the environement
  * @end: pointer to the pipe that makes communications between processes
@@ -10,9 +23,10 @@
 void	ft_child1_process(char **av, char **envp, int *end)
 {
 	int		file1;
-	char	*path_to_cmd = NULL;
+	char	*path_to_cmd;
 	char	**cmd;
 
+	path_to_cmd = NULL;
 	file1 = open(av[1], O_RDONLY);
 	if (file1 == -1)
 		ft_error_exit();
@@ -23,16 +37,18 @@ void	ft_child1_process(char **av, char **envp, int *end)
 	cmd = ft_split(av[2], ' ');
 	path_to_cmd = ft_find_cmd(av[2], envp);
 	if (path_to_cmd == NULL)
-		ft_error_print("\033[1;31mError:]: Command not found!\033[0m");
+		ft_error_print("\033[1;33mError:]: Cmd1 not found!\033[0m");
 	if (execve(path_to_cmd, cmd, envp) == -1)
 		ft_error_exit();
 }
 
 /**
- * ft_child2_process - execute the 2end child's cmd (the input is readed through the reading end of the pipe)
+ * ft_child2_process - execute the 2end child's cmd
+ * (the input is readed through the reading end of the pipe)
  * @av: program's arguments
  * @envp: 2D array of environement's variables
- * @end: pointer to the pipe that handles communicutions between the child1 and child2
+ * @end: pointer to the pipe that handles communicutions between
+ * the child1 and child2
  * Return: void.
 */
 void	ft_child2_process(char **av, char **envp, int *end)
@@ -40,7 +56,8 @@ void	ft_child2_process(char **av, char **envp, int *end)
 	int		file2;
 	char	*path_to_cmd;
 	char	**cmd;
-	
+
+	path_to_cmd = NULL;
 	file2 = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (file2 == -1)
 		ft_error_exit();
@@ -51,7 +68,7 @@ void	ft_child2_process(char **av, char **envp, int *end)
 	cmd = ft_split(av[3], ' ');
 	path_to_cmd = ft_find_cmd(av[3], envp);
 	if (path_to_cmd == NULL)
-		ft_error_print("\033[1;31mError:]: Command not found!\033[0m");
+		ft_error_print("\033[1;33mError:]: Cmd2 not found!\033[0m");
 	if (execve(path_to_cmd, cmd, envp) == -1)
 		ft_error_exit();
 }
@@ -66,7 +83,7 @@ int	main(int ac, char **av, char **envp)
 	t_type	obj;
 
 	if (ac != 5)
-		return (ft_error_print("\033[1;31mError: Bad number of arguments!\033[0m"));
+		return (ft_error_print("\033[1;31mError: Bad arguments!\033[0m"));
 	else
 	{
 		if (pipe(obj.end) == -1)
@@ -76,6 +93,7 @@ int	main(int ac, char **av, char **envp)
 			ft_error_exit();
 		else if (obj.pid1 == 0)
 			ft_child1_process(av, envp, obj.end);
+		wait(NULL); // make sure child1 finish before child2...
 		obj.pid2 = fork();
 		if (obj.pid2 < 0)
 			ft_error_exit();
