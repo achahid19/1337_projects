@@ -33,6 +33,7 @@ char	*ft_find_cmd(char *cmd, char **envp);
 void	ft_child1_process(char **av, char **envp, int *end);
 void	ft_child2_process(char **av, char **envp, int *end);
 char	*ft_cmd_path(char *cmd_path);
+void	free_and_exit(char *msg, char *to_free);
 
 typedef struct s_type
 {

@@ -35,10 +35,11 @@ void	ft_child1_process(char **av, char **envp, int *end)
 	close(infile);
 	if (ft_strncmp(av[2], "/", 1) == 0)
 	{
-		if (access(ft_cmd_path(av[2]), X_OK) == 0)
-			execve(ft_cmd_path(av[2]), ft_split(av[2], ' '), NULL);
+		path_to_cmd = ft_cmd_path(av[2]);
+		if (access(path_to_cmd, X_OK) == 0)
+			execve(path_to_cmd, ft_split(av[2], ' '), NULL);
 		else
-			ft_error_print("\033[1;31mError:]: Path1 Not Found!\033[0m");
+			free_and_exit("\033[1;31mPath1 Not Found!\033[0m", path_to_cmd);
 	}
 	path_to_cmd = ft_find_cmd(av[2], envp);
 	if (path_to_cmd == NULL)
@@ -71,10 +72,11 @@ void	ft_child2_process(char **av, char **envp, int *end)
 	close(end[0]);
 	if (ft_strncmp(av[3], "/", 1) == 0)
 	{
-		if (access(ft_cmd_path(av[3]), X_OK) != -1)
-			execve(ft_cmd_path(av[3]), ft_split(av[3], ' '), NULL);
+		path_to_cmd = ft_cmd_path(av[3]);
+		if (access(path_to_cmd, X_OK) != -1)
+			execve(path_to_cmd, ft_split(av[3], ' '), NULL);
 		else
-			ft_error_print("\033[1;31mError:]: Path2 Not Found!\033[0m");
+			free_and_exit("\033[1;31mPath2 Not Found!\033[0m", path_to_cmd);
 	}
 	path_to_cmd = ft_find_cmd(av[3], envp);
 	if (path_to_cmd == NULL)

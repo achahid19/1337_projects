@@ -35,10 +35,11 @@ void	ft_pipe(char **av, char **envp, int cmd)
 		dup_and_close(end, 1);
 		if (ft_strncmp(av[cmd], "/", 1) == 0)
 		{
-			if (access(ft_cmd_path(av[cmd]), X_OK) == 0)
-				execve(ft_cmd_path(av[cmd]), ft_split(av[cmd], ' '), NULL);
+			path_to_cmd = ft_cmd_path(av[cmd]);
+			if (access(path_to_cmd, X_OK) == 0)
+				execve(path_to_cmd, ft_split(av[cmd], ' '), NULL);
 			else
-				ft_error_print("\033[1;31mError: Path Not Found!\033[0m");
+				free_and_exit("\033[1;31mPath Not Found!\033[0m", path_to_cmd);
 		}
 		path_to_cmd = ft_find_cmd(av[cmd], envp);
 		if (path_to_cmd == NULL)
@@ -46,8 +47,7 @@ void	ft_pipe(char **av, char **envp, int cmd)
 		if (execve(path_to_cmd, ft_split(av[cmd], ' '), NULL) == -1)
 			ft_error_exit();
 	}
-	else
-		dup_and_close(end, 0);
+	dup_and_close(end, 0);
 }
 
 /**
@@ -65,10 +65,11 @@ void	ft_last_child(int outfile_fd, char **av, int ac, char **envp)
 	dup2(outfile_fd, STDOUT_FILENO);
 	if (ft_strncmp(av[ac - 2], "/", 1) == 0)
 	{
-		if (access(ft_cmd_path(av[ac - 2]), X_OK) != -1)
-			execve(ft_cmd_path(av[ac - 2]), ft_split(av[ac - 2], ' '), NULL);
+		path_to_cmd = ft_cmd_path(av[ac -2]);
+		if (access(path_to_cmd, X_OK) != -1)
+			execve(path_to_cmd, ft_split(av[ac - 2], ' '), NULL);
 		else
-			ft_error_print("\033[1;31mError: Path Not Found!\033[0m");
+			free_and_exit("\033[1;31mPath Not Found!\033[0m", path_to_cmd);
 	}
 	path_to_cmd = ft_find_cmd(av[ac - 2], envp);
 	if (path_to_cmd == NULL)
@@ -104,6 +105,7 @@ int	main(int ac, char **av, char **envp)
 		ft_last_child(obj.outfile, av, ac, envp);
 	close(obj.infile);
 	close(obj.outfile);
-	wait(NULL);
+	while (wait(NULL) > 0)
+		continue ;
 	return (0);
 }

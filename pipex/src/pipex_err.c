@@ -32,3 +32,16 @@ int	ft_error_exit(void)
 	perror("\033[31mError pipex");
 	exit(1);
 }
+
+/**
+ * free_and_exit - function that frees the memory pointed by to_free
+ * and print a msg error to stderr
+ * @msg: message to output on stderr
+ * @to_free: pointer to the memory to be freed
+ * Return: void.
+*/
+void	free_and_exit(char *msg, char *to_free)
+{
+	free(to_free);
+	ft_error_print(msg);
+}
