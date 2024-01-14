@@ -22,23 +22,28 @@
 */
 void	ft_child1_process(char **av, char **envp, int *end)
 {
-	int		file1;
+	int		infile;
 	char	*path_to_cmd;
-	char	**cmd;
 
-	path_to_cmd = NULL;
-	file1 = open(av[1], O_RDONLY);
-	if (file1 == -1)
+	infile = open(av[1], O_RDONLY);
+	if (infile == -1)
 		ft_error_exit();
 	dup2(end[1], STDOUT_FILENO);
-	dup2(file1, STDIN_FILENO);
+	dup2(infile, STDIN_FILENO);
 	close(end[0]);
 	close(end[1]);
-	cmd = ft_split(av[2], ' ');
+	close(infile);
+	if (ft_strncmp(av[2], "/", 1) == 0)
+	{
+		if (access(ft_cmd_path(av[2]), X_OK) == 0)
+			execve(ft_cmd_path(av[2]), ft_split(av[2], ' '), NULL);
+		else
+			ft_error_print("\033[1;31mError:]: Path1 Not Found!\033[0m");
+	}
 	path_to_cmd = ft_find_cmd(av[2], envp);
 	if (path_to_cmd == NULL)
 		ft_error_print("\033[1;33mError:]: Cmd1 not found!\033[0m");
-	if (execve(path_to_cmd, cmd, envp) == -1)
+	if (execve(path_to_cmd, ft_split(av[2], ' '), NULL) == -1)
 		ft_error_exit();
 }
 
@@ -53,23 +58,28 @@ void	ft_child1_process(char **av, char **envp, int *end)
 */
 void	ft_child2_process(char **av, char **envp, int *end)
 {
-	int		file2;
+	int		outfile;
 	char	*path_to_cmd;
-	char	**cmd;
 
-	path_to_cmd = NULL;
-	file2 = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
-	if (file2 == -1)
+	outfile = open(av[4], O_WRONLY | O_CREAT | O_TRUNC, 0644);
+	if (outfile == -1)
 		ft_error_exit();
 	dup2(end[0], STDIN_FILENO);
-	dup2(file2, STDOUT_FILENO);
+	dup2(outfile, STDOUT_FILENO);
+	close(outfile);
 	close(end[1]);
 	close(end[0]);
-	cmd = ft_split(av[3], ' ');
+	if (ft_strncmp(av[3], "/", 1) == 0)
+	{
+		if (access(ft_cmd_path(av[3]), X_OK) != -1)
+			execve(ft_cmd_path(av[3]), ft_split(av[3], ' '), NULL);
+		else
+			ft_error_print("\033[1;31mError:]: Path2 Not Found!\033[0m");
+	}
 	path_to_cmd = ft_find_cmd(av[3], envp);
 	if (path_to_cmd == NULL)
 		ft_error_print("\033[1;33mError:]: Cmd2 not found!\033[0m");
-	if (execve(path_to_cmd, cmd, envp) == -1)
+	if (execve(path_to_cmd, ft_split(av[3], ' '), NULL) == -1)
 		ft_error_exit();
 }
 
@@ -93,7 +103,6 @@ int	main(int ac, char **av, char **envp)
 			ft_error_exit();
 		else if (obj.pid1 == 0)
 			ft_child1_process(av, envp, obj.end);
-		wait(NULL); // make sure child1 finish before child2...
 		obj.pid2 = fork();
 		if (obj.pid2 < 0)
 			ft_error_exit();

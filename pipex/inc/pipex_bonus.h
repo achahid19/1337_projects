@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex.h                                            :+:      :+:    :+:   */
+/*   pipex_bonus.h                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 18:45:12 by achahid-          #+#    #+#             */
-/*   Updated: 2024/01/10 18:45:14 by achahid-         ###   ########.fr       */
+/*   Created: 2024/01/13 09:48:36 by achahid-          #+#    #+#             */
+/*   Updated: 2024/01/13 09:48:41 by achahid-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPEX_H
-# define PIPEX_H
+#ifndef PIPEX_BONUS_H
+# define PIPEX_BONUS_H
 
 # include <stdlib.h>
 # include <sys/wait.h>
@@ -34,11 +34,17 @@ void	ft_child1_process(char **av, char **envp, int *end);
 void	ft_child2_process(char **av, char **envp, int *end);
 char	*ft_cmd_path(char *cmd_path);
 
+typedef struct s_var
+{
+	int		infile;
+	int		outfile;
+	pid_t	pid;
+	pid_t	pid2;
+	int		count;
+}	t_var;
+
 typedef struct s_type
 {
-	pid_t	pid1;
-	pid_t	pid2;
-	int		end[2];
 	char	**token;
 	char	**path;
 	char	*path_to_cmd;

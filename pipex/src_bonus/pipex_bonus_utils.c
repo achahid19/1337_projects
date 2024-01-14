@@ -1,16 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipex_utils.c                                      :+:      :+:    :+:   */
+/*   pipex_bonus_utils.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/01/10 18:44:57 by achahid-          #+#    #+#             */
-/*   Updated: 2024/01/10 18:44:59 by achahid-         ###   ########.fr       */
+/*   Created: 2024/01/13 09:49:07 by achahid-          #+#    #+#             */
+/*   Updated: 2024/01/13 09:49:08 by achahid-         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../inc/pipex.h"
+#include "../inc/pipex_bonus.h"
 
 /**
  * ft_get_path - search in in envp matrice for the PATH variable
