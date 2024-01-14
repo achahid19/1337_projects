@@ -93,19 +93,22 @@ int	main(int ac, char **av, char **envp)
 	obj.outfile = open(av[ac - 1], O_WRONLY | O_CREAT | O_TRUNC, 0644);
 	if (obj.infile == -1 || obj.outfile == -1)
 		ft_error_exit();
+	// turn the stdin into infile's fd
 	dup2(obj.infile, 0);
 	obj.count = 2;
+	// exec cmd(n), pipe the output to end[1], to be exec by the next cmd(n+1)
+	// stop at the last cmd which is ac - 2.
 	while (obj.count < ac - 2)
 	{
 		ft_pipe(av, envp, obj.count);
 		obj.count++;
 	}
 	obj.pid2 = fork();
+	// exec the last cmd
 	if (obj.pid2 == 0)
 		ft_last_child(obj.outfile, av, ac, envp);
 	close(obj.infile);
 	close(obj.outfile);
-	while (wait(NULL) > 0)
-		continue ;
+	wait(NULL);
 	return (0);
 }
