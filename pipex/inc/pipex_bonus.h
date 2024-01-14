@@ -39,7 +39,6 @@ typedef struct s_var
 {
 	int		infile;
 	int		outfile;
-	pid_t	pid;
 	pid_t	pid2;
 	int		count;
 }	t_var;

@@ -28,7 +28,7 @@ void	ft_pipe(char **av, char **envp, int cmd)
 	char	*path_to_cmd;
 
 	if (pipe(end) == -1)
-		ft_error_print("error in pipe creation\n");
+		ft_error_exit();
 	child_pid = fork();
 	if (child_pid == 0)
 	{
