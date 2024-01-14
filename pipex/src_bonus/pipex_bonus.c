@@ -13,29 +13,6 @@
 #include "../inc/pipex_bonus.h"
 
 /**
- * dup_and_close - function that duplicate the fds of each end of
- * the pipe into stdin or stdout
- * @end: pointer to the pipe
- * @i: index of the pipe, 0 for read end and 1 for write end
- * Return: void.
-*/
-void	dup_and_close(int *end, int i)
-{
-	if (i == 1)
-	{
-		dup2(end[i], STDOUT_FILENO);
-		close(end[0]);
-		close(end[1]);
-	}
-	else if (i == 0)
-	{
-		dup2(end[i], STDIN_FILENO);
-		close(end[0]);
-		close(end[1]);
-	}
-}
-
-/**
  * ft_pipe - function that parses the command before being
  * executed ann redirect the stdin into the end[0] by the
  * parent process

@@ -33,6 +33,7 @@ char	*ft_find_cmd(char *cmd, char **envp);
 void	ft_child1_process(char **av, char **envp, int *end);
 void	ft_child2_process(char **av, char **envp, int *end);
 char	*ft_cmd_path(char *cmd_path);
+void	dup_and_close(int *end, int i);
 
 typedef struct s_var
 {
