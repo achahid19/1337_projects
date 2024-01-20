@@ -1,0 +1,176 @@
+What happens behind the scenes when a command is executed in our Shell !
+=> A command will create smt called "process"; a process is just simply an instance of a programs that needs execution. The shell itself is a parent process, and the execution of a command would be a child process. A process can be created with the system call fork().
+------------------ Functions Calls && System Calls-----
+1- Function Call:
+
+    A function call is a way to invoke a specific block of code, known as a function or subroutine, within a program.
+
+    Functions are defined by the programmer to encapsulate a set of instructions, making the code modular and easier to understand.
+2- System Call:
+
+    A system call is a request for a service performed by the kernel (core part of the operating system) on behalf of a user program.
+
+    System calls provide an interface between user-level processes and the operating system, allowing processes to perform privileged operations.
+    
+&&& Distinguishing between a system call and a function call can be summarized based on a few key characteristics. Here are some ways to easily differentiate between them:
+
+    1- Privilege Level:
+        Function Call: Functions are executed in user space, and they operate within the privilege level of the user program.
+        System Call: System calls involve a transition from user space to kernel space. They are used to request services from the operating system, which operates at a higher privilege level.
+
+    2- Purpose:
+        Function Call: Functions are typically designed to perform specific tasks within the user program. They are part of the program's logic and structure.
+        System Call: System calls are requests for services or operations that require interaction with the operating system. Examples include I/O operations, process control, and memory management.
+
+    3- Invocation:
+        Function Call: Functions are invoked within the program using the function name and appropriate parameters. They are usually defined and called by the programmer.
+        System Call: System calls are invoked through a specific interface provided by the operating system. Examples include functions in the C library (e.g., write, read, open) that trigger corresponding system calls.
+
+    4- Implementation:
+        Function Call: Functions are part of the program's source code and are compiled along with the program. They are implemented using the programming language's syntax.
+        System Call: System calls are part of the operating system's kernel. Their implementation is typically written in a lower-level language (like assembly) and is not directly accessible from user programs.
+        
+        https://medium.com/@SergioPietri/behind-the-scenes-what-happens-when-you-execute-a-command-in-the-shell-9fef53832f6a
+-----------------------------------------------------
+		PIPE()
+The pipe() function in C is used to create a unidirectional communication channel, or pipe, between two processes. This pipe allows one process to send data to another process. The basic idea is that what is written to one end of the pipe can be read from the other end.
+
+Here's a simplified explanation of the pipe() function and how it is typically used:
+
+    Function Signature:
+
+    c
+
+#include <unistd.h>
+
+int pipe(int pipefd[2]);
+
+The pipe() function takes an array of two integers (pipefd[2]) as an argument, where pipefd[0] represents the read end of the pipe, and pipefd[1] represents the write end.
+
+Creating a Pipe:
+
+c
+
+int end[2];
+pipe(end);
+
+This creates a pipe and associates the file descriptors with the ends of the pipe. Now, end[0] is the read end, and end[1] is the write end.
+
+File Descriptors (fd):
+
+    File descriptors (fd) are integer values that represent open files or I/O streams. In this case, they represent the ends of the pipe.
+    end[0] and end[1] are file descriptors associated with the read and write ends of the pipe, respectively.
+
+Communication Between Processes:
+
+    If a process writes data to the file descriptor end[1], the data becomes available for reading from the file descriptor end[0].
+    The processes using these file descriptors can be separate processes or different parts of the same program.
+    
+The file descriptors associated with each end of the pipe are not necessarily fixed as stdin (file descriptor 0) and stdout (file descriptor 1). The association depends on the order in which the pipe() function is called.
+
+Here's how it works:
+
+    The pipe() function creates a unidirectional communication channel, and it returns two file descriptors in an array. pipefd[0] is for reading, and pipefd[1] is for writing.
+
+    If you call pipe(end) in your code, end[0] will be associated with reading (e.g., for stdin-like operations), and end[1] will be associated with writing (e.g., for stdout-like operations).
+
+    It's not that the operating system associates stdin and stdout specifically; it's a convention for communication between processes.
+
+In a typical use case, after creating a pipe, a process might close one end (end[0] or end[1] depending on whether it's reading or writing), and then use functions like dup2() to associate the remaining end with stdin or stdout. For example:
+
+c
+
+close(end[0]); // close the read end if writing
+dup2(end[1], STDOUT_FILENO); // associate write end with stdout
+
+In this example, after closing the read end (end[0]), the dup2() function is used to duplicate the file descriptor end[1] onto the file descriptor STDOUT_FILENO (which is usually 1, representing stdout). This effectively redirects the standard output of the process to the write end of the pipe.
+
+Keep in mind that file descriptors are just integers, and their association with specific input/output streams (stdin, stdout, etc.) is a convention and can be changed by the program using system calls like dup2(). The key is understanding the flow of data between the processes through the pipe.
+------------------------------------------------------
+		FORK()
+Certainly, let me clarify the concept of forking a process in a simpler way.
+
+When a process calls fork() in C, it creates a new process. The process that called fork() is called the "parent process," and the newly created process is called the "child process." After the fork() call, both the parent and the child processes continue executing from the same point, but they have different process IDs (pid).
+
+when we fork, the parent gets the pid of the child process, and the child gets 0 as id.
+The memory is getting copied, value by value, variable by variable, when we do use fork().but while execution, each process have each on space in memory. both process, executed the same lines of code, and fort probable with different results.
+IF WE FORK MULTIPLE TIMES, AND OUR PROGRAM DO NOT HAVE ANY CONDITION, IT JUST GONNA CREATE A PROCESS FROM ANY SINGLE EXISTING PROCESS.
+EACH TIME U USE FORK() IT CREATE 2 POWER N TIMES FORK() IS CALLED, SO USING IT IN A WHILE LOOP COULD POSSIBLY CAUSE A SYSTEM CRASH HAHAHAH! A GOOD THING WHEN CREATING PROCESSES, MAKE SURE U CREATE THEM ONLY FROM PARENT PROCESS.
+
+------------ What are processes IDs ?? -------------
+is a uniq number id for each process.
+we can get the process Id of our program by the getpid() system call.
+getppid(). get the parent process ID. 
+EVERY PROCESS HAS AN ID, EVERY PROCESS HAS A PARENT ID, AND HOW IT GETS SWITCH IF THE PARENT PROCESS DOES NOT EXIST ANYMORE. SO WE SHOULD USE WAIT AT THE END OF THE PROGRAM TO PREVENT A MAIN PROCESS TO TERMINATE BEFORE A CHILD ONE.
+---------------------------------------------------
+-----------------------waitpid()------------------
+waiting for a specific child process to terminate.
+--------------------------PIPE---------------
+we saw how to create process, now lets dive into how to communicate btw
+two processes. in the fork, the memory is copied over, but what if I want to 
+sent after forking some DATA to another process. WE USE PIPE.
+WE HAVE TO USE WAIT IN PARENT RPOCESS BECAUSE BOTH PART ARE RUNNING PARALLEL.
+WHEN THE PARENT FINISH BEFORE THE CHILD, THE CHILD BECOME A ZOMBIE PROCESS,
+THEN WILL TAKE UP SPACE IN THE SYSTEM WHILE DOING NOTHING.
+
+-----------------------------------------------------------------------
+I did not understand how pipes can be more efficient, because with the old method we use only one temporary file, but in the other hand with pipes we need 2 fds to make the communication between processes
+ChatGPT
+
+That's a great point, and it's important to clarify the efficiency aspect. The efficiency gains from using pipes over temporary files lie in a few factors:
+
+    No Need for Intermediate Storage: With temporary files, data needs to be written to disk and then read back. This involves I/O operations, which can be relatively slow compared to in-memory operations. Pipes, on the other hand, allow for direct communication between processes without the need to store data in an intermediate temporary file. This can be more efficient, especially for large amounts of data.
+
+    Synchronous Communication: Pipes facilitate synchronous communication between processes. When one process writes to a pipe, the data is immediately available for reading by the other process. In contrast, with temporary files, there might be delays associated with writing, flushing, and reading from the file.
+
+    Resource Usage: Using pipes can be more memory-efficient. Since data is transferred directly between processes, you don't need to store it temporarily on disk, saving both disk space and memory.
+
+    Real-time Processing: Pipes allow for real-time processing, as data flows continuously between processes. Temporary files introduce potential delays because one process needs to complete writing before the other process starts reading.
+
+In summary, while temporary files might involve fewer file descriptors, the efficiency gains with pipes come from avoiding the overhead associated with writing to and reading from a physical disk. Pipes are well-suited for scenarios where real-time or near-real-time communication between processes is crucial and where minimizing I/O operations is desirable.
+User
+to make it clear, when the pipe writes to the writing end, the fd in which she is writing how it is being stored or loaded, if is not stored in the disk, is it using only the RAM to load ?
+ChatGPT
+
+Yes, that's correct. When data is written to a pipe's writing end, it is not stored on the disk; instead, it is held in memory (RAM). The data is then immediately available for reading by the process connected to the reading end of the pipe. This in-memory communication is one of the reasons pipes can be more efficient than using temporary files, especially in scenarios where speed and minimal I/O overhead are important. The data is transferred directly between the processes, without the need for a physical storage medium like a disk.
+
+An inode, short for "index node," is a data structure on a filesystem on Unix-like operating systems. It contains metadata about a file or a directory, excluding its name and actual data. Inodes store information such as:
+
+    File Type: Indicates whether the inode represents a regular file, directory, symbolic link, etc.
+
+    Permissions: Specifies who can read, write, or execute the file or directory.
+
+    Owner and Group: Identifies the user and group associated with the file or directory.
+
+    Size: Indicates the size of the file in bytes.
+
+    Timestamps: Records various timestamps, including when the file was created, last modified, and last accessed.
+
+    Pointers to Data Blocks: For regular files, inodes store pointers to the actual data blocks on the disk where the file's content is stored.
+
+In Unix-like file systems, each file or directory is associated with a unique inode number. The filename itself is essentially a link to the inode. When you create a new file, the operating system assigns it an inode, and the filename becomes a reference to that inode. Multiple filenames can link to the same inode, creating hard links.
+An inode, short for "index node," is a data structure on a filesystem on Unix-like operating systems. It contains metadata about a file or a directory, excluding its name and actual data. Inodes store information such as:
+
+    File Type: Indicates whether the inode represents a regular file, directory, symbolic link, etc.
+
+    Permissions: Specifies who can read, write, or execute the file or directory.
+
+    Owner and Group: Identifies the user and group associated with the file or directory.
+
+    Size: Indicates the size of the file in bytes.
+
+    Timestamps: Records various timestamps, including when the file was created, last modified, and last accessed.
+
+    Pointers to Data Blocks: For regular files, inodes store pointers to the actual data blocks on the disk where the file's content is stored.
+
+In Unix-like file systems, each file or directory is associated with a unique inode number. The filename itself is essentially a link to the inode. When you create a new file, the operating system assigns it an inode, and the filename becomes a reference to that inode. Multiple filenames can link to the same inode, creating hard links.
+
+-------------------------------------------------------------------
+
+Usefull, links!
+https://toroid.org/unix-pipe-implementation
+
+errors need to be avoid in shell that I have made it in pipex:
+-When the shell finds the directory that “ls” exists in, it will create something known as a process.
+(I created the process before checking if the command exists or not).
+-

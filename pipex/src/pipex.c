@@ -37,14 +37,14 @@ void	ft_child1_process(char **av, char **envp, int *end)
 	{
 		path_to_cmd = ft_cmd_path(av[2]);
 		if (access(path_to_cmd, X_OK) == 0)
-			execve(path_to_cmd, ft_split(av[2], ' '), NULL);
+			execve(path_to_cmd, ft_split(av[2], ' '), envp);
 		else
 			free_and_exit("\033[1;31mPath1 Not Found!\033[0m", path_to_cmd);
 	}
 	path_to_cmd = ft_find_cmd(av[2], envp);
 	if (path_to_cmd == NULL)
 		ft_error_print("\033[1;33mError:]: Cmd1 not found!\033[0m");
-	if (execve(path_to_cmd, ft_split(av[2], ' '), NULL) == -1)
+	if (execve(path_to_cmd, ft_split(av[2], ' '), envp) == -1)
 		ft_error_exit();
 }
 
@@ -74,14 +74,14 @@ void	ft_child2_process(char **av, char **envp, int *end)
 	{
 		path_to_cmd = ft_cmd_path(av[3]);
 		if (access(path_to_cmd, X_OK) != -1)
-			execve(path_to_cmd, ft_split(av[3], ' '), NULL);
+			execve(path_to_cmd, ft_split(av[3], ' '), envp);
 		else
 			free_and_exit("\033[1;31mPath2 Not Found!\033[0m", path_to_cmd);
 	}
 	path_to_cmd = ft_find_cmd(av[3], envp);
 	if (path_to_cmd == NULL)
 		ft_error_print("\033[1;33mError:]: Cmd2 not found!\033[0m");
-	if (execve(path_to_cmd, ft_split(av[3], ' '), NULL) == -1)
+	if (execve(path_to_cmd, ft_split(av[3], ' '), envp) == -1)
 		ft_error_exit();
 }
 

@@ -37,14 +37,14 @@ void	ft_pipe(char **av, char **envp, int cmd)
 		{
 			path_to_cmd = ft_cmd_path(av[cmd]);
 			if (access(path_to_cmd, X_OK) == 0)
-				execve(path_to_cmd, ft_split(av[cmd], ' '), NULL);
+				execve(path_to_cmd, ft_split(av[cmd], ' '), envp);
 			else
 				free_and_exit("\033[1;31mPath Not Found!\033[0m", path_to_cmd);
 		}
 		path_to_cmd = ft_find_cmd(av[cmd], envp);
 		if (path_to_cmd == NULL)
 			ft_error_print("\033[1;33mError: Cmd not found!\033[0m");
-		if (execve(path_to_cmd, ft_split(av[cmd], ' '), NULL) == -1)
+		if (execve(path_to_cmd, ft_split(av[cmd], ' '), envp) == -1)
 			ft_error_exit();
 	}
 	dup_and_close(end, 0);
@@ -67,14 +67,14 @@ void	ft_last_child(int outfile_fd, char **av, int ac, char **envp)
 	{
 		path_to_cmd = ft_cmd_path(av[ac -2]);
 		if (access(path_to_cmd, X_OK) != -1)
-			execve(path_to_cmd, ft_split(av[ac - 2], ' '), NULL);
+			execve(path_to_cmd, ft_split(av[ac - 2], ' '), envp);
 		else
 			free_and_exit("\033[1;31mPath Not Found!\033[0m", path_to_cmd);
 	}
 	path_to_cmd = ft_find_cmd(av[ac - 2], envp);
 	if (path_to_cmd == NULL)
 		ft_error_print("\033[1;33mError: Cmd not found!\033[0m");
-	if (execve(path_to_cmd, ft_split(av[ac - 2], ' '), NULL) == -1)
+	if (execve(path_to_cmd, ft_split(av[ac - 2], ' '), envp) == -1)
 		ft_error_exit();
 }
 
