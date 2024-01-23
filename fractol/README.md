@@ -10,7 +10,7 @@ Run the following command:<br>
 - Mandlebrot Set:<br>
 ```$> ./program_name Mandlebrot```
 - Julia Set:<br>
-```$> ./program_name Julia```<br>
+```$> ./program_name Julia <Real Part> <Imaginary Part>```<br>
 <strong><span style="background-color: red">In case of error, a list of available sets will be displayed</span><strong>
 
 ## Project Aim:
