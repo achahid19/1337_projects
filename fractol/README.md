@@ -1,4 +1,4 @@
-# FRACTAL YOUR WAY TO SEE INFINITY
+# <span style="padding: 30px">FRACTAL YOUR WAY TO SEE INFINITY</span>
 
 ## Building Fractol Project:
 Run the following command:<br>
