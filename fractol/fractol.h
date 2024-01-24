@@ -45,9 +45,16 @@ typedef struct s_mlx_data
 	t_mlx_image	img;
 }	t_mlx_data;
 
+/* complex plan struct for coordinates */
+typedef struct s_plan
+{
+	double	real;
+	double	i;
+}	t_plan;
+
 /* Window Resolution */
-# define WIDTH 1920
-# define HEIGHT 1080
+# define WIDTH 800
+# define HEIGHT 800
 
 /* fractol_utils */
 int		ft_strncmp(const char *s1, const char *s2, int n);
@@ -56,7 +63,8 @@ size_t	ft_strlen(const char *str);
 /* fractol utilities functions */
 void	ft_fractol_init(t_mlx_data *mlx, char *window_name);
 int		ft_key_hooks(int keysym, t_mlx_data *mlx);
-void	ft_fractol_hooks_loop(t_mlx_data *mlx);
+void	ft_fractol_hooks_loop(t_mlx_data *mlx, char *set_name);
 int		cross_func(int button, t_mlx_data *mlx);
+void	ft_fractol_render(t_mlx_data *mlx);
 
 #endif /* FRACTOL_H */

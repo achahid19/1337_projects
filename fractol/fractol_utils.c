@@ -55,7 +55,7 @@ void	ft_fractol_init(t_mlx_data *mlx, char *window_name)
 	// Establish the connection to X server, and set the display on this display
 	mlx->mlx_connection = mlx_init();
 	if (NULL == mlx->mlx_connection)
-		exit(EXIT_FAILURE);
+		exit(EXIT_FAILURE); // TODO perror for knowing the error
 	// Create the window
 	mlx->mlx_win = mlx_new_window(mlx->mlx_connection, WIDTH, HEIGHT, window_name);
 	if (NULL == mlx->mlx_win)
@@ -110,9 +110,105 @@ int	ft_key_hooks(int keysym, t_mlx_data *mlx)
 			exit(EXIT_FAILURE);
 	}
 } */
-void	ft_fractol_hooks_loop(t_mlx_data *mlx)
+
+void	color_pixel_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx_data)
+{
+
+}
+
+// Zn+1 = z^2 + c // (x + yi)(x + yi) + c
+// x^2 + 2xyi + - y^2 + c==> ((x^2 - y^2) + 2xyi) + c==> z
+int	ft_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx, t_plan *complex)
+{
+	t_plan	z;
+	t_plan	c;
+	size_t  count;
+	double	tmp_real;
+	
+	z.real = 0;
+	z.i = 0;
+	c.real = complex->real;
+	c.i = complex->i;
+	count = 0;
+	while (count < 20)
+	{
+		tmp_real = (z.real * z.real - z.i * z.i);
+		z.i = z.real * z.i * 2;
+		z.real = tmp_real;
+		z.real += c.real;
+		z.i += c.i;
+		/* if it goes out the limits while iterating, so its not Mandelbrot set */
+		if (!(z.real > -2 && z.real < 2) || !(z.i > -2 && z.i < 2))
+			return (-1);
+		count++;
+	}
+	return (1);
+}
+void	ft_fractol_hooks_loop(t_mlx_data *mlx, char *set_name)
 {
 	mlx_key_hook(mlx->mlx_win, &ft_key_hooks, mlx);
 	/* mlx_mouse_hook(mlx->mlx_win, &cross_func, mlx); */ // TODO the cross button.
+	/* if (0 == ft_strncmp(set_name, "Mandelbrot", 10))
+		ft_mandelbrot_set(&mlx->img, mlx); */
 	mlx_loop(mlx->mlx_connection);
+}
+
+double	ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max) // To ADD .H
+{
+	return ((new_max - new_min) * (unscaled_num - old_min) / (old_max - old_min) + new_min);
+}
+
+/**
+ *  SCALING - from for instance [0..800] to [-2..2]
+ *
+ * 	 0,0 -------- 799,0      -2,0 -------- +2,0
+ *	 	|         |     		 |         |
+ *  	|         |    	==>		 |         |
+ *	 	|         |				 |         |
+ *	 	|         |				 |         |
+ *0,799	 --------- 799,799   0,-2 --------- 0,2
+*/
+/* void	ft_pixel_set(int x, int y, t_mlx_data *mlx) // TO ADD .H
+{
+	// Now I have the scale of mandelbrot set, complex plan coordinates
+	printf("(%.02f, %.02f)\n", ft_pixel_scale((double)x, -2, 2, 0, WIDTH), ft_pixel_scale((double)y, -2, 2, 0, HEIGHT));
+} */
+
+void	ft_fractol_render(t_mlx_data *mlx)
+{
+	int		x;
+	int		y;
+	t_plan	complex_plan;
+
+	y = 0;
+	while (y < HEIGHT)
+	{
+		x = -1;
+		while (++x < WIDTH)
+		{
+			/* ft_pixel_set(x , y, mlx); */ // the problem is we have to scale to fit the coordinates of the mandelbrot set
+			complex_plan.real = ft_pixel_scale((double)x, -2, 2, 0, WIDTH);
+			complex_plan.i = ft_pixel_scale((double)y, -2, 2, 0, HEIGHT);
+			/* printf("scaled from: (%d, %d) to (%.02f, %.02f)\n", x, y, complex_plan.real, complex_plan.i); */
+			/**
+			 * Now that I scaled my plan, I have to check if
+			 * each coordinates (real, imaginary) is member
+			 * of the Mandelbrot Set, if it is we color the
+			 * corresponding pixel w
+			int set = ft_mandelbrot_set(&mlx->img, mlx, &complex_plan);
+			printf("%d\n", set);ith a certain color.
+			*/
+			int set = ft_mandelbrot_set(&mlx->img, mlx, &complex_plan);
+			if (-1 == set)
+			{
+				printf("set (%.02f, %.02f) is not a Mandelbrot Set!\n", complex_plan.real, complex_plan.i);
+			}
+			if (1 == set)
+			{
+				printf("set (%.02f, %.02f) is a Mandelbrot Set!\n", complex_plan.real, complex_plan.i);
+				/* here I have to handle the pixels that are members of the Mandelbrot Set */
+			}
+		}
+		y++;
+	}
 }

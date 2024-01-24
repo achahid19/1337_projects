@@ -27,7 +27,8 @@ int main(int ac, char **av)
 	{
 		// Construct the MLX data and render stuff.
 		ft_fractol_init(&mlx, av[1]);
-		ft_fractol_hooks_loop(&mlx);
+		ft_fractol_render(&mlx);
+		ft_fractol_hooks_loop(&mlx, av[1]);
 	}
 	else
 	{
