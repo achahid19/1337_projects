@@ -20,15 +20,18 @@
 
 int main(int ac, char **av)
 {
+	t_mlx_data	mlx;
+
     if ((2 == ac && 0 == ft_strncmp(av[1], "Mandelbrot", 10))
 		|| (4 == ac && 0 == ft_strncmp(av[1], "Julia", 5)))
 	{
 		// Construct the MLX data and render stuff.
-		printf("working");
+		ft_fractol_init(&mlx, av[1]);
+		ft_fractol_hooks_loop(&mlx);
 	}
 	else
 	{
-		write (2, INVALID_PARA, ft_strlen(INVALID_PARA));
-		return (EXIT_FAILURE);
+		write(2, INVALID_PARA, ft_strlen(INVALID_PARA));
+		exit(EXIT_FAILURE);
 	}
 }
