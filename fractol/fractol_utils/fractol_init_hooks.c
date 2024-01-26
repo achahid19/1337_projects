@@ -111,7 +111,6 @@ int	ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx)
 	{
 		mlx->zoom *= 0.95;
 	}
-	ft_fractol_render(mlx);
     ft_fractol_render(mlx);
 }
 
