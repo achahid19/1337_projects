@@ -105,8 +105,6 @@ int	ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx)
 	// zoom out == 4
 	if (Button5 == button)
 	{
-		mlx->shift_x += x;
-		mlx->shift_y += y;
 		mlx->zoom *= 1.05;
 	}
 	if (Button4 == button)
