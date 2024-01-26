@@ -28,8 +28,8 @@
 		- - - - - - - - - - - - - - - - - - - - - \n"\
 
 /* Window Resolution */
-# define WIDTH 800
-# define HEIGHT 800
+# define WIDTH 1000
+# define HEIGHT 1000
 
 // Standard colors
 # define BLACK   0x000000
@@ -79,15 +79,32 @@ typedef struct s_plan
 	double	i;
 }	t_plan;
 
+/* Mandelbrot variables */
+typedef struct s_vars
+{
+	t_plan	z;
+	t_plan	c;
+	size_t	count;
+	double	tmp_real;
+	int		color;
+}	t_vars;
+
 /* fractol_utils */
 int		ft_strncmp(const char *s1, const char *s2, int n);
 size_t	ft_strlen(const char *str);
 
 /* fractol utilities functions */
 void	ft_fractol_init(t_mlx_data *mlx, char *window_name);
-int		ft_key_hooks(int keysym, t_mlx_data *mlx);
-void	ft_fractol_hooks_loop(t_mlx_data *mlx, char *set_name);
-int		cross_func(int button, t_mlx_data *mlx);
 void	ft_fractol_render(t_mlx_data *mlx);
+void	ft_fractol_hooks_loop(t_mlx_data *mlx);
 
+static int		ft_key_hooks(int keysym, t_mlx_data *mlx);
+
+static void		ft_handle_pixel(int x, int y, t_mlx_data *mlx, int color);
+static double	ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
+static void		ft_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx, t_plan *complex, int x, int y);
+
+
+
+/* */
 #endif /* FRACTOL_H */
