@@ -116,33 +116,47 @@ void	color_pixel_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx_data)
 
 }
 
+void	handle_pixel(int x, int y, t_mlx_data *mlx, int color)
+{
+	int	offset;
+
+	offset = (mlx->img.line_length * y) + (x * (mlx->img.bpp / 8));
+	*((unsigned int*)(offset + mlx->img.pixel_addr)) = color;
+}
+double	ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
 // Zn+1 = z^2 + c // (x + yi)(x + yi) + c
 // x^2 + 2xyi + - y^2 + c==> ((x^2 - y^2) + 2xyi) + c==> z
-int	ft_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx, t_plan *complex)
+static void	ft_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx, t_plan *complex, int x, int y)
 {
 	t_plan	z;
 	t_plan	c;
 	size_t  count;
 	double	tmp_real;
+	int		color;
 	
 	z.real = 0;
 	z.i = 0;
 	c.real = complex->real;
 	c.i = complex->i;
 	count = 0;
-	while (count < 20)
+	while (count < MAX_ITERATION)
 	{
 		tmp_real = (z.real * z.real - z.i * z.i);
 		z.i = z.real * z.i * 2;
 		z.real = tmp_real;
 		z.real += c.real;
 		z.i += c.i;
-		/* if it goes out the limits while iterating, so its not Mandelbrot set */
-		if (!(z.real > -2 && z.real < 2) || !(z.i > -2 && z.i < 2))
-			return (-1);
+		/* if it goes out the limits while iterating, so its not Mandelbrot set, and we color the pixel */
+		/* c^2 = a^2 + b^2 */ /* Pethagorean theorem */
+		if ((z.real * z.real) + (z.i * z.i) > ESCAPE_VALUE)
+		{
+			color = ft_pixel_scale(count, BLACK, WHITE, 0, MAX_VAL_COL);
+			handle_pixel(x, y, mlx, color);
+			return ;
+		}
 		count++;
 	}
-	return (1);
+	// WE ARE ON THE MANDELBROT SET :))))
 }
 void	ft_fractol_hooks_loop(t_mlx_data *mlx, char *set_name)
 {
@@ -152,7 +166,9 @@ void	ft_fractol_hooks_loop(t_mlx_data *mlx, char *set_name)
 		ft_mandelbrot_set(&mlx->img, mlx); */
 	mlx_loop(mlx->mlx_connection);
 }
-
+/**
+ * Linear Interpoation in MATH
+*/
 double	ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max) // To ADD .H
 {
 	return ((new_max - new_min) * (unscaled_num - old_min) / (old_max - old_min) + new_min);
@@ -188,27 +204,20 @@ void	ft_fractol_render(t_mlx_data *mlx)
 		{
 			/* ft_pixel_set(x , y, mlx); */ // the problem is we have to scale to fit the coordinates of the mandelbrot set
 			complex_plan.real = ft_pixel_scale((double)x, -2, 2, 0, WIDTH);
-			complex_plan.i = ft_pixel_scale((double)y, -2, 2, 0, HEIGHT);
+			complex_plan.i = ft_pixel_scale((double)y, 2, -2, 0, HEIGHT);
 			/* printf("scaled from: (%d, %d) to (%.02f, %.02f)\n", x, y, complex_plan.real, complex_plan.i); */
 			/**
 			 * Now that I scaled my plan, I have to check if
 			 * each coordinates (real, imaginary) is member
-			 * of the Mandelbrot Set, if it is we color the
+			 * of the Mandelbrot Set, if it is not we color the
 			 * corresponding pixel w
 			int set = ft_mandelbrot_set(&mlx->img, mlx, &complex_plan);
 			printf("%d\n", set);ith a certain color.
 			*/
-			int set = ft_mandelbrot_set(&mlx->img, mlx, &complex_plan);
-			if (-1 == set)
-			{
-				printf("set (%.02f, %.02f) is not a Mandelbrot Set!\n", complex_plan.real, complex_plan.i);
-			}
-			if (1 == set)
-			{
-				printf("set (%.02f, %.02f) is a Mandelbrot Set!\n", complex_plan.real, complex_plan.i);
-				/* here I have to handle the pixels that are members of the Mandelbrot Set */
-			}
+			ft_mandelbrot_set(&mlx->img, mlx, &complex_plan, x, y); // I have passed the unscaled to handle the real pixel
 		}
 		y++;
 	}
+	// Once all the pixels are pushed to the image, now we ask mlx to push the image to the window.
+	mlx_put_image_to_window(mlx->mlx_connection, mlx->mlx_win, mlx->img.img_ptr, 0, 0);
 }

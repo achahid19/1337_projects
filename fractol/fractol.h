@@ -27,6 +27,33 @@
 		> ./program_name Julia <real> <imaginary>\n\
 		- - - - - - - - - - - - - - - - - - - - - \n"\
 
+/* Window Resolution */
+# define WIDTH 800
+# define HEIGHT 800
+
+// Standard colors
+# define BLACK   0x000000
+# define WHITE   0xFFFFFF
+# define RED     0xFF0000
+# define GREEN   0x00FF00
+# define BLUE    0x0000FF
+# define YELLOW  0xFFFF00
+# define CYAN    0x00FFFF
+# define MAGENTA 0xFF00FF
+
+// Psychedelic colors
+# define PSYCH_RED     0xFF00CC
+# define PSYCH_GREEN   0x00FFCC
+# define PSYCH_BLUE    0x00CCFF
+# define PSYCH_YELLOW  0xFFCC00
+# define PSYCH_CYAN    0xCCFF00
+# define PSYCH_MAGENTA 0xCC00FF
+
+/* Mandelbrot Set iteration Data */
+# define MAX_ITERATION 222 // the more iteration, the more refined is the image
+# define ESCAPE_VALUE 4 // Escaping the Mandelbrot Set
+# define MAX_VAL_COL 222
+
 /* Mlx image data */
 typedef struct s_mlx_image
 {
@@ -51,10 +78,6 @@ typedef struct s_plan
 	double	real;
 	double	i;
 }	t_plan;
-
-/* Window Resolution */
-# define WIDTH 800
-# define HEIGHT 800
 
 /* fractol_utils */
 int		ft_strncmp(const char *s1, const char *s2, int n);
