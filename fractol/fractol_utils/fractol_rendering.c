@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   fractol_rendering.c                                :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/01/26 14:58:18 by achahid-          #+#    #+#             */
+/*   Updated: 2024/01/26 14:58:19 by achahid-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "../fractol.h"
 
 static void		ft_handle_pixel(int x, int y, t_mlx_data *mlx, int color);
@@ -24,8 +36,8 @@ void	ft_fractol_render(t_mlx_data *mlx)
 		x = 0;
 		while (x < WIDTH)
 		{
-			complex_plan.real = ft_pixel_scale((double)x, -2, 2, 0, WIDTH);
-			complex_plan.i = ft_pixel_scale((double)y, 2, -2, 0, HEIGHT);
+			complex_plan.real = (ft_pixel_scale((double)x, X_MIN_PLAN, X_MAX_PLAN, 0, WIDTH) * mlx->zoom) + mlx->shift_x;
+			complex_plan.i = (ft_pixel_scale((double)y, Y_MIN_PLAN, Y_MAX_PLAN, 0, HEIGHT) * mlx->zoom) + mlx->shift_y;
 			ft_mandelbrot_set(&mlx->img, mlx, &complex_plan, x, y); // I have passed the unscaled to handle the real pixel
 			x++;
 		}
@@ -55,21 +67,25 @@ static void	ft_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx, t_plan *co
 	set.c.real = complex->real;
 	set.c.i = complex->i;
 	set.count = 0;
-	while (set.count < MAX_ITERATION)
+	while (set.count < mlx->max_iteration)
 	{
-		set.tmp_real = (set.z.real * set.z.real - set.z.i * set.z.i);
+		set.tmp_real = (set.z.real * set.z.real) - (set.z.i * set.z.i);
 		set.z.i = set.z.real * set.z.i * 2;
 		set.z.real = set.tmp_real;
 		set.z.real += set.c.real;
 		set.z.i += set.c.i;
-		if ((set.z.real * set.z.real) + (set.z.i * set.z.i) > ESCAPE_VALUE)
+		if ((set.z.real * set.z.real) + (set.z.i * set.z.i) > ESCAPE_VALUE) // c = a^2 + b^2 // Pythagorean theorem
 		{
+			// BLACK IS THE ABSENCE OF COLORS, AND WHITE IS THE CONCOCTION OF ALL COLORS.(MIN, MAX)
 			set.color = ft_pixel_scale(set.count, BLACK, WHITE, 0, MAX_VAL_COL);
 			ft_handle_pixel(x, y, mlx, set.color);
 			return ;
 		}
 		set.count++;
 	}
+	// WE ARA ON THE MANDELBROT SET!
+	// maybe set a color for mandelbrot set.
+	ft_handle_pixel(x, y, mlx, BLACK);
 }
 
 /**

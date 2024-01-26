@@ -31,7 +31,7 @@
 # define WIDTH 1000
 # define HEIGHT 1000
 
-// Standard colors
+/* Standard colors */
 # define BLACK   0x000000
 # define WHITE   0xFFFFFF
 # define RED     0xFF0000
@@ -41,7 +41,7 @@
 # define CYAN    0x00FFFF
 # define MAGENTA 0xFF00FF
 
-// Psychedelic colors
+/* Psychedelic colors */
 # define PSYCH_RED     0xFF00CC
 # define PSYCH_GREEN   0x00FFCC
 # define PSYCH_BLUE    0x00CCFF
@@ -49,10 +49,14 @@
 # define PSYCH_CYAN    0xCCFF00
 # define PSYCH_MAGENTA 0xCC00FF
 
-/* Mandelbrot Set iteration Data */
-# define MAX_ITERATION 222 // the more iteration, the more refined is the image
+/* Mandelbrot Set Data */
+# define MAX_ITERATION 1000 // the more iteration, the more refined is the image
 # define ESCAPE_VALUE 4 // Escaping the Mandelbrot Set
 # define MAX_VAL_COL 222
+# define X_MIN_PLAN -2
+# define X_MAX_PLAN 2
+# define Y_MIN_PLAN 2
+# define Y_MAX_PLAN -2
 
 /* Mlx image data */
 typedef struct s_mlx_image
@@ -70,6 +74,13 @@ typedef struct s_mlx_data
 	void		*mlx_connection;
 	void		*mlx_win;
 	t_mlx_image	img;
+	/* hooks variables */
+	int			max_iteration;
+	double		shift_x;
+	double		shift_y;
+	double		zoom;
+	int			mouse_x;
+	int			mouse_y;
 }	t_mlx_data;
 
 /* complex plan struct for coordinates */
@@ -99,12 +110,12 @@ void	ft_fractol_render(t_mlx_data *mlx);
 void	ft_fractol_hooks_loop(t_mlx_data *mlx);
 
 static int		ft_key_hooks(int keysym, t_mlx_data *mlx);
-
+static int		ft_close(t_mlx_data *mlx);
 static void		ft_handle_pixel(int x, int y, t_mlx_data *mlx, int color);
 static double	ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
 static void		ft_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx, t_plan *complex, int x, int y);
+int				ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx);
+static int		ft_close(t_mlx_data *mlx);
+static void		fractol_data_init(t_mlx_data *mlx);
 
-
-
-/* */
 #endif /* FRACTOL_H */

@@ -12,6 +12,9 @@
 
 #include "../fractol.h"
 
+static void	fractol_data_init(t_mlx_data *mlx);
+static int	ft_close(t_mlx_data *mlx);
+
 /**
  * ft_fractol_init - Establish the cnx with X Server, Create
  * the window the initialize the img in the window
@@ -42,12 +45,21 @@ void	ft_fractol_init(t_mlx_data *mlx, char *window_name)
 	mlx->img.pixel_addr = mlx_get_data_addr(mlx->img.img_ptr, &mlx->img.bpp, &mlx->img.line_length, &mlx->img.endian);
 	if (NULL == mlx->img.pixel_addr)
 	{
+		mlx_destroy_image(mlx->mlx_connection, mlx->img.img_ptr);
 		mlx_destroy_window(mlx->mlx_connection, mlx->mlx_win);
 		mlx_destroy_display(mlx->mlx_connection);
 		free(mlx->mlx_connection);
-		free(mlx->img.img_ptr);
 		exit(EXIT_FAILURE);
 	}
+	fractol_data_init(mlx);
+}
+
+static void	fractol_data_init(t_mlx_data *mlx)
+{
+	mlx->max_iteration = 100;
+	mlx->shift_x = 0.0;
+	mlx->shift_y = 0.0;
+	mlx->zoom = 1.0;
 }
 
 /**
@@ -61,13 +73,55 @@ void	ft_fractol_init(t_mlx_data *mlx, char *window_name)
 static int	ft_key_hooks(int keysym, t_mlx_data *mlx) // TODO return value as int...
 {
 	if (XK_Escape == keysym) // for window cross
+		ft_close(mlx);
+	else if (XK_Left == keysym)
+		mlx->shift_x += 0.5 * mlx->zoom; // shift propotionnely as the zoom increase or decrease
+	else if (XK_Up == keysym)
+		mlx->shift_y -= 0.5 * mlx->zoom;
+	else if (XK_Down == keysym)
+		mlx->shift_y += 0.5 * mlx->zoom;
+	else if (XK_Right == keysym)
+		mlx->shift_x -= 0.5 * mlx->zoom;
+	else if (65451 == keysym) // + key; keysym do not work properly
+		mlx->max_iteration += 10;
+	else if (65453 == keysym) // - key; keysym do not work properly
+		mlx->max_iteration -= 10;
+	// to referesh the image
+	ft_fractol_render(mlx);
+}
+
+static int	ft_close(t_mlx_data *mlx)
+{
+	mlx_destroy_image(mlx->mlx_connection, mlx->img.img_ptr);
+	mlx_destroy_window(mlx->mlx_connection, mlx->mlx_win);
+	mlx_destroy_display(mlx->mlx_connection);
+	free(mlx->mlx_connection);
+	exit(EXIT_SUCCESS);
+}
+
+int	ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx)
+{
+	// zoom in == 5
+	// zoom out == 4
+	if (Button5 == button)
 	{
-		mlx_destroy_window(mlx->mlx_connection, mlx->mlx_win);
-		mlx_destroy_display(mlx->mlx_connection);
-		free(mlx->img.img_ptr);
-		free(mlx->mlx_connection);
-		exit(EXIT_FAILURE);
+		mlx->shift_x += x;
+		mlx->shift_y += y;
+		mlx->zoom *= 1.05;
 	}
+	if (Button4 == button)
+	{
+		mlx->zoom *= 0.95;
+	}
+	ft_fractol_render(mlx);
+    ft_fractol_render(mlx);
+}
+
+int	ft_mouse_move(int x, int y, t_mlx_data *mlx)
+{
+	mlx->mouse_x = x;
+	mlx->mouse_y = y;
+
 }
 
 /**
@@ -78,6 +132,12 @@ static int	ft_key_hooks(int keysym, t_mlx_data *mlx) // TODO return value as int
 */
 void	ft_fractol_hooks_loop(t_mlx_data *mlx)
 {
+	/* keyboard handler */
 	mlx_key_hook(mlx->mlx_win, &ft_key_hooks, mlx);
+	/* Mouse handler */
+	mlx_hook(mlx->mlx_win, MotionNotify, PointerMotionMask, &ft_mouse_move, mlx);
+	mlx_hook(mlx->mlx_win, ButtonPress, ButtonPressMask, &ft_mouse_hooks, mlx);
+	/* cross x of window handler */
+	mlx_hook(mlx->mlx_win, DestroyNotify, StructureNotifyMask, &ft_close, mlx);
 	mlx_loop(mlx->mlx_connection);
 }
