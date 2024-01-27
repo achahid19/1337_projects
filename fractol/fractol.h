@@ -74,6 +74,7 @@ typedef struct s_mlx_data
 	void		*mlx_connection;
 	void		*mlx_win;
 	t_mlx_image	img;
+	char		*set_name;
 	/* hooks variables */
 	int			max_iteration;
 	double		shift_x;
@@ -81,6 +82,9 @@ typedef struct s_mlx_data
 	double		zoom;
 	int			mouse_x;
 	int			mouse_y;
+	/* Julia Set */
+	double		x_julia;
+	double		y_julia;
 }	t_mlx_data;
 
 /* complex plan struct for coordinates */
@@ -100,6 +104,17 @@ typedef struct s_vars
 	int		color;
 }	t_vars;
 
+/* ft_atoi double struct */
+typedef struct s_var
+{
+	int count;
+	int count1;
+	int sign;
+	double result;
+	double div;
+	int div_count;
+}	t_var;
+
 /* fractol_utils */
 int		ft_strncmp(const char *s1, const char *s2, int n);
 size_t	ft_strlen(const char *str);
@@ -117,5 +132,8 @@ static void		ft_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx, t_plan *c
 int				ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx);
 static int		ft_close(t_mlx_data *mlx);
 static void		fractol_data_init(t_mlx_data *mlx);
+
+void			ft_decimal_count(t_var *atoi, const char *str);
+double			ft_atoi(const char *str);
 
 #endif /* FRACTOL_H */

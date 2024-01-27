@@ -56,7 +56,7 @@ void	ft_fractol_init(t_mlx_data *mlx, char *window_name)
 
 static void	fractol_data_init(t_mlx_data *mlx)
 {
-	mlx->max_iteration = 100;
+	mlx->max_iteration = 101;
 	mlx->shift_x = 0.0;
 	mlx->shift_y = 0.0;
 	mlx->zoom = 1.0;

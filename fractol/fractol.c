@@ -26,6 +26,12 @@ int main(int ac, char **av)
 		|| (4 == ac && 0 == ft_strncmp(av[1], "Julia", 5)))
 	{
 		// Construct the MLX data and render stuff.
+		mlx.set_name = av[1];
+		if (0 == ft_strncmp(mlx.set_name, "Julia", 4))
+		{
+			mlx.x_julia = ft_atoi(av[2]);
+			mlx.y_julia = ft_atoi(av[3]);
+		}
 		ft_fractol_init(&mlx, av[1]);
 		ft_fractol_render(&mlx);
 		ft_fractol_hooks_loop(&mlx);
