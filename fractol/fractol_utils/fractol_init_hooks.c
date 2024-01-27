@@ -112,13 +112,7 @@ int	ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx)
 		mlx->zoom *= 0.95;
 	}
     ft_fractol_render(mlx);
-}
-
-int	ft_mouse_move(int x, int y, t_mlx_data *mlx)
-{
-	mlx->mouse_x = x;
-	mlx->mouse_y = y;
-
+	return (0); // TODO in the others;
 }
 
 /**
@@ -132,7 +126,6 @@ void	ft_fractol_hooks_loop(t_mlx_data *mlx)
 	/* keyboard handler */
 	mlx_key_hook(mlx->mlx_win, &ft_key_hooks, mlx);
 	/* Mouse handler */
-	mlx_hook(mlx->mlx_win, MotionNotify, PointerMotionMask, &ft_mouse_move, mlx);
 	mlx_hook(mlx->mlx_win, ButtonPress, ButtonPressMask, &ft_mouse_hooks, mlx);
 	/* cross x of window handler */
 	mlx_hook(mlx->mlx_win, DestroyNotify, StructureNotifyMask, &ft_close, mlx);

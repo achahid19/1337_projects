@@ -13,7 +13,7 @@
 #include "../fractol.h"
 
 static void		ft_handle_pixel(int x, int y, t_mlx_data *mlx, int color);
-static double	ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
+double			ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
 static void		ft_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx, t_plan *complex, int x, int y);
 static void		ft_init_set(t_vars *set, t_plan *complex, t_mlx_data *mlx);
 
@@ -110,7 +110,7 @@ static void	ft_init_set(t_vars *set, t_plan *complex, t_mlx_data *mlx)
  * @odl_max: the old maximum value
  * Return: scaled number.
 */
-static double	ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max)
+double	ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max)
 {
 	return ((new_max - new_min) * (unscaled_num - old_min) / (old_max - old_min) + new_min);
 }

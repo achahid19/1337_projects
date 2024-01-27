@@ -127,7 +127,7 @@ void	ft_fractol_hooks_loop(t_mlx_data *mlx);
 static int		ft_key_hooks(int keysym, t_mlx_data *mlx);
 static int		ft_close(t_mlx_data *mlx);
 static void		ft_handle_pixel(int x, int y, t_mlx_data *mlx, int color);
-static double	ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
+double	ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
 static void		ft_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx, t_plan *complex, int x, int y);
 int				ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx);
 static int		ft_close(t_mlx_data *mlx);
