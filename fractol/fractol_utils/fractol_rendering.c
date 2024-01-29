@@ -169,6 +169,17 @@ void	ft_decimal_count(t_var *atoi, const char *str)
 	}
 }
 
+static void	ft_atoi_handler(const char *str, t_var *atoi)
+{
+	if (str[atoi->count] != '.')
+			atoi->result = atoi->result * 10 + (str[atoi->count] - 48);
+	else if (str[atoi->count] == '.')
+	{
+		if (str[atoi->count + 1] == '.')
+			exit(-1); // error handling TODO
+		ft_decimal_count(atoi, str);
+	}
+}
 /**
  * ft_atoi - convert string to float
  * @str: string to convert
@@ -182,7 +193,8 @@ double  ft_atoi(const char *str)
 	atoi.sign = 1;
 	atoi.result = 0;
 	atoi.div = 1;
-		while (str[atoi.count] == ' ')
+
+	while (str[atoi.count] == ' ')
 		atoi.count++;
 	if (str[atoi.count] == '-' || str[atoi.count] == '+')
 	{
@@ -190,13 +202,12 @@ double  ft_atoi(const char *str)
 			atoi.sign = -atoi.sign;
 		atoi.count++;
 	}
+	if (!(str[atoi.count] >= '0' && str[atoi.count] <= '9') && !(str[atoi.count] == '.'))
+		exit(-1); // error handling TODO
 	while ((str[atoi.count] >= '0' && str[atoi.count] <= '9') || str[atoi.count] == '.')
 	{
-		if (str[atoi.count] != '.')
-			atoi.result = atoi.result * 10 + (str[atoi.count] - 48);
-		else if (str[atoi.count] == '.')
-			ft_decimal_count(&atoi, str);
+		ft_atoi_handler(str, &atoi);
 		atoi.count++;
-	}
+	}	
 	return ((atoi.result / atoi.div) * atoi.sign);
 }
