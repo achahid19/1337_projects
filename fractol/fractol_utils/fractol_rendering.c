@@ -14,7 +14,7 @@
 
 static void		ft_handle_pixel(int x, int y, t_mlx_data *mlx, int color);
 double			ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
-static void		ft_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx, t_plan *complex, int x, int y);
+static void		ft_mandelbrot_julia_set(t_mlx_data *mlx, t_plan *complex, int x, int y);
 static void		ft_init_set(t_vars *set, t_plan *complex, t_mlx_data *mlx);
 
 /**
@@ -39,7 +39,7 @@ void	ft_fractol_render(t_mlx_data *mlx)
 		{
 			complex_plan.real = (ft_pixel_scale((double)x, X_MIN_PLAN, X_MAX_PLAN, 0, WIDTH) * mlx->zoom) + mlx->shift_x;
 			complex_plan.i = (ft_pixel_scale((double)y, Y_MIN_PLAN, Y_MAX_PLAN, 0, HEIGHT) * mlx->zoom) + mlx->shift_y;
-			ft_mandelbrot_set(&mlx->img, mlx, &complex_plan, x, y); // I have passed the unscaled to handle the real pixel
+			ft_mandelbrot_julia_set(mlx, &complex_plan, x, y); // I have passed the unscaled to handle the real pixel
 			x++;
 		}
 		y++;
@@ -59,12 +59,13 @@ void	ft_fractol_render(t_mlx_data *mlx)
  * @y: pixel coordinate in HEIGHT axe
  * Return: void.
 */
-static void	ft_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx, t_plan *complex, int x, int y)
+
+static void	ft_mandelbrot_julia_set(t_mlx_data *mlx, t_plan *complex, int x, int y)
 {
 	t_vars	set;
 	
 	ft_init_set(&set, complex, mlx);
-	while (set.count < mlx->max_iteration)
+	while (set.count < (size_t)mlx->max_iteration)
 	{
 		set.tmp_real = (set.z.real * set.z.real) - (set.z.i * set.z.i);
 		set.z.i = set.z.real * set.z.i * 2;
@@ -74,7 +75,7 @@ static void	ft_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx, t_plan *co
 		if ((set.z.real * set.z.real) + (set.z.i * set.z.i) > ESCAPE_VALUE) // c = a^2 + b^2 // Pythagorean theorem
 		{
 			// BLACK IS THE ABSENCE OF COLORS, AND WHITE IS THE CONCOCTION OF ALL COLORS.(MIN, MAX)
-			set.color = ft_pixel_scale(set.count, BLACK, WHITE, 0, MAX_VAL_COL);
+			set.color = ft_pixel_scale(set.count, BLACK, RED, 0, MAX_VAL_COL);
 			ft_handle_pixel(x, y, mlx, set.color);
 			return ;
 		}
@@ -84,6 +85,16 @@ static void	ft_mandelbrot_set(t_mlx_image *img_data, t_mlx_data *mlx, t_plan *co
 	// maybe set a color for mandelbrot set.
 	ft_handle_pixel(x, y, mlx, BLACK);
 }
+
+/**
+ * ft_init_set - initialize the set's variables
+ * (real and imaginary component) depending on
+ * which one is called
+ * @set: pointer to the struct containing set's variables
+ * @complex: pointer complex plan coordinates (scaled)
+ * @mlx: pointer to mlx Data
+ * Return: void
+*/
 static void	ft_init_set(t_vars *set, t_plan *complex, t_mlx_data *mlx)
 {
 	if (0 == ft_strncmp(mlx->set_name, "Mandelbrot", 10))
@@ -132,6 +143,12 @@ static void	ft_handle_pixel(int x, int y, t_mlx_data *mlx, int color)
 	*((unsigned int*)(offset + mlx->img.pixel_addr)) = color;
 }
 
+/**
+ * ft_decimal_count - counts number of decimals
+ * @atoi: pointer to atoi's variables
+ * @str: string to convert
+ * Return: void.
+*/
 void	ft_decimal_count(t_var *atoi, const char *str)
 {
 	atoi->div = 10;
@@ -151,6 +168,12 @@ void	ft_decimal_count(t_var *atoi, const char *str)
 		atoi->count1++;
 	}
 }
+
+/**
+ * ft_atoi - convert string to float
+ * @str: string to convert
+ * Return: floating number
+*/
 double  ft_atoi(const char *str)
 {
 	t_var  atoi;

@@ -56,7 +56,7 @@ void	ft_fractol_init(t_mlx_data *mlx, char *window_name)
 
 static void	fractol_data_init(t_mlx_data *mlx)
 {
-	mlx->max_iteration = 101;
+	mlx->max_iteration = 51;
 	mlx->shift_x = 0.0;
 	mlx->shift_y = 0.0;
 	mlx->zoom = 1.0;
@@ -88,6 +88,7 @@ static int	ft_key_hooks(int keysym, t_mlx_data *mlx) // TODO return value as int
 		mlx->max_iteration -= 10;
 	// to referesh the image
 	ft_fractol_render(mlx);
+	return (0);
 }
 
 static int	ft_close(t_mlx_data *mlx)
@@ -103,6 +104,8 @@ int	ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx)
 {
 	// zoom in == 5
 	// zoom out == 4
+	(void)x;
+	(void)y;
 	if (Button5 == button)
 	{
 		mlx->zoom *= 1.05;
