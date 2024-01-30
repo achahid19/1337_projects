@@ -29,6 +29,7 @@ int main(int ac, char **av)
 		mlx.set_name = av[1];
 		if (0 == ft_strncmp(mlx.set_name, "Julia", 4))
 		{
+			ft_check_julia_input(av[2], av[3]);
 			mlx.x_julia = ft_atoi(av[2]);
 			mlx.y_julia = ft_atoi(av[3]);
 		}

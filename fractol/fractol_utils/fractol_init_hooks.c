@@ -56,10 +56,11 @@ void	ft_fractol_init(t_mlx_data *mlx, char *window_name)
 
 static void	fractol_data_init(t_mlx_data *mlx)
 {
-	mlx->max_iteration = 51;
+	mlx->max_iteration = 100;
 	mlx->shift_x = 0.0;
 	mlx->shift_y = 0.0;
 	mlx->zoom = 1.0;
+	mlx->max_val_col = 15;
 }
 
 /**
@@ -75,13 +76,25 @@ static int	ft_key_hooks(int keysym, t_mlx_data *mlx) // TODO return value as int
 	if (XK_Escape == keysym) // for window cross
 		ft_close(mlx);
 	else if (XK_Left == keysym)
+	{
 		mlx->shift_x += 0.5 * mlx->zoom; // shift propotionnely as the zoom increase or decrease
+		mlx->max_val_col += 1;
+	}
 	else if (XK_Up == keysym)
+	{
 		mlx->shift_y -= 0.5 * mlx->zoom;
+		mlx->max_val_col += 1;
+	}
 	else if (XK_Down == keysym)
+	{
 		mlx->shift_y += 0.5 * mlx->zoom;
+		mlx->max_val_col -= 1;
+	}
 	else if (XK_Right == keysym)
+	{
 		mlx->shift_x -= 0.5 * mlx->zoom;
+		mlx->max_val_col += 1;
+	}
 	else if (65451 == keysym) // + key; keysym do not work properly
 		mlx->max_iteration += 10;
 	else if (65453 == keysym) // - key; keysym do not work properly

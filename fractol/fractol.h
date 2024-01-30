@@ -50,7 +50,7 @@
 # define PSYCH_MAGENTA 0xCC00FF
 
 /* Mandelbrot Set Data */
-# define MAX_ITERATION 1000 // the more iteration, the more refined is the image
+# define MAX_ITERATION 100// the more iteration, the more refined is the image
 # define ESCAPE_VALUE 4 // Escaping the Mandelbrot Set
 # define MAX_VAL_COL 15
 # define X_MIN_PLAN -2
@@ -85,6 +85,9 @@ typedef struct s_mlx_data
 	/* Julia Set */
 	double		x_julia;
 	double		y_julia;
+	/* Color */
+	int		color;
+	int		max_val_col;
 }	t_mlx_data;
 
 /* complex plan struct for coordinates */
@@ -101,7 +104,7 @@ typedef struct s_vars
 	t_plan	c;
 	size_t	count;
 	double	tmp_real;
-	int		color;
+	
 }	t_vars;
 
 /* ft_atoi double struct */
@@ -135,5 +138,7 @@ int				ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx);
 
 void			ft_decimal_count(t_var *atoi, const char *str);
 double			ft_atoi(const char *str);
+void			ft_check_julia_input(const char *arg1, const char *arg2);
+void			ft_julia_args_handler(const char *arg1, const char *arg2);
 
 #endif /* FRACTOL_H */

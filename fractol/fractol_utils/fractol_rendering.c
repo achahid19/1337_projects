@@ -65,7 +65,7 @@ static void	ft_mandelbrot_julia_set(t_mlx_data *mlx, t_plan *complex, int x, int
 	t_vars	set;
 	
 	ft_init_set(&set, complex, mlx);
-	while (set.count < (size_t)mlx->max_iteration)
+	while (set.count < MAX_ITERATION)
 	{
 		set.tmp_real = (set.z.real * set.z.real) - (set.z.i * set.z.i);
 		set.z.i = set.z.real * set.z.i * 2;
@@ -75,8 +75,8 @@ static void	ft_mandelbrot_julia_set(t_mlx_data *mlx, t_plan *complex, int x, int
 		if ((set.z.real * set.z.real) + (set.z.i * set.z.i) > ESCAPE_VALUE) // c = a^2 + b^2 // Pythagorean theorem
 		{
 			// BLACK IS THE ABSENCE OF COLORS, AND WHITE IS THE CONCOCTION OF ALL COLORS.(MIN, MAX)
-			set.color = ft_pixel_scale(set.count, BLACK, RED, 0, MAX_VAL_COL);
-			ft_handle_pixel(x, y, mlx, set.color);
+			mlx->color = ft_pixel_scale(set.count, BLACK, RED, 0, mlx->max_val_col);
+			ft_handle_pixel(x, y, mlx, mlx->color);
 			return ;
 		}
 		set.count++;
@@ -175,7 +175,7 @@ static void	ft_atoi_handler(const char *str, t_var *atoi)
 			atoi->result = atoi->result * 10 + (str[atoi->count] - 48);
 	else if (str[atoi->count] == '.')
 	{
-		if (str[atoi->count + 1] == '.')
+		if (str[atoi->count + 1] == '.' || !(str[atoi->count + 1] >= '0' && str[atoi->count + 1] <= '9'))
 			exit(-1); // error handling TODO
 		ft_decimal_count(atoi, str);
 	}
@@ -194,8 +194,6 @@ double  ft_atoi(const char *str)
 	atoi.result = 0;
 	atoi.div = 1;
 
-	while (str[atoi.count] == ' ')
-		atoi.count++;
 	if (str[atoi.count] == '-' || str[atoi.count] == '+')
 	{
 		if (str[atoi.count] == '-')
@@ -204,7 +202,7 @@ double  ft_atoi(const char *str)
 	}
 	if (!(str[atoi.count] >= '0' && str[atoi.count] <= '9') && !(str[atoi.count] == '.'))
 		exit(-1); // error handling TODO
-	while ((str[atoi.count] >= '0' && str[atoi.count] <= '9') || str[atoi.count] == '.')
+	while ((str[atoi.count] >= '0' && str[atoi.count] <= '9') || (str[atoi.count] == '.'))
 	{
 		ft_atoi_handler(str, &atoi);
 		atoi.count++;
