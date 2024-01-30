@@ -14,6 +14,7 @@
 
 static void	fractol_data_init(t_mlx_data *mlx);
 static int	ft_close(t_mlx_data *mlx);
+static int	ft_key_hooks(int keysym, t_mlx_data *mlx);
 
 /**
  * ft_fractol_init - Establish the cnx with X Server, Create
