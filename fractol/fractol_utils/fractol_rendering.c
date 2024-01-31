@@ -64,6 +64,7 @@ static void	ft_mandelbrot_julia_set(t_mlx_data *mlx, t_plan *complex, int x, int
 	t_vars	set;
 	
 	ft_init_set(&set, complex, mlx);
+	set.count = 0;
 	while (set.count < MAX_ITERATION)
 	{
 		set.tmp_real = (set.z.real * set.z.real) - (set.z.i * set.z.i);
