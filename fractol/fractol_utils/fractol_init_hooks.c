@@ -15,6 +15,7 @@
 static void	fractol_data_init(t_mlx_data *mlx);
 static int	ft_close(t_mlx_data *mlx);
 static int	ft_key_hooks(int keysym, t_mlx_data *mlx);
+static int	ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx);
 
 /**
  * ft_fractol_init - Establish the cnx with X Server, Create
@@ -57,7 +58,7 @@ void	ft_fractol_init(t_mlx_data *mlx, char *window_name)
 
 static void	fractol_data_init(t_mlx_data *mlx)
 {
-	mlx->max_iteration = 100;
+	mlx->max_iteration = 50;
 	mlx->shift_x = 0.0;
 	mlx->shift_y = 0.0;
 	mlx->zoom = 1.0;
@@ -77,29 +78,24 @@ static int	ft_key_hooks(int keysym, t_mlx_data *mlx) // TODO return value as int
 	if (XK_Escape == keysym) // for window cross
 		ft_close(mlx);
 	else if (XK_Left == keysym)
-	{
 		mlx->shift_x += 0.5 * mlx->zoom; // shift propotionnely as the zoom increase or decrease
-		mlx->max_val_col += 1;
-	}
 	else if (XK_Up == keysym)
-	{
 		mlx->shift_y -= 0.5 * mlx->zoom;
-		mlx->max_val_col += 1;
-	}
 	else if (XK_Down == keysym)
-	{
 		mlx->shift_y += 0.5 * mlx->zoom;
-		mlx->max_val_col -= 1;
-	}
 	else if (XK_Right == keysym)
-	{
 		mlx->shift_x -= 0.5 * mlx->zoom;
+	// numbers are keysym for my ubuntu OS; X11/keysym for XK_plusminus ain't working!
+	else if (XK_plus == keysym || 61 == keysym || 65451 == keysym) // + key; keysym do not work properly
+	{
+		mlx->max_iteration += 10;
 		mlx->max_val_col += 1;
 	}
-	else if (65451 == keysym) // + key; keysym do not work properly
-		mlx->max_iteration += 10;
-	else if (65453 == keysym) // - key; keysym do not work properly
+	else if (XK_minus == keysym || 65453 == keysym) // - key; keysym do not work properly
+	{
 		mlx->max_iteration -= 10;
+		mlx->max_val_col -= 1;
+	}	
 	// to referesh the image
 	ft_fractol_render(mlx);
 	return (0);
@@ -114,7 +110,7 @@ static int	ft_close(t_mlx_data *mlx)
 	exit(EXIT_SUCCESS);
 }
 
-int	ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx)
+static int	ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx)
 {
 	// zoom in == 5
 	// zoom out == 4
@@ -131,6 +127,13 @@ int	ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx)
     ft_fractol_render(mlx);
 	return (0); // TODO in the others;
 }
+int	ft_julia_event(int x, int y, t_mlx_data *mlx)
+{
+	mlx->x_julia = ft_pixel_scale(x, X_MIN_PLAN, X_MAX_PLAN, 0, WIDTH);
+	mlx->y_julia = ft_pixel_scale(y, Y_MIN_PLAN, Y_MAX_PLAN, 0, HEIGHT);
+	ft_fractol_render(mlx);
+	return (0);
+}
 
 /**
  * ft_fracto_hooks_loop - handle events and keeps the waiting
@@ -146,5 +149,8 @@ void	ft_fractol_hooks_loop(t_mlx_data *mlx)
 	mlx_hook(mlx->mlx_win, ButtonPress, ButtonPressMask, &ft_mouse_hooks, mlx);
 	/* cross x of window handler */
 	mlx_hook(mlx->mlx_win, DestroyNotify, StructureNotifyMask, &ft_close, mlx);
+	/* Julia Set hook */
+	if (0 == ft_strncmp(mlx->set_name, "Julia", 5))
+		mlx_hook(mlx->mlx_win, MotionNotify, PointerMotionMask, &ft_julia_event, mlx);
 	mlx_loop(mlx->mlx_connection);
 }

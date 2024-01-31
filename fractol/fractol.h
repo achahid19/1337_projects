@@ -127,18 +127,11 @@ void	ft_fractol_init(t_mlx_data *mlx, char *window_name);
 void	ft_fractol_render(t_mlx_data *mlx);
 void	ft_fractol_hooks_loop(t_mlx_data *mlx);
 
-/* static int		ft_key_hooks(int keysym, t_mlx_data *mlx);
-static int		ft_close(t_mlx_data *mlx);
-static void		ft_handle_pixel(int x, int y, t_mlx_data *mlx, int color); */
+/* Math lib */
 double	ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
-//static void		ft_mandelbrot_julia_set(t_mlx_image *img_data, t_mlx_data *mlx, t_plan *complex, int x, int y);
-int				ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx);
-//static int		ft_close(t_mlx_data *mlx);
-//static void		fractol_data_init(t_mlx_data *mlx);
-
-void			ft_decimal_count(t_var *atoi, const char *str);
 double			ft_atoi(const char *str);
+
+/* Julia Set parsing */
 void			ft_check_julia_input(const char *arg1, const char *arg2);
-void			ft_julia_args_handler(const char *arg1, const char *arg2);
 
 #endif /* FRACTOL_H */

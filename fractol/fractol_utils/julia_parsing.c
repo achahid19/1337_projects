@@ -12,31 +12,7 @@
 
 #include "../fractol.h"
 
-/**
- * ft_julia_args_hanlder - handle the parsing of the arguments passed
- * to the program
- * @arg1: pointer to the first argument
- * @arg2: pointer to the second argument
- * Return: void.
-*/
-void ft_julia_args_handler(const char *arg1, const char *arg2)
-{
-	while (*arg1)
-	{
-		if (!(*arg1 >= '0' && *arg1 <= '9') && (*arg1 != '+' && *arg1 != '-')
-			&& *arg1 != '.' && *arg1 != ' ')
-			exit (5); // TODO errors handling.
-		arg1++;
-	}
-	while (*arg2)
-	{
-		if (!(*arg2 >= '0' && *arg2 <= '9') && (*arg2 != '+' && *arg2 != '-')
-			&& *arg2 != '.' && *arg2 != ' ')
-			exit (5); // TODO errors hander
-		arg2++;
-	}
-	return ;
-}
+static void ft_julia_args_handler(const char *arg1, const char *arg2);
 
 /**
  * ft_check_julia_input - checks the argument passed to the program
@@ -62,5 +38,31 @@ void	ft_check_julia_input(const char *arg1, const char *arg2)
 			exit(EXIT_FAILURE); // TODO errors hanler
 	}
 	ft_julia_args_handler(arg1, arg2);
+	return ;
+}
+
+/**
+ * ft_julia_args_hanlder - handle the parsing of the arguments passed
+ * to the program
+ * @arg1: pointer to the first argument
+ * @arg2: pointer to the second argument
+ * Return: void.
+*/
+static void ft_julia_args_handler(const char *arg1, const char *arg2)
+{
+	while (*arg1)
+	{
+		if (!(*arg1 >= '0' && *arg1 <= '9') && (*arg1 != '+' && *arg1 != '-')
+			&& *arg1 != '.' && *arg1 != ' ')
+			exit (5); // TODO errors handling.
+		arg1++;
+	}
+	while (*arg2)
+	{
+		if (!(*arg2 >= '0' && *arg2 <= '9') && (*arg2 != '+' && *arg2 != '-')
+			&& *arg2 != '.' && *arg2 != ' ')
+			exit (5); // TODO errors hander
+		arg2++;
+	}
 	return ;
 }
