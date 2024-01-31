@@ -53,10 +53,7 @@
 # define MAX_ITERATION 100// the more iteration, the more refined is the image
 # define ESCAPE_VALUE 4 // Escaping the Mandelbrot Set
 # define MAX_VAL_COL 15
-# define X_MIN_PLAN -2
-# define X_MAX_PLAN 2
-# define Y_MIN_PLAN 2
-# define Y_MAX_PLAN -2
+# define ZOOM_MULT 0.10
 
 /* Mlx image data */
 typedef struct s_mlx_image
@@ -82,12 +79,18 @@ typedef struct s_mlx_data
 	double		zoom;
 	int			mouse_x;
 	int			mouse_y;
+	double		zoom_shift;
 	/* Julia Set */
 	double		x_julia;
 	double		y_julia;
 	/* Color */
 	int		color;
 	int		max_val_col;
+	/* complex plan scaled metrics */
+	double	x_min;
+	double	x_max;
+	double	y_min;
+	double	y_max;
 }	t_mlx_data;
 
 /* complex plan struct for coordinates */

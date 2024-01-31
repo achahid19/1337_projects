@@ -36,8 +36,8 @@ void	ft_fractol_render(t_mlx_data *mlx)
 		x = 0;
 		while (x < WIDTH)
 		{
-			complex_plan.real = (ft_pixel_scale((double)x, X_MIN_PLAN, X_MAX_PLAN, 0, WIDTH) * mlx->zoom) + mlx->shift_x;
-			complex_plan.i = (ft_pixel_scale((double)y, Y_MIN_PLAN, Y_MAX_PLAN, 0, HEIGHT) * mlx->zoom) + mlx->shift_y;
+			complex_plan.real = ft_pixel_scale((double)x, mlx->x_min, mlx->x_max, 0, WIDTH) + mlx->shift_x;
+			complex_plan.i = ft_pixel_scale((double)y, mlx->y_max, mlx->y_min, 0, HEIGHT) + mlx->shift_y;
 			ft_mandelbrot_julia_set(mlx, &complex_plan, x, y); // I have passed the unscaled to handle the real pixel
 			x++;
 		}

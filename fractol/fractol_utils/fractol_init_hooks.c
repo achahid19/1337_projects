@@ -61,8 +61,12 @@ static void	fractol_data_init(t_mlx_data *mlx)
 	mlx->max_iteration = 50;
 	mlx->shift_x = 0.0;
 	mlx->shift_y = 0.0;
-	mlx->zoom = 1.0;
 	mlx->max_val_col = 15;
+	mlx->x_min = -2;
+	mlx->x_max = 2;
+	mlx->y_min = -2;
+	mlx->y_max = 2;
+	mlx->zoom_shift = 0.50;
 }
 
 /**
@@ -78,13 +82,13 @@ static int	ft_key_hooks(int keysym, t_mlx_data *mlx) // TODO return value as int
 	if (XK_Escape == keysym) // for window cross
 		ft_close(mlx);
 	else if (XK_Left == keysym)
-		mlx->shift_x += 0.5 * mlx->zoom; // shift propotionnely as the zoom increase or decrease
+		mlx->shift_x += 0.5 * mlx->zoom_shift; // shift propotionnely as the zoom increase or decrease
 	else if (XK_Up == keysym)
-		mlx->shift_y -= 0.5 * mlx->zoom;
+		mlx->shift_y -= 0.5 * mlx->zoom_shift;
 	else if (XK_Down == keysym)
-		mlx->shift_y += 0.5 * mlx->zoom;
+		mlx->shift_y += 0.5 * mlx->zoom_shift;
 	else if (XK_Right == keysym)
-		mlx->shift_x -= 0.5 * mlx->zoom;
+		mlx->shift_x -= 0.5 * mlx->zoom_shift;
 	// numbers are keysym for my ubuntu OS; X11/keysym for XK_plusminus ain't working!
 	else if (XK_plus == keysym || 61 == keysym || 65451 == keysym) // + key; keysym do not work properly
 	{
@@ -112,25 +116,34 @@ static int	ft_close(t_mlx_data *mlx)
 
 static int	ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx)
 {
-	// zoom in == 5
-	// zoom out == 4
-	(void)x;
-	(void)y;
-	if (Button5 == button)
+	/* Handling Zoom Part; zoom follow x and y position! */
+	double	per_x = (mlx->x_max - mlx->x_min) / WIDTH;
+	double	per_y = (mlx->y_max - mlx->y_min) / HEIGHT;
+	//(void)x;
+	//(void)y;
+	if (Button4 == button) // zoom in!
 	{
-		mlx->zoom *= 1.05;
+		mlx->zoom_shift *= 0.90;
+		mlx->x_min += (per_x * x) * ZOOM_MULT;
+		mlx->x_max -= (per_x * (WIDTH - x)) * ZOOM_MULT;
+		mlx->y_min += (per_y * (HEIGHT - y)) * ZOOM_MULT;
+		mlx->y_max -= (per_y * y) * ZOOM_MULT;
 	}
-	if (Button4 == button)
+	if (Button5 == button) // zoom out!
 	{
-		mlx->zoom *= 0.95;
+		mlx->zoom_shift *= 1.10;
+		mlx->x_min -= (per_x * x) * ZOOM_MULT;
+		mlx->x_max += (per_x * (WIDTH - x)) * ZOOM_MULT;
+		mlx->y_min -= (per_y * (HEIGHT - y)) * ZOOM_MULT;
+		mlx->y_max += (per_y * y) * ZOOM_MULT;
 	}
     ft_fractol_render(mlx);
 	return (0); // TODO in the others;
 }
 int	ft_julia_event(int x, int y, t_mlx_data *mlx)
 {
-	mlx->x_julia = ft_pixel_scale(x, X_MIN_PLAN, X_MAX_PLAN, 0, WIDTH);
-	mlx->y_julia = ft_pixel_scale(y, Y_MIN_PLAN, Y_MAX_PLAN, 0, HEIGHT);
+	mlx->x_julia = ft_pixel_scale(x, mlx->x_min, mlx->x_max, 0, WIDTH);
+	mlx->y_julia = ft_pixel_scale(y, mlx->y_min, mlx->y_max, 0, HEIGHT);
 	ft_fractol_render(mlx);
 	return (0);
 }
