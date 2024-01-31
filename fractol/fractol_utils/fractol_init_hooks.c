@@ -58,7 +58,6 @@ void	ft_fractol_init(t_mlx_data *mlx, char *window_name)
 
 static void	fractol_data_init(t_mlx_data *mlx)
 {
-	mlx->max_iteration = 50;
 	mlx->shift_x = 0.0;
 	mlx->shift_y = 0.0;
 	mlx->max_val_col = 15;
@@ -99,7 +98,7 @@ static int	ft_key_hooks(int keysym, t_mlx_data *mlx) // TODO return value as int
 	{
 		mlx->max_iteration -= 10;
 		mlx->max_val_col -= 1;
-	}	
+	}
 	// to referesh the image
 	ft_fractol_render(mlx);
 	return (0);

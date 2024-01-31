@@ -50,9 +50,8 @@
 # define PSYCH_MAGENTA 0xCC00FF
 
 /* Mandelbrot Set Data */
-# define MAX_ITERATION 100// the more iteration, the more refined is the image
+# define MAX_ITERATION 51// the more iteration, the more refined is the image
 # define ESCAPE_VALUE 4 // Escaping the Mandelbrot Set
-# define MAX_VAL_COL 15
 # define ZOOM_MULT 0.10
 
 /* Mlx image data */
@@ -91,6 +90,7 @@ typedef struct s_mlx_data
 	double	x_max;
 	double	y_min;
 	double	y_max;
+
 }	t_mlx_data;
 
 /* complex plan struct for coordinates */
