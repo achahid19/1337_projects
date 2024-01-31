@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "../inc/fractol.h"
 
 static void	ft_decimal_count(t_var *atoi, const char *str);
 static void	ft_atoi_handler(const char *str, t_var *atoi);

@@ -10,10 +10,17 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "../inc/fractol.h"
 
 static void ft_julia_args_handler(const char *arg1, const char *arg2);
 
+/* Error handling for julia */
+/* TO ADD in error file */
+void	ft_print_error(char *error)
+{
+	ft_putendl_fd(error, 2);
+	exit(EXIT_FAILURE); // Handle TODO errors.
+}
 /**
  * ft_check_julia_input - checks the argument passed to the program
  * when the Julia Set is called
@@ -29,13 +36,13 @@ void	ft_check_julia_input(const char *arg1, const char *arg2)
 	while (++i <= ft_strlen(arg1) - 1)
 	{
 		if('+' == arg1[i] || '-' == arg1[i])
-			exit(EXIT_FAILURE); // Handle TODO errors.
+			ft_print_error("\033[1;31mError: Bad argument <real>\033[0m");
 	}
 	i = 0;
 	while (++i <= ft_strlen(arg2) - 1)
 	{
 		if ('+' == arg2[i] || '-' == arg2[i])
-			exit(EXIT_FAILURE); // TODO errors hanler
+			ft_print_error("\033[1;31mError: Bad argument <imaginary>\033[0m");
 	}
 	ft_julia_args_handler(arg1, arg2);
 	return ;
@@ -54,14 +61,14 @@ static void ft_julia_args_handler(const char *arg1, const char *arg2)
 	{
 		if (!(*arg1 >= '0' && *arg1 <= '9') && (*arg1 != '+' && *arg1 != '-')
 			&& *arg1 != '.' && *arg1 != ' ')
-			exit (5); // TODO errors handling.
+			ft_print_error("\033[1;31mError: Bad argument <real>\033[0m");
 		arg1++;
 	}
 	while (*arg2)
 	{
 		if (!(*arg2 >= '0' && *arg2 <= '9') && (*arg2 != '+' && *arg2 != '-')
 			&& *arg2 != '.' && *arg2 != ' ')
-			exit (5); // TODO errors hander
+			ft_print_error("\033[1;31mError: Bad argument <imaginary>\033[0m");
 		arg2++;
 	}
 	return ;

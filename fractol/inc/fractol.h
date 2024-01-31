@@ -16,7 +16,7 @@
 # include <stdio.h> // for debuggind
 # include <stdlib.h> // malloc and free
 # include <unistd.h> // write ...
-# include "minilibx-linux/mlx.h"
+# include "../minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 # include <X11/Xlib.h>
 
@@ -126,6 +126,7 @@ typedef struct s_var
 /* fractol_utils */
 int		ft_strncmp(const char *s1, const char *s2, int n);
 size_t	ft_strlen(const char *str);
+void	ft_putendl_fd(char *s, int fd);
 
 /* fractol utilities functions */
 void	ft_fractol_init(t_mlx_data *mlx, char *window_name);
@@ -138,5 +139,8 @@ double			ft_atoi(const char *str);
 
 /* Julia Set parsing */
 void			ft_check_julia_input(const char *arg1, const char *arg2);
+
+/* for errors */
+void	ft_print_error(char *error);
 
 #endif /* FRACTOL_H */

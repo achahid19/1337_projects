@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "fractol.h"
+#include "inc/fractol.h"
 
 // ./a.out Julia <real> <imaginary> || ./a.out Mandelbrot
 // Display the parameters available if invalid

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "../inc/fractol.h"
 
 static void	fractol_data_init(t_mlx_data *mlx);
 static int	ft_close(t_mlx_data *mlx);

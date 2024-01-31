@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../fractol.h"
+#include "../inc/fractol.h"
 
 static void		ft_handle_pixel(int x, int y, t_mlx_data *mlx, int color);
 static void		ft_mandelbrot_julia_set(t_mlx_data *mlx, t_plan *complex, int x, int y);
