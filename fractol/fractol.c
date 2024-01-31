@@ -23,7 +23,8 @@ int main(int ac, char **av)
 	t_mlx_data	mlx;
 
     if ((2 == ac && 0 == ft_strncmp(av[1], "Mandelbrot", 10))
-		|| (4 == ac && 0 == ft_strncmp(av[1], "Julia", 5)))
+		|| (4 == ac && 0 == ft_strncmp(av[1], "Julia", 5))
+		|| (2 == ac && 0 == ft_strncmp(av[1], "demo", 4)))
 	{
 		// Construct the MLX data and render stuff.
 		mlx.set_name = av[1];

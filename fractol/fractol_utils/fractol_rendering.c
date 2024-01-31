@@ -67,7 +67,7 @@ static void	ft_mandelbrot_julia_set(t_mlx_data *mlx, t_plan *complex, int x, int
 	while (set.count < MAX_ITERATION)
 	{
 		set.tmp_real = (set.z.real * set.z.real) - (set.z.i * set.z.i);
-		set.z.i = set.z.real * set.z.i * 2;
+		set.z.i = set.z.real * set.z.i * 2 * mlx->tricorn;
 		set.z.real = set.tmp_real;
 		set.z.real += set.c.real;
 		set.z.i += set.c.i;
@@ -109,6 +109,14 @@ static void	ft_init_set(t_vars *set, t_plan *complex, t_mlx_data *mlx)
 		set->z.i = complex->i;
 		set->c.real = mlx->x_julia;
 		set->c.i = mlx->y_julia;
+	}
+	else if (0 == ft_strncmp(mlx->set_name, "demo", 4))
+	{
+		mlx->tricorn = -1;
+		set->z.real = 0;
+		set->z.i = 0;
+		set->c.real = complex->real;
+		set->c.i = complex->i;
 	}
 }
 

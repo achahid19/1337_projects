@@ -66,6 +66,7 @@ static void	fractol_data_init(t_mlx_data *mlx)
 	mlx->y_min = -2;
 	mlx->y_max = 2;
 	mlx->zoom_shift = 0.50;
+	mlx->tricorn = 1;
 }
 
 /**

@@ -90,7 +90,8 @@ typedef struct s_mlx_data
 	double	x_max;
 	double	y_min;
 	double	y_max;
-
+	/* for tricorn set */
+	int		tricorn;
 }	t_mlx_data;
 
 /* complex plan struct for coordinates */
