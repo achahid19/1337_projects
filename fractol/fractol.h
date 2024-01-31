@@ -25,6 +25,7 @@
 		- - - - - - - - - - - - - - - - - - - - - \n\
 		> ./program_name Mandelbrot\n\
 		> ./program_name Julia <real> <imaginary>\n\
+		> ./program_name Tricorn\n\
 		- - - - - - - - - - - - - - - - - - - - - \n"\
 
 /* Window Resolution */
