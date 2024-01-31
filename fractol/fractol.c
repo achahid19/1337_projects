@@ -10,23 +10,24 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+/**
+ * main - Entry point
+ * Description: Construct the MLX data, handle hooks
+ * and render available sets:
+ * (Mandelbrot, Julia and Tricorn)
+ * 
+ * Return: 0 on Success.
+*/
 #include "inc/fractol.h"
 
-// ./a.out Julia <real> <imaginary> || ./a.out Mandelbrot
-// Display the parameters available if invalid
-// Use color for depth of each fractal
-// hooks: zoom, ESC quit and clean also for clicking the cross (x) 
-// use of image is mandatory
-
-int main(int ac, char **av)
+int	main(int ac, char **av)
 {
 	t_mlx_data	mlx;
 
-    if ((2 == ac && 0 == ft_strncmp(av[1], "Mandelbrot", 10))
+	if ((2 == ac && 0 == ft_strncmp(av[1], "Mandelbrot", 10))
 		|| (4 == ac && 0 == ft_strncmp(av[1], "Julia", 5))
 		|| (2 == ac && 0 == ft_strncmp(av[1], "Tricorn", 7)))
 	{
-		// Construct the MLX data and render stuff.
 		mlx.set_name = av[1];
 		if (0 == ft_strncmp(mlx.set_name, "Julia", 4))
 		{
@@ -43,4 +44,5 @@ int main(int ac, char **av)
 		write(2, INVALID_PARA, ft_strlen(INVALID_PARA));
 		exit(EXIT_FAILURE);
 	}
+	return (0);
 }

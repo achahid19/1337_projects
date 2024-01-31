@@ -14,13 +14,6 @@
 
 static void ft_julia_args_handler(const char *arg1, const char *arg2);
 
-/* Error handling for julia */
-/* TO ADD in error file */
-void	ft_print_error(char *error)
-{
-	ft_putendl_fd(error, 2);
-	exit(EXIT_FAILURE); // Handle TODO errors.
-}
 /**
  * ft_check_julia_input - checks the argument passed to the program
  * when the Julia Set is called

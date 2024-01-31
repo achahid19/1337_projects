@@ -36,7 +36,7 @@ double  ft_atoi(const char *str)
 		atoi.count++;
 	}
 	if (!(str[atoi.count] >= '0' && str[atoi.count] <= '9') && !(str[atoi.count] == '.'))
-		exit(-1); // error handling TODO
+		ft_print_error("\033[1;33mError: Bad argument!\033[0m");
 	while ((str[atoi.count] >= '0' && str[atoi.count] <= '9') || (str[atoi.count] == '.'))
 	{
 		ft_atoi_handler(str, &atoi);
@@ -77,8 +77,9 @@ static void	ft_atoi_handler(const char *str, t_var *atoi)
 			atoi->result = atoi->result * 10 + (str[atoi->count] - 48);
 	else if (str[atoi->count] == '.')
 	{
-		if (str[atoi->count + 1] == '.' || !(str[atoi->count + 1] >= '0' && str[atoi->count + 1] <= '9'))
-			exit(-1); // error handling TODO
+		if (str[atoi->count + 1] == '.' || !(str[atoi->count + 1] >= '0'
+			&& str[atoi->count + 1] <= '9'))
+			ft_print_error("\033[1;33mError: Bad argument!\033[0m");
 		ft_decimal_count(atoi, str);
 	}
 }
