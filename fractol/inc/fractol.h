@@ -14,8 +14,8 @@
 # define FRACTOL_H
 
 # include <stdio.h> // for debuggind
-# include <stdlib.h> // malloc and free
-# include <unistd.h> // write ...
+# include <stdlib.h>
+# include <unistd.h>
 # include "../minilibx-linux/mlx.h"
 # include <X11/keysym.h>
 # include <X11/Xlib.h>
@@ -23,14 +23,14 @@
 # define INVALID_PARA "\033[1;31mParameters error:\n\033[0m\
 		\033[1;33mList of available sets:\n\033[0m\
 		- - - - - - - - - - - - - - - - - - - - - \n\
-		> ./program_name Mandelbrot\n\
-		> ./program_name Julia <real> <imaginary>\n\
-		> ./program_name Tricorn\n\
+		> ./fractol Mandelbrot\n\
+		> ./fractol Julia <real> <imaginary>\n\
+		> ./fractol Tricorn\n\
 		- - - - - - - - - - - - - - - - - - - - - \n"\
 
 /* Window Resolution */
-# define WIDTH 1000
-# define HEIGHT 1000
+# define W 1000
+# define H 1000
 
 /* Standard colors */
 # define BLACK   0x000000
@@ -50,10 +50,10 @@
 # define PSYCH_CYAN    0xCCFF00
 # define PSYCH_MAGENTA 0xCC00FF
 
-/* Mandelbrot Set Data */
-# define MAX_ITERATION 51// the more iteration, the more refined is the image
+/* Sets Data */
+# define MAX_ITERATION 51 // the more iteration, the more refined is the image
 # define ESCAPE_VALUE 4 // Escaping the Mandelbrot Set
-# define ZOOM_MULT 0.10
+# define ZOOM_MULT 0.10 // Zoom Speed
 
 /* Mlx image data */
 typedef struct s_mlx_image
@@ -84,15 +84,15 @@ typedef struct s_mlx_data
 	double		x_julia;
 	double		y_julia;
 	/* Color */
-	int		color;
-	int		max_val_col;
+	int			color;
+	int			max_val_col;
 	/* complex plan scaled metrics */
-	double	x_min;
-	double	x_max;
-	double	y_min;
-	double	y_max;
+	double		x_min;
+	double		x_max;
+	double		y_min;
+	double		y_max;
 	/* for tricorn set */
-	int		tricorn;
+	int			tricorn;
 }	t_mlx_data;
 
 /* complex plan struct for coordinates */
@@ -109,18 +109,18 @@ typedef struct s_vars
 	t_plan	c;
 	size_t	count;
 	double	tmp_real;
-	
+
 }	t_vars;
 
 /* ft_atoi double struct */
 typedef struct s_var
 {
-	int count;
-	int count1;
-	int sign;
-	double result;
-	double div;
-	int div_count;
+	int		count;
+	int		count1;
+	int		sign;
+	double	result;
+	double	div;
+	int		div_count;
 }	t_var;
 
 /* fractol_utils */
@@ -132,15 +132,17 @@ void	ft_putendl_fd(char *s, int fd);
 void	ft_fractol_init(t_mlx_data *mlx, char *window_name);
 void	ft_fractol_render(t_mlx_data *mlx);
 void	ft_fractol_hooks_loop(t_mlx_data *mlx);
+int		ft_close(t_mlx_data *mlx);
 
 /* Math lib */
-double	ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max);
-double			ft_atoi(const char *str);
+double	ft_scale(double unscaled_num, double n_min, double n_max, double o_max);
+double	ft_atoi(const char *str);
 
 /* Julia Set parsing */
-void			ft_check_julia_input(const char *arg1, const char *arg2);
+void	ft_check_julia_input(const char *arg1, const char *arg2);
 
 /* for errors */
 void	ft_print_error(char *error);
+void	ft_perror(t_mlx_data *mlx);
 
 #endif /* FRACTOL_H */

@@ -20,10 +20,13 @@ MLX_LIB = -Lminilibxg-linux -lmlx_Linux -lX11 -lXext
 
 MAIN = fractol.c
 
-SRC = $(addprefix fractol_utils/, fractol_init_hooks.c  fractol_rendering.c\
-		julia_parsing.c  math_utils.c) $(addprefix fractol_erros/, erros.c)
+SRC = $(addprefix fractol_utils/, fractol_init.c  fractol_rendering.c \
+		julia_parsing.c  math_utils.c fractol_hooks.c) \
+		$(addprefix fractol_erros/, erros.c) \
 
 SRC_LIBFT = $(addprefix libft/, libft_utils.c)
+
+HEADERS = $(addprefix inc/, fractol.h)
 
 NAME = fractol
 
@@ -31,7 +34,7 @@ NAME = fractol
 
 all: $(NAME)
 
-$(NAME): $(MAIN) $(SRC) $(SRC_LIBFT)
+$(NAME): $(MAIN) $(SRC) $(SRC_LIBFT) $(HEADERS)
 		@$(CC) $(CFLAGS) $(MAIN) $(SRC) $(SRC_LIBFT) $(MLX_LIB) -o $(NAME)
 		@echo "\033[1;32mFractol: Program Compiled Successfully!\033[0m"
 

@@ -20,28 +20,29 @@ static void	ft_atoi_handler(const char *str, t_var *atoi);
  * @str: string to convert
  * Return: floating number
 */
-double  ft_atoi(const char *str)
+double	ft_atoi(const char *str)
 {
-	t_var  atoi;
+	t_var	atoi;
 
 	atoi.count = 0;
 	atoi.sign = 1;
 	atoi.result = 0;
 	atoi.div = 1;
-
 	if (str[atoi.count] == '-' || str[atoi.count] == '+')
 	{
 		if (str[atoi.count] == '-')
 			atoi.sign = -atoi.sign;
 		atoi.count++;
 	}
-	if (!(str[atoi.count] >= '0' && str[atoi.count] <= '9') && !(str[atoi.count] == '.'))
+	if (!(str[atoi.count] >= '0' && str[atoi.count] <= '9')
+		&& !(str[atoi.count] == '.'))
 		ft_print_error("\033[1;33mError: Bad argument!\033[0m");
-	while ((str[atoi.count] >= '0' && str[atoi.count] <= '9') || (str[atoi.count] == '.'))
+	while ((str[atoi.count] >= '0' && str[atoi.count] <= '9')
+		|| (str[atoi.count] == '.'))
 	{
 		ft_atoi_handler(str, &atoi);
 		atoi.count++;
-	}	
+	}
 	return ((atoi.result / atoi.div) * atoi.sign);
 }
 
@@ -56,7 +57,6 @@ static void	ft_decimal_count(t_var *atoi, const char *str)
 	atoi->div = 10;
 	atoi->count1 = atoi->count + 1;
 	atoi->div_count = 1;
-
 	while (str[atoi->count1] >= '0' && str[atoi->count1] <= '9')
 	{
 		atoi->count1++;
@@ -74,11 +74,11 @@ static void	ft_decimal_count(t_var *atoi, const char *str)
 static void	ft_atoi_handler(const char *str, t_var *atoi)
 {
 	if (str[atoi->count] != '.')
-			atoi->result = atoi->result * 10 + (str[atoi->count] - 48);
+		atoi->result = atoi->result * 10 + (str[atoi->count] - 48);
 	else if (str[atoi->count] == '.')
 	{
 		if (str[atoi->count + 1] == '.' || !(str[atoi->count + 1] >= '0'
-			&& str[atoi->count + 1] <= '9'))
+				&& str[atoi->count + 1] <= '9'))
 			ft_print_error("\033[1;33mError: Bad argument!\033[0m");
 		ft_decimal_count(atoi, str);
 	}
@@ -93,7 +93,10 @@ static void	ft_atoi_handler(const char *str, t_var *atoi)
  * @odl_max: the old maximum value
  * Return: scaled number.
 */
-double	ft_pixel_scale(double unscaled_num, double new_min, double new_max, double old_min, double old_max)
+double	ft_scale(double unscaled_num, double n_min, double n_max, double o_max)
 {
-	return ((new_max - new_min) * (unscaled_num - old_min) / (old_max - old_min) + new_min);
+	double	o_min;
+
+	o_min = 0.0;
+	return ((n_max - n_min) * (unscaled_num - o_min) / (o_max - o_min) + n_min);
 }

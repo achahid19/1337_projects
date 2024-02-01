@@ -24,3 +24,10 @@ void	ft_print_error(char *error)
 	ft_putendl_fd(error, 2);
 	exit(EXIT_FAILURE);
 }
+
+void	ft_perror(t_mlx_data *mlx)
+{
+	free(mlx->mlx_connection);
+	perror("Fractol: ");
+	exit(EXIT_FAILURE);
+}

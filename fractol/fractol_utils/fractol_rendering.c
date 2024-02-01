@@ -13,7 +13,8 @@
 #include "../inc/fractol.h"
 
 static void		ft_handle_pixel(int x, int y, t_mlx_data *mlx, int color);
-static void		ft_mandelbrot_julia_set(t_mlx_data *mlx, t_plan *complex, int x, int y);
+static void		ft_mandelbrot_julia_set(t_mlx_data *mlx, t_plan *complex,
+					int x, int y);
 static void		ft_init_set(t_vars *set, t_plan *complex, t_mlx_data *mlx);
 
 /**
@@ -31,19 +32,22 @@ void	ft_fractol_render(t_mlx_data *mlx)
 	t_plan	complex_plan;
 
 	y = 0;
-	while (y < HEIGHT)
+	while (y < H)
 	{
 		x = 0;
-		while (x < WIDTH)
+		while (x < W)
 		{
-			complex_plan.real = ft_pixel_scale((double)x, mlx->x_min, mlx->x_max, 0, WIDTH) + mlx->shift_x;
-			complex_plan.i = ft_pixel_scale((double)y, mlx->y_max, mlx->y_min, 0, HEIGHT) + mlx->shift_y;
-			ft_mandelbrot_julia_set(mlx, &complex_plan, x, y); // I have passed the unscaled to handle the real pixel
+			complex_plan.real = ft_scale((double)x, mlx->x_min, mlx->x_max, W);
+			complex_plan.real += mlx->shift_x;
+			complex_plan.i = ft_scale((double)y, mlx->y_max, mlx->y_min, H);
+			complex_plan.i += mlx->shift_y;
+			ft_mandelbrot_julia_set(mlx, &complex_plan, x, y);
 			x++;
 		}
 		y++;
 	}
-	mlx_put_image_to_window(mlx->mlx_connection, mlx->mlx_win, mlx->img.img_ptr, 0, 0);
+	mlx_put_image_to_window(mlx->mlx_connection, mlx->mlx_win,
+		mlx->img.img_ptr, 0, 0);
 }
 
 /**
@@ -59,10 +63,11 @@ void	ft_fractol_render(t_mlx_data *mlx)
  * Return: void.
 */
 
-static void	ft_mandelbrot_julia_set(t_mlx_data *mlx, t_plan *complex, int x, int y)
+static void	ft_mandelbrot_julia_set(t_mlx_data *mlx, t_plan *complex,
+				int x, int y)
 {
 	t_vars	set;
-	
+
 	ft_init_set(&set, complex, mlx);
 	set.count = 0;
 	while (set.count < MAX_ITERATION)
@@ -72,17 +77,14 @@ static void	ft_mandelbrot_julia_set(t_mlx_data *mlx, t_plan *complex, int x, int
 		set.z.real = set.tmp_real;
 		set.z.real += set.c.real;
 		set.z.i += set.c.i;
-		if ((set.z.real * set.z.real) + (set.z.i * set.z.i) > ESCAPE_VALUE) // c = a^2 + b^2 // Pythagorean theorem
+		if ((set.z.real * set.z.real) + (set.z.i * set.z.i) > ESCAPE_VALUE)
 		{
-			// BLACK IS THE ABSENCE OF COLORS, AND WHITE IS THE CONCOCTION OF ALL COLORS.(MIN, MAX)
-			mlx->color = ft_pixel_scale(set.count, BLACK, RED, 0, mlx->max_val_col);
+			mlx->color = ft_scale(set.count, BLACK, RED, mlx->max_val_col);
 			ft_handle_pixel(x, y, mlx, mlx->color);
 			return ;
 		}
 		set.count++;
 	}
-	// WE ARA ON THE MANDELBROT SET!
-	// maybe set a color for mandelbrot set.
 	ft_handle_pixel(x, y, mlx, BLACK);
 }
 
@@ -130,5 +132,5 @@ static void	ft_handle_pixel(int x, int y, t_mlx_data *mlx, int color)
 	int	offset;
 
 	offset = (mlx->img.line_length * y) + (x * (mlx->img.bpp / 8));
-	*((unsigned int*)(offset + mlx->img.pixel_addr)) = color;
+	*((unsigned int *)(offset + mlx->img.pixel_addr)) = color;
 }
