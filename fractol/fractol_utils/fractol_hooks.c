@@ -90,12 +90,12 @@ static int	ft_key_hooks(int keysym, t_mlx_data *mlx)
 		mlx->shift_y += 0.5 * mlx->zoom_shift;
 	else if (XK_Right == keysym)
 		mlx->shift_x -= 0.5 * mlx->zoom_shift;
-	else if (XK_plus == keysym || 61 == keysym || 65451 == keysym)
+	else if (XK_L_PLUS == keysym || XK_R_PLUS == keysym)
 	{
 		mlx->max_iteration += 10;
 		mlx->max_val_col += 1;
 	}
-	else if (XK_minus == keysym || 65453 == keysym)
+	else if (XK_minus == keysym || XK_R_MINUS == keysym)
 	{
 		mlx->max_iteration -= 10;
 		mlx->max_val_col -= 1;

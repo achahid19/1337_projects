@@ -55,6 +55,11 @@
 # define ESCAPE_VALUE 4 // Escaping the Mandelbrot Set
 # define ZOOM_MULT 0.10 // Zoom Speed
 
+/* Keysyms */
+# define XK_L_PLUS 61
+# define XK_R_MINUS 65453
+# define XK_R_PLUS 65451
+
 /* Mlx image data */
 typedef struct s_mlx_image
 {
