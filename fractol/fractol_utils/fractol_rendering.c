@@ -13,7 +13,7 @@
 #include "../inc/fractol.h"
 
 static void		ft_handle_pixel(int x, int y, t_mlx_data *mlx, int color);
-static void		ft_mandelbrot_julia_set(t_mlx_data *mlx, t_plan *complex,
+static void		ft_sets(t_mlx_data *mlx, t_plan *complex,
 					int x, int y);
 static void		ft_init_set(t_vars *set, t_plan *complex, t_mlx_data *mlx);
 
@@ -41,7 +41,7 @@ void	ft_fractol_render(t_mlx_data *mlx)
 			complex_plan.real += mlx->shift_x;
 			complex_plan.i = ft_scale((double)y, mlx->y_max, mlx->y_min, H);
 			complex_plan.i += mlx->shift_y;
-			ft_mandelbrot_julia_set(mlx, &complex_plan, x, y);
+			ft_sets(mlx, &complex_plan, x, y);
 			x++;
 		}
 		y++;
@@ -62,8 +62,7 @@ void	ft_fractol_render(t_mlx_data *mlx)
  * @y: pixel coordinate in HEIGHT axe
  * Return: void.
 */
-
-static void	ft_mandelbrot_julia_set(t_mlx_data *mlx, t_plan *complex,
+static void	ft_sets(t_mlx_data *mlx, t_plan *complex,
 				int x, int y)
 {
 	t_vars	set;

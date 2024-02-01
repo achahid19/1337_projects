@@ -10,6 +10,8 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "inc/fractol.h"
+
 /**
  * main - Entry point
  * Description: Construct the MLX data, handle hooks
@@ -18,8 +20,6 @@
  * 
  * Return: 0 on Success.
 */
-#include "inc/fractol.h"
-
 int	main(int ac, char **av)
 {
 	t_mlx_data	mlx;

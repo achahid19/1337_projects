@@ -16,7 +16,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-MLX_LIB = -Lminilibxg-linux -lmlx_Linux -lX11 -lXext
+MLX_LIB = -Lminilibx-linux -lmlx_Linux -lX11 -lXext
 
 MAIN = fractol.c
 

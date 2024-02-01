@@ -14,6 +14,8 @@
 
 static void	ft_putchar_fd(char c, int fd);
 static void	ft_putstr_fd(char *s, int fd);
+size_t		ft_strlen(const char *str);
+int			ft_strncmp(const char *s1, const char *s2, int n);
 
 /**
  * ft_strncmp - compares n bytes between s1 and s2

@@ -14,6 +14,8 @@
 
 static void	ft_decimal_count(t_var *atoi, const char *str);
 static void	ft_atoi_handler(const char *str, t_var *atoi);
+double		ft_scale(double unscaled_num, double n_min, double n_max,
+				double o_max);
 
 /**
  * ft_atoi - convert string to float
