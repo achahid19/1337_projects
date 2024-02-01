@@ -27,7 +27,8 @@ void	ft_print_error(char *error)
 
 void	ft_perror(t_mlx_data *mlx)
 {
-	free(mlx->mlx_connection);
+	if (mlx->mlx_connection != NULL)
+		free(mlx->mlx_connection);
 	perror("\033[1;31mFractol");
 	exit(EXIT_FAILURE);
 }
