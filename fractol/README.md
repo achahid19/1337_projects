@@ -2,20 +2,31 @@
 
 ## Building Fractol Project:
 Run the following command:<br>
-```$> make all```<br>
+```bash
+$> make all
+```
 ### <strong><span style="background-color: red">NOTE: Minilibx Lib should be in your current working directory.</span></strong>
 Run the command bellow to get Minilibx Library:<br>
-```$> git clone https://github.com/42Paris/minilibx-linux```
-
+```bash
+$> git clone https://github.com/42Paris/minilibx-linux
+```
 ## Running Program:
-```$> cc ./fractol Set_name```<br>
+```bash
+$> cc ./fractol Set_name
+```
 <em style="font-size: 20px">For instance</em>:
 - Mandlebrot Set:<br>
-```$> ./fractol Mandlebrot```
+```bash
+$> ./fractol Mandlebrot
+```
 - Julia Set:<br>
-```$> ./fractol Julia <Real Part> <Imaginary Part>```<br>
+```bash
+$> ./fractol Julia <Real Part> <Imaginary Part>
+```
 - Tricorn Set:<br>
-```$> ./fractol Tricorn```<br>
+```bash
+$> ./fractol Tricorn
+```
 ### <strong><span style="background-color: red">In case of error, a list of available sets will be displayed</span><strong>
 
 ## Project Aim:
