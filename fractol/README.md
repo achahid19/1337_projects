@@ -18,3 +18,14 @@ Run the following command:<br>
 
 ## Project Aim:
 <p>The Fractol project opens the door to explore fascinating mathematical visualizations. Dive into the world of fractals and expand your mind.</p>
+
+## Project Visualization:
+### Mandelbrot Fractal >>
+<img src="./imgs/1.png" alt="Mandelbrot Set" style="max-width: 49%" /> <img src="./imgs/2.png" alt="Mandelbrot Set" style="max-width: 49%">
+
+### Julia Fractal >> Z = -0.79 + 0.15i | Z = 0.28 + 0.008i
+<img src="./imgs/3.png" alt="Julia Set" style="max-width: 49%" />
+<img src="./imgs/4.png" alt="Julia Set" style="max-width: 49%" />
+
+### Tricorn Fractal >>
+<img src="./imgs/5.png" alt="Tricorn Set"/>
