@@ -51,7 +51,6 @@
 # define PSYCH_MAGENTA 0xCC00FF
 
 /* Sets Data */
-# define MAX_ITERATION 51 // the more iteration, the more refined is the image
 # define ESCAPE_VALUE 4 // Escaping the Mandelbrot Set
 # define ZOOM_MULT 0.10 // Zoom Speed
 

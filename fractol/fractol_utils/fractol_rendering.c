@@ -18,10 +18,10 @@ static void		ft_sets(t_mlx_data *mlx, t_plan *complex,
 static void		ft_init_set(t_vars *set, t_plan *complex, t_mlx_data *mlx);
 
 /**
- * ft_fractol_render - iterates over all the pixles and checks if
- * the current pixel is part of Mandelbrot set, if its not
+ * ft_fractol_render - iterates over all the pixels and checks if
+ * the current pixel is part of the selected set, if its not
  * then the pixel got a certain color, once the image is rendered
- * mlx_put_image_to_window push the img to display's window
+ * mlx_put_image_to_window push the img to the window's display
  * @mlx: pointer to mlx data
  * Return: void.
 */
@@ -69,7 +69,7 @@ static void	ft_sets(t_mlx_data *mlx, t_plan *complex,
 
 	ft_init_set(&set, complex, mlx);
 	set.count = 0;
-	while (set.count < MAX_ITERATION)
+	while (set.count < (size_t)mlx->max_iteration)
 	{
 		set.tmp_real = (set.z.real * set.z.real) - (set.z.i * set.z.i);
 		set.z.i = set.z.real * set.z.i * 2 * mlx->tricorn;

@@ -55,6 +55,7 @@ static void	fractol_data_init(t_mlx_data *mlx)
 	mlx->shift_x = 0.0;
 	mlx->shift_y = 0.0;
 	mlx->max_val_col = 15;
+	mlx->max_iteration = 81;
 	mlx->x_min = -2.0;
 	mlx->x_max = 2.0;
 	mlx->y_min = -2.0;
