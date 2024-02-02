@@ -3,7 +3,7 @@
 ## Building Fractol Project:
 Run the following command:<br>
 ```$> make all```<br>
-### <strong><span style="background-color: red">NOTE: Minilibx Lib should be in your current working directory.</span><strong>
+### <strong><span style="background-color: red">NOTE: Minilibx Lib should be in your current working directory.</span></strong>
 Run the command bellow to get Minilibx Library:<br>
 ```$> git clone https://github.com/42Paris/minilibx-linux```
 
