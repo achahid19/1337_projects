@@ -80,9 +80,6 @@ typedef struct s_mlx_data
 	int			max_iteration;
 	double		shift_x;
 	double		shift_y;
-	double		zoom;
-	int			mouse_x;
-	int			mouse_y;
 	double		zoom_shift;
 	/* Julia Set */
 	double		x_julia;
