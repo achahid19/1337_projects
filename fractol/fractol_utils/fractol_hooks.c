@@ -45,26 +45,26 @@ int	ft_julia_event(int x, int y, t_mlx_data *mlx)
 
 static int	ft_mouse_hooks(int button, int x, int y, t_mlx_data *mlx)
 {
-	double	per_x;
-	double	per_y;
+	double	ratio_x;
+	double	ratio_y;
 
-	per_x = (mlx->x_max - mlx->x_min) / W;
-	per_y = (mlx->y_max - mlx->y_min) / H;
+	ratio_x = (mlx->x_max - mlx->x_min) / W;
+	ratio_y = (mlx->y_max - mlx->y_min) / H;
 	if (Button4 == button)
 	{
 		mlx->zoom_shift *= 0.90;
-		mlx->x_min += (per_x * x) * ZOOM_MULT;
-		mlx->x_max -= (per_x * (W - x)) * ZOOM_MULT;
-		mlx->y_min += (per_y * (H - y)) * ZOOM_MULT;
-		mlx->y_max -= (per_y * y) * ZOOM_MULT;
+		mlx->x_min += (ratio_x * x) * ZOOM_MULT;
+		mlx->x_max -= (ratio_x * (W - x)) * ZOOM_MULT;
+		mlx->y_min += (ratio_y * (H - y)) * ZOOM_MULT;
+		mlx->y_max -= (ratio_y * y) * ZOOM_MULT;
 	}
 	if (Button5 == button)
 	{
 		mlx->zoom_shift *= 1.10;
-		mlx->x_min -= (per_x * x) * ZOOM_MULT;
-		mlx->x_max += (per_x * (W - x)) * ZOOM_MULT;
-		mlx->y_min -= (per_y * (H - y)) * ZOOM_MULT;
-		mlx->y_max += (per_y * y) * ZOOM_MULT;
+		mlx->x_min -= (ratio_x * x) * ZOOM_MULT;
+		mlx->x_max += (ratio_x * (W - x)) * ZOOM_MULT;
+		mlx->y_min -= (ratio_y * (H - y)) * ZOOM_MULT;
+		mlx->y_max += (ratio_y * y) * ZOOM_MULT;
 	}
 	ft_fractol_render(mlx);
 	return (0);
