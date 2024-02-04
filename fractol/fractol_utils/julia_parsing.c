@@ -29,13 +29,13 @@ void	ft_check_julia_input(const char *arg1, const char *arg2)
 	while (++i <= ft_strlen(arg1) - 1)
 	{
 		if ('+' == arg1[i] || '-' == arg1[i])
-			ft_print_error("\033[1;31mError: Bad argument <real>\033[0m");
+			ft_print_error(INVALID_PARA);
 	}
 	i = 0;
 	while (++i <= ft_strlen(arg2) - 1)
 	{
 		if ('+' == arg2[i] || '-' == arg2[i])
-			ft_print_error("\033[1;31mError: Bad argument <imaginary>\033[0m");
+			ft_print_error(INVALID_PARA);
 	}
 	ft_julia_args_handler(arg1, arg2);
 	return ;
@@ -54,14 +54,14 @@ static void	ft_julia_args_handler(const char *arg1, const char *arg2)
 	{
 		if (!(*arg1 >= '0' && *arg1 <= '9') && (*arg1 != '+' && *arg1 != '-')
 			&& *arg1 != '.' && *arg1 != ' ')
-			ft_print_error("\033[1;31mError: Bad argument <real>\033[0m");
+			ft_print_error(INVALID_PARA);
 		arg1++;
 	}
 	while (*arg2)
 	{
 		if (!(*arg2 >= '0' && *arg2 <= '9') && (*arg2 != '+' && *arg2 != '-')
 			&& *arg2 != '.' && *arg2 != ' ')
-			ft_print_error("\033[1;31mError: Bad argument <imaginary>\033[0m");
+			ft_print_error(INVALID_PARA);
 		arg2++;
 	}
 	return ;

@@ -40,9 +40,6 @@ int	main(int ac, char **av)
 		ft_fractol_hooks_loop(&mlx);
 	}
 	else
-	{
-		write(2, INVALID_PARA, ft_strlen(INVALID_PARA));
-		exit(EXIT_FAILURE);
-	}
+		ft_print_error(INVALID_PARA);
 	return (0);
 }
