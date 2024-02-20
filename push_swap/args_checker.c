@@ -21,26 +21,26 @@ static bool	args_second_check(char *str);
  * @tab: pointer to the array of arguments
  * Return: tab.
 */
-char	**args_checker(char **ptr_args)
+char	**args_checker(char **ptr_argv)
 {
 	size_t	index;
 
 	index = 0;
-	while (ptr_args[index] != NULL)
+	while (ptr_argv[index] != NULL)
 	{
-		if (false == args_first_check(ptr_args[index])) // if there no digit in the argument, then just exit.
+		if (false == args_first_check(ptr_argv[index])) // if there no digit in the argument, then just exit.
 		{
 			printf("there no digit Error\n"); // TODO errors handling.
 			exit(-1);
 		}
-		if (false == args_second_check(ptr_args[index])) // checks the arguments gathered, anything else is_digit(), '+', '-' and space.
+		if (false == args_second_check(ptr_argv[index])) // checks the arguments gathered, anything else is_digit(), '+', '-' and space.
 		{
 			printf("Error2"); // TODO errors handling.
 			exit(-1);
 		}
 		index++;
 	}
-	return (ptr_args);
+	return (ptr_argv);
 }
 
 /**
@@ -60,8 +60,8 @@ static bool	args_first_check(char *str)
 		/* if the character is a digit */
 		if (ft_isdigit(*str))
 			status = true;
-		/* checks if after the digit is there any character else than space or null-terminating */
-		if (ft_isdigit(*str) && (*(str + 1) != ' ' && *(str + 1) != '\0'))
+		/* checks if after the digit is there any character else than space or null-terminating or a digit*/
+		if (ft_isdigit(*str) && (*(str + 1) != ' ' && *(str + 1) != '\0' && !ft_isdigit(*(str + 1))))
 		{
 			status = false;
 			break ;
@@ -80,9 +80,9 @@ static bool	args_first_check(char *str)
 */
 static bool	args_second_check(char *str)
 {
-	bool	condition;
+	bool	status;
 
-	condition = true;
+	status = true;
 	while (*str)
 	{
 		/* if *str is plus or minus, have to check the character right after is a digit */
@@ -90,17 +90,17 @@ static bool	args_second_check(char *str)
 		{
 			if (!ft_isdigit(*(str + 1)))
 			{
-				condition = false;
+				status = false;
 				break ;
 			}
 		}
-		/* if we found anthing else of digits, '+', '-' or ' ' */
+		/* if we found anything else of digits, '+', '-' or ' ' */
 		if (!ft_isdigit(*str) && *str != '+' && *str != '-' && *str != ' ')
 		{
-			condition = false;
+			status = false;
 			break ;
 		}
 		str++;
 	}
-	return (condition);
+	return (status);
 }

@@ -31,5 +31,9 @@ int	main(int argc, char *argv[])
 
 	/* Now I have to check the arguments */
 	args = args_checker(argv + 1);
+	/* Now, must check for duplicates in the 2D array */
+	// in order to check, have to convert the strings into integers
+		// then after we had our integers, we can compare them
+		// If any of them is equal to the other, then exit().
 	return (0);
 }
