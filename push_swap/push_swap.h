@@ -21,7 +21,7 @@
 
 typedef struct s_stack_node
 {
-	int	num; // Current number on stack
+	long	num; // Current number on stack
 
 	struct s_stack_node	*next;
 } t_stack_node;
