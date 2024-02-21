@@ -13,6 +13,10 @@
 #include "push_swap.h"
 
 /**
+ * for memory allocation, still have (stack a) + pointer to args (**args)
+*/
+
+/**
  * main - Entry point of the program
  * Description: Sorting numbers "arguments" on the stack in ascending order
  * 
@@ -36,9 +40,10 @@ int	main(int argc, char *argv[])
 		// then after we had our integers, we can compare them
 		// If any of them is equal to the other, then exit().
 	/* fill the stack a with the corresponding args */
-	main_stack_fill(a, args);
+	a = main_stack_fill(args);
 	/* for (int i = 0; args[i] != NULL; ++i)
 		free(args[i]);
-	free(args) */;
+	free(args); */
+	free_main_stack(a);
 	return (0);
 }

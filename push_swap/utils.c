@@ -13,7 +13,7 @@
 #include "push_swap.h"
 
 
-static void	free_main_stack(stack_ptr a);
+void	free_main_stack(stack_ptr a);
 
 /**
  * main_stack_fill - build the stack which will contains all the metadata needed
@@ -21,11 +21,13 @@ static void	free_main_stack(stack_ptr a);
  * @args: pointer to arguments which will be sorted on the stack
  * Return: void.
 */
-void	main_stack_fill(stack_ptr a, char **args)
+stack_ptr	main_stack_fill(char **args)
 {
 	stack_ptr	new;
 	stack_ptr	tmp;
+	stack_ptr	a;
 	
+	a = NULL;
 	while (*args != NULL)
 	{
 		new = malloc(sizeof(t_stack_node));
@@ -58,7 +60,7 @@ void	main_stack_fill(stack_ptr a, char **args)
 	}
 	/* Now the linked list is created, need to check for duplicates! */
 	/* have to free the main stack when I finish with it */
-	free_main_stack(a);
+	return (a);
 }
 
 /**
@@ -66,7 +68,7 @@ void	main_stack_fill(stack_ptr a, char **args)
  * @a: pointer to stack a (main stack)
  * Return: void.
 */
-static void	free_main_stack(stack_ptr a)
+void	free_main_stack(stack_ptr a)
 {
 	stack_ptr	tmp;
 

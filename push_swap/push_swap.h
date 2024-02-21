@@ -17,7 +17,7 @@
 # include <stdlib.h>
 # include <stdbool.h>
 # include <unistd.h>
-# include "../libft/libft.h"
+# include "libft/libft.h"
 
 typedef struct s_stack_node
 {
@@ -32,6 +32,7 @@ typedef t_stack_node *stack_ptr;
 char	**args_checker(char **ptr_args);
 
 /* Build Main stack */
-void	main_stack_fill(stack_ptr a, char **args);
+stack_ptr	main_stack_fill(char **args);
+void		free_main_stack(stack_ptr a);
 
 # endif /* PUSH_SWAP_H */
