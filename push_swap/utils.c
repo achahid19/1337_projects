@@ -21,7 +21,7 @@ void	free_main_stack(stack_ptr a);
  * @args: pointer to arguments which will be sorted on the stack
  * Return: void.
 */
-stack_ptr	main_stack_fill(char **args)
+stack_ptr	main_stack_build(char **args)
 {
 	stack_ptr	new;
 	stack_ptr	tmp;
