@@ -40,7 +40,7 @@ int	main(int argc, char *argv[])
 		// then after we had our integers, we can compare them
 		// If any of them is equal to the other, then exit().
 	/* fill the stack a with the corresponding args */
-	a = main_stack_fill(args);
+	a = main_stack_build(args);
 	/* for (int i = 0; args[i] != NULL; ++i)
 		free(args[i]);
 	free(args); */

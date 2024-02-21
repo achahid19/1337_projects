@@ -32,7 +32,7 @@ typedef t_stack_node *stack_ptr;
 char	**args_checker(char **ptr_args);
 
 /* Build Main stack */
-stack_ptr	main_stack_fill(char **args);
+stack_ptr	main_stack_build(char **args);
 void		free_main_stack(stack_ptr a);
 
 # endif /* PUSH_SWAP_H */
