@@ -31,19 +31,15 @@ int	main(int argc, char *argv[])
 	a = NULL;
 	b = NULL;
 	if (argc <= 1 || NULL == argv[1]) // lack of args, only program name!
-		exit(0); // program succeed but does nothing
+		exit(0);
 
-	/* Now I have to check the arguments */
 	args = args_checker(argv + 1); // Do NOT FORGET TO FREES THE ARGS WHEN DONE
-	/* Now, must check for duplicates in the 2D array */
-	// in order to check, have to convert the strings into integers
-		// then after we had our integers, we can compare them
-		// If any of them is equal to the other, then exit().
-	/* fill the stack a with the corresponding args */
 	a = main_stack_build(args);
 	/* for (int i = 0; args[i] != NULL; ++i)
 		free(args[i]);
 	free(args); */
+	/* NOW HAVE TO CHECK FOR DUPLICATES IN MY STACK */
+	
 	free_main_stack(a);
 	return (0);
 }
