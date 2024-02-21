@@ -24,22 +24,33 @@ static bool	args_second_check(char *str);
 char	**args_checker(char **ptr_argv)
 {
 	size_t	index;
+	char	*join;
 
 	index = 0;
+	join = NULL;
 	while (ptr_argv[index] != NULL)
 	{
 		if (false == args_first_check(ptr_argv[index])) // if there no digit in the argument, then just exit.
 		{
 			printf("there no digit Error\n"); // TODO errors handling.
+			if (join != NULL)
+				free(join);
 			exit(-1);
 		}
 		if (false == args_second_check(ptr_argv[index])) // checks the arguments gathered, anything else is_digit(), '+', '-' and space.
 		{
 			printf("Error2"); // TODO errors handling.
+			if (join != NULL)
+				free(join);
 			exit(-1);
 		}
+		join = ft_strjoin(join, " ");
+		join = ft_strjoin(join, ptr_argv[index]);
 		index++;
 	}
+	/* I might have some args to split, for that I'll join all the args in one array then split all */
+	ptr_argv = ft_split(join, ' ');
+	free(join);
 	return (ptr_argv);
 }
 

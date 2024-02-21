@@ -31,4 +31,7 @@ typedef t_stack_node *stack_ptr;
 /* arguments checker */
 char	**args_checker(char **ptr_args);
 
+/* Build Main stack */
+void	main_stack_fill(stack_ptr a, char **args);
+
 # endif /* PUSH_SWAP_H */

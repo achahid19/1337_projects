@@ -12,63 +12,6 @@
 
 #include "push_swap.h"
 
-void	free_main_stack(stack_ptr a)
-{
-	stack_ptr	tmp;
-
-	tmp = a;
-	while (tmp != NULL)
-	{
-		tmp = a->next;
-		free(a);
-		a = tmp;
-		tmp = a->next;
-	}
-	free(a);
-	printf("done");
-}
-
-void	main_stack_fill(stack_ptr a, char **args)
-{
-	stack_ptr	new;
-	stack_ptr	tmp;
-	
-	while (*args != NULL)
-	{
-		new = malloc(sizeof(t_stack_node));
-		/* if (NULL == new)
-		{
-			if (a != NULL)
-				
-		} */
-		new->num = ft_atoi(*args);
-		new->next = NULL;
-		if (NULL == a)
-			a = new;
-		else
-		{
-			tmp = a;
-			while (tmp->next != NULL)
-			{
-				tmp = tmp->next;
-			}
-			if (tmp->next == NULL)
-				tmp->next = new;
-		}
-		args++;
-		
-	}
-	tmp = a;
-	while (tmp != NULL) // print the stack for test purposes
-	{
-		printf("%ld\n", tmp->num);
-		tmp = tmp->next;
-	}
-	free_main_stack(a);
-	/* Now the linked list is created, need to check for duplicates! */
-	/* have to free the main stack when I finish with it */
-}
-
 /**
  * main - Entry point of the program
  * Description: Sorting numbers "arguments" on the stack in ascending order
@@ -87,12 +30,15 @@ int	main(int argc, char *argv[])
 		exit(0); // program succeed but does nothing
 
 	/* Now I have to check the arguments */
-	args = args_checker(argv + 1);
+	args = args_checker(argv + 1); // Do NOT FORGET TO FREES THE ARGS WHEN DONE
 	/* Now, must check for duplicates in the 2D array */
 	// in order to check, have to convert the strings into integers
 		// then after we had our integers, we can compare them
 		// If any of them is equal to the other, then exit().
 	/* fill the stack a with the corresponding args */
 	main_stack_fill(a, args);
+	/* for (int i = 0; args[i] != NULL; ++i)
+		free(args[i]);
+	free(args) */;
 	return (0);
 }
