@@ -14,6 +14,7 @@
 
 
 void	free_main_stack(stack_ptr a);
+void	free_args(char **args);
 
 /**
  * main_stack_fill - build the stack which will contains all the metadata needed
@@ -88,5 +89,24 @@ void	free_main_stack(stack_ptr a)
 		tmp = a->next;
 	}
 	free(a);
+	return ;
+}
+
+/**
+ * free_args - freed all memory allocated to arguments
+ * @args: pointer to arguments
+ * Return: void.
+*/
+void	free_args(char **args)
+{
+	size_t	index;
+
+	index = 0;
+	while (args[index] != NULL)
+	{
+		free(args[index]);
+		index++;
+	}
+	free(args);
 	return ;
 }

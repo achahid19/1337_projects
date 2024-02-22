@@ -14,6 +14,7 @@
 
 static bool	args_first_check(char *str);
 static bool	args_second_check(char *str);
+static void	args_duplicates_checker(char **args);
 
 /**
  * tab_to_fill - gather all checked arguments to a string then
@@ -51,6 +52,7 @@ char	**args_checker(char **ptr_argv)
 	/* I might have some args to split, for that I'll join all the args in one array then split all */
 	ptr_argv = ft_split(join, ' ');
 	free(join);
+	args_duplicates_checker(ptr_argv);
 	return (ptr_argv);
 }
 
@@ -114,4 +116,37 @@ static bool	args_second_check(char *str)
 		str++;
 	}
 	return (status);
+}
+
+/**
+ * args_duplicates_checker - checks if the inputs contains some duplicated numbers
+ * @args: pointer to the array of arguments (numbers to sort)
+ * Return: void.
+*/
+static void	args_duplicates_checker(char **args)
+{
+	size_t	i;
+	size_t	j;
+	long	num1;
+	long	num2;
+
+	i = 0;
+	while (args[i] != NULL)
+	{
+		j = i + 1;
+		while (args[j] != NULL)
+		{
+			num1 = ft_atoi(args[i]);
+			num2 = ft_atoi(args[j]);
+			if (num1 == num2)
+			{
+				printf("duplicates are: %ld and %ld\n", num1, num2); // TO DO error handling
+				free_args(args);
+				exit(-1);
+			}
+			j++;
+		}
+		i++;
+	}
+	return ;
 }

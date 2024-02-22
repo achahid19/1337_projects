@@ -35,11 +35,7 @@ int	main(int argc, char *argv[])
 
 	args = args_checker(argv + 1); // Do NOT FORGET TO FREES THE ARGS WHEN DONE
 	a = main_stack_build(args);
-	/* for (int i = 0; args[i] != NULL; ++i)
-		free(args[i]);
-	free(args); */
-	/* NOW HAVE TO CHECK FOR DUPLICATES IN MY STACK */
-	
+	free_args(args);
 	free_main_stack(a);
 	return (0);
 }
