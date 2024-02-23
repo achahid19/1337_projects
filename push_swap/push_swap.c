@@ -12,14 +12,43 @@
 
 #include "push_swap.h"
 
+bool	is_sorted(stack_ptr a)
+{
+	while (a->next != NULL)
+	{
+		if (a->num > a->next->num)
+			return (false);
+		a = a->next;
+	}
+	return (true);
+}
+
+void	swap(stack_ptr a, char *str)
+{
+	int	tmp;
+
+	tmp = a->num;
+	a->num = a->next->num;
+	a->next->num = tmp;
+	tmp = a->index;
+	a->index = a->next->index;
+	a->next->index = tmp;
+	if (str)
+		printf("%s\n", str);
+}
+
+void	push_swap(stack_ptr a, stack_ptr b, size_t size)
+{
+	if (2 == size && false == is_sorted(a))
+		swap(a, "sa");
+}
+
 /**
  * for memory allocation, still have (stack a) + pointer to args (**args)
 */
 
 // TODO
-	// indexing each node depending on the value of num, going from 1 to n,
-	// in an ascending order depending on num.
-	// e.g 100 29 19, 3 2 1
+	// try to sort two values and implement 'sa' operation
 
 /**
  * main - Entry point of the program
@@ -46,11 +75,10 @@ int	main(int argc, char *argv[])
 	stack_size = get_stack_size(a);
 	stack_indexing(a, stack_size + 1);
 	// now the sort will be done by index, we know which value is 1 (lowest) and which one is stack_size (highest)
-	stack_ptr	tmp;
+	push_swap(a, b, stack_size);
+	stack_ptr tmp;
 	for (tmp = a; tmp != NULL; tmp = tmp->next)
-	{
-		printf("num: %d for index => %lu\n", tmp->num, tmp->index);
-	}
+		printf("%d\n", tmp->num);
 	free_main_stack(a);
 	return (0);
 }

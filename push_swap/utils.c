@@ -56,12 +56,6 @@ stack_ptr	main_stack_build(char **args)
 		}
 		args++;
 	}
-	tmp = a;
-	while (tmp != NULL) // print the stack for test purposes
-	{
-		printf("%d\n", tmp->num);
-		tmp = tmp->next;
-	}
 	/* Now the linked list is created, need to check for duplicates! */
 	/* have to free the main stack when I finish with it */
 	return (a);
