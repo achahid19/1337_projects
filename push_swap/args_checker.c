@@ -138,6 +138,11 @@ static void	args_duplicates_checker(char **args)
 		{
 			num1 = ft_atoi(args[i]);
 			num2 = ft_atoi(args[j]);
+			if (num1 > INT_MAX || num2 > INT_MAX || num1 < INT_MIN || num2 < INT_MIN)
+			{
+				printf("limits error\n"); // TODO error handling
+				exit(-1);
+			}
 			if (num1 == num2)
 			{
 				printf("duplicates are: %ld and %ld\n", num1, num2); // TO DO error handling

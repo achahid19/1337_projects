@@ -15,6 +15,8 @@
 
 void	free_main_stack(stack_ptr a);
 void	free_args(char **args);
+size_t	get_stack_size(stack_ptr stack);
+void	stack_indexing(stack_ptr stack_a, int size);
 
 /**
  * main_stack_fill - build the stack which will contains all the metadata needed
@@ -38,6 +40,7 @@ stack_ptr	main_stack_build(char **args)
 			exit(-1); // TODO error handling. + perror.
 		}
 		new->num = ft_atoi(*args);
+		new->index = 0;
 		new->next = NULL;
 		if (NULL == a)
 			a = new;
@@ -56,7 +59,7 @@ stack_ptr	main_stack_build(char **args)
 	tmp = a;
 	while (tmp != NULL) // print the stack for test purposes
 	{
-		printf("%ld\n", tmp->num);
+		printf("%d\n", tmp->num);
 		tmp = tmp->next;
 	}
 	/* Now the linked list is created, need to check for duplicates! */
@@ -109,4 +112,54 @@ void	free_args(char **args)
 	}
 	free(args);
 	return ;
+}
+
+size_t	get_stack_size(stack_ptr stack)
+{
+	size_t	size;
+
+	size = 0;
+	while (stack != NULL)
+	{
+		stack = stack->next;
+		size++;
+	}
+	return (size);
+}
+
+/**
+ * stack_indexing - Assigns an index for each value in the main stack (a);
+ * the indexing is done in ascending order, so the lowest value get index 1
+ * and the highest get the size of the stack.
+ * @stack_a: pointer to the main stack (a)
+ * @size: size of stack
+ * Return: void.
+*/
+void	stack_indexing(stack_ptr stack_a, int size)
+{
+	stack_ptr	ptr;
+	stack_ptr	highest_node;
+	int			num;
+
+	while (--size > 0)
+	{
+		ptr = stack_a;
+		highest_node = NULL;
+		num = INT_MIN;
+		while (ptr != NULL)
+		{
+			if (INT_MIN == ptr->num && 0 == ptr->index)
+				ptr->index = 1;
+			if (ptr->num > num && 0 == ptr->index)
+			{
+				num = ptr->num;
+				highest_node = ptr;
+				ptr = stack_a;
+			}
+			else
+				ptr = ptr->next;
+		}
+		if (highest_node != NULL)
+			highest_node->index = size;
+	}
 }

@@ -18,10 +18,12 @@
 # include <stdbool.h>
 # include <unistd.h>
 # include "libft/libft.h"
+# include <limits.h>
 
 typedef struct s_stack_node
 {
-	long	num; // Current number on stack
+	int		num; // Current number on stack
+	size_t	index;
 
 	struct s_stack_node	*next;
 } t_stack_node;
@@ -35,5 +37,7 @@ void	free_args(char **args);
 /* Build Main stack */
 stack_ptr	main_stack_build(char **args);
 void		free_main_stack(stack_ptr a);
+size_t		get_stack_size(stack_ptr stack);
+void		stack_indexing(stack_ptr stack_a, int size);
 
 # endif /* PUSH_SWAP_H */
