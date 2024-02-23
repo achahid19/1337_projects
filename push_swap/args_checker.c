@@ -32,19 +32,9 @@ char	**args_checker(char **ptr_argv)
 	while (ptr_argv[index] != NULL)
 	{
 		if (false == args_first_check(ptr_argv[index])) // if there no digit in the argument, then just exit.
-		{
-			printf("there no digit Error\n"); // TODO errors handling.
-			if (join != NULL)
-				free(join);
-			exit(-1);
-		}
+			ft_print_error(join);
 		if (false == args_second_check(ptr_argv[index])) // checks the arguments gathered, anything else is_digit(), '+', '-' and space.
-		{
-			printf("Error2"); // TODO errors handling.
-			if (join != NULL)
-				free(join);
-			exit(-1);
-		}
+			ft_print_error(join);
 		join = ft_strjoin(join, " ");
 		join = ft_strjoin(join, ptr_argv[index]);
 		index++;
@@ -139,16 +129,9 @@ static void	args_duplicates_checker(char **args)
 			num1 = ft_atoi(args[i]);
 			num2 = ft_atoi(args[j]);
 			if (num1 > INT_MAX || num2 > INT_MAX || num1 < INT_MIN || num2 < INT_MIN)
-			{
-				printf("limits error\n"); // TODO error handling
-				exit(-1);
-			}
+				ft_print_error2(args);
 			if (num1 == num2)
-			{
-				printf("duplicates are: %ld and %ld\n", num1, num2); // TO DO error handling
-				free_args(args);
-				exit(-1);
-			}
+				ft_print_error2(args);
 			j++;
 		}
 		i++;

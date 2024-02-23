@@ -12,6 +12,11 @@
 
 #include "push_swap.h"
 
+/**
+ * is_sorted - checks if the values on the stack are sorted
+ * @a: pointer to the stack to check
+ * Return: fasle if it's not sorted, otherwise true
+*/
 bool	is_sorted(stack_ptr a)
 {
 	while (a->next != NULL)
@@ -23,6 +28,13 @@ bool	is_sorted(stack_ptr a)
 	return (true);
 }
 
+/**
+ * swap - executes a swap between the 2 values on the top of the stack
+ * @a: pointer to the stack
+ * @str: pointer to the operation to execute
+ * Return: void.
+ * 
+*/
 void	swap(stack_ptr a, char *str)
 {
 	int	tmp;
@@ -37,6 +49,14 @@ void	swap(stack_ptr a, char *str)
 		printf("%s\n", str);
 }
 
+/**
+ * push_swap - sort values in ascending order with a minimum of
+ * actions to execute.
+ * @a: pointer to the main stack
+ * @b: pointer to the assisting stack
+ * @size: size of the main stack
+ * Return: void.
+*/
 void	push_swap(stack_ptr a, stack_ptr b, size_t size)
 {
 	if (2 == size && false == is_sorted(a))

@@ -108,6 +108,11 @@ void	free_args(char **args)
 	return ;
 }
 
+/**
+ * get_stack_size - counts number of nodes on the stack
+ * @stack: pointer to the stack
+ * Return: stack's size
+*/
 size_t	get_stack_size(stack_ptr stack)
 {
 	size_t	size;

@@ -33,6 +33,8 @@ typedef t_stack_node *stack_ptr;
 /* arguments checker */
 char	**args_checker(char **ptr_args);
 void	free_args(char **args);
+void	ft_print_error(char *to_free);
+void	ft_print_error2(char **args);
 
 /* Build Main stack */
 stack_ptr	main_stack_build(char **args);
