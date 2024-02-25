@@ -31,15 +31,26 @@ typedef struct s_stack_node
 typedef t_stack_node *stack_ptr;
 
 /* arguments checker */
-char	**args_checker(char **ptr_args);
-void	free_args(char **args);
-void	ft_print_error(char *to_free);
-void	ft_print_error2(char **args);
+char		**args_checker(char **ptr_args);
+void		free_args(char **args);
+void		ft_print_error(char *to_free);
+void		ft_print_error2(char **args);
 
 /* Build Main stack */
 stack_ptr	main_stack_build(char **args);
 void		free_main_stack(stack_ptr a);
 size_t		get_stack_size(stack_ptr stack);
 void		stack_indexing(stack_ptr stack_a, int size);
+
+/* Action's prototypes */
+void		swap(stack_ptr a, char *str);
+stack_ptr	ra(stack_ptr a);
+stack_ptr	rra(stack_ptr a);
+
+/* push_swap utils */
+stack_ptr	find_last_node(stack_ptr a);
+bool		is_sorted(stack_ptr a);
+size_t		find_hindex(stack_ptr a);
+stack_ptr	find_blast_node(stack_ptr a);
 
 # endif /* PUSH_SWAP_H */

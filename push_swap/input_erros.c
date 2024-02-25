@@ -12,6 +12,9 @@
 
 #include "push_swap.h"
 
+void	ft_print_error(char *to_free);
+void	ft_print_error2(char **args);
+
 /**
  * ft_print_error - prints a message error on stderr
  * and exit() the current process with -1 as a status

@@ -12,56 +12,8 @@
 
 #include "push_swap.h"
 
-/**
- * is_sorted - checks if the values on the stack are sorted
- * @a: pointer to the stack to check
- * Return: fasle if it's not sorted, otherwise true
-*/
-bool	is_sorted(stack_ptr a)
-{
-	while (a->next != NULL)
-	{
-		if (a->num > a->next->num)
-			return (false);
-		a = a->next;
-	}
-	return (true);
-}
-
-/**
- * swap - executes a swap between the 2 values on the top of the stack
- * @a: pointer to the stack
- * @str: pointer to the operation to execute
- * Return: void.
- * 
-*/
-void	swap(stack_ptr a, char *str)
-{
-	int	tmp;
-
-	tmp = a->num;
-	a->num = a->next->num;
-	a->next->num = tmp;
-	tmp = a->index;
-	a->index = a->next->index;
-	a->next->index = tmp;
-	if (str)
-		printf("%s\n", str);
-}
-
-/**
- * push_swap - sort values in ascending order with a minimum of
- * actions to execute.
- * @a: pointer to the main stack
- * @b: pointer to the assisting stack
- * @size: size of the main stack
- * Return: void.
-*/
-void	push_swap(stack_ptr a, stack_ptr b, size_t size)
-{
-	if (2 == size && false == is_sorted(a))
-		swap(a, "sa");
-}
+static stack_ptr	push_swap(stack_ptr a, stack_ptr b, size_t size);
+static stack_ptr	sortOf3(stack_ptr a);
 
 /**
  * for memory allocation, still have (stack a) + pointer to args (**args)
@@ -95,10 +47,50 @@ int	main(int argc, char *argv[])
 	stack_size = get_stack_size(a);
 	stack_indexing(a, stack_size + 1);
 	// now the sort will be done by index, we know which value is 1 (lowest) and which one is stack_size (highest)
-	push_swap(a, b, stack_size);
+	a = push_swap(a, b, stack_size);
 	stack_ptr tmp;
 	for (tmp = a; tmp != NULL; tmp = tmp->next)
 		printf("%d\n", tmp->num);
 	free_main_stack(a);
 	return (0);
+}
+
+/**
+ * push_swap - sort values in ascending order with a minimum number of
+ * actions to execute.
+ * @a: pointer to the main stack
+ * @b: pointer to the assisting stack
+ * @size: size of the main stack
+ * Return: void.
+*/
+static stack_ptr	push_swap(stack_ptr a, stack_ptr b, size_t size)
+{
+	if (2 == size && false == is_sorted(a))
+		swap(a, "sa");
+	if (3 == size && false == is_sorted(a))
+		a = sortOf3(a);
+	return (a);
+}
+
+/**
+ * sorfOf3 - executes an algorithm to sort 3 values on the top of the stack,
+ * @a: pointer to the main stack
+ * Return: pointer to head (first node on the stack)
+*/
+static stack_ptr	sortOf3(stack_ptr a)
+{
+	// IN RESUME, we have 3 scenarios:
+		// 1- node 1 => highest index => 'ra', then check if the first 2 nodes are sorted, if not then 'sa'
+		// 2- node 2 => highest index => 'rra', then check the same as scenario 1
+		// 3- node 3 => highest index (no need to check) =>, then same condition is checked.
+	size_t	highest;
+
+	highest = find_hindex(a);
+	if (a->index == highest)
+		a = ra(a);
+	else if (a->next->index == highest)
+		a = rra(a);
+	if (false == is_sorted(a))
+		swap(a, "sa");
+	return (a);
 }
