@@ -15,6 +15,7 @@
 void		swap(stack_ptr a, char *str);
 stack_ptr	ra(stack_ptr a);
 stack_ptr	rra(stack_ptr a);
+stack_ptr	push(stack_ptr a, stack_ptr *b, char *str);
 
 /**
  * swap - executes a swap between the 2 values on the top of the stack
@@ -86,5 +87,17 @@ stack_ptr	rra(stack_ptr a)
 	// make the stack pointer points to the node that becomes the first
 	a = last;
 	ft_putendl_fd("rra", 1);
+	return (a);
+}
+
+stack_ptr	push(stack_ptr a, stack_ptr *b, char *str)
+{
+	stack_ptr	tmp;
+
+	tmp = a->next;
+	a->next = (*b);
+	(*b) = a;
+	a = tmp;
+	ft_putendl_fd(str, 1);
 	return (a);
 }

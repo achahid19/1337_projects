@@ -12,7 +12,7 @@
 
 #include "push_swap.h"
 
-static stack_ptr	push_swap(stack_ptr a, stack_ptr b, size_t size);
+static stack_ptr	push_swap(stack_ptr a, stack_ptr *b, size_t size);
 static stack_ptr	sortOf3(stack_ptr a);
 
 /**
@@ -43,12 +43,47 @@ int	main(int argc, char *argv[])
 	stack_size = get_stack_size(a);
 	stack_indexing(a, stack_size + 1);
 	// now the sort will be done by index, we know which value is 1 (lowest) and which one is stack_size (highest)
-	a = push_swap(a, b, stack_size);
+	a = push_swap(a, &b, stack_size);
 	stack_ptr tmp;
 	for (tmp = a; tmp != NULL; tmp = tmp->next)
 		printf("%d\n", tmp->num);
 	free_main_stack(a);
 	return (0);
+}
+
+stack_ptr	saveOf3(stack_ptr a, stack_ptr *b, size_t size_a)
+{
+	size_t	index;
+	int		b_push;
+
+	index = 0;
+	b_push = 0;
+	// b_push > size_a / 2; push the big numbers that there indexex across the median
+	while (size_a > 6 && index < size_a && b_push < size_a / 2)
+	{
+		if (a->index <= size_a / 2)
+		{
+			a = push(a, b, "pb");
+			b_push += 1;
+		}
+		else /* if the index if above the mediane */
+			a = ra(a);
+		index++;
+	}
+	// push the remaining values to keep only 3 nums on stack a.
+	while (size_a - b_push > 3)
+	{
+		a = push(a, b, "pb");
+		b_push += 1;
+	}
+	return (a);
+}
+
+stack_ptr	bigSort(stack_ptr a, stack_ptr *b, size_t size_a)
+{
+	a = saveOf3(a, b, size_a);
+	a = sortOf3(a);
+	return (a);
 }
 
 /**
@@ -59,12 +94,14 @@ int	main(int argc, char *argv[])
  * @size: size of the main stack
  * Return: void.
 */
-static stack_ptr	push_swap(stack_ptr a, stack_ptr b, size_t size)
+static stack_ptr	push_swap(stack_ptr a, stack_ptr *b, size_t size)
 {
 	if (2 == size && false == is_sorted(a))
 		swap(a, "sa");
-	if (3 == size && false == is_sorted(a))
+	else if (3 == size && false == is_sorted(a))
 		a = sortOf3(a);
+	else if (size > 3 && false == is_sorted(a))
+		a = bigSort(a, b, size);
 	return (a);
 }
 

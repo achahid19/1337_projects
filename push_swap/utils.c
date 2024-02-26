@@ -62,14 +62,16 @@ stack_ptr	main_stack_build(char **args)
 }
 
 /**
- * free_main_stack - frees all the nodes building the linked list of the stack a
- * @a: pointer to stack a (main stack)
+ * free_main_stack - frees all the nodes building the linked list of the stack
+ * @a: pointer to stack
  * Return: void.
 */
 void	free_main_stack(stack_ptr a)
 {
 	stack_ptr	tmp;
 
+	if (NULL == a)
+		return ;
 	tmp = a;
 	/* In case we have only one node to free */
 	if (NULL == tmp->next)

@@ -45,6 +45,7 @@ void		stack_indexing(stack_ptr stack_a, int size);
 void		swap(stack_ptr a, char *str);
 stack_ptr	ra(stack_ptr a);
 stack_ptr	rra(stack_ptr a);
+stack_ptr	push(stack_ptr a, stack_ptr *b, char *str);
 
 /* push_swap utils */
 stack_ptr	find_last_node(stack_ptr a);
