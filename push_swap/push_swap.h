@@ -16,7 +16,6 @@
 # include <stdio.h> // for debugging
 # include <stdlib.h>
 # include <stdbool.h>
-# include <unistd.h>
 # include "libft/libft.h"
 # include <limits.h>
 

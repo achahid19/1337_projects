@@ -123,12 +123,14 @@ static void	args_duplicates_checker(char **args)
 	i = 0;
 	while (args[i] != NULL)
 	{
+		num1 = ft_atoi(args[i]);
+		if (num1 > INT_MAX || num1 < INT_MIN)
+			ft_print_error2(args);
 		j = i + 1;
 		while (args[j] != NULL)
 		{
-			num1 = ft_atoi(args[i]);
 			num2 = ft_atoi(args[j]);
-			if (num1 > INT_MAX || num2 > INT_MAX || num1 < INT_MIN || num2 < INT_MIN)
+			if (num2 > INT_MAX || num2 < INT_MIN)
 				ft_print_error2(args);
 			if (num1 == num2)
 				ft_print_error2(args);

@@ -19,9 +19,6 @@ static stack_ptr	sortOf3(stack_ptr a);
  * for memory allocation, still have (stack a) + pointer to args (**args)
 */
 
-// TODO
-	// try to sort two values and implement 'sa' operation
-
 /**
  * main - Entry point of the program
  * Description: Sorting numbers "arguments" on the stack in ascending order
@@ -39,11 +36,10 @@ int	main(int argc, char *argv[])
 	b = NULL;
 	if (argc <= 1 || NULL == argv[1]) // lack of args, only program name!
 		exit(0);
-
-	args = args_checker(argv + 1); // Do NOT FORGET TO FREES THE ARGS WHEN DONE
+	args = args_checker(argv + 1);
 	a = main_stack_build(args);
 	free_args(args);
-	// After we passing all checks, now build the main stack
+	// After passing all checks, now build the main stack
 	stack_size = get_stack_size(a);
 	stack_indexing(a, stack_size + 1);
 	// now the sort will be done by index, we know which value is 1 (lowest) and which one is stack_size (highest)
