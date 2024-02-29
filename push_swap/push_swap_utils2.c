@@ -12,9 +12,10 @@
 
 #include "push_swap.h"
 
-void		target_pos(stack_ptr a, stack_ptr *b, size_t size_a);
+void		target_pos(stack_ptr a, stack_ptr *b);
 static int	find_target(stack_ptr a, size_t index_b, int target_idx, int target_pos);
 stack_ptr	saveOf3(stack_ptr a, stack_ptr *b, size_t size_a);
+void		cost_get(stack_ptr a, stack_ptr *b);
 
 /**
  * target_pos - finds the target position for each B element into stack a,
@@ -24,7 +25,7 @@ stack_ptr	saveOf3(stack_ptr a, stack_ptr *b, size_t size_a);
  * @size_a: size of main stack (a)
  * Return: void.
 */
-void	target_pos(stack_ptr a, stack_ptr *b, size_t size_a)
+void	target_pos(stack_ptr a, stack_ptr *b)
 {
 	stack_ptr	tmp_b;
 	int			target_pos;
@@ -120,4 +121,45 @@ stack_ptr	saveOf3(stack_ptr a, stack_ptr *b, size_t size_a)
 		b_push += 1;
 	}
 	return (a);
+}
+
+/**
+ * cost_get - Calculate the cost of moving each B element into the correct
+ * postion in stack a;
+ * cost of b represents the cost to get a B element on the top of stack b
+ * cost of a represents the cost to get B element on the right position in stack a.
+ * In case of getting a negative cost, that means that the element is in the bottom
+ * half of the stack, the opposite remains right.
+ * @a: pointer to main stack (a)
+ * @b: double pointer to stack b
+ * Return: void
+*/
+void	cost_get(stack_ptr a, stack_ptr *b)
+{
+	stack_ptr 	tmp_a;
+	stack_ptr 	tmp_b;
+	size_t		size_a;
+	size_t		size_b;
+	int			i;
+
+	tmp_a = a;
+	tmp_b = (*b);
+	size_a = get_stack_size(a);
+	size_b = get_stack_size((*b));
+	i = -1;
+	while (tmp_b != NULL)
+	{
+		tmp_b->cb = tmp_b->pos;
+		// the elements that are > stack b size will get a negative cost
+			// the negative costs means that they are situed on the bottom half of the stack
+			// so in that case a 'rrb' operation is effecient to execute than 'rb'
+		if (tmp_b->pos > (size_b / 2))
+			tmp_b->cb = i * (size_b - tmp_b->pos);
+		tmp_b->ca = tmp_b->target_pos;
+		// Same logic here, if the target position is greater that stack's size of a,
+		// a negative value is assigned to the cost
+		if (tmp_b->target_pos > (size_a / 2))
+			tmp_b->ca = i * (size_a - tmp_b->target_pos);
+		tmp_b = tmp_b->next;
+	}
 }

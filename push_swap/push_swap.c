@@ -68,6 +68,7 @@ static stack_ptr	push_swap(stack_ptr a, stack_ptr *b, size_t size)
 	return (a);
 }
 
+
 /**
  * sorfOf3 - executes an algorithm to sort 3 values on the top of the stack,
  * @a: pointer to the main stack
@@ -97,9 +98,11 @@ static stack_ptr	bigSort(stack_ptr a, stack_ptr *b, size_t size_a)
 	a = sortOf3(a);
 	while ((*b) != NULL)
 	{
-		// first I need to target the position of b node on stack a.
-		target_pos(a, b, size_a);
+		// first need to target the position of b element on stack a.
+		target_pos(a, b);
+		// Once we found the targeted position for each B element on stack a
+			// we'll use the target pos of each b element to calculate the cost of a, and the position of each b element to calculate the cost of b
+		cost_get(a, b);
 	}
-	
 	return (a);
 }

@@ -22,12 +22,12 @@
 typedef struct s_stack_node
 {
 	int		num; // Current number on stack
-	size_t	index;
-	int 	pos;
-	int		target_pos;
-	int		ca;
-	int		cb;
-	struct s_stack_node	*next;
+	size_t	index; // indexing each element on stack a
+	int 	pos; // position of each element on the stack
+	int		target_pos; // targeting a B element to a position on stack a.
+	int		ca; // cost of a
+	int		cb; // cost of b
+	struct s_stack_node	*next; // pointer to the next element
 } t_stack_node;
 
 typedef t_stack_node *stack_ptr;
@@ -59,6 +59,7 @@ stack_ptr	find_blast_node(stack_ptr a);
 /* bigSort utils */
 stack_ptr	saveOf3(stack_ptr a, stack_ptr *b, size_t size_a);
 void		get_pos(stack_ptr stack);
-void		target_pos(stack_ptr a, stack_ptr *b, size_t size_a);
+void		target_pos(stack_ptr a, stack_ptr *b);
+void		cost_get(stack_ptr a, stack_ptr *b);
 
 # endif /* PUSH_SWAP_H */
