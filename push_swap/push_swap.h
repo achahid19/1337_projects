@@ -23,7 +23,10 @@ typedef struct s_stack_node
 {
 	int		num; // Current number on stack
 	size_t	index;
-
+	int 	pos;
+	int		target_pos;
+	int		ca;
+	int		cb;
 	struct s_stack_node	*next;
 } t_stack_node;
 
@@ -52,5 +55,10 @@ stack_ptr	find_last_node(stack_ptr a);
 bool		is_sorted(stack_ptr a);
 size_t		find_hindex(stack_ptr a);
 stack_ptr	find_blast_node(stack_ptr a);
+
+/* bigSort utils */
+stack_ptr	saveOf3(stack_ptr a, stack_ptr *b, size_t size_a);
+void		get_pos(stack_ptr stack);
+void		target_pos(stack_ptr a, stack_ptr *b, size_t size_a);
 
 # endif /* PUSH_SWAP_H */

@@ -41,6 +41,10 @@ stack_ptr	main_stack_build(char **args)
 		}
 		new->num = ft_atoi(*args);
 		new->index = 0;
+		new->pos = -1;
+		new->target_pos = -1;
+		new->ca = -1;
+		new->cb = -1;
 		new->next = NULL;
 		if (NULL == a)
 			a = new;

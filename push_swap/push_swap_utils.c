@@ -16,6 +16,7 @@ stack_ptr	find_last_node(stack_ptr a);
 bool		is_sorted(stack_ptr a);
 size_t		find_hindex(stack_ptr a);
 stack_ptr	find_blast_node(stack_ptr a);
+void		get_pos(stack_ptr stack);
 
 /**
  * find_last_node - search for the last node on the stack
@@ -75,4 +76,24 @@ stack_ptr	find_blast_node(stack_ptr a)
 	while (a->next->next != NULL)
 		a = a->next;
 	return (a);
+}
+
+/**
+ * get_pos - assign a position for each node starting from 0 to  n (size_size - 1)
+ * @stack: pointer to the stack
+ * Return: void.
+*/
+void	get_pos(stack_ptr stack)
+{
+	stack_ptr	tmp;
+	int			counter;
+
+	tmp = stack;
+	counter = 0;
+	while (tmp != NULL)
+	{
+		tmp->pos = counter;
+		tmp = tmp->next;
+		counter++;
+	}
 }
