@@ -65,7 +65,7 @@ static int	find_target(stack_ptr a, size_t index_b, int target_idx, int target_p
 	{
 		// compare node's index of stack a, if index_a > index_b then it's the targeted node
 			// note that, to not ruin the sort of stack a we check if index_a is < target_index
-		if (tmp_a->index > index_b && tmp_a->index < target_idx)
+		if (tmp_a->index > index_b && (int)tmp_a->index < target_idx)
 		{
 			target_idx = tmp_a->index;
 			target_pos = tmp_a->pos;
@@ -77,7 +77,7 @@ static int	find_target(stack_ptr a, size_t index_b, int target_idx, int target_p
 	tmp_a = a;
 	while (tmp_a != NULL)
 	{
-		if (tmp_a->index < target_idx)
+		if ((int)tmp_a->index < target_idx)
 		{
 			target_idx = tmp_a->index;
 			target_pos = tmp_a->pos;
@@ -137,13 +137,11 @@ stack_ptr	saveOf3(stack_ptr a, stack_ptr *b, size_t size_a)
 */
 void	cost_get(stack_ptr a, stack_ptr *b)
 {
-	stack_ptr 	tmp_a;
 	stack_ptr 	tmp_b;
 	size_t		size_a;
 	size_t		size_b;
 	int			i;
 
-	tmp_a = a;
 	tmp_b = (*b);
 	size_a = get_stack_size(a);
 	size_b = get_stack_size((*b));
@@ -154,12 +152,12 @@ void	cost_get(stack_ptr a, stack_ptr *b)
 		// the elements that are > stack b size will get a negative cost
 			// the negative costs means that they are situed on the bottom half of the stack
 			// so in that case a 'rrb' operation is effecient to execute than 'rb'
-		if (tmp_b->pos > (size_b / 2))
+		if (tmp_b->pos > ((int)size_b / 2))
 			tmp_b->cb = i * (size_b - tmp_b->pos);
 		tmp_b->ca = tmp_b->target_pos;
 		// Same logic here, if the target position is greater that stack's size of a,
 		// a negative value is assigned to the cost
-		if (tmp_b->target_pos > (size_a / 2))
+		if (tmp_b->target_pos > ((int)size_a / 2))
 			tmp_b->ca = i * (size_a - tmp_b->target_pos);
 		tmp_b = tmp_b->next;
 	}

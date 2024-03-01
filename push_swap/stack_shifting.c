@@ -28,7 +28,7 @@ stack_ptr	stack_shifting(stack_ptr a)
 
 	size_a = get_stack_size(a);
 	lidx_pos = lindex_pos(a);
-	if (lidx_pos <= (size_a / 2))
+	if (lidx_pos <= ((int)size_a / 2))
 	{
 		while (lidx_pos > 0)
 		{
@@ -38,7 +38,7 @@ stack_ptr	stack_shifting(stack_ptr a)
 	}
 	else
 	{
-		while (lidx_pos < size_a)
+		while (lidx_pos < (int)size_a)
 		{
 			a = rev_rotate(a, "rra");
 			lidx_pos++;
@@ -62,7 +62,7 @@ static int	lindex_pos(stack_ptr stack)
 	lowest_pos = stack->pos;
 	while (stack != NULL)
 	{
-		if (stack->index < lindex)
+		if ((int)stack->index < lindex)
 		{
 			lindex = stack->index;
 			lowest_pos = stack->pos;
