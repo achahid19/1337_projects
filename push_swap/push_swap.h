@@ -50,6 +50,8 @@ void		swap(stack_ptr a, char *str);
 stack_ptr	rotate(stack_ptr stack, char *str);
 stack_ptr	rev_rotate(stack_ptr stack, char *str);
 stack_ptr	push(stack_ptr a, stack_ptr *b, char *str);
+stack_ptr	rotate_both_stack(stack_ptr a, stack_ptr *b);
+stack_ptr	rev_rotate_both_stack(stack_ptr a, stack_ptr *b);
 
 /* push_swap utils */
 stack_ptr	find_last_node(stack_ptr a);

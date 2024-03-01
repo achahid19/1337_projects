@@ -13,10 +13,11 @@
 #include "push_swap.h"
 
 
-void	free_main_stack(stack_ptr a);
-void	free_args(char **args);
-size_t	get_stack_size(stack_ptr stack);
-void	stack_indexing(stack_ptr stack_a, int size);
+void		free_main_stack(stack_ptr a);
+void		free_args(char **args);
+size_t		get_stack_size(stack_ptr stack);
+void		stack_indexing(stack_ptr stack_a, int size);
+static void	node_init(stack_ptr *new, char **args);
 
 
 static void	node_init(stack_ptr *new, char **args)

@@ -65,16 +65,14 @@ static stack_ptr	stack_move(stack_ptr a, stack_ptr *b, int ca, int cb)
 	// rotate both stacks simultaneously
 	while (ca > 0 && cb > 0)
 	{
-		a = rotate(a, "ra"); // TODO rr
-		*b = rotate((*b), "rb");
+		a = rotate_both_stack(a, b);
 		ca--;
 		cb--;
 	}
 	// rev_rotate both stack simultaneously
 	while (ca < 0 && cb < 0)
 	{
-		a = rev_rotate(a, "rra"); // TODO rrr
-		*b = rev_rotate((*b), "rrb");
+		a = rev_rotate_both_stack(a, b);
 		ca++;
 		cb++;
 	}
