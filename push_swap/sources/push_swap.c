@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 static stack_ptr	push_swap(stack_ptr a, stack_ptr *b, size_t size);
 static stack_ptr	sortOf3(stack_ptr a);

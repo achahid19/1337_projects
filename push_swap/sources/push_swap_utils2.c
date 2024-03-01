@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 void		target_pos(stack_ptr a, stack_ptr *b);
 static int	find_target(stack_ptr a, size_t index_b, int target_idx, int target_pos);

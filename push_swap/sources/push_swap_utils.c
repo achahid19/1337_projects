@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 stack_ptr	find_last_node(stack_ptr a);
 bool		is_sorted(stack_ptr a);

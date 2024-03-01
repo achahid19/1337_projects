@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 stack_ptr			lowest_cost_move(stack_ptr a, stack_ptr *b);
 static stack_ptr	stack_move(stack_ptr a, stack_ptr *b, int ca, int cb);

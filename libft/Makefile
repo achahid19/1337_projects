@@ -42,13 +42,13 @@ bonus:  $(OBJECTS_B) $(CFILES_B)
 		$(AR) $(NAME) $(OBJECTS_B)
 
 $(NAME): $(OBJECTS) $(CFILES)
-		$(CC) $(FLAGS) -c $(CFILES)
-		$(AR) $(NAME) $(OBJECTS)
+		@$(CC) $(FLAGS) -c $(CFILES)
+		@$(AR) $(NAME) $(OBJECTS)
 
 clean: 
-		rm -f $(OBJECTS) $(OBJECTS_B)
+		@rm -f $(OBJECTS) $(OBJECTS_B)
 
 fclean: clean
-		rm -f $(NAME)
+		@rm -f $(NAME)
 
 re: clean fclean all

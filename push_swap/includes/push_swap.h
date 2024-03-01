@@ -16,7 +16,7 @@
 # include <stdio.h> // for debugging
 # include <stdlib.h>
 # include <stdbool.h>
-# include "libft/libft.h"
+# include "../libft/libft.h"
 # include <limits.h>
 
 typedef struct s_stack_node

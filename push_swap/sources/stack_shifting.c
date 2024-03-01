@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap.h"
+#include "../includes/push_swap.h"
 
 stack_ptr	stack_shifting(stack_ptr a);
 static int	lindex_pos(stack_ptr stack);
