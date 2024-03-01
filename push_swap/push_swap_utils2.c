@@ -16,6 +16,7 @@ void		target_pos(stack_ptr a, stack_ptr *b);
 static int	find_target(stack_ptr a, size_t index_b, int target_idx, int target_pos);
 stack_ptr	saveOf3(stack_ptr a, stack_ptr *b, size_t size_a);
 void		cost_get(stack_ptr a, stack_ptr *b);
+int			ft_abs(int num);
 
 /**
  * target_pos - finds the target position for each B element into stack a,
@@ -111,7 +112,7 @@ stack_ptr	saveOf3(stack_ptr a, stack_ptr *b, size_t size_a)
 			b_push += 1;
 		}
 		else /* if the index if above the mediane */
-			a = ra(a);
+			a = rotate(a, "ra");
 		index++;
 	}
 	// push the remaining values to keep only 3 nums on stack a.
@@ -162,4 +163,16 @@ void	cost_get(stack_ptr a, stack_ptr *b)
 			tmp_b->ca = i * (size_a - tmp_b->target_pos);
 		tmp_b = tmp_b->next;
 	}
+}
+
+/**
+ * ft_abs - convert a negative number to a positive one
+ * @num: integer
+ * Return: Absolute value of num
+*/
+int	ft_abs(int num)
+{
+	if (num < 0)
+		return (num * -1);
+	return (num);
 }

@@ -46,8 +46,8 @@ void		stack_indexing(stack_ptr stack_a, int size);
 
 /* Action's prototypes */
 void		swap(stack_ptr a, char *str);
-stack_ptr	ra(stack_ptr a);
-stack_ptr	rra(stack_ptr a);
+stack_ptr	rotate(stack_ptr stack, char *str);
+stack_ptr	rev_rotate(stack_ptr stack, char *str);
 stack_ptr	push(stack_ptr a, stack_ptr *b, char *str);
 
 /* push_swap utils */
@@ -55,6 +55,11 @@ stack_ptr	find_last_node(stack_ptr a);
 bool		is_sorted(stack_ptr a);
 size_t		find_hindex(stack_ptr a);
 stack_ptr	find_blast_node(stack_ptr a);
+
+/* move utils */
+stack_ptr	lowest_cost_move(stack_ptr a, stack_ptr *b);
+stack_ptr	stack_shifting(stack_ptr a);
+int			ft_abs(int num);
 
 /* bigSort utils */
 stack_ptr	saveOf3(stack_ptr a, stack_ptr *b, size_t size_a);

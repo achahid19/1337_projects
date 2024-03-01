@@ -14,7 +14,7 @@
 
 static stack_ptr	push_swap(stack_ptr a, stack_ptr *b, size_t size);
 static stack_ptr	sortOf3(stack_ptr a);
-static stack_ptr	bigSort(stack_ptr a, stack_ptr *b, size_t size_a);
+static stack_ptr	sort_big_stack(stack_ptr a, stack_ptr *b, size_t size_a);
 
 /**
  * for memory allocation, still have (stack a) + pointer to args (**args)
@@ -45,6 +45,9 @@ int	main(int argc, char *argv[])
 	stack_indexing(a, stack_size + 1);
 	// now the sort will be done by index, we know which value is 1 (lowest) and which one is stack_size (highest)
 	a = push_swap(a, &b, stack_size);
+	stack_ptr tmp;
+	for (tmp = a; tmp; tmp = tmp->next)
+		printf("content: %d\n", tmp->num);
 	free_main_stack(a);
 	return (0);
 }
@@ -64,10 +67,9 @@ static stack_ptr	push_swap(stack_ptr a, stack_ptr *b, size_t size)
 	else if (3 == size && false == is_sorted(a))
 		a = sortOf3(a);
 	else if (size > 3 && false == is_sorted(a))
-		a = bigSort(a, b, size);
+		a = sort_big_stack(a, b, size);
 	return (a);
 }
-
 
 /**
  * sorfOf3 - executes an algorithm to sort 3 values on the top of the stack,
@@ -84,15 +86,15 @@ static stack_ptr	sortOf3(stack_ptr a)
 
 	highest = find_hindex(a);
 	if (a->index == highest)
-		a = ra(a);
+		a = rotate(a, "ra");
 	else if (a->next->index == highest)
-		a = rra(a);
+		a = rev_rotate(a, "rra");
 	if (false == is_sorted(a))
 		swap(a, "sa");
 	return (a);
 }
 
-static stack_ptr	bigSort(stack_ptr a, stack_ptr *b, size_t size_a)
+static stack_ptr	sort_big_stack(stack_ptr a, stack_ptr *b, size_t size_a)
 {
 	a = saveOf3(a, b, size_a);
 	a = sortOf3(a);
@@ -103,6 +105,9 @@ static stack_ptr	bigSort(stack_ptr a, stack_ptr *b, size_t size_a)
 		// Once we found the targeted position for each B element on stack a
 			// we'll use the target pos of each b element to calculate the cost of a, and the position of each b element to calculate the cost of b
 		cost_get(a, b);
+		a = lowest_cost_move(a, b);
 	}
+	if (false == is_sorted(a))
+		a = stack_shifting(a);
 	return (a);
 }
