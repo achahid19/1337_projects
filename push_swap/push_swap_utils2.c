@@ -103,6 +103,8 @@ stack_ptr	saveOf3(stack_ptr a, stack_ptr *b, size_t size_a)
 
 	index = 0;
 	b_push = 0;
+	// once I hit size_a / 2, Im sure that I pushed all the indexes
+	// below the medine
 	while (size_a > 6 && index < size_a && b_push < (int)size_a / 2)
 	{
 		// push the lowest indexes
