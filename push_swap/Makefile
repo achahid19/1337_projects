@@ -32,7 +32,7 @@ NAME = push_swap
 
 all: $(NAME)
 
-$(NAME): $(SRCS) $(OBJECTS) $(HEADER) $(LIBFT)
+$(NAME): $(OBJECTS) $(HEADER) $(LIBFT)
 		@$(CC) $(CFLAFS) $(OBJECTS) $(LIBFT) -o $(NAME)
 		@echo "🚀 Push_swap Program Compiled 🚀"
 
