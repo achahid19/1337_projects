@@ -42,3 +42,20 @@ void	ft_print_error2(char **args)
 		free_args(args);
 	ft_print_error(NULL);
 }
+
+/**
+ * free_and_exit - In case an error occur while allocation
+ * memory for new nodes to build the stack, this function
+ * frees all the stack a and the memory allocated to gather
+ * all the arguments for checking purposes, finally it exit
+ * the process with a status of -1.
+ * @stack: pointer to the stack to free
+ * @args: double pointer to arguments
+ * Return: void.
+*/
+void	free_and_exit(stack_ptr stack, char **args)
+{
+	free_main_stack(stack);
+	free_args(args);
+	exit(-1);
+}

@@ -43,6 +43,7 @@ stack_ptr	main_stack_build(char **args);
 void		free_main_stack(stack_ptr a);
 size_t		get_stack_size(stack_ptr stack);
 void		stack_indexing(stack_ptr stack_a, int size);
+void		free_and_exit(stack_ptr stack, char **args);
 
 /* Action's prototypes */
 void		swap(stack_ptr a, char *str);

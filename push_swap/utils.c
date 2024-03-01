@@ -18,6 +18,18 @@ void	free_args(char **args);
 size_t	get_stack_size(stack_ptr stack);
 void	stack_indexing(stack_ptr stack_a, int size);
 
+
+static void	node_init(stack_ptr *new, char **args)
+{
+	(*new)->num = ft_atoi(*args);
+	(*new)->index = 0;
+	(*new)->pos = -1;
+	(*new)->target_pos = -1;
+	(*new)->ca = -1;
+	(*new)->cb = -1;
+	(*new)->next = NULL;
+}
+
 /**
  * main_stack_fill - build the stack which will contains all the metadata needed
  * @a: pointer to stack a (main stack)
@@ -35,26 +47,15 @@ stack_ptr	main_stack_build(char **args)
 	{
 		new = malloc(sizeof(t_stack_node));
 		if (NULL == new)
-		{
-			free_main_stack(a);
-			exit(-1); // TODO error handling. + perror.
-		}
-		new->num = ft_atoi(*args);
-		new->index = 0;
-		new->pos = -1;
-		new->target_pos = -1;
-		new->ca = -1;
-		new->cb = -1;
-		new->next = NULL;
+			free_and_exit(a, args);
+		node_init(&new, args);
 		if (NULL == a)
 			a = new;
 		else
 		{
 			tmp = a;
 			while (tmp->next != NULL)
-			{
 				tmp = tmp->next;
-			}
 			if (tmp->next == NULL)
 				tmp->next = new;
 		}
