@@ -14,7 +14,7 @@
 
 void	ft_print_error(char *to_free);
 void	ft_print_error2(char **args);
-void	free_main_stack(stack_ptr a);
+void	free_main_stack(t_stack_ptr a);
 void	free_args(char **args);
 
 /**
@@ -55,7 +55,7 @@ void	ft_print_error2(char **args)
  * @args: double pointer to arguments
  * Return: void.
 */
-void	free_and_exit(stack_ptr stack, char **args)
+void	free_and_exit(t_stack_ptr stack, char **args)
 {
 	free_main_stack(stack);
 	free_args(args);
@@ -67,9 +67,9 @@ void	free_and_exit(stack_ptr stack, char **args)
  * @a: pointer to stack
  * Return: void.
 */
-void	free_main_stack(stack_ptr a)
+void	free_main_stack(t_stack_ptr a)
 {
-	stack_ptr	tmp;
+	t_stack_ptr	tmp;
 
 	if (NULL == a)
 		return ;

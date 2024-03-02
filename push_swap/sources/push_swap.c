@@ -12,9 +12,9 @@
 
 #include "../includes/push_swap.h"
 
-static stack_ptr	push_swap(stack_ptr a, stack_ptr *b, size_t size);
-static stack_ptr	sortof3(stack_ptr a);
-static stack_ptr	sort_big_stack(stack_ptr a, stack_ptr *b, size_t size_a);
+static t_stack_ptr	push_swap(t_stack_ptr a, t_stack_ptr *b, size_t size);
+static t_stack_ptr	sortof3(t_stack_ptr a);
+static t_stack_ptr	sort_big_stack(t_stack_ptr a, t_stack_ptr *b, size_t size_a);
 
 /**
  * main - Entry point of the program
@@ -24,8 +24,8 @@ static stack_ptr	sort_big_stack(stack_ptr a, stack_ptr *b, size_t size_a);
 */
 int	main(int argc, char *argv[])
 {
-	stack_ptr	a;
-	stack_ptr	b;
+	t_stack_ptr	a;
+	t_stack_ptr	b;
 	size_t		stack_size;
 	char		**args;
 
@@ -51,7 +51,7 @@ int	main(int argc, char *argv[])
  * @size: size of the main stack
  * Return: void.
 */
-static stack_ptr	push_swap(stack_ptr a, stack_ptr *b, size_t size)
+static t_stack_ptr	push_swap(t_stack_ptr a, t_stack_ptr *b, size_t size)
 {
 	if (2 == size && false == is_sorted(a))
 		swap(a, "sa");
@@ -67,7 +67,7 @@ static stack_ptr	push_swap(stack_ptr a, stack_ptr *b, size_t size)
  * @a: pointer to the main stack
  * Return: pointer to head (first node on the stack)
 */
-static stack_ptr	sortof3(stack_ptr a)
+static t_stack_ptr	sortof3(t_stack_ptr a)
 {
 	size_t	highest;
 
@@ -101,7 +101,7 @@ static stack_ptr	sortof3(stack_ptr a)
  * @size_a: size of main stack (a).
  * Return: pointer to the main stack (a).
 */
-static stack_ptr	sort_big_stack(stack_ptr a, stack_ptr *b, size_t size_a)
+static t_stack_ptr	sort_big_stack(t_stack_ptr a, t_stack_ptr *b, size_t size_a)
 {
 	a = saveof3(a, b, size_a);
 	a = sortof3(a);

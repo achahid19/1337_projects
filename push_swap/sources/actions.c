@@ -12,10 +12,10 @@
 
 #include "../includes/push_swap.h"
 
-void		swap(stack_ptr a, char *str);
-stack_ptr	rotate(stack_ptr stack, char *str);
-stack_ptr	rev_rotate(stack_ptr stack, char *str);
-stack_ptr	push(stack_ptr a, stack_ptr *b, char *str);
+void		swap(t_stack_ptr a, char *str);
+t_stack_ptr	rotate(t_stack_ptr stack, char *str);
+t_stack_ptr	rev_rotate(t_stack_ptr stack, char *str);
+t_stack_ptr	push(t_stack_ptr a, t_stack_ptr *b, char *str);
 
 /**
  * swap - executes a swap between the 2 values on the top of the stack
@@ -23,7 +23,7 @@ stack_ptr	push(stack_ptr a, stack_ptr *b, char *str);
  * @str: pointer to the operation to execute
  * Return: void.
 */
-void	swap(stack_ptr a, char *str)
+void	swap(t_stack_ptr a, char *str)
 {
 	int	tmp;
 
@@ -45,10 +45,10 @@ void	swap(stack_ptr a, char *str)
  * @a: pointer to the main stack
  * Return: pointer to the main stack with the new order.
 */
-stack_ptr	rotate(stack_ptr stack, char *str)
+t_stack_ptr	rotate(t_stack_ptr stack, char *str)
 {
-	stack_ptr	last_node;
-	stack_ptr	tmp;
+	t_stack_ptr	last_node;
+	t_stack_ptr	tmp;
 
 	if (get_stack_size(stack) < 2)
 		return (stack);
@@ -68,11 +68,11 @@ stack_ptr	rotate(stack_ptr stack, char *str)
  * @a: pointer to the main stack
  * Return: pointer to the main stack with the new order.
 */
-stack_ptr	rev_rotate(stack_ptr stack, char *str)
+t_stack_ptr	rev_rotate(t_stack_ptr stack, char *str)
 {
-	stack_ptr	tmp;
-	stack_ptr	last;
-	stack_ptr	before_last;
+	t_stack_ptr	tmp;
+	t_stack_ptr	last;
+	t_stack_ptr	before_last;
 
 	if (get_stack_size(stack) < 2)
 		return (stack);
@@ -87,9 +87,9 @@ stack_ptr	rev_rotate(stack_ptr stack, char *str)
 	return (stack);
 }
 
-stack_ptr	push(stack_ptr a, stack_ptr *b, char *str)
+t_stack_ptr	push(t_stack_ptr a, t_stack_ptr *b, char *str)
 {
-	stack_ptr	tmp;
+	t_stack_ptr	tmp;
 
 	if (0 == ft_strncmp(str, "pb", ft_strlen(str)))
 	{

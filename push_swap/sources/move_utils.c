@@ -12,10 +12,10 @@
 
 #include "../includes/push_swap.h"
 
-stack_ptr			lowest_cost_move(stack_ptr a, stack_ptr *b);
-static stack_ptr	stack_move(stack_ptr a, stack_ptr *b, int ca, int cb);
-static stack_ptr	rotate_stack_a(stack_ptr a, int ca);
-static void			rotate_stack_b(stack_ptr *b, int cb);
+t_stack_ptr			lowest_cost_move(t_stack_ptr a, t_stack_ptr *b);
+static t_stack_ptr	stack_move(t_stack_ptr a, t_stack_ptr *b, int ca, int cb);
+static t_stack_ptr	rotate_stack_a(t_stack_ptr a, int ca);
+static void			rotate_stack_b(t_stack_ptr *b, int cb);
 
 /**
  * lowest_cost_move - Seach for a B element with the lowest cost to move it
@@ -24,9 +24,9 @@ static void			rotate_stack_b(stack_ptr *b, int cb);
  * @b: double pointer to stack b (temporaty stack)
  * Return: pointer to main stack (a)
 */
-stack_ptr	lowest_cost_move(stack_ptr a, stack_ptr *b)
+t_stack_ptr	lowest_cost_move(t_stack_ptr a, t_stack_ptr *b)
 {
-	stack_ptr	tmp_b;
+	t_stack_ptr	tmp_b;
 	int			ca;
 	int			cb;
 	int			lowest;
@@ -60,7 +60,7 @@ stack_ptr	lowest_cost_move(stack_ptr a, stack_ptr *b)
  * @cb: cost of moving a B element to the top of stack b
  * Return: pointer to the main stack (a)
 */
-static stack_ptr	stack_move(stack_ptr a, stack_ptr *b, int ca, int cb)
+static t_stack_ptr	stack_move(t_stack_ptr a, t_stack_ptr *b, int ca, int cb)
 {
 	while (ca > 0 && cb > 0)
 	{
@@ -91,7 +91,7 @@ static stack_ptr	stack_move(stack_ptr a, stack_ptr *b, int ca, int cb)
  * the right position in stack a
  * Return: pointer to main stack (a).
 */
-static stack_ptr	rotate_stack_a(stack_ptr a, int ca)
+static t_stack_ptr	rotate_stack_a(t_stack_ptr a, int ca)
 {
 	while (ca != 0)
 	{
@@ -118,7 +118,7 @@ static stack_ptr	rotate_stack_a(stack_ptr a, int ca)
  * @cb: the cose to get a B element to the top of stack b
  * Return: void.
 */
-static void	rotate_stack_b(stack_ptr *b, int cb)
+static void	rotate_stack_b(t_stack_ptr *b, int cb)
 {
 	while (cb != 0)
 	{

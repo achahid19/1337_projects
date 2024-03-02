@@ -21,16 +21,16 @@
 
 typedef struct s_stack_node
 {
-	int		num; // Current number on stack
-	size_t	index; // indexing each element on stack a
-	int 	pos; // position of each element on the stack
-	int		target_pos; // targeting a B element to a position on stack a.
-	int		ca; // cost of a
-	int		cb; // cost of b
+	int					num; // Current number on stack
+	size_t				index; // indexing each element on stack a
+	int					pos; // position of each element on the stack
+	int					target_pos;
+	int					ca; // cost of a
+	int					cb; // cost of b
 	struct s_stack_node	*next; // pointer to the next element
-} t_stack_node;
+}	t_stack_node;
 
-typedef t_stack_node *stack_ptr;
+typedef t_stack_node	*t_stack_ptr;
 
 /* arguments checker */
 char		**args_checker(char **ptr_args);
@@ -39,35 +39,35 @@ void		ft_print_error(char *to_free);
 void		ft_print_error2(char **args);
 
 /* Build Main stack */
-stack_ptr	main_stack_build(char **args);
-void		free_main_stack(stack_ptr a);
-size_t		get_stack_size(stack_ptr stack);
-void		stack_indexing(stack_ptr stack_a, int size);
-void		free_and_exit(stack_ptr stack, char **args);
+t_stack_ptr	main_stack_build(char **args);
+void		free_main_stack(t_stack_ptr a);
+size_t		get_stack_size(t_stack_ptr stack);
+void		stack_indexing(t_stack_ptr stack_a, int size);
+void		free_and_exit(t_stack_ptr stack, char **args);
 
 /* Action's prototypes */
-void		swap(stack_ptr a, char *str);
-stack_ptr	rotate(stack_ptr stack, char *str);
-stack_ptr	rev_rotate(stack_ptr stack, char *str);
-stack_ptr	push(stack_ptr a, stack_ptr *b, char *str);
-stack_ptr	rotate_both_stack(stack_ptr a, stack_ptr *b);
-stack_ptr	rev_rotate_both_stack(stack_ptr a, stack_ptr *b);
+void		swap(t_stack_ptr a, char *str);
+t_stack_ptr	rotate(t_stack_ptr stack, char *str);
+t_stack_ptr	rev_rotate(t_stack_ptr stack, char *str);
+t_stack_ptr	push(t_stack_ptr a, t_stack_ptr *b, char *str);
+t_stack_ptr	rotate_both_stack(t_stack_ptr a, t_stack_ptr *b);
+t_stack_ptr	rev_rotate_both_stack(t_stack_ptr a, t_stack_ptr *b);
 
 /* push_swap utils */
-stack_ptr	find_last_node(stack_ptr a);
-bool		is_sorted(stack_ptr a);
-size_t		find_hindex(stack_ptr a);
-stack_ptr	find_blast_node(stack_ptr a);
+t_stack_ptr	find_last_node(t_stack_ptr a);
+bool		is_sorted(t_stack_ptr a);
+size_t		find_hindex(t_stack_ptr a);
+t_stack_ptr	find_blast_node(t_stack_ptr a);
 
 /* move utils */
-stack_ptr	lowest_cost_move(stack_ptr a, stack_ptr *b);
-stack_ptr	stack_shifting(stack_ptr a);
+t_stack_ptr	lowest_cost_move(t_stack_ptr a, t_stack_ptr *b);
+t_stack_ptr	stack_shifting(t_stack_ptr a);
 int			ft_abs(int num);
 
 /* bigSort utils */
-stack_ptr	saveof3(stack_ptr a, stack_ptr *b, size_t size_a);
-void		get_pos(stack_ptr stack);
-void		target_pos(stack_ptr a, stack_ptr *b);
-void		cost_get(stack_ptr a, stack_ptr *b);
+t_stack_ptr	saveof3(t_stack_ptr a, t_stack_ptr *b, size_t size_a);
+void		get_pos(t_stack_ptr stack);
+void		target_pos(t_stack_ptr a, t_stack_ptr *b);
+void		cost_get(t_stack_ptr a, t_stack_ptr *b);
 
-# endif /* PUSH_SWAP_H */
+#endif /* PUSH_SWAP_H */

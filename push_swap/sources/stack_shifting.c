@@ -12,8 +12,8 @@
 
 #include "../includes/push_swap.h"
 
-stack_ptr	stack_shifting(stack_ptr a);
-static int	lindex_pos(stack_ptr stack);
+t_stack_ptr	stack_shifting(t_stack_ptr a);
+static int	lindex_pos(t_stack_ptr stack);
 
 /**
  * stack_shifting - shift the stack until we got the element with
@@ -21,7 +21,7 @@ static int	lindex_pos(stack_ptr stack);
  * @a: poiter to the main stack (a)
  * Return: pointer to stack a (main stack)
 */
-stack_ptr	stack_shifting(stack_ptr a)
+t_stack_ptr	stack_shifting(t_stack_ptr a)
 {
 	size_t	size_a;
 	int		lidx_pos;
@@ -52,7 +52,7 @@ stack_ptr	stack_shifting(stack_ptr a)
  * @stack: pointer to a stack
  * Return: Position of the lowest index on stack
 */
-static int	lindex_pos(stack_ptr stack)
+static int	lindex_pos(t_stack_ptr stack)
 {
 	int	lindex;
 	int	lowest_pos;

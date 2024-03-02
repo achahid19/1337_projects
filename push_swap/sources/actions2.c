@@ -12,8 +12,8 @@
 
 #include "../includes/push_swap.h"
 
-stack_ptr	rotate_both_stack(stack_ptr a, stack_ptr *b);
-stack_ptr	rev_rotate_both_stack(stack_ptr a, stack_ptr *b);
+t_stack_ptr	rotate_both_stack(t_stack_ptr a, t_stack_ptr *b);
+t_stack_ptr	rev_rotate_both_stack(t_stack_ptr a, t_stack_ptr *b);
 
 /**
  * rotate_both_stack - executes ra and rb at the same time,
@@ -22,7 +22,7 @@ stack_ptr	rev_rotate_both_stack(stack_ptr a, stack_ptr *b);
  * @b: double pointer to stack b
  * Return: pointer to stack a.
 */
-stack_ptr	rotate_both_stack(stack_ptr a, stack_ptr *b)
+t_stack_ptr	rotate_both_stack(t_stack_ptr a, t_stack_ptr *b)
 {
 	a = rotate(a, NULL);
 	*b = rotate((*b), NULL);
@@ -37,7 +37,7 @@ stack_ptr	rotate_both_stack(stack_ptr a, stack_ptr *b)
  * @b: double pointer to stack b
  * Return: pointer to stack a.
 */
-stack_ptr	rev_rotate_both_stack(stack_ptr a, stack_ptr *b)
+t_stack_ptr	rev_rotate_both_stack(t_stack_ptr a, t_stack_ptr *b)
 {
 	a = rev_rotate(a, NULL);
 	*b = rev_rotate((*b), NULL);

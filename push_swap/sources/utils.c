@@ -12,11 +12,11 @@
 
 #include "../includes/push_swap.h"
 
-stack_ptr	main_stack_build(char **args);
-static void	node_init(stack_ptr *new, char **args);
-size_t		get_stack_size(stack_ptr stack);
-void		stack_indexing(stack_ptr stack_a, int size);
-static void	node_init(stack_ptr *new, char **args);
+t_stack_ptr	main_stack_build(char **args);
+static void	node_init(t_stack_ptr *new, char **args);
+size_t		get_stack_size(t_stack_ptr stack);
+void		stack_indexing(t_stack_ptr stack_a, int size);
+static void	node_init(t_stack_ptr *new, char **args);
 
 /**
  * main_stack_fill - build the stack which will contains all the metadata needed
@@ -24,11 +24,11 @@ static void	node_init(stack_ptr *new, char **args);
  * @args: pointer to arguments which will be sorted on the stack
  * Return: void.
 */
-stack_ptr	main_stack_build(char **args)
+t_stack_ptr	main_stack_build(char **args)
 {
-	stack_ptr	new;
-	stack_ptr	tmp;
-	stack_ptr	a;
+	t_stack_ptr	new;
+	t_stack_ptr	tmp;
+	t_stack_ptr	a;
 
 	a = NULL;
 	while (*args != NULL)
@@ -59,7 +59,7 @@ stack_ptr	main_stack_build(char **args)
  * @args: double pointer to arguments
  * Return: void.
 */
-static void	node_init(stack_ptr *new, char **args)
+static void	node_init(t_stack_ptr *new, char **args)
 {
 	(*new)->num = ft_atoi(*args);
 	(*new)->index = 0;
@@ -75,7 +75,7 @@ static void	node_init(stack_ptr *new, char **args)
  * @stack: pointer to the stack
  * Return: stack's size
 */
-size_t	get_stack_size(stack_ptr stack)
+size_t	get_stack_size(t_stack_ptr stack)
 {
 	size_t	size;
 
@@ -96,10 +96,10 @@ size_t	get_stack_size(stack_ptr stack)
  * @size: size of stack
  * Return: void.
 */
-void	stack_indexing(stack_ptr stack_a, int size)
+void	stack_indexing(t_stack_ptr stack_a, int size)
 {
-	stack_ptr	ptr;
-	stack_ptr	highest_node;
+	t_stack_ptr	ptr;
+	t_stack_ptr	highest_node;
 	int			num;
 
 	while (--size > 0)

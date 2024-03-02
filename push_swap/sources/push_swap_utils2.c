@@ -12,11 +12,11 @@
 
 #include "../includes/push_swap.h"
 
-void		target_pos(stack_ptr a, stack_ptr *b);
-static int	find_target(stack_ptr a, size_t index_b,
+void		target_pos(t_stack_ptr a, t_stack_ptr *b);
+static int	find_target(t_stack_ptr a, size_t index_b,
 				int target_idx, int target_pos);
-stack_ptr	saveof3(stack_ptr a, stack_ptr *b, size_t size_a);
-void		cost_get(stack_ptr a, stack_ptr *b);
+t_stack_ptr	saveof3(t_stack_ptr a, t_stack_ptr *b, size_t size_a);
+void		cost_get(t_stack_ptr a, t_stack_ptr *b);
 int			ft_abs(int num);
 
 /**
@@ -27,9 +27,9 @@ int			ft_abs(int num);
  * @size_a: size of main stack (a)
  * Return: void.
 */
-void	target_pos(stack_ptr a, stack_ptr *b)
+void	target_pos(t_stack_ptr a, t_stack_ptr *b)
 {
-	stack_ptr	tmp_b;
+	t_stack_ptr	tmp_b;
 	int			target_pos;
 
 	tmp_b = (*b);
@@ -59,10 +59,10 @@ void	target_pos(stack_ptr a, stack_ptr *b)
  * @target_pos: position of the A element to target
  * Return: the positon to target in stack a.
 */
-static int	find_target(stack_ptr a, size_t index_b,
+static int	find_target(t_stack_ptr a, size_t index_b,
 				int target_idx, int target_pos)
 {
-	stack_ptr	tmp_a;
+	t_stack_ptr	tmp_a;
 
 	tmp_a = a;
 	while (tmp_a != NULL)
@@ -98,7 +98,7 @@ static int	find_target(stack_ptr a, size_t index_b,
  * @size_a: size of main stack (a)
  * Return: pointer to the main stack.
 */
-stack_ptr	saveof3(stack_ptr a, stack_ptr *b, size_t size_a)
+t_stack_ptr	saveof3(t_stack_ptr a, t_stack_ptr *b, size_t size_a)
 {
 	size_t	index;
 	int		b_push;
@@ -137,9 +137,9 @@ stack_ptr	saveof3(stack_ptr a, stack_ptr *b, size_t size_a)
  * @b: double pointer to stack b
  * Return: void
 */
-void	cost_get(stack_ptr a, stack_ptr *b)
+void	cost_get(t_stack_ptr a, t_stack_ptr *b)
 {
-	stack_ptr	tmp_b;
+	t_stack_ptr	tmp_b;
 	size_t		size_a;
 	size_t		size_b;
 	int			i;
