@@ -12,24 +12,11 @@
 
 #include "../includes/push_swap.h"
 
-
-void		free_main_stack(stack_ptr a);
-void		free_args(char **args);
+stack_ptr	main_stack_build(char **args);
+static void	node_init(stack_ptr *new, char **args);
 size_t		get_stack_size(stack_ptr stack);
 void		stack_indexing(stack_ptr stack_a, int size);
 static void	node_init(stack_ptr *new, char **args);
-
-
-static void	node_init(stack_ptr *new, char **args)
-{
-	(*new)->num = ft_atoi(*args);
-	(*new)->index = 0;
-	(*new)->pos = -1;
-	(*new)->target_pos = -1;
-	(*new)->ca = -1;
-	(*new)->cb = -1;
-	(*new)->next = NULL;
-}
 
 /**
  * main_stack_fill - build the stack which will contains all the metadata needed
@@ -42,7 +29,7 @@ stack_ptr	main_stack_build(char **args)
 	stack_ptr	new;
 	stack_ptr	tmp;
 	stack_ptr	a;
-	
+
 	a = NULL;
 	while (*args != NULL)
 	{
@@ -62,58 +49,25 @@ stack_ptr	main_stack_build(char **args)
 		}
 		args++;
 	}
-	/* Now the linked list is created, need to check for duplicates! */
-	/* have to free the main stack when I finish with it */
 	return (a);
 }
 
 /**
- * free_main_stack - frees all the nodes building the linked list of the stack
- * @a: pointer to stack
+ * node_init - initialize the variables of the new node
+ * created to be added to the stack
+ * @new: pointer to the new created element
+ * @args: double pointer to arguments
  * Return: void.
 */
-void	free_main_stack(stack_ptr a)
+static void	node_init(stack_ptr *new, char **args)
 {
-	stack_ptr	tmp;
-
-	if (NULL == a)
-		return ;
-	tmp = a;
-	/* In case we have only one node to free */
-	if (NULL == tmp->next)
-	{
-		free(a);
-		return ;
-	}
-	/* in case of a linked list of nodes */
-	while (tmp != NULL)
-	{
-		tmp = a->next;
-		free(a);
-		a = tmp;
-		tmp = a->next;
-	}
-	free(a);
-	return ;
-}
-
-/**
- * free_args - freed all memory allocated to arguments
- * @args: pointer to arguments
- * Return: void.
-*/
-void	free_args(char **args)
-{
-	size_t	index;
-
-	index = 0;
-	while (args[index] != NULL)
-	{
-		free(args[index]);
-		index++;
-	}
-	free(args);
-	return ;
+	(*new)->num = ft_atoi(*args);
+	(*new)->index = 0;
+	(*new)->pos = -1;
+	(*new)->target_pos = -1;
+	(*new)->ca = -1;
+	(*new)->cb = -1;
+	(*new)->next = NULL;
 }
 
 /**

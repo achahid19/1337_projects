@@ -14,6 +14,8 @@
 
 void	ft_print_error(char *to_free);
 void	ft_print_error2(char **args);
+void	free_main_stack(stack_ptr a);
+void	free_args(char **args);
 
 /**
  * ft_print_error - prints a message error on stderr
@@ -58,4 +60,51 @@ void	free_and_exit(stack_ptr stack, char **args)
 	free_main_stack(stack);
 	free_args(args);
 	exit(-1);
+}
+
+/**
+ * free_main_stack - frees all the nodes building the linked list of the stack
+ * @a: pointer to stack
+ * Return: void.
+*/
+void	free_main_stack(stack_ptr a)
+{
+	stack_ptr	tmp;
+
+	if (NULL == a)
+		return ;
+	tmp = a;
+	if (NULL == tmp->next)
+	{
+		free(a);
+		return ;
+	}
+	while (tmp != NULL)
+	{
+		tmp = a->next;
+		free(a);
+		a = tmp;
+		tmp = a->next;
+	}
+	free(a);
+	return ;
+}
+
+/**
+ * free_args - freed all memory allocated to arguments
+ * @args: pointer to arguments
+ * Return: void.
+*/
+void	free_args(char **args)
+{
+	size_t	index;
+
+	index = 0;
+	while (args[index] != NULL)
+	{
+		free(args[index]);
+		index++;
+	}
+	free(args);
+	return ;
 }

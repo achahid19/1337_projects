@@ -22,7 +22,6 @@ stack_ptr	push(stack_ptr a, stack_ptr *b, char *str);
  * @a: pointer to the stack
  * @str: pointer to the operation to execute
  * Return: void.
- * 
 */
 void	swap(stack_ptr a, char *str)
 {
@@ -48,18 +47,15 @@ void	swap(stack_ptr a, char *str)
 */
 stack_ptr	rotate(stack_ptr stack, char *str)
 {
-	stack_ptr   last_node;
-	stack_ptr   tmp;
+	stack_ptr	last_node;
+	stack_ptr	tmp;
 
 	if (get_stack_size(stack) < 2)
 		return (stack);
-	// make the last node points to the first node
 	last_node = find_last_node(stack);
 	last_node->next = stack;
-	// stack pointer should point to the second node
 	tmp = stack;
 	stack = stack->next;
-	// update the node.next to NULL (last node on the stack)
 	tmp->next = NULL;
 	if (str != NULL)
 		ft_putendl_fd(str, 1);
@@ -80,16 +76,11 @@ stack_ptr	rev_rotate(stack_ptr stack, char *str)
 
 	if (get_stack_size(stack) < 2)
 		return (stack);
-	// find the before last node
 	before_last = find_blast_node(stack);
-	// make a temporary pointer to the first node
 	tmp = stack;
-	// make the last node points to the first node
 	last = find_last_node(stack);
 	last->next = tmp;
-	// make the last node points to NULL
 	before_last->next = NULL;
-	// make the stack pointer points to the node that becomes the first
 	stack = last;
 	if (str)
 		ft_putendl_fd(str, 1);

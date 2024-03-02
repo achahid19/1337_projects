@@ -62,26 +62,21 @@ stack_ptr	lowest_cost_move(stack_ptr a, stack_ptr *b)
 */
 static stack_ptr	stack_move(stack_ptr a, stack_ptr *b, int ca, int cb)
 {
-	// rotate both stacks simultaneously
 	while (ca > 0 && cb > 0)
 	{
 		a = rotate_both_stack(a, b);
 		ca--;
 		cb--;
 	}
-	// rev_rotate both stack simultaneously
 	while (ca < 0 && cb < 0)
 	{
 		a = rev_rotate_both_stack(a, b);
 		ca++;
 		cb++;
 	}
-	// individual rotation
 	a = rotate_stack_a(a, ca);
 	rotate_stack_b(b, cb);
 	a = push(a, b, "pa");
-	// if is not sorted yet, rotate or rev_rotate until the lowest index
-	// is at the top of the main stack.
 	return (a);
 }
 

@@ -13,12 +13,8 @@
 #include "../includes/push_swap.h"
 
 static stack_ptr	push_swap(stack_ptr a, stack_ptr *b, size_t size);
-static stack_ptr	sortOf3(stack_ptr a);
+static stack_ptr	sortof3(stack_ptr a);
 static stack_ptr	sort_big_stack(stack_ptr a, stack_ptr *b, size_t size_a);
-
-/**
- * for memory allocation, still have (stack a) + pointer to args (**args)
-*/
 
 /**
  * main - Entry point of the program
@@ -35,19 +31,14 @@ int	main(int argc, char *argv[])
 
 	a = NULL;
 	b = NULL;
-	if (argc <= 1 || NULL == argv[1]) // lack of args, only program name!
+	if (argc <= 1 || NULL == argv[1])
 		exit(0);
 	args = args_checker(argv + 1);
 	a = main_stack_build(args);
 	free_args(args);
-	// After passing all checks, now build the main stack
 	stack_size = get_stack_size(a);
 	stack_indexing(a, stack_size + 1);
-	// now the sort will be done by index, we know which value is 1 (lowest) and which one is stack_size (highest)
 	a = push_swap(a, &b, stack_size);
-	stack_ptr tmp;
-	for (tmp = a; tmp; tmp = tmp->next)
-		printf("content: %d\n", tmp->num);
 	free_main_stack(a);
 	return (0);
 }
@@ -65,7 +56,7 @@ static stack_ptr	push_swap(stack_ptr a, stack_ptr *b, size_t size)
 	if (2 == size && false == is_sorted(a))
 		swap(a, "sa");
 	else if (3 == size && false == is_sorted(a))
-		a = sortOf3(a);
+		a = sortof3(a);
 	else if (size > 3 && false == is_sorted(a))
 		a = sort_big_stack(a, b, size);
 	return (a);
@@ -76,12 +67,8 @@ static stack_ptr	push_swap(stack_ptr a, stack_ptr *b, size_t size)
  * @a: pointer to the main stack
  * Return: pointer to head (first node on the stack)
 */
-static stack_ptr	sortOf3(stack_ptr a)
+static stack_ptr	sortof3(stack_ptr a)
 {
-	// IN RESUME, we have 3 scenarios:
-		// 1- node 1 => highest index => 'ra', then check if the first 2 nodes are sorted, if not then 'sa'
-		// 2- node 2 => highest index => 'rra', then check the same as scenario 1
-		// 3- node 3 => highest index (no need to check) =>, then same condition is checked.
 	size_t	highest;
 
 	highest = find_hindex(a);
@@ -94,16 +81,33 @@ static stack_ptr	sortOf3(stack_ptr a)
 	return (a);
 }
 
+/**
+ * sort_big_stack - Using a adequat sorting algorithm to sort the stack
+ * firstly, based on the mediane of the stack size, we push the lowest
+ * indexes below the median to stack b, saveof3() function handles the
+ * operations and save 3 elements on stack a (main stack) that will
+ * be sorted with sortof3().
+ * Then we iterate over stack b until its pointing to NULL; will iterating
+ * over each element, a target position is assigned to the element which
+ * help us to know the position of B element in the main stack (a).
+ * This target position will be used to calculate ca and cb, then
+ * depending on ca and cb, we gonna move both stacks then push
+ * B elements to stack a.
+ * Finally, if stack a is not yet sorted, shifting the stack is needed.
+ * stack_shifting(), search for the position of the lowest index on the
+ * stack then shift it until the lowest index hit the top of the stack.
+ * @a: pointer to the main stack (a)
+ * @b: double pointer to the temporary stack (b)
+ * @size_a: size of main stack (a).
+ * Return: pointer to the main stack (a).
+*/
 static stack_ptr	sort_big_stack(stack_ptr a, stack_ptr *b, size_t size_a)
 {
-	a = saveOf3(a, b, size_a);
-	a = sortOf3(a);
+	a = saveof3(a, b, size_a);
+	a = sortof3(a);
 	while ((*b) != NULL)
 	{
-		// first need to target the position of b element on stack a.
 		target_pos(a, b);
-		// Once we found the targeted position for each B element on stack a
-			// we'll use the target pos of each b element to calculate the cost of a, and the position of each b element to calculate the cost of b
 		cost_get(a, b);
 		a = lowest_cost_move(a, b);
 	}

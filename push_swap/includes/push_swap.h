@@ -65,7 +65,7 @@ stack_ptr	stack_shifting(stack_ptr a);
 int			ft_abs(int num);
 
 /* bigSort utils */
-stack_ptr	saveOf3(stack_ptr a, stack_ptr *b, size_t size_a);
+stack_ptr	saveof3(stack_ptr a, stack_ptr *b, size_t size_a);
 void		get_pos(stack_ptr stack);
 void		target_pos(stack_ptr a, stack_ptr *b);
 void		cost_get(stack_ptr a, stack_ptr *b);

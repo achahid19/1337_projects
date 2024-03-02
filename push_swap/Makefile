@@ -17,7 +17,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 
 SRCS = $(addprefix sources/, push_swap.c actions.c actions2.c \
-		args_checker.c input_erros.c move_utils.c utils.c \
+		args_checker.c free_and_errors.c move_utils.c utils.c \
 		push_swap_utils.c push_swap_utils2.c stack_shifting.c)
 
 OBJECTS = $(SRCS:.c=.o)

@@ -12,6 +12,7 @@
 
 #include "../includes/push_swap.h"
 
+char		**args_checker(char **ptr_argv);
 static bool	args_first_check(char *str);
 static bool	args_second_check(char *str);
 static void	args_duplicates_checker(char **args);
@@ -31,15 +32,14 @@ char	**args_checker(char **ptr_argv)
 	join = NULL;
 	while (ptr_argv[index] != NULL)
 	{
-		if (false == args_first_check(ptr_argv[index])) // if there no digit in the argument, then just exit.
+		if (false == args_first_check(ptr_argv[index]))
 			ft_print_error(join);
-		if (false == args_second_check(ptr_argv[index])) // checks the arguments gathered, anything else is_digit(), '+', '-' and space.
+		if (false == args_second_check(ptr_argv[index]))
 			ft_print_error(join);
 		join = ft_strjoin(join, " ");
 		join = ft_strjoin(join, ptr_argv[index]);
 		index++;
 	}
-	/* I might have some args to split, for that I'll join all the args in one array then split all */
 	ptr_argv = ft_split(join, ' ');
 	free(join);
 	args_duplicates_checker(ptr_argv);
@@ -60,11 +60,10 @@ static bool	args_first_check(char *str)
 	status = false;
 	while (*str)
 	{
-		/* if the character is a digit */
 		if (ft_isdigit(*str))
 			status = true;
-		/* checks if after the digit is there any character else than space or null-terminating or a digit*/
-		if (ft_isdigit(*str) && (*(str + 1) != ' ' && *(str + 1) != '\0' && !ft_isdigit(*(str + 1))))
+		if (ft_isdigit(*str) && (*(str + 1) != ' ' && *(str + 1) != '\0'
+				&& !ft_isdigit(*(str + 1))))
 		{
 			status = false;
 			break ;
@@ -88,7 +87,6 @@ static bool	args_second_check(char *str)
 	status = true;
 	while (*str)
 	{
-		/* if *str is plus or minus, have to check the character right after is a digit */
 		if (*str == '+' || *str == '-')
 		{
 			if (!ft_isdigit(*(str + 1)))
@@ -97,7 +95,6 @@ static bool	args_second_check(char *str)
 				break ;
 			}
 		}
-		/* if we found anything else of digits, '+', '-' or ' ' */
 		if (!ft_isdigit(*str) && *str != '+' && *str != '-' && *str != ' ')
 		{
 			status = false;
@@ -109,7 +106,8 @@ static bool	args_second_check(char *str)
 }
 
 /**
- * args_duplicates_checker - checks if the inputs contains some duplicated numbers
+ * args_duplicates_checker - checks if the inputs
+ * contains some duplicated numbers.
  * @args: pointer to the array of arguments (numbers to sort)
  * Return: void.
 */

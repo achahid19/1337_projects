@@ -79,7 +79,8 @@ stack_ptr	find_blast_node(stack_ptr a)
 }
 
 /**
- * get_pos - assign a position for each node starting from 0 to  n (size_size - 1)
+ * get_pos - assign a position for each node starting
+ * from 0 to  n (size_size - 1)
  * @stack: pointer to the stack
  * Return: void.
 */
