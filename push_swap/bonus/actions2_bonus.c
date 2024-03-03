@@ -1,0 +1,46 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   actions2_bonus.c                                   :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/03/03 15:02:38 by achahid-          #+#    #+#             */
+/*   Updated: 2024/03/03 15:02:39 by achahid-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "push_swap_bonus.h"
+
+t_stack_ptr	rotate_both_stack(t_stack_ptr a, t_stack_ptr *b);
+t_stack_ptr	rev_rotate_both_stack(t_stack_ptr a, t_stack_ptr *b);
+
+/**
+ * rotate_both_stack - executes ra and rb at the same time,
+ * its an rr operation
+ * @a: pointer to stack a
+ * @b: double pointer to stack b
+ * Return: pointer to stack a.
+*/
+t_stack_ptr	rotate_both_stack(t_stack_ptr a, t_stack_ptr *b)
+{
+	a = rotate(a, NULL);
+	*b = rotate((*b), NULL);
+	ft_putendl_fd("rr", 1);
+	return (a);
+}
+
+/**
+ * rev_rotate_both_stack - executes rra and rrb operations at
+ * the same time, its an rrr operation
+ * @a: pointer to stack a
+ * @b: double pointer to stack b
+ * Return: pointer to stack a.
+*/
+t_stack_ptr	rev_rotate_both_stack(t_stack_ptr a, t_stack_ptr *b)
+{
+	a = rev_rotate(a, NULL);
+	*b = rev_rotate((*b), NULL);
+	ft_putendl_fd("rrr", 1);
+	return (a);
+}
