@@ -14,7 +14,8 @@
 
 static t_stack_ptr	push_swap(t_stack_ptr a, t_stack_ptr *b, size_t size);
 static t_stack_ptr	sortof3(t_stack_ptr a);
-static t_stack_ptr	sort_big_stack(t_stack_ptr a, t_stack_ptr *b, size_t size_a);
+static t_stack_ptr	sort_big_stack(t_stack_ptr a, t_stack_ptr *b,
+						size_t size_a);
 
 /**
  * main - Entry point of the program
