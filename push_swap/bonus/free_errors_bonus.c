@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap_bonus.h"
+#include "../includes/push_swap_bonus.h"
 
 void	exit_error();
 void	ft_print_error(char **args);

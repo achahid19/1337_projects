@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap_bonus.h"
+#include "../includes/push_swap_bonus.h"
 
 void				main_stack_build(char **args, t_stack_ptr *a);
 static void			node_init(t_stack_ptr *new, char **args);

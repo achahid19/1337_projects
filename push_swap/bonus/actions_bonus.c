@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap_bonus.h"
+#include "../includes/push_swap_bonus.h"
 
 void		swap(t_stack_ptr a, char *str);
 t_stack_ptr	rotate(t_stack_ptr stack, char *str);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap_bonus.h"
+#include "../includes/push_swap_bonus.h"
 
 size_t		get_stack_size(t_stack_ptr stack);
 t_stack_ptr	find_last_node(t_stack_ptr a);

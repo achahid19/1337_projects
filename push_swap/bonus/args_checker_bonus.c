@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap_bonus.h"
+#include "../includes/push_swap_bonus.h"
 
 bool		args_checker(char *args);
 static bool	args_first_check(char *str);

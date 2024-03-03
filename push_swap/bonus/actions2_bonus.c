@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "push_swap_bonus.h"
+#include "../includes/push_swap_bonus.h"
 
 t_stack_ptr	rotate_both_stack(t_stack_ptr a, t_stack_ptr *b);
 t_stack_ptr	rev_rotate_both_stack(t_stack_ptr a, t_stack_ptr *b);
