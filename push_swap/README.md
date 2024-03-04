@@ -58,4 +58,4 @@ Après avoir exécuté la commande ci-dessus, un message sera affiché sur le te
 | rrb (reverse rotate b)| Décale tous les éléments de la pile b vers le bas de 1. Le dernier élément devient le premier.
 | rrr					| rra et rrb en même temps.
 
-## Algorithme
+## Algorithme (Cette partie sera prochainement traitée)
