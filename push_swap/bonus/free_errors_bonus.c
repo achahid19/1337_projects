@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap_bonus.h"
 
-void	exit_error();
+void	exit_error(char *error, int fd);
 void	ft_print_error(char **args);
 void	free_args(char **args);
 void	free_and_exit(t_stack_ptr stack, char **args, int status);

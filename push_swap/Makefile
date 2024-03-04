@@ -52,7 +52,7 @@ $(LIBFT):
 		@echo "Libft archive created successfully ✅"
 
 bonus: $(OBJECTS_BONUS) $(LIBFT) $(HEADER_BONUS)
-		$(MAKE)
+		$(MAKE) all
 		@$(CC) $(CFLAFS) $(OBJECTS_BONUS) $(LIBFT) -o $(CHECKER_NAME)
 		@echo "Checker Program Compiled 💯"
 

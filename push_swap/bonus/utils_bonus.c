@@ -16,9 +16,8 @@ void				main_stack_build(char **args, t_stack_ptr *a);
 static void			node_init(t_stack_ptr *new, char **args);
 char				**read_instructions(t_stack_ptr a, char **args);
 static t_stack_ptr	action_execute(char *action, t_stack_ptr a, t_stack_ptr *b);
-t_stack_ptr			actions_search_execute
-						(t_stack_ptr a, t_stack_ptr *b, char **actions);
-
+t_stack_ptr			actions_search_execute(t_stack_ptr a, t_stack_ptr *b,
+						char **actions);
 
 /**
  * main_stack_fill - build the stack which will contains all the metadata needed
@@ -49,7 +48,7 @@ void	main_stack_build(char **args, t_stack_ptr *a)
 				tmp->next = new;
 		}
 		args++;
-	}	
+	}
 }
 
 /**

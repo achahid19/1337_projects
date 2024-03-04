@@ -13,7 +13,15 @@
 #include "../includes/push_swap_bonus.h"
 
 /**
- * 
+ * main - Entry point
+ * Description: read the instructions given by push_swap
+ * program to sort the values on a stack, if the
+ * instructions readed from stdin, they sort
+ * our stack, the checker program prints on stdout
+ * 'OK', otherwise it prints 'KO'
+ * @ac: argument counts
+ * @av: double pointer to the values to sort on a stack
+ * Return: Always 0 (Success).
 */
 int	main(int ac, char *av[])
 {
@@ -34,7 +42,7 @@ int	main(int ac, char *av[])
 	actions = read_instructions(a, args);
 	a = actions_search_execute(a, &b, actions);
 	if (true == is_sorted(a))
-		write(1, "OK\n", 3);
+		write(1, "OK\n", ft_strlen("OK\n"));
 	else
 	{
 		free_all(args, a, actions);
