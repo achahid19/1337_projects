@@ -78,7 +78,12 @@ bool	is_sorted(t_stack_ptr a)
 }
 
 /**
- * 
+ * free_all - freed all the allocated memory
+ * in order to build the checker program.
+ * @args: double pointer to arguments.
+ * @a: pointer to the main stack (a).
+ * @actions: double pointer to push_swap actions.
+ * Return: void.
 */
 void	free_all(char **args, t_stack_ptr a, char **actions)
 {

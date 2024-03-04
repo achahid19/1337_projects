@@ -18,7 +18,12 @@ static bool	args_second_check(char *str);
 void		args_duplicates_checker(char **args);
 
 /**
- * args_checker -
+ * args_checker - checker for arguments passed to the
+ * program, made of 2 checkers, if they change the
+ * status to false the execution of the program
+ * stops there.
+ * @args: pointer to the arguments (suppose to be only values)
+ * Return: false if the checker fails, otherwise true.
 */
 bool	args_checker(char *args)
 {

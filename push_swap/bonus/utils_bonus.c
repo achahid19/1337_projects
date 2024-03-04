@@ -65,7 +65,12 @@ static void	node_init(t_stack_ptr *new, char **args)
 }
 
 /**
- * read_instructions -
+ * read_instructions - reads from stdin the operations done by
+ * push_swap program, then buffer them in a grid pointed
+ * by **actions.
+ * @a: pointer to main stack (a)
+ * @args: double pointer to arguments (supposed to be only values)
+ * Return: grid of push_swap actions.
 */
 char	**read_instructions(t_stack_ptr a, char **args)
 {
@@ -96,7 +101,12 @@ char	**read_instructions(t_stack_ptr a, char **args)
 }
 
 /**
- * action_execute -
+ * action_execute - call the corresponding function based on
+ * the operation we got from push_swap program.
+ * @action: pointer to the actiosn to execute.
+ * @a: pointer to main the stack (a).
+ * @b: double pointer to the temporary stack (b).
+ * Return: pointer to the main stack (a).
 */
 static t_stack_ptr	action_execute(char *action, t_stack_ptr a, t_stack_ptr *b)
 {
@@ -124,7 +134,13 @@ static t_stack_ptr	action_execute(char *action, t_stack_ptr a, t_stack_ptr *b)
 }
 
 /**
- * actions_apply -
+ * actions_apply - iterates over the push_swap actions
+ * and call the execution function to match the operation
+ * we have with the corresponding function.
+ * @a: pointer to main stack (a)
+ * @b: double pointer to temporary stack (b)
+ * @actions: double pointer to push_swap actions
+ * Return: pointer to main stack (a).
 */
 t_stack_ptr	actions_search_execute(t_stack_ptr a, t_stack_ptr *b,
 				char **actions)

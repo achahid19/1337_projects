@@ -19,7 +19,11 @@ void	free_and_exit(t_stack_ptr stack, char **args, int status);
 void	free_main_stack(t_stack_ptr a);
 
 /**
- * exit_error -
+ * exit_error - writes an msg error on stderr or stdout
+ * and exit the process with -1 status.
+ * @error: pointer to the error message.
+ * @fd: file descriptor (integer), where to display the msg.
+ * Return: void.
 */
 void	exit_error(char *error, int fd)
 {
