@@ -12,10 +12,10 @@
 
 #include "../includes/push_swap.h"
 
-char		**args_checker(char **ptr_argv);
+char			**args_checker(char **ptr_argv);
 static t_bool	args_first_check(char *str);
 static t_bool	args_second_check(char *str);
-static void	args_duplicates_checker(char **args);
+static void		args_duplicates_checker(char **args);
 
 /**
  * tab_to_fill - gather all checked arguments to a string then
