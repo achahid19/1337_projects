@@ -47,7 +47,7 @@ void		ft_print_error2(char **args);
 t_stack_ptr	main_stack_build(t_stack_ptr a, char **args);
 void		free_main_stack(t_stack_ptr a);
 size_t		get_stack_size(t_stack_ptr stack);
-void		stack_indexing(t_stack_ptr stack_a, int size);
+void		stack_indexing(t_stack_ptr a, int size);
 void		free_and_exit(t_stack_ptr stack, char **args);
 
 /* Action's prototypes */
