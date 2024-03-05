@@ -12,10 +12,10 @@
 
 #include "../includes/push_swap_bonus.h"
 
-t_bool		args_checker(char *args);
+t_bool			args_checker(char *args);
 static t_bool	args_first_check(char *str);
 static t_bool	args_second_check(char *str);
-void		args_duplicates_checker(char **args);
+void			args_duplicates_checker(char **args);
 
 /**
  * args_checker - checker for arguments passed to the
