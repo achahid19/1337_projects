@@ -38,7 +38,7 @@ int	main(int argc, char *argv[])
 	a = main_stack_build(a, args);
 	free_args(args);
 	stack_size = get_stack_size(a);
-	stack_indexing(a, stack_size + 1);
+	stack_indexing(a, stack_size);
 	a = push_swap(a, &b, stack_size);
 	free_main_stack(a);
 	return (0);
