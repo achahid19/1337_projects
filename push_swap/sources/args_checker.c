@@ -13,8 +13,8 @@
 #include "../includes/push_swap.h"
 
 char		**args_checker(char **ptr_argv);
-static bool	args_first_check(char *str);
-static bool	args_second_check(char *str);
+static t_bool	args_first_check(char *str);
+static t_bool	args_second_check(char *str);
 static void	args_duplicates_checker(char **args);
 
 /**
@@ -53,9 +53,9 @@ char	**args_checker(char **ptr_argv)
  * @str: pointer to the argument to check
  * Return: false if there is no digit in str, otherwise true.
 */
-static bool	args_first_check(char *str)
+static t_bool	args_first_check(char *str)
 {
-	bool	status;
+	t_bool	status;
 
 	status = false;
 	while (*str)
@@ -80,9 +80,9 @@ static bool	args_first_check(char *str)
  * @str: pointer to the array of arguments to check
  * Return: true if str passed the checks, otherwise false.
 */
-static bool	args_second_check(char *str)
+static t_bool	args_second_check(char *str)
 {
-	bool	status;
+	t_bool	status;
 
 	status = true;
 	while (*str)
