@@ -57,6 +57,8 @@ void	free_args(char **args)
 {
 	size_t	index;
 
+	if (NULL == args)
+		return ;
 	index = 0;
 	while (args[index] != NULL)
 	{
