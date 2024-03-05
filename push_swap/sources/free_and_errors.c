@@ -59,7 +59,8 @@ void	free_and_exit(t_stack_ptr stack, char **args)
 {
 	if (stack != NULL)
 		free_main_stack(stack);
-	free_args(args);
+	if (args != NULL)
+		free_args(args);
 	exit(-1);
 }
 
@@ -101,6 +102,8 @@ void	free_args(char **args)
 	size_t	index;
 
 	index = 0;
+	if (NULL == args)
+		return ;
 	while (args[index] != NULL)
 	{
 		free(args[index]);
