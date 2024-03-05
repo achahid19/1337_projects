@@ -22,8 +22,8 @@
 
 # define BUFFER_SIZE 20000 // instructions readed
 
-#ifndef BOOL_H
-# define BOOL_H
+# ifndef BOOL_H
+#  define BOOL_H
 
 typedef enum e_bool // define a set of named integer constants.
 {
@@ -31,14 +31,13 @@ typedef enum e_bool // define a set of named integer constants.
 	true = 1
 }	t_bool;
 
-#endif /* BOOL_H */
+# endif /* BOOL_H */
 
 typedef struct s_stack_node
 {
 	int					num;
 	struct s_stack_node	*next;
 }	t_stack_node;
-
 
 typedef t_stack_node	*t_stack_ptr;
 
