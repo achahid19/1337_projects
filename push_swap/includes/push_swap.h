@@ -15,9 +15,14 @@
 
 # include <stdio.h> // for debugging
 # include <stdlib.h>
-# include <stdbool.h>
 # include "../libft/libft.h"
 # include <limits.h>
+
+typedef enum // define a set of named integer constants.
+{
+	false = 0,
+	true = 1
+}	t_bool;
 
 typedef struct s_stack_node
 {
@@ -55,7 +60,7 @@ t_stack_ptr	rev_rotate_both_stack(t_stack_ptr a, t_stack_ptr *b);
 
 /* push_swap utils */
 t_stack_ptr	find_last_node(t_stack_ptr a);
-bool		is_sorted(t_stack_ptr a);
+t_bool		is_sorted(t_stack_ptr a);
 size_t		find_hindex(t_stack_ptr a);
 t_stack_ptr	find_blast_node(t_stack_ptr a);
 

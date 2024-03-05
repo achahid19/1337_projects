@@ -14,7 +14,6 @@
 # define PUSH_SWAP_BONUS_H
 
 # include <stdlib.h>
-# include <stdbool.h>
 # include <limits.h>
 # include <stdio.h>
 # include <fcntl.h>
@@ -23,16 +22,28 @@
 
 # define BUFFER_SIZE 20000 // instructions readed
 
+#ifndef BOOL_H
+# define BOOL_H
+
+typedef enum // define a set of named integer constants.
+{
+	false = 0,
+	true = 1
+}	t_bool;
+
+#endif /* BOOL_H */
+
 typedef struct s_stack_node
 {
 	int					num;
 	struct s_stack_node	*next;
 }	t_stack_node;
 
+
 typedef t_stack_node	*t_stack_ptr;
 
 /* arguments checker */
-bool		args_checker(char *args);
+t_bool		args_checker(char *args);
 void		args_duplicates_checker(char **args);
 void		free_main_stack(t_stack_ptr a);
 
@@ -62,7 +73,7 @@ t_stack_ptr	rev_rotate_both_stack(t_stack_ptr a, t_stack_ptr *b);
 size_t		get_stack_size(t_stack_ptr stack);
 t_stack_ptr	find_last_node(t_stack_ptr a);
 t_stack_ptr	find_blast_node(t_stack_ptr a);
-bool		is_sorted(t_stack_ptr a);
+t_bool		is_sorted(t_stack_ptr a);
 void		free_all(char **args, t_stack_ptr a, char **actions);
 
 #endif /* PUSH_SWAP_BONUS_H */
