@@ -18,7 +18,7 @@
 # include "../libft/libft.h"
 # include <limits.h>
 
-typedef enum // define a set of named integer constants.
+typedef enum e_bool // define a set of named integer constants.
 {
 	false = 0,
 	true = 1
@@ -44,7 +44,7 @@ void		ft_print_error(char *to_free);
 void		ft_print_error2(char **args);
 
 /* Build Main stack */
-t_stack_ptr	main_stack_build(char **args);
+t_stack_ptr	main_stack_build(t_stack_ptr a, char **args);
 void		free_main_stack(t_stack_ptr a);
 size_t		get_stack_size(t_stack_ptr stack);
 void		stack_indexing(t_stack_ptr stack_a, int size);

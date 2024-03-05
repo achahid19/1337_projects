@@ -25,7 +25,7 @@
 #ifndef BOOL_H
 # define BOOL_H
 
-typedef enum // define a set of named integer constants.
+typedef enum e_bool // define a set of named integer constants.
 {
 	false = 0,
 	true = 1
