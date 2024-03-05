@@ -12,9 +12,9 @@
 
 #include "../includes/push_swap_bonus.h"
 
-bool		args_checker(char *args);
-static bool	args_first_check(char *str);
-static bool	args_second_check(char *str);
+t_bool		args_checker(char *args);
+static t_bool	args_first_check(char *str);
+static t_bool	args_second_check(char *str);
 void		args_duplicates_checker(char **args);
 
 /**
@@ -25,9 +25,9 @@ void		args_duplicates_checker(char **args);
  * @args: pointer to the arguments (suppose to be only values)
  * Return: false if the checker fails, otherwise true.
 */
-bool	args_checker(char *args)
+t_bool	args_checker(char *args)
 {
-	bool	status;
+	t_bool	status;
 
 	status = true;
 	if (false == args_first_check(args))
@@ -50,9 +50,9 @@ bool	args_checker(char *args)
  * @str: pointer to the argument to check
  * Return: false if there is no digit in str, otherwise true.
 */
-static bool	args_first_check(char *str)
+static t_bool	args_first_check(char *str)
 {
-	bool	status;
+	t_bool	status;
 
 	status = false;
 	while (*str)
@@ -77,9 +77,9 @@ static bool	args_first_check(char *str)
  * @str: pointer to the array of arguments to check
  * Return: true if str passed the checks, otherwise false.
 */
-static bool	args_second_check(char *str)
+static t_bool	args_second_check(char *str)
 {
-	bool	status;
+	t_bool	status;
 
 	status = true;
 	while (*str)

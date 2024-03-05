@@ -15,7 +15,7 @@
 size_t		get_stack_size(t_stack_ptr stack);
 t_stack_ptr	find_last_node(t_stack_ptr a);
 t_stack_ptr	find_blast_node(t_stack_ptr a);
-bool		is_sorted(t_stack_ptr a);
+t_bool		is_sorted(t_stack_ptr a);
 void		free_all(char **args, t_stack_ptr a, char **actions);
 
 /**
@@ -66,7 +66,7 @@ t_stack_ptr	find_blast_node(t_stack_ptr a)
  * @a: pointer to the stack to check
  * Return: fasle if it's not sorted, otherwise true
 */
-bool	is_sorted(t_stack_ptr a)
+t_bool	is_sorted(t_stack_ptr a)
 {
 	while (a->next != NULL)
 	{
