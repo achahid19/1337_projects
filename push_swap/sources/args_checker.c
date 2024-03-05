@@ -20,7 +20,7 @@ static void	args_duplicates_checker(char **args);
 /**
  * tab_to_fill - gather all checked arguments to a string then
  * create a 2d array of all the arguments. (passed first test).
- * @tab: pointer to the array of arguments
+ * @ptr_argv: pointer to the array of arguments
  * Return: tab.
 */
 char	**args_checker(char **ptr_argv)
@@ -75,7 +75,7 @@ static t_bool	args_first_check(char *str)
 
 /**
  * args_second_check - takes the array of args passed on check 1 and process
- * a checks of the character next to the operators plus and minus, and verify
+ * a checks to the character next to the operators plus and minus, and verify
  * if there is any undesirable characters inserted in our array of arguments.
  * @str: pointer to the array of arguments to check
  * Return: true if str passed the checks, otherwise false.

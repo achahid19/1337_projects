@@ -12,30 +12,31 @@
 
 #include "../includes/push_swap.h"
 
-t_stack_ptr	main_stack_build(char **args);
+t_stack_ptr	main_stack_build(t_stack_ptr a, char **args);
 static void	node_init(t_stack_ptr *new, char **args);
 size_t		get_stack_size(t_stack_ptr stack);
 void		stack_indexing(t_stack_ptr stack_a, int size);
 static void	node_init(t_stack_ptr *new, char **args);
 
 /**
- * main_stack_fill - build the stack which will contains all the metadata needed
+ * main_stack_fill - build the stack which will contains all the data needed
  * @a: pointer to stack a (main stack)
  * @args: pointer to arguments which will be sorted on the stack
  * Return: void.
 */
-t_stack_ptr	main_stack_build(char **args)
+t_stack_ptr	main_stack_build(t_stack_ptr a, char **args)
 {
 	t_stack_ptr	new;
 	t_stack_ptr	tmp;
-	t_stack_ptr	a;
+	char		**ptr_args;
 
 	a = NULL;
+	ptr_args = args;
 	while (*args != NULL)
 	{
 		new = malloc(sizeof(t_stack_node));
 		if (NULL == new)
-			free_and_exit(a, args);
+			free_and_exit(a, ptr_args);
 		node_init(&new, args);
 		if (NULL == a)
 			a = new;

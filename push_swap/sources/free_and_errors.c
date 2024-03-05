@@ -57,7 +57,8 @@ void	ft_print_error2(char **args)
 */
 void	free_and_exit(t_stack_ptr stack, char **args)
 {
-	free_main_stack(stack);
+	if (stack != NULL)
+		free_main_stack(stack);
 	free_args(args);
 	exit(-1);
 }

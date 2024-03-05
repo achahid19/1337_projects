@@ -19,7 +19,7 @@ static t_stack_ptr	sort_big_stack(t_stack_ptr a, t_stack_ptr *b,
 
 /**
  * main - Entry point of the program
- * Description: Sorting numbers "arguments" on the stack in ascending order
+ * Description: Sorting data "values" on the stack in ascending order
  * 
  * Return: Always 0 (Success).
 */
@@ -35,7 +35,7 @@ int	main(int argc, char *argv[])
 	if (argc <= 1 || NULL == argv[1])
 		exit(0);
 	args = args_checker(argv + 1);
-	a = main_stack_build(args);
+	a = main_stack_build(a, args);
 	free_args(args);
 	stack_size = get_stack_size(a);
 	stack_indexing(a, stack_size + 1);
