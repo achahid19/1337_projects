@@ -99,27 +99,27 @@ size_t	get_stack_size(t_stack_ptr stack)
 */
 void	stack_indexing(t_stack_ptr a, int size)
 {
-	t_stack_ptr	ptr;
-	t_stack_ptr	highest_node;
-	int			num;
+	t_stack_ptr	ptr_a;
+	t_stack_ptr	max_node;
+	int			max_num;
 
 	while (size-- > 0)
 	{
-		ptr = a;
-		highest_node = NULL;
-		num = INT_MIN;
-		while (ptr != NULL)
+		ptr_a = a;
+		max_node = NULL;
+		max_num = INT_MIN;
+		while (ptr_a != NULL)
 		{
-			if (ptr->num > num && 0 == ptr->index)
+			if (ptr_a->num > max_num && 0 == ptr_a->index)
 			{
-				num = ptr->num;
-				highest_node = ptr;
-				ptr = a;
+				max_num = ptr_a->num;
+				max_node = ptr_a;
+				ptr_a = a;
 			}
 			else
-				ptr = ptr->next;
+				ptr_a = ptr_a->next;
 		}
-		if (highest_node != NULL)
-			highest_node->index = size;
+		if (max_node != NULL)
+			max_node->index = size;
 	}
 }
