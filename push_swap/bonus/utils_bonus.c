@@ -15,7 +15,8 @@
 void				main_stack_build(char **args, t_stack_ptr *a);
 static void			node_init(t_stack_ptr *new, char **args);
 char				**read_instructions(t_stack_ptr a, char **args);
-static t_bool		action_execute(char *action, t_stack_ptr *a, t_stack_ptr *b);
+static t_bool		action_execute(char *action, t_stack_ptr *a,
+						t_stack_ptr *b);
 t_stack_ptr			actions_search_execute(t_stack_ptr a, t_stack_ptr *b,
 						char **actions, char **args);
 
