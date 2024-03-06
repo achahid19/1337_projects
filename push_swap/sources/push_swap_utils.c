@@ -53,16 +53,16 @@ t_bool	is_sorted(t_stack_ptr a)
 */
 size_t	find_hindex(t_stack_ptr a)
 {
-	size_t	index;
+	size_t	highest_index;
 
-	index = a->index;
+	highest_index = a->index;
 	while (a != NULL)
 	{
-		if (a->index > index)
-			index = a->index;
+		if (a->index > highest_index)
+			highest_index = a->index;
 		a = a->next;
 	}
-	return (index);
+	return (highest_index);
 }
 
 /**

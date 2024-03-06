@@ -70,12 +70,12 @@ static t_stack_ptr	push_swap(t_stack_ptr a, t_stack_ptr *b, size_t size)
 */
 static t_stack_ptr	sortof3(t_stack_ptr a)
 {
-	size_t	highest;
+	size_t	highest_index;
 
-	highest = find_hindex(a);
-	if (a->index == highest)
+	highest_index = find_hindex(a);
+	if (a->index == highest_index)
 		a = rotate(a, "ra");
-	else if (a->next->index == highest)
+	else if (a->next->index == highest_index)
 		a = rev_rotate(a, "rra");
 	if (false == is_sorted(a))
 		swap(a, "sa");

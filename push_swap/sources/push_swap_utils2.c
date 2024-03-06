@@ -105,7 +105,7 @@ t_stack_ptr	saveof3(t_stack_ptr a, t_stack_ptr *b, size_t size_a)
 
 	index = 0;
 	b_push = 0;
-	while (size_a > 6 && index < size_a && b_push < (int)size_a / 2)
+	while (index < size_a && b_push < (int)size_a / 2)
 	{
 		if (a->index <= size_a / 2)
 		{
