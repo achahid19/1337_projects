@@ -129,7 +129,7 @@ t_stack_ptr	saveof3(t_stack_ptr a, t_stack_ptr *b, size_t size_a)
 
 /**
  * cost_get - Calculate the cost of moving each B element into the correct
- * postion in stack a;
+ * postion in stack a or stack b;
  * cost of b represents the cost to get a B element on the top of stack b
  * cost of a represents the cost to get B element
  * on the right position in stack a.

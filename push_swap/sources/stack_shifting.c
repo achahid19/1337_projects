@@ -25,10 +25,12 @@ t_stack_ptr	stack_shifting(t_stack_ptr a)
 {
 	size_t	size_a;
 	int		lidx_pos;
+	int		mediane_a;
 
 	size_a = get_stack_size(a);
 	lidx_pos = lindex_pos(a);
-	if (lidx_pos <= ((int)size_a / 2))
+	mediane_a = size_a / 2;
+	if (lidx_pos <= mediane_a)
 	{
 		while (lidx_pos > 0)
 		{
@@ -36,7 +38,7 @@ t_stack_ptr	stack_shifting(t_stack_ptr a)
 			lidx_pos--;
 		}
 	}
-	else
+	else if (lidx_pos > mediane_a)
 	{
 		while (lidx_pos < (int)size_a)
 		{
