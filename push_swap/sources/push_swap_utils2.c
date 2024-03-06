@@ -103,11 +103,11 @@ static int	find_target(t_stack_ptr a, size_t index_b,
 t_stack_ptr	saveof3(t_stack_ptr a, t_stack_ptr *b, size_t size_a)
 {
 	int		b_push;
-	int		save_values;
+	int		saved_values;
 	int		mediane;
 
 	b_push = 0;
-	save_values = 3;
+	saved_values = 3;
 	mediane = size_a / 2;
 	while (b_push < mediane)
 	{
@@ -119,7 +119,7 @@ t_stack_ptr	saveof3(t_stack_ptr a, t_stack_ptr *b, size_t size_a)
 		else
 			a = rotate(a, "ra");
 	}
-	while (size_a - b_push > (size_t)save_values)
+	while (size_a - b_push > (size_t)saved_values)
 	{
 		a = push(a, b, "pb");
 		b_push += 1;
