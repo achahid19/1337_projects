@@ -40,7 +40,7 @@ int	main(int ac, char *av[])
 	args_duplicates_checker(args);
 	main_stack_build(args, &a);
 	actions = read_instructions(a, args);
-	a = actions_search_execute(a, &b, actions);
+	a = actions_search_execute(a, &b, actions, args);
 	if (true == is_sorted(a))
 		write(1, "OK\n", ft_strlen("OK\n"));
 	else

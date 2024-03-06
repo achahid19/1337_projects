@@ -15,9 +15,9 @@
 void				main_stack_build(char **args, t_stack_ptr *a);
 static void			node_init(t_stack_ptr *new, char **args);
 char				**read_instructions(t_stack_ptr a, char **args);
-static t_stack_ptr	action_execute(char *action, t_stack_ptr a, t_stack_ptr *b);
+static t_bool		action_execute(char *action, t_stack_ptr *a, t_stack_ptr *b);
 t_stack_ptr			actions_search_execute(t_stack_ptr a, t_stack_ptr *b,
-						char **actions);
+						char **actions, char **args);
 
 /**
  * main_stack_fill - build the stack which will contains all the metadata needed
@@ -108,29 +108,32 @@ char	**read_instructions(t_stack_ptr a, char **args)
  * @b: double pointer to the temporary stack (b).
  * Return: pointer to the main stack (a).
 */
-static t_stack_ptr	action_execute(char *action, t_stack_ptr a, t_stack_ptr *b)
+static t_bool	action_execute(char *action, t_stack_ptr *a, t_stack_ptr *b)
 {
+	t_bool	action_checker;
+
+	action_checker = true;
 	if (!ft_strncmp(action, "sa", 2))
-		swap(a, "sa");
+		swap((*a), "sa");
 	else if (!ft_strncmp(action, "ra", 2))
-		a = rotate(a, "ra");
+		(*a) = rotate((*a), "ra");
 	else if (!ft_strncmp(action, "rb", 2))
 		rotate((*b), "rb");
 	else if (!ft_strncmp(action, "rra", 3))
-		a = rev_rotate(a, "rra");
+		(*a) = rev_rotate((*a), "rra");
 	else if (!ft_strncmp(action, "rrb", 3))
 		rev_rotate((*b), "rrb");
 	else if (!ft_strncmp(action, "pa", 2))
-		a = push(a, b, "pa");
+		(*a) = push((*a), b, "pa");
 	else if (!ft_strncmp(action, "pb", 2))
-		a = push(a, b, "pb");
+		(*a) = push((*a), b, "pb");
 	else if (!ft_strncmp(action, "rr", 2))
-		a = rotate_both_stack(a, b);
+		(*a) = rotate_both_stack((*a), b);
 	else if (!ft_strncmp(action, "rrr", 3))
-		a = rev_rotate_both_stack(a, b);
+		(*a) = rev_rotate_both_stack((*a), b);
 	else
-		exit_error("Error\n", 2);
-	return (a);
+		action_checker = false;
+	return (action_checker);
 }
 
 /**
@@ -143,14 +146,20 @@ static t_stack_ptr	action_execute(char *action, t_stack_ptr a, t_stack_ptr *b)
  * Return: pointer to main stack (a).
 */
 t_stack_ptr	actions_search_execute(t_stack_ptr a, t_stack_ptr *b,
-				char **actions)
+				char **actions, char **args)
 {
 	size_t	index;
+	t_bool	status;
 
 	index = 0;
 	while (actions[index] != NULL)
 	{
-		a = action_execute(actions[index], a, b);
+		status = action_execute(actions[index], &a, b);
+		if (false == status)
+		{
+			free_all(args, a, actions);
+			exit_error("Error\n", 2);
+		}
 		index++;
 	}
 	return (a);
