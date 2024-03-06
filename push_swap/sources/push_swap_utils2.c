@@ -145,20 +145,24 @@ void	cost_get(t_stack_ptr a, t_stack_ptr *b)
 	t_stack_ptr	tmp_b;
 	size_t		size_a;
 	size_t		size_b;
-	int			i;
+	int			mediane_a;
+	int			mediane_b;
 
 	tmp_b = (*b);
 	size_a = get_stack_size(a);
 	size_b = get_stack_size((*b));
-	i = -1;
+	mediane_a = size_a / 2;
+	mediane_b = size_b / 2;
 	while (tmp_b != NULL)
 	{
-		tmp_b->cb = tmp_b->pos;
-		if (tmp_b->pos > ((int)size_b / 2))
-			tmp_b->cb = i * (size_b - tmp_b->pos);
-		tmp_b->ca = tmp_b->target_pos;
-		if (tmp_b->target_pos > ((int)size_a / 2))
-			tmp_b->ca = i * (size_a - tmp_b->target_pos);
+		if (tmp_b->pos <= mediane_b)
+			tmp_b->cb = tmp_b->pos;
+		else if (tmp_b->pos > mediane_b)
+			tmp_b->cb = -1 * (size_b - tmp_b->pos);
+		if (tmp_b->target_pos <= mediane_a)
+			tmp_b->ca = tmp_b->target_pos;
+		else if (tmp_b->target_pos > mediane_a)
+			tmp_b->ca = -1 * (size_a - tmp_b->target_pos);
 		tmp_b = tmp_b->next;
 	}
 }
