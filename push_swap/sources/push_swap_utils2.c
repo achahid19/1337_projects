@@ -91,8 +91,10 @@ static int	find_target(t_stack_ptr a, size_t index_b,
 
 /**
  * saveOf3 - push all elements of stack a to stack b except the last 3 elements.
- * for effeciency, the values with lowest indexes are pushed first,
- * trying to keep on stack a the values with higher indexes.
+ * for effeciency, the values with lowest indexes are pushed first
+ * (they are compared to the mediane "size_a / 2", in case the index is lower
+ * than the mediane its pushed to stack b), on stack a the values
+ * with higher indexes (higher than the mediane).
  * @a: pointer to main stack
  * @b: double pointer to stack b
  * @size_a: size of main stack (a)
@@ -102,9 +104,11 @@ t_stack_ptr	saveof3(t_stack_ptr a, t_stack_ptr *b, size_t size_a)
 {
 	size_t	index;
 	int		b_push;
+	int		save_values;
 
 	index = 0;
 	b_push = 0;
+	save_values = 3;
 	while (index < size_a && b_push < (int)size_a / 2)
 	{
 		if (a->index <= size_a / 2)
@@ -116,7 +120,7 @@ t_stack_ptr	saveof3(t_stack_ptr a, t_stack_ptr *b, size_t size_a)
 			a = rotate(a, "ra");
 		index++;
 	}
-	while (size_a - b_push > 3)
+	while (size_a - b_push > save_values)
 	{
 		a = push(a, b, "pb");
 		b_push += 1;
