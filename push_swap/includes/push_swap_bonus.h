@@ -58,7 +58,7 @@ void		main_stack_build(char **args, t_stack_ptr *a);
 /* Checker */
 char		**read_instructions(t_stack_ptr a, char **args);
 t_stack_ptr	actions_search_execute(t_stack_ptr a, t_stack_ptr *b,
-				char **actions);
+				char **actions, char **args);
 
 /* Actions */
 void		swap(t_stack_ptr a, char *str);
