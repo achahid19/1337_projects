@@ -14,7 +14,7 @@
 
 void		target_pos(t_stack_ptr a, t_stack_ptr *b);
 static int	find_target(t_stack_ptr a, size_t index_b,
-				int target_idx, int target_pos);
+				size_t target_idx, int target_pos);
 t_stack_ptr	saveof3(t_stack_ptr a, t_stack_ptr *b, size_t size_a);
 void		cost_get(t_stack_ptr a, t_stack_ptr *b);
 int			ft_abs(int num);
@@ -60,14 +60,14 @@ void	target_pos(t_stack_ptr a, t_stack_ptr *b)
  * Return: the positon to target in stack a.
 */
 static int	find_target(t_stack_ptr a, size_t index_b,
-				int target_idx, int target_pos)
+				size_t target_idx, int target_pos)
 {
 	t_stack_ptr	tmp_a;
 
 	tmp_a = a;
 	while (tmp_a != NULL)
 	{
-		if (tmp_a->index > index_b && (int)tmp_a->index < target_idx)
+		if (tmp_a->index > index_b && tmp_a->index < target_idx)
 		{
 			target_idx = tmp_a->index;
 			target_pos = tmp_a->pos;
@@ -79,7 +79,7 @@ static int	find_target(t_stack_ptr a, size_t index_b,
 	tmp_a = a;
 	while (tmp_a != NULL)
 	{
-		if ((int)tmp_a->index < target_idx)
+		if (tmp_a->index < target_idx)
 		{
 			target_idx = tmp_a->index;
 			target_pos = tmp_a->pos;
