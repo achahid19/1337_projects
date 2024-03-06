@@ -27,9 +27,12 @@ void	swap(t_stack_ptr a, char *str)
 {
 	int	tmp;
 
-	tmp = a->num;
-	a->num = a->next->num;
-	a->next->num = tmp;
+	if (a != NULL)
+	{
+		tmp = a->num;
+		a->num = a->next->num;
+		a->next->num = tmp;
+	}
 	if (str != NULL)
 		ft_putendl_fd(str, 1);
 }
