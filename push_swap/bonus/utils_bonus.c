@@ -175,7 +175,7 @@ static t_bool	action_execute(char *action, t_stack_ptr *a, t_stack_ptr *b)
 		(*a) = push((*a), b, "pb");
 	else if (!ft_strncmp(action, "rr", 3))
 		(*a) = rotate_both_stack((*a), b);
-	else if (!ft_strncmp(action, "rrr", 2))
+	else if (!ft_strncmp(action, "rrr", 4))
 		(*a) = rev_rotate_both_stack((*a), b);
 	else
 		action_checker = false;
