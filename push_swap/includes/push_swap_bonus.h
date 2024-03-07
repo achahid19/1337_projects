@@ -20,7 +20,7 @@
 # include <unistd.h>
 # include "../libft/libft.h"
 
-# define BUFFER_SIZE 20000 // instructions readed
+# define BUFFER_SIZE 10000 // instructions readed
 
 # ifndef BOOL_H
 #  define BOOL_H
