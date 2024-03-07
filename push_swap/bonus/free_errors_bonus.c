@@ -110,8 +110,6 @@ void	free_main_stack(t_stack_ptr a)
 		tmp = a->next;
 		free(a);
 		a = tmp;
-		tmp = a->next;
 	}
-	free(a);
 	return ;
 }
