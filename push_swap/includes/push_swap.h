@@ -26,9 +26,9 @@ typedef enum e_bool // define a set of named integer constants.
 typedef struct s_stack_node
 {
 	int					num; // Current number on stack
-	size_t				index; // indexing each element on stack a
+	size_t				index; // indexing each element on stack
 	int					pos; // position of each element on the stack
-	int					target_pos;
+	int					target_pos; // target position for b in a.
 	int					ca; // cost of a
 	int					cb; // cost of b
 	struct s_stack_node	*next; // pointer to the next element
