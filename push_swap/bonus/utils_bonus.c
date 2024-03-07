@@ -112,7 +112,6 @@ static char	*get_instruction(char *join, ssize_t *bytes_readed,
 	}
 	readed[*bytes_readed] = '\0';
 	join = ft_strjoin(join, readed);
-	printf("joinned: %s", join);
 	free(readed);
 	return (join);
 }
