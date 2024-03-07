@@ -64,10 +64,10 @@ static void	node_init(t_stack_ptr *new, char **args)
 {
 	(*new)->num = ft_atoi(*args);
 	(*new)->index = 0;
-	(*new)->pos = -1;
-	(*new)->target_pos = -1;
-	(*new)->ca = -1;
-	(*new)->cb = -1;
+	(*new)->pos = 0;
+	(*new)->target_pos = 0;
+	(*new)->ca = 0;
+	(*new)->cb = 0;
 	(*new)->next = NULL;
 }
 
