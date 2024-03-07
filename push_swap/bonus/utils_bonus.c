@@ -89,7 +89,7 @@ char	**read_instructions(t_stack_ptr a, char **args)
 }
 
 /**
- * mini_get_next_line -
+ * get_instruction -
 */
 static char	*get_instruction(char *join, ssize_t *bytes_readed,
 				t_stack_ptr a, char **args)
