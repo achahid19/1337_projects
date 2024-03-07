@@ -96,17 +96,23 @@ t_stack_ptr	push(t_stack_ptr a, t_stack_ptr *b, char *str)
 
 	if (0 == ft_strncmp(str, "pb", ft_strlen(str)))
 	{
-		tmp = a->next;
-		a->next = (*b);
-		(*b) = a;
-		a = tmp;
+		if (a != NULL)
+		{
+			tmp = a->next;
+			a->next = (*b);
+			(*b) = a;
+			a = tmp;
+		}
 	}
 	else if (0 == ft_strncmp(str, "pa", ft_strlen(str)))
 	{
-		tmp = (*b)->next;
-		(*b)->next = a;
-		a = (*b);
-		(*b) = tmp;
+		if ((*b) != NULL)
+		{
+			tmp = (*b)->next;
+			(*b)->next = a;
+			a = (*b);
+			(*b) = tmp;
+		}
 	}
 	if (str)
 		ft_putendl_fd(str, 1);
