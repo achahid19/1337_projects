@@ -13,12 +13,13 @@
 #include "../includes/push_swap_bonus.h"
 
 void				main_stack_build(char **args, t_stack_ptr *a);
-static void			node_init(t_stack_ptr *new, char **args);
 char				**read_instructions(t_stack_ptr a, char **args);
-static t_bool		action_execute(char *action, t_stack_ptr *a,
-						t_stack_ptr *b);
+static char			*get_instruction(char *join, ssize_t *bytes_readed,
+						t_stack_ptr a, char **args);
 t_stack_ptr			actions_search_execute(t_stack_ptr a, t_stack_ptr *b,
 						char **actions, char **args);
+static t_bool		action_execute(char *action, t_stack_ptr *a,
+						t_stack_ptr *b);
 
 /**
  * main_stack_fill - build the stack which will contains all the metadata needed
@@ -37,7 +38,8 @@ void	main_stack_build(char **args, t_stack_ptr *a)
 		new = malloc(sizeof(t_stack_node));
 		if (NULL == new)
 			free_and_exit((*a), args, -1);
-		node_init(&new, args);
+		new->num = ft_atoi(*args);
+		new->next = NULL;
 		if (NULL == (*a))
 			(*a) = new;
 		else
@@ -50,19 +52,6 @@ void	main_stack_build(char **args, t_stack_ptr *a)
 		}
 		args++;
 	}
-}
-
-/**
- * node_init - initialize the variables of the new node
- * created to be added to the stack
- * @new: pointer to the new created element
- * @args: double pointer to arguments
- * Return: void.
-*/
-static void	node_init(t_stack_ptr *new, char **args)
-{
-	(*new)->num = ft_atoi(*args);
-	(*new)->next = NULL;
 }
 
 /**
@@ -80,15 +69,13 @@ char	**read_instructions(t_stack_ptr a, char **args)
 	ssize_t	bytes_readed;
 
 	actions = NULL;
-	join = (char *)malloc(sizeof(char) * BUFFER_SIZE);
-	if (join == NULL)
-		free_and_exit(a, args, -1);
-	bytes_readed = read(0, join, BUFFER_SIZE);
-	join[bytes_readed] = '\0';
-	if (bytes_readed == -1)
-		free_and_exit(a, args, -1);
-	if (bytes_readed > 0)
-		actions = ft_split(join, '\n');
+	join = NULL;
+	bytes_readed = 1;
+	while (bytes_readed > 0)
+	{
+		join = get_instruction(join, &bytes_readed, a, args);
+	}
+	actions = ft_split(join, '\n');
 	free(join);
 	if (actions == NULL)
 	{
@@ -102,39 +89,32 @@ char	**read_instructions(t_stack_ptr a, char **args)
 }
 
 /**
- * action_execute - call the corresponding function based on
- * the operation we got from push_swap program.
- * @action: pointer to the actiosn to execute.
- * @a: pointer to main the stack (a).
- * @b: double pointer to the temporary stack (b).
- * Return: pointer to the main stack (a).
+ * mini_get_next_line -
 */
-static t_bool	action_execute(char *action, t_stack_ptr *a, t_stack_ptr *b)
+static char	*get_instruction(char *join, ssize_t *bytes_readed,
+				t_stack_ptr a, char **args)
 {
-	t_bool	action_checker;
+	char	*readed;
 
-	action_checker = true;
-	if (!ft_strncmp(action, "sa", 2))
-		swap((*a), "sa");
-	else if (!ft_strncmp(action, "ra", 2))
-		(*a) = rotate((*a), "ra");
-	else if (!ft_strncmp(action, "rb", 2))
-		rotate((*b), "rb");
-	else if (!ft_strncmp(action, "rra", 3))
-		(*a) = rev_rotate((*a), "rra");
-	else if (!ft_strncmp(action, "rrb", 3))
-		rev_rotate((*b), "rrb");
-	else if (!ft_strncmp(action, "pa", 2))
-		(*a) = push((*a), b, "pa");
-	else if (!ft_strncmp(action, "pb", 2))
-		(*a) = push((*a), b, "pb");
-	else if (!ft_strncmp(action, "rr", 2))
-		(*a) = rotate_both_stack((*a), b);
-	else if (!ft_strncmp(action, "rrr", 3))
-		(*a) = rev_rotate_both_stack((*a), b);
-	else
-		action_checker = false;
-	return (action_checker);
+	readed = (char *)malloc(sizeof(char) * BUFFER_SIZE + 1);
+	if (readed == NULL)
+	{
+		if (join != NULL)
+			free(join);
+		free_and_exit(a, args, -1);
+	}
+	*bytes_readed = read(0, readed, BUFFER_SIZE);
+	if (*bytes_readed == -1)
+	{
+		if (join != NULL)
+			free(join);
+		free_and_exit(a, args, -1);
+	}
+	readed[*bytes_readed] = '\0';
+	join = ft_strjoin(join, readed);
+	printf("joinned: %s", join);
+	free(readed);
+	return (join);
 }
 
 /**
@@ -164,4 +144,40 @@ t_stack_ptr	actions_search_execute(t_stack_ptr a, t_stack_ptr *b,
 		index++;
 	}
 	return (a);
+}
+
+/**
+ * action_execute - call the corresponding function based on
+ * the operation we got from push_swap program.
+ * @action: pointer to the actiosn to execute.
+ * @a: pointer to main the stack (a).
+ * @b: double pointer to the temporary stack (b).
+ * Return: pointer to the main stack (a).
+*/
+static t_bool	action_execute(char *action, t_stack_ptr *a, t_stack_ptr *b)
+{
+	t_bool	action_checker;
+
+	action_checker = true;
+	if (!ft_strncmp(action, "sa", 3))
+		swap((*a), "sa");
+	else if (!ft_strncmp(action, "ra", 3))
+		(*a) = rotate((*a), "ra");
+	else if (!ft_strncmp(action, "rb", 3))
+		*b = rotate((*b), "rb");
+	else if (!ft_strncmp(action, "rra", 4))
+		(*a) = rev_rotate((*a), "rra");
+	else if (!ft_strncmp(action, "rrb", 4))
+		*b = rev_rotate((*b), "rrb");
+	else if (!ft_strncmp(action, "pa", 3))
+		(*a) = push((*a), b, "pa");
+	else if (!ft_strncmp(action, "pb", 3))
+		(*a) = push((*a), b, "pb");
+	else if (!ft_strncmp(action, "rr", 3))
+		(*a) = rotate_both_stack((*a), b);
+	else if (!ft_strncmp(action, "rrr", 2))
+		(*a) = rev_rotate_both_stack((*a), b);
+	else
+		action_checker = false;
+	return (action_checker);
 }
