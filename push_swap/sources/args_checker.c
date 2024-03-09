@@ -16,6 +16,7 @@ char			**args_checker(char **ptr_argv);
 static t_bool	args_first_check(char *str);
 static t_bool	args_second_check(char *str);
 static void		args_duplicates_checker(char **args);
+static void		overflow_checker(char **args);
 
 /**
  * tab_to_fill - gather all checked arguments to a string then
@@ -121,6 +122,7 @@ static void	args_duplicates_checker(char **args)
 	i = 0;
 	while (args[i] != NULL)
 	{
+		overflow_checker(args);
 		num1 = ft_atoi(args[i]);
 		if (num1 > INT_MAX || num1 < INT_MIN)
 			ft_print_error2(args);
@@ -137,4 +139,23 @@ static void	args_duplicates_checker(char **args)
 		i++;
 	}
 	return ;
+}
+
+/**
+ * overflow_checker - protect from a probable overflow
+ * that can get some undesirable behaviors
+ * @args: double pointer to the arguments
+ * Return: void.
+*/
+static void	overflow_checker(char **args)
+{
+	size_t	index;
+
+	index = 0;
+	while (args[index])
+	{
+		if (ft_strlen(args[index]) > 11)
+			ft_print_error2(args);
+		index++;
+	}
 }

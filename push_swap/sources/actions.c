@@ -12,7 +12,7 @@
 
 #include "../includes/push_swap.h"
 
-void		swap(t_stack_ptr a, char *str);
+void		swap(t_stack_ptr stack, char *str);
 t_stack_ptr	rotate(t_stack_ptr stack, char *str);
 t_stack_ptr	rev_rotate(t_stack_ptr stack, char *str);
 t_stack_ptr	push(t_stack_ptr a, t_stack_ptr *b, char *str);
@@ -23,19 +23,18 @@ t_stack_ptr	push(t_stack_ptr a, t_stack_ptr *b, char *str);
  * @str: pointer to the operation to execute
  * Return: void.
 */
-void	swap(t_stack_ptr a, char *str)
+void	swap(t_stack_ptr stack, char *str)
 {
 	int	tmp;
 
-	if (a != NULL)
-	{
-		tmp = a->num;
-		a->num = a->next->num;
-		a->next->num = tmp;
-		tmp = a->index;
-		a->index = a->next->index;
-		a->next->index = tmp;
-	}
+	if (get_stack_size(stack) < 2)
+		return ;
+	tmp = stack->num;
+	stack->num = stack->next->num;
+	stack->next->num = tmp;
+	tmp = stack->index;
+	stack->index = stack->next->index;
+	stack->next->index = tmp;
 	if (str != NULL)
 		ft_putendl_fd(str, 1);
 }
@@ -90,13 +89,16 @@ t_stack_ptr	rev_rotate(t_stack_ptr stack, char *str)
 	return (stack);
 }
 
+/**
+ * push -
+*/
 t_stack_ptr	push(t_stack_ptr a, t_stack_ptr *b, char *str)
 {
 	t_stack_ptr	tmp;
 
 	if (0 == ft_strncmp(str, "pb", ft_strlen(str)))
 	{
-		if (a != NULL)
+		if (get_stack_size(a) > 0)
 		{
 			tmp = a->next;
 			a->next = (*b);
@@ -106,7 +108,7 @@ t_stack_ptr	push(t_stack_ptr a, t_stack_ptr *b, char *str)
 	}
 	else if (0 == ft_strncmp(str, "pa", ft_strlen(str)))
 	{
-		if ((*b) != NULL)
+		if (get_stack_size(*b) > 0)
 		{
 			tmp = (*b)->next;
 			(*b)->next = a;
