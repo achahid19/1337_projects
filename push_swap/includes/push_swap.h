@@ -50,7 +50,7 @@ void		stack_indexing(t_stack_ptr a, int size);
 void		free_and_exit(t_stack_ptr stack, char **args);
 
 /* Action's prototypes */
-void		swap(t_stack_ptr a, char *str);
+void		swap(t_stack_ptr stack, char *str);
 t_stack_ptr	rotate(t_stack_ptr stack, char *str);
 t_stack_ptr	rev_rotate(t_stack_ptr stack, char *str);
 t_stack_ptr	push(t_stack_ptr a, t_stack_ptr *b, char *str);
