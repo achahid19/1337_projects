@@ -12,35 +12,39 @@
 
 #include "../includes/push_swap_bonus.h"
 
-t_bool			args_checker(char *args);
+char			**args_checker(char **ptr_argv);
 static t_bool	args_first_check(char *str);
 static t_bool	args_second_check(char *str);
-void			args_duplicates_checker(char **args);
+static void		args_duplicates_checker(char **args);
+static void		overflow_checker(char **args);
 
 /**
- * args_checker - checker for arguments passed to the
- * program, made of 2 checkers, if they change the
- * status to false the execution of the program
- * stops there.
- * @args: pointer to the arguments (suppose to be only values)
- * Return: false if the checker fails, otherwise true.
+ * tab_to_fill - gather all checked arguments to a string then
+ * create a 2d array of all the arguments. (passed first test).
+ * @ptr_argv: pointer to the array of arguments
+ * Return: tab.
 */
-t_bool	args_checker(char *args)
+char	**args_checker(char **ptr_argv)
 {
-	t_bool	status;
+	size_t	index;
+	char	*join;
 
-	status = true;
-	if (false == args_first_check(args))
+	index = 0;
+	join = NULL;
+	while (ptr_argv[index] != NULL)
 	{
-		status = false;
-		return (status);
+		if (false == args_first_check(ptr_argv[index]))
+			ft_print_error(join);
+		if (false == args_second_check(ptr_argv[index]))
+			ft_print_error(join);
+		join = ft_strjoin(join, " ");
+		join = ft_strjoin(join, ptr_argv[index]);
+		index++;
 	}
-	if (false == args_second_check(args))
-	{
-		status = false;
-		return (status);
-	}
-	return (status);
+	ptr_argv = ft_split(join, ' ');
+	free(join);
+	args_duplicates_checker(ptr_argv);
+	return (ptr_argv);
 }
 
 /**
@@ -72,7 +76,7 @@ static t_bool	args_first_check(char *str)
 
 /**
  * args_second_check - takes the array of args passed on check 1 and process
- * a checks of the character next to the operators plus and minus, and verify
+ * a checks to the character next to the operators plus and minus, and verify
  * if there is any undesirable characters inserted in our array of arguments.
  * @str: pointer to the array of arguments to check
  * Return: true if str passed the checks, otherwise false.
@@ -108,7 +112,7 @@ static t_bool	args_second_check(char *str)
  * @args: pointer to the array of arguments (numbers to sort)
  * Return: void.
 */
-void	args_duplicates_checker(char **args)
+static void	args_duplicates_checker(char **args)
 {
 	size_t	i;
 	size_t	j;
@@ -118,20 +122,40 @@ void	args_duplicates_checker(char **args)
 	i = 0;
 	while (args[i] != NULL)
 	{
+		overflow_checker(args);
 		num1 = ft_atoi(args[i]);
 		if (num1 > INT_MAX || num1 < INT_MIN)
-			ft_print_error(args);
+			ft_print_error2(args);
 		j = i + 1;
 		while (args[j] != NULL)
 		{
 			num2 = ft_atoi(args[j]);
 			if (num2 > INT_MAX || num2 < INT_MIN)
-				ft_print_error(args);
+				ft_print_error2(args);
 			if (num1 == num2)
-				ft_print_error(args);
+				ft_print_error2(args);
 			j++;
 		}
 		i++;
 	}
 	return ;
+}
+
+/**
+ * overflow_checker - protect from a probable overflow
+ * that can get some undesirable behaviors
+ * @args: double pointer to the arguments
+ * Return: void.
+*/
+static void	overflow_checker(char **args)
+{
+	size_t	index;
+
+	index = 0;
+	while (args[index])
+	{
+		if (ft_strlen(args[index]) > 11)
+			ft_print_error2(args);
+		index++;
+	}
 }

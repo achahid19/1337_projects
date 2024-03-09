@@ -32,19 +32,18 @@ int	main(int ac, char *av[])
 
 	a = NULL;
 	b = NULL;
-	if (av[1] == NULL || *av[1] == '\0' || ac > 2)
+	if (av[1] == NULL || *av[1] == '\0' || ac == 1)
 		exit(0);
-	if (false == args_checker(av[1]))
-		exit_error("Error\n", 2);
-	args = ft_split(av[1], ' ');
-	args_duplicates_checker(args);
+	args = args_checker(av + 1);
 	main_stack_build(args, &a);
 	actions = read_instructions(a, args);
 	a = actions_search_execute(a, &b, actions, args);
-	if (true == is_sorted(a))
+	if (true == is_sorted(a) && b == NULL)
 		write(1, "OK\n", ft_strlen("OK\n"));
 	else
 	{
+		if (b != NULL)
+			free_stack(b);
 		free_all(args, a, actions);
 		exit_error("KO\n", 1);
 	}

@@ -68,6 +68,8 @@ t_stack_ptr	find_blast_node(t_stack_ptr a)
 */
 t_bool	is_sorted(t_stack_ptr a)
 {
+	if (get_stack_size(a) < 2)
+		return (true);
 	while (a->next != NULL)
 	{
 		if (a->num > a->next->num)
@@ -88,6 +90,6 @@ t_bool	is_sorted(t_stack_ptr a)
 void	free_all(char **args, t_stack_ptr a, char **actions)
 {
 	free_args(args);
-	free_main_stack(a);
+	free_stack(a);
 	free_args(actions);
 }

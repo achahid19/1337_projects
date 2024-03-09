@@ -137,6 +137,8 @@ t_stack_ptr	actions_search_execute(t_stack_ptr a, t_stack_ptr *b,
 		status = action_execute(actions[index], &a, b);
 		if (false == status)
 		{
+			if (b != NULL)
+				free_stack((*b));
 			free_all(args, a, actions);
 			exit_error("Error\n", 2);
 		}
@@ -157,26 +159,15 @@ static t_bool	action_execute(char *action, t_stack_ptr *a, t_stack_ptr *b)
 {
 	t_bool	action_checker;
 
-	action_checker = true;
-	if (!ft_strncmp(action, "sa", 3))
-		swap((*a), "sa");
-	else if (!ft_strncmp(action, "ra", 3))
-		(*a) = rotate((*a), "ra");
-	else if (!ft_strncmp(action, "rb", 3))
-		*b = rotate((*b), "rb");
-	else if (!ft_strncmp(action, "rra", 4))
-		(*a) = rev_rotate((*a), "rra");
-	else if (!ft_strncmp(action, "rrb", 4))
-		*b = rev_rotate((*b), "rrb");
-	else if (!ft_strncmp(action, "pa", 3))
-		(*a) = push((*a), b, "pa");
-	else if (!ft_strncmp(action, "pb", 3))
-		(*a) = push((*a), b, "pb");
-	else if (!ft_strncmp(action, "rr", 3))
-		(*a) = rotate_both_stack((*a), b);
-	else if (!ft_strncmp(action, "rrr", 4))
-		(*a) = rev_rotate_both_stack((*a), b);
-	else
-		action_checker = false;
+	action_checker = false;
+	action_checker = stack_a_actions(action, a, b, action_checker);
+	if (true == action_checker)
+		return (true);
+	action_checker = stack_b_actions(action, b, a, action_checker);
+	if (true == action_checker)
+		return (true);
+	action_checker = both_stack_actions(action, a, b, action_checker);
+	if (true == action_checker)
+		return (true);
 	return (action_checker);
 }

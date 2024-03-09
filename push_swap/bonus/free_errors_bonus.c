@@ -13,10 +13,10 @@
 #include "../includes/push_swap_bonus.h"
 
 void	exit_error(char *error, int fd);
-void	ft_print_error(char **args);
+void	ft_print_error(char *to_free);
 void	free_args(char **args);
 void	free_and_exit(t_stack_ptr stack, char **args, int status);
-void	free_main_stack(t_stack_ptr a);
+void	free_stack(t_stack_ptr stack);
 
 /**
  * exit_error - writes an msg error on stderr or stdout
@@ -41,11 +41,25 @@ void	exit_error(char *error, int fd)
  * and its meant to be freed before exiting the process
  * Return: void.
 */
-void	ft_print_error(char **args)
+void	ft_print_error(char *to_free)
+{
+	if (to_free != NULL)
+		free(to_free);
+	exit_error("Error\n", 2);
+}
+
+/**
+ * ft_print_error2 - prints a msg error on stderr
+ * and exit() the process with -1 status
+ * @args: pointer to the memory occupied by the arguments
+ * and its meant to be freed before exiting the process
+ * Return: void.
+*/
+void	ft_print_error2(char **args)
 {
 	if (*args != NULL)
 		free_args(args);
-	exit_error("Error\n", 2);
+	ft_print_error(NULL);
 }
 
 /**
@@ -82,34 +96,8 @@ void	free_args(char **args)
 void	free_and_exit(t_stack_ptr stack, char **args, int status)
 {
 	if (stack != NULL)
-		free_main_stack(stack);
+		free_stack(stack);
 	if (args != NULL)
 		free_args(args);
 	exit(status);
-}
-
-/**
- * free_main_stack - frees all the nodes building the linked list of the stack
- * @a: pointer to stack
- * Return: void.
-*/
-void	free_main_stack(t_stack_ptr a)
-{
-	t_stack_ptr	tmp;
-
-	if (NULL == a)
-		return ;
-	tmp = a;
-	if (NULL == tmp->next)
-	{
-		free(a);
-		return ;
-	}
-	while (tmp != NULL)
-	{
-		tmp = a->next;
-		free(a);
-		a = tmp;
-	}
-	return ;
 }
