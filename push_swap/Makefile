@@ -22,7 +22,7 @@ SRCS = $(addprefix sources/, push_swap.c actions.c actions2.c \
 
 SRCS_BONUS = $(addprefix bonus/, actions2_bonus.c  args_checker_bonus.c \
 			push_swap_bonus.c utils2_bonus.c actions_bonus.c free_errors_bonus.c\
-			utils_bonus.c)
+			utils_bonus.c utils3_bonus.c)
 
 OBJECTS_MANDATORY = $(SRCS:.c=.o)
 
