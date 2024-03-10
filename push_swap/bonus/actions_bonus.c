@@ -64,16 +64,14 @@ t_stack_ptr	rotate(t_stack_ptr stack)
 */
 t_stack_ptr	rev_rotate(t_stack_ptr stack)
 {
-	t_stack_ptr	tmp;
 	t_stack_ptr	last;
 	t_stack_ptr	before_last;
 
 	if (get_stack_size(stack) < 2)
 		return (stack);
 	before_last = find_blast_node(stack);
-	tmp = stack;
 	last = find_last_node(stack);
-	last->next = tmp;
+	last->next = stack;
 	before_last->next = NULL;
 	stack = last;
 	return (stack);

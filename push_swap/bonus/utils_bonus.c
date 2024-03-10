@@ -82,7 +82,7 @@ char	**read_instructions(t_stack_ptr a, char **args)
 		if (true == is_sorted(a))
 			write(1, "OK\n", 3);
 		else
-			write(2, "KO\n", 3);
+			write(1, "KO\n", 3);
 		free_and_exit(a, args, -1);
 	}
 	return (actions);
