@@ -16,7 +16,6 @@ typedef enum e_bool
 /* utilities functions */
 size_t	ft_strlen(const char *str);
 long	ft_atol(const char *str);
-t_bool  is_digit_space(char c, int space);
 
 /* parsing */
 t_bool	check_inputs(char *args[]);
