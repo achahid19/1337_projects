@@ -1,6 +1,6 @@
 #include "philo.h"
 
-t_bool		check_inputs(char *args[]);
+t_bool			check_inputs(char *args[]);
 static t_bool	check_arg(char *arg);
 static t_bool	valid_num(char *args[], size_t index);
 static t_bool	overflow_check(const char *arg);
@@ -49,11 +49,11 @@ static t_bool	check_arg(char *arg)
 	digit = false;
 	while (*arg)
 	{
-		// check for digits
-		if (*arg >= '0' && *arg <= '9')
+		// check for digits, in case we only have spaces.
+		if (is_digit_space(*arg, 0) == true)
 			digit = true;
 		// check if the character is not a digit or not a space
-		else if (!(*arg >= '0' && *arg <= '9') && *arg != ' ')
+		else if (is_digit_space(*arg, 1) == false)
 		{
 			status = false;
 			break;
@@ -78,7 +78,7 @@ static t_bool	valid_num(char *args[], size_t index)
 {
 	int	num;
 
-	if (overflow_check(args[index]) == false)
+	if (overflow_check(args[index]) == true)
 		return (false);
 	num = ft_atol(args[index]);
 	if (index >= 1 && index <= 4)
@@ -103,13 +103,9 @@ static t_bool	valid_num(char *args[], size_t index)
 */
 static t_bool	overflow_check(const char *arg)
 {
-	size_t	length;
 	long	num;
 
-	length = ft_strlen(arg);
 	num = atol(arg);
-	if (length > 10 || num > INT_MAX)
-		return (false);
 
-	return (true);
+	return (num > INT_MAX);
 }

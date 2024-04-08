@@ -2,6 +2,7 @@
 
 size_t		ft_strlen(const char *str);
 long		ft_atol(const char *str);
+t_bool		is_digit_space(char c, int space);
 
 /**
  * ft_strlen - Get the length of str
@@ -48,4 +49,23 @@ long	ft_atol(const char *str)
 	}
 
 	return (result * sign);
+}
+
+/**
+ * is_digit_space - Checks the character passed
+ * is it a digit or space
+ * @c: character to check
+ * @space: if space is 0, it means that space is off, 
+ * only check for digits, or if its 1 the checking for
+ * space is activeted.
+ * 
+ * Return: boolean.
+*/
+t_bool	is_digit_space(char c, int space)
+{
+	// Want to check only for digits
+	if (space == 0)
+		return (c >= '0' && c <= '9');
+
+	return ((c >= '0' && c <= '9') || c == ' ');
 }
