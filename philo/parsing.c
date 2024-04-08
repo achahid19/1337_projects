@@ -105,7 +105,7 @@ static t_bool	overflow_check(const char *arg)
 {
 	long	num;
 
-	num = atol(arg);
+	num = ft_atol(arg);
 
 	return (num > INT_MAX);
 }
