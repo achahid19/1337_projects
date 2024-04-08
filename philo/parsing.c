@@ -2,6 +2,7 @@
 
 t_bool			check_inputs(char *args[]);
 static t_bool	check_arg(char *arg);
+static t_bool	is_digit_space(char c, int space);
 static t_bool	valid_num(char *args[], size_t index);
 static t_bool	overflow_check(const char *arg);
 
@@ -64,6 +65,25 @@ static t_bool	check_arg(char *arg)
 		return (false);
 
 	return (status);
+}
+
+/**
+ * is_digit_space - Checks the character passed
+ * is it a digit or space
+ * @c: character to check
+ * @space: if space is 0, it means that space is off, 
+ * only check for digits, or if its 1 the checking for
+ * space is activeted.
+ * 
+ * Return: boolean.
+*/
+t_bool	is_digit_space(char c, int space)
+{
+	// Want to check only for digits
+	if (space == 0)
+		return (c >= '0' && c <= '9');
+
+	return ((c >= '0' && c <= '9') || c == ' ');
 }
 
 /**
