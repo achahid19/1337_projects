@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   philo.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/10 13:56:27 by achahid-          #+#    #+#             */
+/*   Updated: 2024/04/10 13:56:29 by achahid-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -7,6 +19,8 @@
 # include <pthread.h>
 # include <limits.h>
 # include <sys/time.h> // gettimeofday.
+
+# define PHILO_LIMIT 200 // limits number of philos
 
 typedef enum e_bool // define a set of named integer constant
 {
@@ -34,11 +48,11 @@ typedef struct s_philo
 	size_t		time_to_sleep;
 	int			num_of_times_to_eat; // Optional argument
 	int			simulation_start;
-	t_bool		simulation_end;
+	t_bool		simulation_end; // philo's death or full meals.
 	/* Arguments */
 	t_fork		*left_fork;
 	t_fork		*right_fork;
-	t_fork		*forks; // array of forks
+	t_fork		*forks; // array to forks
 }	t_philo;
 
 /* utilities functions */
@@ -50,5 +64,8 @@ t_bool	check_inputs(char *args[]);
 
 /* errors */
 void	print_error(const char *error);
+
+/* philos */
+void	init_data(t_philo *philos, t_fork *forks, char *args[]);
 
 # endif /* PHILO_H */
