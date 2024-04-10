@@ -1,10 +1,22 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parsing.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/04/10 13:56:46 by achahid-          #+#    #+#             */
+/*   Updated: 2024/04/10 13:56:47 by achahid-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "philo.h"
 
-t_bool			check_inputs(char *args[]);
-static t_bool	check_arg(char *arg);
-static t_bool	is_digit_space(char c, int space);
-static t_bool	valid_num(char *args[], size_t index);
-static t_bool	overflow_check(const char *arg);
+t_bool					check_inputs(char *args[]);
+static t_bool			check_arg(char *arg);
+static inline t_bool	is_digit_space(char c, int space);
+static t_bool			valid_num(char *args[], size_t index);
+static t_bool			overflow_check(const char *arg);
 
 /**
  * check_input - iterates over arguments, and call check_arg
@@ -77,13 +89,13 @@ static t_bool	check_arg(char *arg)
  * 
  * Return: boolean.
 */
-t_bool	is_digit_space(char c, int space)
+static inline t_bool	is_digit_space(char c, int space)
 {
 	// Want to check only for digits
 	if (space == 0)
 		return (c >= '0' && c <= '9');
 
-	return ((c >= '0' && c <= '9') || c == ' ');
+	return ((c >= '0' && c <= '9') || (c >= 9 && c <= 13) || c == ' ');
 }
 
 /**
