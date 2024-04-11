@@ -50,8 +50,8 @@ typedef struct s_philo
 	int			simulation_start;
 	t_bool		simulation_end; // philo's death or full meals.
 	/* Arguments */
-	t_fork		*left_fork;
-	t_fork		*right_fork;
+	t_fork		*first_fork;
+	t_fork		*second_fork;
 	t_fork		*forks; // array to forks
 }	t_philo;
 
