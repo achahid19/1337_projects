@@ -67,5 +67,7 @@ void	print_error(const char *error);
 
 /* philos */
 void	init_data(t_philo *philos, t_fork *forks, char *args[]);
+void	philos_dinner_start(t_philo *philos, t_fork *forks);
+void	dinner_await(t_philo *philos);
 
 # endif /* PHILO_H */
