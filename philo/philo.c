@@ -28,9 +28,10 @@ int	main(int ac, char *av[])
 		print_error("Invalid input!\n");
 	// init_data().
 	init_data(philos, forks, av);
-	//start_dinner().
-	philos_dinner_start(philos, forks);
-	//wait for philos.
-	dinner_await(philos);
+	// threads creation
+	philos_call(philos);
+	// Simulation (dinner) starting
+	philos_dinner_time(philos, forks);
+
 	return (0);
 }

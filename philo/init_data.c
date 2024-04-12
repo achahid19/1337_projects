@@ -71,6 +71,7 @@ static void	init_args(t_philo *philos_ptr, char *args[], int pnum)
 	philos_ptr->time_to_sleep = ft_atol(args[4]) * 1e3;
 	philos_ptr->simulation_end = false;	
 	philos_ptr->simulation_start = 0;
+	philos_ptr->threads_ready = false;
 	if (args[5])
 		philos_ptr->num_of_times_to_eat = ft_atol(args[5]);
 	else
@@ -94,7 +95,6 @@ static void init_forks(t_fork *forks, t_philo *philos, int pnum)
 	size_t	i;
 
 	i = 0;
-	
 	while (i < (size_t)pnum)
 	{
 		forks->fork_id = i;
