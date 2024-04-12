@@ -48,6 +48,8 @@ void	init_data(t_philo *philos, t_fork *forks, char *args[])
 		philos++;
 		forks++;
 	}
+	philos = NULL;
+	forks = NULL;
 }
 
 /**
@@ -104,6 +106,8 @@ static void init_forks(t_fork *forks, t_philo *philos, int pnum)
 		forks++;
 		philos++;
 	}
+	forks = NULL;
+	philos = NULL;
 }
 
 /**

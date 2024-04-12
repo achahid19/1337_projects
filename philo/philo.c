@@ -28,8 +28,9 @@ int	main(int ac, char *av[])
 		print_error("Invalid input!\n");
 	// init_data().
 	init_data(philos, forks, av);
-	// start_dinner().
-	// clean up all malloced memory; philo full or died.
-
+	//start_dinner().
+	philos_dinner_start(philos, forks);
+	//wait for philos.
+	dinner_await(philos);
 	return (0);
 }
