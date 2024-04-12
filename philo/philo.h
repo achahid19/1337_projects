@@ -28,6 +28,13 @@ typedef enum e_bool // define a set of named integer constant
     true = 1
 }   t_bool;
 
+typedef enum e_time
+{
+	microseconds = 0,
+	milliseconds = 1,
+	seconds = 2
+}	t_time;
+
 typedef struct s_fork // Array of forks.
 {
 	pthread_mutex_t	fork;
@@ -47,8 +54,9 @@ typedef struct s_philo
 	size_t		time_to_eat;
 	size_t		time_to_sleep;
 	int			num_of_times_to_eat; // Optional argument
-	int			simulation_start;
+	long		simulation_start;
 	t_bool		simulation_end; // philo's death or full meals.
+	t_bool		threads_ready;
 	/* Arguments */
 	t_fork		*first_fork;
 	t_fork		*second_fork;
@@ -67,7 +75,7 @@ void	print_error(const char *error);
 
 /* philos */
 void	init_data(t_philo *philos, t_fork *forks, char *args[]);
-void	philos_dinner_start(t_philo *philos, t_fork *forks);
-void	dinner_await(t_philo *philos);
+void	philos_call(t_philo *philos);
+void	philos_dinner_time(t_philo *philos, t_fork *forks);
 
 # endif /* PHILO_H */
