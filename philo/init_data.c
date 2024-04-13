@@ -13,8 +13,7 @@
 #include "philo.h"
 
 
-void		init_data(t_philo *philos, t_fork *forks, char *args[]);
-static void	init_args(t_philo *philos_ptr, char *args[], int pnum);
+void		init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[]);
 static void	init_forks(t_fork *forks, t_philo *philos, int pnum);
 static void	assign_forks(t_philo *philos, int philos_number, size_t index);
 
@@ -26,13 +25,34 @@ static void	assign_forks(t_philo *philos, int philos_number, size_t index);
  * 
  * Return: void.
 */
-void	init_data(t_philo *philos, t_fork *forks, char *args[])
+void	init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[])
 {
 	size_t	i;
 	int 	philos_number;
 
 	i = 0;
 	philos_number = ft_atol(args[1]);
+	// program
+	if (pthread_mutex_init(&program->program_mutex, NULL))
+		print_error("Error initializing program's mutex!\n");
+	program->threads_ready = false;
+	program->philos = philos;
+	program->philo_num = philos_number;
+	program->time_to_die = ft_atol(args[2]) * 1e3;
+	program->time_to_eat = ft_atol(args[3]) * 1e3;
+	program->time_to_sleep = ft_atol(args[4]) * 1e3;
+	program->simulation_end = false;	
+	program->simulation_start = 0;
+	program->threads_ready = false;
+	if (args[5])
+		program->num_of_times_to_eat = ft_atol(args[5]);
+	else
+		program->num_of_times_to_eat = -1;
+	if (program->time_to_die <= 6e4 ||
+		program->time_to_eat <= 6e4 ||
+		program->time_to_sleep <= 6e4)
+		print_error("Use a timestamp major than 60ms");
+	//
 	init_forks(forks, philos, philos_number);
 	while (i < (size_t)philos_number)
 	{
@@ -40,7 +60,6 @@ void	init_data(t_philo *philos, t_fork *forks, char *args[])
 		philos->full = false;
 		philos->last_meal_counter = 0;		
 		philos->number_of_meals_consumed = 0;
-		init_args(philos, args, philos_number);
 		assign_forks(philos, philos_number, i);
 		printf("in call: %ld, for philo id: %d, first fork is %d and second fork \
 		is: %d\n", i, philos->id, philos->first_fork->fork_id, philos->second_fork->fork_id);
@@ -50,36 +69,6 @@ void	init_data(t_philo *philos, t_fork *forks, char *args[])
 	}
 	philos = NULL;
 	forks = NULL;
-}
-
-/**
- * init_args - initialize the data related to
- * program's arguments
- * usleep() function accept only micro-seconds, for that
- * we times 1e3 to get milliseconds
- * @philos_ptr: pointer to data stucture of all philos
- * @args: double pointer to program's arguments
- * @pnum: number of philosophers
- * 
- * Return: void.
-*/
-static void	init_args(t_philo *philos_ptr, char *args[], int pnum)
-{
-	philos_ptr->philo_num = pnum;
-	philos_ptr->time_to_die = ft_atol(args[2]) * 1e3;
-	philos_ptr->time_to_eat = ft_atol(args[3]) * 1e3;
-	philos_ptr->time_to_sleep = ft_atol(args[4]) * 1e3;
-	philos_ptr->simulation_end = false;	
-	philos_ptr->simulation_start = 0;
-	philos_ptr->threads_ready = false;
-	if (args[5])
-		philos_ptr->num_of_times_to_eat = ft_atol(args[5]);
-	else
-		philos_ptr->num_of_times_to_eat = -1;
-	if (philos_ptr->time_to_die <= 6e4 ||
-		philos_ptr->time_to_eat <= 6e4 ||
-		philos_ptr->time_to_sleep <= 6e4)
-		print_error("Use a timestamp major than 60ms");
 }
 
 /**
@@ -100,7 +89,6 @@ static void init_forks(t_fork *forks, t_philo *philos, int pnum)
 		forks->fork_id = i;
 		if (pthread_mutex_init(&forks->fork, NULL) != 0)
 			print_error("Error with Mutex!\n");
-		//philos->right_fork = forks;
 		philos->forks = forks; // each philo points to his right fork.
 		i++;
 		forks++;

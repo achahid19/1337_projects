@@ -21,17 +21,18 @@
 */
 int	main(int ac, char *av[])
 {
-	t_philo	philos[PHILO_LIMIT];
-	t_fork	forks[PHILO_LIMIT];
+	t_philo		philos[PHILO_LIMIT];
+	t_fork		forks[PHILO_LIMIT];
+	t_program	program[1];
 
 	if (ac < 5 || ac > 6 || check_inputs(av) == false)
 		print_error("Invalid input!\n");
 	// init_data().
-	init_data(philos, forks, av);
+	init_data(philos, forks, program, av);
 	// threads creation
-	philos_call(philos);
+	philos_call(philos, program);
 	// Simulation (dinner) starting
-	philos_dinner_time(philos, forks);
+
 
 	return (0);
 }

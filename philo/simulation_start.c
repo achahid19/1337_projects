@@ -12,14 +12,14 @@
 
 #include "philo.h"
 
-void		philos_dinner_time(t_philo *philos, t_fork *forks);
+void		philos_syncro(t_philo *philos, t_program *p);
 static long	gettime(long time_code);
 
-void	philos_dinner_time(t_philo *philos, t_fork *forks)
+void	philos_syncro(t_philo *philos, t_program *p)
 {
-	(void)forks;
-	philos->simulation_start = gettime(milliseconds);
-	printf("simulation starts at: %ld\n", philos->simulation_start);
+	(void)philos;
+	p->simulation_start = gettime(milliseconds);
+	printf("simulation starts at: %ld\n", p->simulation_start);
 }
 
 /**

@@ -48,20 +48,27 @@ typedef struct s_philo
 	t_bool		full; // number of max meals
 	int			last_meal_counter; // time passed from last meal
 	int			number_of_meals_consumed;
-	/* Arguments */
+	/* forks */
+	t_fork		*first_fork;
+	t_fork		*second_fork;
+	t_fork		*forks; // array to forks
+}	t_philo;
+
+typedef	struct s_program
+{
+	t_bool			threads_ready;
+	t_philo 		*philos;
+	pthread_mutex_t	program_mutex;
+	/**/
 	size_t		philo_num; // Also numbers of forks
 	size_t		time_to_die;
 	size_t		time_to_eat;
 	size_t		time_to_sleep;
 	int			num_of_times_to_eat; // Optional argument
-	long		simulation_start;
 	t_bool		simulation_end; // philo's death or full meals.
-	t_bool		threads_ready;
-	/* Arguments */
-	t_fork		*first_fork;
-	t_fork		*second_fork;
-	t_fork		*forks; // array to forks
-}	t_philo;
+	long		simulation_start;
+	/**/
+} t_program;
 
 /* utilities functions */
 size_t	ft_strlen(const char *str);
@@ -74,8 +81,8 @@ t_bool	check_inputs(char *args[]);
 void	print_error(const char *error);
 
 /* philos */
-void	init_data(t_philo *philos, t_fork *forks, char *args[]);
-void	philos_call(t_philo *philos);
-void	philos_dinner_time(t_philo *philos, t_fork *forks);
+void	init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[]);
+void	philos_call(t_philo *philos, t_program *program);
+void	philos_syncro(t_philo *philos, t_program *p);
 
 # endif /* PHILO_H */
