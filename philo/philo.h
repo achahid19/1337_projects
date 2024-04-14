@@ -51,7 +51,7 @@ typedef struct s_philo
 	pthread_t	thread; // each philo is a thread
 	int			id;
 	t_bool		full; // number of max meals
-	int			last_meal_counter; // time passed from last meal
+	size_t		last_meal_counter; // time passed from last meal
 	int			number_of_meals_consumed;
 	/* forks */
 	t_fork			*first_fork;
@@ -67,7 +67,6 @@ typedef struct s_philo
 
 typedef	struct s_program
 {
-	t_bool			threads_ready;
 	t_philo 		*philos;
 	pthread_mutex_t	dead_lock;
 	pthread_mutex_t	meal_lock;
@@ -78,6 +77,7 @@ typedef	struct s_program
 	size_t		time_to_eat;
 	size_t		time_to_sleep;
 	int			num_of_times_to_eat; // Optional argument
+	//
 	t_bool		simulation_end; // philo's death or full meals.
 	
 	/**/
@@ -103,5 +103,9 @@ t_bool	dead_loop(t_philo *philo);
 void	eating(t_philo *philo);
 void	sleeping(t_philo *philo);
 void	thinking(t_philo *philo);
+
+void	*monitore(void *program);
+
+void	print_msg(char *msg, t_philo *philo);
 
 # endif /* PHILO_H */
