@@ -100,6 +100,8 @@ void	philos_syncro(size_t milliseconds);
 long	gettime(long time_code);
 
 t_bool	dead_loop(t_philo *philo);
-void	eat(t_philo *philo);
+void	eating(t_philo *philo);
+void	sleeping(t_philo *philo);
+void	thinking(t_philo *philo);
 
 # endif /* PHILO_H */

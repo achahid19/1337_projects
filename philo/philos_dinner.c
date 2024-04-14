@@ -60,15 +60,13 @@ static void	*routine(void *philos)
 		philos_syncro(1);
 	// make the even philos wait to avoid potential deadlock.
 	p->simulation_start = gettime(milliseconds);
-	printf("philo with id: %d starts at %ld\n", p->id, p->simulation_start);
+	/* printf("philo with id: %d starts at %ld\n", p->id, p->simulation_start); */
 	while (dead_loop(philos) == false)
 	{
-		eat(p);
-		sleep(1);
-		p->program->simulation_end = true;
-		//sleep
-		//think
-		// REAPET
+		// eat sleep think reapeat
+		eating(p);
+		sleeping(p);
+		thinking(p);
 	}
 	//printf("CREATED\n");
 	// philos pointer will be checked by the monitor
