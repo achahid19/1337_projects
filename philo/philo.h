@@ -38,7 +38,7 @@ typedef enum e_time
 typedef struct s_fork // Array of forks.
 {
 	pthread_mutex_t	fork;
-	int				fork_id;
+	int				fork_id; // for debuging
 }	t_fork;
 
 /**
@@ -54,11 +54,14 @@ typedef struct s_philo
 	int			last_meal_counter; // time passed from last meal
 	int			number_of_meals_consumed;
 	/* forks */
-	t_fork		*first_fork;
-	t_fork		*second_fork;
-	t_fork		*forks; // array to forks
-	t_program	*program;
-	pthread_mutex_t	philo_mutex;
+	t_fork			*first_fork;
+	t_fork			*second_fork;
+	t_fork			*forks; // array to forks
+	t_program		*program;
+	pthread_mutex_t	*write_lock;
+	pthread_mutex_t	*dead_lock;
+	pthread_mutex_t	*meal_lock;
+	long		simulation_start;
 	int			death;
 }	t_philo;
 
@@ -66,7 +69,9 @@ typedef	struct s_program
 {
 	t_bool			threads_ready;
 	t_philo 		*philos;
-	pthread_mutex_t	program_mutex;
+	pthread_mutex_t	dead_lock;
+	pthread_mutex_t	meal_lock;
+	pthread_mutex_t	write_lock;
 	/**/
 	size_t		philo_num; // Also numbers of forks
 	size_t		time_to_die;
@@ -74,7 +79,7 @@ typedef	struct s_program
 	size_t		time_to_sleep;
 	int			num_of_times_to_eat; // Optional argument
 	t_bool		simulation_end; // philo's death or full meals.
-	long		simulation_start;
+	
 	/**/
 } t_program;
 
@@ -92,5 +97,9 @@ void	print_error(const char *error);
 void	init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[]);
 void	philos_call(t_philo *philos, t_program *program);
 void	philos_syncro(size_t milliseconds);
+long	gettime(long time_code);
+
+t_bool	dead_loop(t_philo *philo);
+void	eat(t_philo *philo);
 
 # endif /* PHILO_H */
