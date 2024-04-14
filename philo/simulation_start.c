@@ -12,14 +12,16 @@
 
 #include "philo.h"
 
-void		philos_syncro(t_philo *philos, t_program *p);
+void		philos_syncro(size_t milliseconds);
 static long	gettime(long time_code);
 
-void	philos_syncro(t_philo *philos, t_program *p)
+void	philos_syncro(size_t milliseconds)
 {
-	(void)philos;
-	p->simulation_start = gettime(milliseconds);
-	printf("simulation starts at: %ld\n", p->simulation_start);
+	size_t	start;
+
+	start = gettime(milliseconds);
+	while ((gettime(milliseconds) - start) < milliseconds)
+		usleep(500);
 }
 
 /**

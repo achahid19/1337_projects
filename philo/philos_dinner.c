@@ -23,9 +23,7 @@ static void	threads_create_await(t_program *p);
 void	philos_call(t_philo *philos, t_program *program)
 {
 	if (program->num_of_times_to_eat == 0)
-	// check if optional arg num_of_times_to_eat variable is not 0
 		print_error("no dinner to eat!\n");
-	// check there is only one philosopher
 	if (program->philo_num == 1)
 		print_error("philos num is 1\n"); // TODO
 	// create the threads
@@ -33,18 +31,17 @@ void	philos_call(t_philo *philos, t_program *program)
 		// so I need synchronization between all philos
 		// in a way they start simultaneously
 	threads_create(philos, program->philo_num);
-	// set threads ready to true; Risk potential data races so we do mutex
-	usleep(10000);
-	// Syncronize all thread to start at the same time.
-	printf("DONE\n");
-	philos_syncro(philos, program);
-	// NOW we can start simulation, all threads are created.
-	
-	// join all threads to be created
 	threads_create_await(program); // TO EDIT
-	
 	philos = NULL;
-	return ;
+}
+
+t_bool	dead_loop(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->philo_mutex);
+	if (philo->death == 1)
+		return (pthread_mutex_unlock(&philo->philo_mutex), true);
+	pthread_mutex_unlock(&philo->philo_mutex);
+	return (false);
 }
 
 /**
@@ -56,10 +53,22 @@ static void	*routine(void *philos)
 	t_philo *p;
 
 	p = (t_philo *)philos;
-	// check for philo is already assisting the dinner.
-	printf("thread with id: %d CREATED\n", p->id);
+	(void)p;
+	// make the even philos wait to avoid potential deadlock.
+	if (p->id % 2)
+		philos_syncro(1);
+	printf("philo id: %d CREATED\n", p->id);
+	/* printf("thread with id: %d CREATED\n", p->id); */
+	while (dead_loop(philos) == false)
+	{
+		//eat
+		//sleep
+		//think
+		// REAPET
+	}
 	//printf("CREATED\n");
-	return (NULL);
+	// philos pointer will be checked by the monitor
+	return (p);
 }
 
 /**
@@ -75,7 +84,6 @@ static void	threads_create(t_philo *philos, int philo_num)
 		if (pthread_create(&philos->thread, NULL, &routine, (void *)philos) != 0)
 			print_error("Error creating threads!");
 		index++;
-		//printf("CREATE\n");
 		if (index < (size_t)philo_num)
 			philos++;
 	}

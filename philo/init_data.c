@@ -60,6 +60,10 @@ void	init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[])
 		philos->full = false;
 		philos->last_meal_counter = 0;		
 		philos->number_of_meals_consumed = 0;
+		philos->program = program;
+		philos->death = 0;
+		if (pthread_mutex_init(&philos->philo_mutex, NULL))
+			print_error("Philo mutex init error!\n");
 		assign_forks(philos, philos_number, i);
 		printf("in call: %ld, for philo id: %d, first fork is %d and second fork \
 		is: %d\n", i, philos->id, philos->first_fork->fork_id, philos->second_fork->fork_id);
