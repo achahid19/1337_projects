@@ -35,10 +35,6 @@ long	gettime(long time_code)
 		print_error("Error with timestamp fetch!\n");
 	else if (time_code == milliseconds)
 		return ((time_val.tv_sec * 1e3) + (time_val.tv_usec / 1e3));
-	else if (time_code == microseconds)
-		return ((time_val.tv_sec * 1e6) + time_val.tv_usec);
-	else if (time_code == seconds)
-		return (time_val.tv_sec + (time_val.tv_usec / 1e6));
 	else
 		print_error("Wrong input to gettime function!\n");
 	return (1337);

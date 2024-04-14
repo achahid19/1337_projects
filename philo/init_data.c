@@ -39,14 +39,12 @@ void	init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[])
 		print_error("Error initializing program's mutex!\n");
 	if (pthread_mutex_init(&program->write_lock, NULL))
 		print_error("Error initializing program's mutex!\n");
-	program->threads_ready = false;
 	program->philos = philos;
 	program->philo_num = philos_number;
 	program->time_to_die = ft_atol(args[2]);
 	program->time_to_eat = ft_atol(args[3]);
 	program->time_to_sleep = ft_atol(args[4]);
 	program->simulation_end = false;	
-	program->threads_ready = false;
 	if (args[5])
 		program->num_of_times_to_eat = ft_atol(args[5]);
 	else
@@ -61,7 +59,7 @@ void	init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[])
 	{
 		philos->id = i + 1;
 		philos->full = false;
-		philos->last_meal_counter = 0;		
+		philos->last_meal_counter = gettime(milliseconds);		
 		philos->number_of_meals_consumed = 0;
 		philos->program = program;
 		philos->death = 0;
@@ -70,8 +68,8 @@ void	init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[])
 		philos->write_lock = &program->write_lock;
 		philos->meal_lock = &program->meal_lock;
 		assign_forks(philos, philos_number, i);
-		printf("in call: %ld, for philo id: %d, first fork is %d and second fork \
-		is: %d\n", i, philos->id, philos->first_fork->fork_id, philos->second_fork->fork_id);
+		/* printf("in call: %ld, for philo id: %d, first fork is %d and second fork \
+		is: %d\n", i, philos->id, philos->first_fork->fork_id, philos->second_fork->fork_id); */
 		i++;
 		philos++;
 		forks++;
