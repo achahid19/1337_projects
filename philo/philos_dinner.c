@@ -25,7 +25,10 @@ void	philos_call(t_philo *philos, t_program *program)
 	if (program->num_of_times_to_eat == 0)
 		print_error("no dinner to eat!\n");
 	if (program->philo_num == 1)
-		print_error("philos num is 1\n"); // TODO
+	{
+		philos_syncro(program->time_to_die);
+		print_error("philo 1 died\n");
+	}
 	// create the threads
 		// once the thread is created, philos start running
 		// so I need synchronization between all philos
@@ -37,10 +40,10 @@ void	philos_call(t_philo *philos, t_program *program)
 
 t_bool	dead_loop(t_philo *philo)
 {
-	pthread_mutex_lock(&philo->philo_mutex);
-	if (philo->death == 1)
-		return (pthread_mutex_unlock(&philo->philo_mutex), true);
-	pthread_mutex_unlock(&philo->philo_mutex);
+	pthread_mutex_lock(philo->dead_lock);
+	if (philo->program->simulation_end == true)
+		return (pthread_mutex_unlock(philo->dead_lock), true);
+	pthread_mutex_unlock(philo->dead_lock);
 	return (false);
 }
 
@@ -53,15 +56,16 @@ static void	*routine(void *philos)
 	t_philo *p;
 
 	p = (t_philo *)philos;
-	(void)p;
-	// make the even philos wait to avoid potential deadlock.
 	if (p->id % 2)
 		philos_syncro(1);
-	printf("philo id: %d CREATED\n", p->id);
-	/* printf("thread with id: %d CREATED\n", p->id); */
+	// make the even philos wait to avoid potential deadlock.
+	p->simulation_start = gettime(milliseconds);
+	printf("philo with id: %d starts at %ld\n", p->id, p->simulation_start);
 	while (dead_loop(philos) == false)
 	{
-		//eat
+		eat(p);
+		sleep(1);
+		p->program->simulation_end = true;
 		//sleep
 		//think
 		// REAPET

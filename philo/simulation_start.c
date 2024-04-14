@@ -13,21 +13,21 @@
 #include "philo.h"
 
 void		philos_syncro(size_t milliseconds);
-static long	gettime(long time_code);
+long		gettime(long time_code);
 
-void	philos_syncro(size_t milliseconds)
+void	philos_syncro(size_t ms)
 {
 	size_t	start;
 
 	start = gettime(milliseconds);
-	while ((gettime(milliseconds) - start) < milliseconds)
+	while ((gettime(milliseconds) - start) < ms)
 		usleep(500);
 }
 
 /**
  * gettime -
 */
-static long	gettime(long time_code)
+long	gettime(long time_code)
 {
 	struct timeval	time_val;
 
