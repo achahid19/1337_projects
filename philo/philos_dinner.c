@@ -63,7 +63,7 @@ static void	*routine(void *philos)
 	/* printf("philo with id: %d starts at %ld\n", p->id, p->simulation_start); */
 	while (dead_loop(philos) == false)
 	{
-		// eat sleep think reapeat
+		// eat sleep think reapeat (#estr :3)
 		eating(p);
 		sleeping(p);
 		thinking(p);
