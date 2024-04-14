@@ -41,6 +41,11 @@ typedef struct s_fork // Array of forks.
 	int				fork_id;
 }	t_fork;
 
+/**
+ * I know you for compiler
+*/
+typedef	struct s_program t_program;
+
 typedef struct s_philo
 {
 	pthread_t	thread; // each philo is a thread
@@ -52,6 +57,9 @@ typedef struct s_philo
 	t_fork		*first_fork;
 	t_fork		*second_fork;
 	t_fork		*forks; // array to forks
+	t_program	*program;
+	pthread_mutex_t	philo_mutex;
+	int			death;
 }	t_philo;
 
 typedef	struct s_program
@@ -83,6 +91,6 @@ void	print_error(const char *error);
 /* philos */
 void	init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[]);
 void	philos_call(t_philo *philos, t_program *program);
-void	philos_syncro(t_philo *philos, t_program *p);
+void	philos_syncro(size_t milliseconds);
 
 # endif /* PHILO_H */
