@@ -50,7 +50,7 @@ t_bool	death_checker(t_philo *philos)
 	time = gettime(milliseconds) - (size_t)philos->last_meal_counter;
 	if (time >= philos->program->time_to_die)
 	{
-		print_msg("philo dead", philos);
+		print_msg("philo dead", philos, true);
 		return (true);
 	}
 	return (false);

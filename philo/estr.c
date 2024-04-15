@@ -12,12 +12,15 @@
 
 #include "philo.h"
 
-void	print_msg(char *msg, t_philo *philo)
+void	print_msg(char *msg, t_philo *philo, t_bool dead)
 {
 	size_t	time;
 
 	pthread_mutex_lock(philo->write_lock);
-	time = gettime(milliseconds) - philo->simulation_start;
+	if (dead == false)
+		time = gettime(milliseconds) - philo->simulation_start;
+	else if (dead == true)
+		time = gettime(milliseconds) - philo->last_meal_counter;
 	if (dead_loop(philo) == false) // philo not dead
 		printf("%ld %d %s\n", time, philo->id, msg);
 	pthread_mutex_unlock(philo->write_lock);
@@ -31,9 +34,9 @@ void	eating(t_philo *philo)
 	if (philo->full == false)
 	{
 		pthread_mutex_lock(&philo->first_fork->fork);
-		print_msg("has taken a fork", philo);
+		print_msg("has taken a fork", philo, false);
 		pthread_mutex_lock(&philo->second_fork->fork);
-		print_msg("has taken a fork", philo);
+		print_msg("has taken a fork", philo, false);
 		// Start eating since this philo had 2 chopsticks.
 		pthread_mutex_lock(philo->meal_lock);
 		// needed for monitoring (current time - last_meal).
@@ -43,7 +46,7 @@ void	eating(t_philo *philo)
 			philo->full = true;
 		/* printf("philo is: %d is eating number: %d\n", philo->id, philo->number_of_meals_consumed); */
 		pthread_mutex_unlock(philo->meal_lock);
-		print_msg("is eating", philo);
+		print_msg("is eating", philo, false);
 		philos_syncro(philo->program->time_to_eat);
 		pthread_mutex_unlock(&philo->second_fork->fork);
 		pthread_mutex_unlock(&philo->first_fork->fork);
@@ -55,7 +58,7 @@ void	eating(t_philo *philo)
 */
 void	sleeping(t_philo *philo)
 {
-	print_msg("is seelping", philo);
+	print_msg("is seelping", philo, false);
 	philos_syncro(philo->program->time_to_sleep);
 }
 
@@ -64,5 +67,5 @@ void	sleeping(t_philo *philo)
 */
 void	thinking(t_philo *philo)
 {
-	print_msg("is thinking", philo);
+	print_msg("is thinking", philo, false);
 }
