@@ -28,8 +28,11 @@ void	philos_call(t_philo *philos, t_program *program)
 		print_error("no dinner to eat!\n");
 	if (program->philo_num == 1)
 	{
+		pthread_mutex_lock(&philos->first_fork->fork);																														
 		philos_syncro(program->time_to_die);
-		print_error("philo 1 died\n");
+		printf("%ld %d died\n", gettime(milliseconds) - philos->last_meal_counter, philos->id);
+		pthread_mutex_unlock(&philos->first_fork->fork);
+		return ;
 	}
 	// create the threads
 		// once the thread is created, philos start running
@@ -43,10 +46,11 @@ void	philos_call(t_philo *philos, t_program *program)
 t_bool	dead_loop(t_philo *philo)
 {
 	pthread_mutex_lock(philo->dead_lock);
-	// simulation_end == true if; philo is full or dead
-		// a monitoring thread will handle.
 	if (philo->program->simulation_end == true)
-		return (pthread_mutex_unlock(philo->dead_lock), true);
+	{
+		pthread_mutex_unlock(philo->dead_lock);
+		return (true);
+	}
 	pthread_mutex_unlock(philo->dead_lock);
 	return (false);
 }
@@ -68,9 +72,9 @@ static void	*routine(void *philos)
 	while (dead_loop(philos) == false)
 	{
 		// eat sleep think reapeat (#estr :3)
-		eating(p);
+		eating(p); // Problem here
 		sleeping(p);
-		thinking(p);
+		thinking(p); // and here.
 	}
 	// philos pointer will be checked by the monitor
 	return (NULL);

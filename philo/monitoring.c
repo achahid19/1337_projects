@@ -29,8 +29,11 @@ t_bool	full_checker(t_philo *philos)
 	all_full = 1;
 	while ((size_t)philos[index].id < philos->program->philo_num)
 	{
+		// prevent data race, read from full
+		pthread_mutex_lock(philos->meal_lock);
 		if (philos[index].full == true)
 			all_full++;
+		pthread_mutex_unlock(philos->meal_lock);
 		if (all_full == philos->program->philo_num)
 			return (true);
 		index++;
@@ -43,14 +46,25 @@ t_bool	full_checker(t_philo *philos)
 	return (false);
 }
 
+void	print_death(char *msg, t_philo *philo)
+{
+	size_t	time;
+
+	time = gettime(milliseconds) - philo->last_meal_counter;
+	printf("%ld %d %s\n", time, philo->id, msg);
+}
+
 t_bool	death_checker(t_philo *philos)
 {
 	size_t	time;
 
+	// to read from last_meal_counter
+	pthread_mutex_lock(philos->meal_lock);
 	time = gettime(milliseconds) - (size_t)philos->last_meal_counter;
+	pthread_mutex_unlock(philos->meal_lock);
 	if (time >= philos->program->time_to_die)
 	{
-		print_msg("philo dead", philos, true);
+		print_death("philo dead", philos);
 		return (true);
 	}
 	return (false);
@@ -62,8 +76,9 @@ void	*monitore(void *program)
 	t_philo		*philo;
 	size_t		index;
 
-	index = 0;
 	p = (t_program *)program;
+	
+	index = 0;
 	philo = p->philos;
 	while (true)
 	{
@@ -81,6 +96,11 @@ void	*monitore(void *program)
 		if (index == p->philo_num)
 			index = 0;
 	}
+	// write to simulation_end
+	pthread_mutex_lock(&p->write_lock);
+	pthread_mutex_lock(&p->dead_lock);
 	p->simulation_end = true;
+	pthread_mutex_unlock(&p->dead_lock);
+	pthread_mutex_unlock(&p->write_lock);
 	return (NULL);
 }
