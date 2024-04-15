@@ -12,7 +12,6 @@
 
 #include "philo.h"
 
-
 /**
  * 
 */
@@ -46,13 +45,6 @@ t_bool	full_checker(t_philo *philos)
 	return (false);
 }
 
-void	print_death(char *msg, t_philo *philo)
-{
-	size_t	time;
-
-	time = gettime(milliseconds) - philo->last_meal_counter;
-	printf("%ld %d %s\n", time, philo->id, msg);
-}
 
 t_bool	death_checker(t_philo *philos)
 {
@@ -64,7 +56,7 @@ t_bool	death_checker(t_philo *philos)
 	pthread_mutex_unlock(philos->meal_lock);
 	if (time >= philos->program->time_to_die)
 	{
-		print_death("philo dead", philos);
+		print_msg("philo dead", philos, true);
 		return (true);
 	}
 	return (false);
@@ -77,21 +69,17 @@ void	*monitore(void *program)
 	size_t		index;
 
 	p = (t_program *)program;
-	
 	index = 0;
 	philo = p->philos;
 	while (true)
 	{
 		if (full_checker(philo) == true)
 		{
-			printf("break your pussy\n");
+			printf("FULL\n");
 			break;
 		}
 		if (death_checker(&philo[index]) == true)
-		{	printf("Broke your heart\n");
 			break;
-		}
-		
 		index++;
 		if (index == p->philo_num)
 			index = 0;
