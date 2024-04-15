@@ -62,7 +62,6 @@ typedef struct s_philo
 	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*meal_lock;
 	long		simulation_start;
-	int			death;
 }	t_philo;
 
 typedef	struct s_program
