@@ -106,6 +106,6 @@ void	thinking(t_philo *philo);
 
 void	*monitore(void *program);
 
-void	print_msg(char *msg, t_philo *philo);
+void	print_msg(char *msg, t_philo *philo, t_bool dead);
 
 # endif /* PHILO_H */
