@@ -64,8 +64,8 @@ static void	*routine(void *philos)
 	t_philo *p;
 
 	p = (t_philo *)philos;
-	// make the odd philos wait to clear the contention zone.
-	if (p->id % 2)
+	// make the even philos wait to clear the contention zone.
+	if (p->id % 2 == 0)
 		philos_syncro(1);
 	p->simulation_start = gettime(milliseconds);
 	/* printf("philo with id: %d starts at %ld\n", p->id, p->simulation_start); */

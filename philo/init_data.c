@@ -62,7 +62,6 @@ void	init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[])
 		philos->last_meal_counter = gettime(milliseconds);		
 		philos->number_of_meals_consumed = 0;
 		philos->program = program;
-		philos->death = 0;
 		philos->simulation_start = 0;
 		philos->dead_lock = &program->dead_lock;
 		philos->write_lock = &program->write_lock;
