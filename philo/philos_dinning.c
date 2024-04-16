@@ -12,7 +12,7 @@
 
 #include "philo.h"
 
-void		philos_call(t_philo *philos, t_program *program);
+void		philos_dinner(t_philo *philos, t_program *program);
 static void	threads_create(t_philo *philos, pthread_t *monitoring, int philo_num);
 static void	threads_create_await(t_program *p, pthread_t monitoring);
 static void	*routine(void *philos);
@@ -25,7 +25,7 @@ t_bool		dead_loop(t_philo *philo);
  * 
  * Return: void.
 */
-void	philos_call(t_philo *philos, t_program *program)
+void	philos_dinner(t_philo *philos, t_program *program)
 {
 	pthread_t	monitoring;
 

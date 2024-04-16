@@ -94,7 +94,7 @@ void	print_error(const char *error);
 
 /* philos */
 void	init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[]);
-void	philos_call(t_philo *philos, t_program *program);
+void	philos_dinner(t_philo *philos, t_program *program);
 void	philos_syncro(size_t milliseconds);
 long	gettime(long time_code);
 
@@ -106,5 +106,6 @@ void	thinking(t_philo *philo);
 void	*monitore(void *program);
 
 void	print_msg(char *msg, t_philo *philo, t_bool dead);
+void	mutex_destroy(t_program *p, t_fork *forks);
 
 # endif /* PHILO_H */

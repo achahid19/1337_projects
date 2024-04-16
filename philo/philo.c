@@ -12,26 +12,14 @@
 
 #include "philo.h"
 
-
-void	mutex_destroy(t_program *p, t_fork *forks)
-{
-	size_t	i;
-
-	i = 0;
-	pthread_mutex_destroy(&p->dead_lock);
-	pthread_mutex_destroy(&p->meal_lock);
-	pthread_mutex_destroy(&p->write_lock);
-	while (i < p->philo_num)
-	{
-		pthread_mutex_destroy(&forks->fork);
-		i++;
-	}
-}
+void	mutex_destroy(t_program *p, t_fork *forks);
 
 /**
  * main - Entry point
  * Description: the main is a TL;DR of the program
- * ./a.out 5 800 190 200 [6]
+ * ./a.out 5(philo_num) 800(time_to_die) \ 
+ * 200 time_to_eat) 100(time_to_sleep) [6](optional) \
+ * (max_number_of_meals).
  * 
  * Return: Always 0 (Success).
 */
@@ -43,12 +31,35 @@ int	main(int ac, char *av[])
 
 	if (ac < 5 || ac > 6 || check_inputs(av) == false)
 		print_error("Invalid input!\n");
-	// init_data().
 	init_data(philos, forks, &program, av);
-	// threads creation
-	philos_call(philos, &program);
-	// Simulation (dinner) starting
+	philos_dinner(philos, &program);
 	mutex_destroy(&program, forks);
 
 	return (0);
+}
+
+/**
+ * mutex_destroy - clear all initialized mutexes
+ * @p: pointer to program data list
+ * @forsk: pointer to forks list
+ * 
+ * Return: void.
+*/
+void	mutex_destroy(t_program *p, t_fork *forks)
+{
+	size_t	i;
+
+	i = 0;
+	if (&p->dead_lock != NULL)
+		pthread_mutex_destroy(&p->dead_lock);
+	if (&p->meal_lock != NULL)
+		pthread_mutex_destroy(&p->meal_lock);
+	if (&p->write_lock != NULL)
+		pthread_mutex_destroy(&p->write_lock);
+	while (i < p->philo_num)
+	{
+		if (&forks->fork != NULL)
+			pthread_mutex_destroy(&forks->fork);
+		i++;
+	}
 }

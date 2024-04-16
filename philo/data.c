@@ -12,13 +12,11 @@
 
 #include "philo.h"
 
-
 void		init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[]);
 static void	init_program(t_program *program, t_philo *philos, char **args);
-static void	init_philo(t_philo *philos, t_program *program, size_t i);
 static void	init_forks(t_fork *forks, t_philo *philos, int pnum);
+static void	init_philo(t_philo *philos, t_program *program, size_t i);
 static void	assign_forks(t_philo *philos, int philos_number, size_t index);
-
 
 /**
  * init_data - initialize the data related to each philosopher
@@ -47,6 +45,27 @@ void	init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[])
 	}
 	philos = NULL;
 	forks = NULL;
+}
+
+/**
+ * init_philo - init each philosopher related data
+ * @philos: pointer to philos data list
+ * @program: pointer to program struct
+ * @i: iteration counter
+ * 
+ * Return: void.
+*/
+static void	init_philo(t_philo *philos, t_program *program, size_t i)
+{
+	philos->id = i + 1;
+	philos->full = false;
+	philos->last_meal_counter = gettime(milliseconds);		
+	philos->number_of_meals_consumed = 0;
+	philos->program = program;
+	philos->simulation_start = 0;
+	philos->dead_lock = &program->dead_lock;
+	philos->write_lock = &program->write_lock;
+	philos->meal_lock = &program->meal_lock;
 }
 
 /**
@@ -81,27 +100,6 @@ static void	init_program(t_program *program, t_philo *philos, char **args)
 		program->time_to_eat <= 60 ||
 		program->time_to_sleep <= 60)
 		print_error("Use a timestamp major than 60ms");
-}
-
-/**
- * init_philo - init each philosopher related data
- * @philos: pointer to philos data list
- * @program: pointer to program struct
- * @i: iteration counter
- * 
- * Return: void.
-*/
-static void	init_philo(t_philo *philos, t_program *program, size_t i)
-{
-	philos->id = i + 1;
-	philos->full = false;
-	philos->last_meal_counter = gettime(milliseconds);		
-	philos->number_of_meals_consumed = 0;
-	philos->program = program;
-	philos->simulation_start = 0;
-	philos->dead_lock = &program->dead_lock;
-	philos->write_lock = &program->write_lock;
-	philos->meal_lock = &program->meal_lock;
 }
 
 /**
