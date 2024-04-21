@@ -115,7 +115,7 @@ static void	*routine(void *philos)
 
 	p = (t_philo *)philos;
 	// make the even philos wait to clear the contention zone.
-	if (p->id % 2 == 0)
+	if (p->id % 2)
 		philos_syncro(1);
 	while (dead_loop(philos) == false)
 	{

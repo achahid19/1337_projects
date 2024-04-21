@@ -13,8 +13,9 @@
 #include "philo.h"
 
 void			*monitore(void *program);
-static t_bool	full_checker(t_philo *philos);
+static void		monitor_checker(t_philo *philos);
 static t_bool	death_checker(t_philo *philos);
+static t_bool	full_checker(t_philo *philos, size_t *all_full);
 
 /**
  * monitore - monitoring philos dinner
@@ -29,21 +30,10 @@ void	*monitore(void *program)
 {
 	t_program	*p;
 	t_philo		*philo;
-	size_t		index;
 
 	p = (t_program *)program;
-	index = 0;
 	philo = p->philos;
-	while (true)
-	{
-		if (full_checker(philo) == true)
-			break;
-		if (death_checker(&philo[index]) == true)
-			break;
-		index++;
-		if (index == p->philo_num)
-			index = 0;
-	}
+	monitor_checker(philo);
 	pthread_mutex_lock(&p->dead_lock); // data race between dead_loop (read) and monitor (write).
 	p->simulation_end = true;
 	pthread_mutex_unlock(&p->dead_lock);
@@ -53,34 +43,28 @@ void	*monitore(void *program)
 /**
  * full_checker -
 */
-static t_bool	full_checker(t_philo *philos)
+static void	monitor_checker(t_philo *philos)
 {
 	size_t	index;
 	size_t 	all_full;
 
 	index = 0;
-	all_full = 1;
-	while ((size_t)philos[index].id < philos->program->philo_num)
+	all_full = 0;
+	while (true)
 	{
-		// prevent data race, read from full
-		pthread_mutex_lock(philos->meal_lock);
-		if (philos[index].full == true)
-			all_full++;
-		pthread_mutex_unlock(philos->meal_lock);
-		if (all_full == philos->program->philo_num)
-		{
-
-			printf("full status: %ld\n", all_full);
-			return (true);
-		}
+		// check for death
+		if (death_checker(&philos[index]) == true)
+			return ;
+		// check for full
+		if (full_checker(&philos[index], &all_full) == true)
+			return ;
 		index++;
 		if (index == philos->program->philo_num)
 		{
-			all_full = 1;
+			all_full = 0;
 			index = 0;
 		}
 	}
-	return (false);
 }
 
 /**
@@ -99,5 +83,20 @@ static t_bool	death_checker(t_philo *philos)
 		print_msg("philo dead", philos);
 		return (true);
 	}
+	return (false);
+}
+
+/**
+ * full_checker -
+*/
+static t_bool	full_checker(t_philo *philos, size_t *all_full)
+{
+	// prevent data race, read from full
+	pthread_mutex_lock(philos->meal_lock);
+	if (philos->full == true)
+		*all_full = *all_full + 1;
+	pthread_mutex_unlock(philos->meal_lock);
+	if (*all_full == philos->program->philo_num)
+		return (true);
 	return (false);
 }
