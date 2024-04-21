@@ -96,7 +96,7 @@ t_bool	full_loop(t_philo *philo)
 /**
  * mutex_destroy - clear all initialized mutexes
  * @p: pointer to program data list
- * @forsk: pointer to forks list
+ * @forks: pointer to forks list
  * 
  * Return: void.
 */
@@ -105,18 +105,13 @@ void	mutex_destroy(t_program *p, t_fork *forks)
 	size_t	i;
 
 	i = 0;
-	if (&p->dead_lock != NULL)
-		pthread_mutex_destroy(&p->dead_lock);
-	if (&p->meal_lock != NULL)
-		pthread_mutex_destroy(&p->meal_lock);
-	if (&p->write_lock != NULL)
-		pthread_mutex_destroy(&p->write_lock);
-	if (&p->full_lock != NULL)
-		pthread_mutex_destroy(&p->full_lock);
+	pthread_mutex_destroy(&p->dead_lock);
+	pthread_mutex_destroy(&p->meal_lock);
+	pthread_mutex_destroy(&p->write_lock);
+	pthread_mutex_destroy(&p->full_lock);
 	while (i < p->philo_num)
 	{
-		if (&forks->fork != NULL)
-			pthread_mutex_destroy(&forks->fork);
+		pthread_mutex_destroy(&forks->fork);
 		i++;
 	}
 }
