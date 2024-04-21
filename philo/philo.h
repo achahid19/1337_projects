@@ -78,6 +78,7 @@ typedef	struct s_program
 	size_t		time_to_eat;
 	size_t		time_to_sleep;
 	int			num_of_times_to_eat; // Optional argument
+	t_fork		*forks;
 	//
 	t_bool		simulation_end; // philo's death or full meals.
 	
@@ -109,5 +110,10 @@ void	*monitore(void *program);
 
 void	print_msg(char *msg, t_philo *philo);
 void	mutex_destroy(t_program *p, t_fork *forks);
+
+t_bool		dead_loop(t_philo *philo);
+t_bool		full_loop(t_philo *philo);
+
+void	destroy_print_error(const char *error, t_program *p, t_fork *forks);
 
 # endif /* PHILO_H */
