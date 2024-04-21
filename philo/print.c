@@ -31,11 +31,9 @@ void	print_msg(char *msg, t_philo *philo)
 {
 	size_t	time;
 	
-	//pthread_mutex_lock(philo->write_lock);
-	pthread_mutex_lock(philo->dead_lock);
 	time = gettime(milliseconds) - philo->simulation_start;
+	pthread_mutex_lock(philo->dead_lock);
 	if (philo->program->simulation_end == false)
 		printf("%ld %d %s\n", time, philo->id, msg);
 	pthread_mutex_unlock(philo->dead_lock);
-	//pthread_mutex_unlock(philo->write_lock);
 }

@@ -44,11 +44,11 @@ void	*monitore(void *program)
 		if (index == p->philo_num)
 			index = 0;
 	}
-	pthread_mutex_lock(&p->write_lock); // data race between print_msg (read) and monitor (write).
+	//pthread_mutex_lock(&p->write_lock); // data race between print_msg (read) and monitor (write).
 	pthread_mutex_lock(&p->dead_lock); // data race between dead_loop (read) and monitor (write).
 	p->simulation_end = true;
 	pthread_mutex_unlock(&p->dead_lock);
-	pthread_mutex_unlock(&p->write_lock);
+	//pthread_mutex_unlock(&p->write_lock);
 	return (NULL);
 }
 
@@ -97,7 +97,7 @@ static t_bool	death_checker(t_philo *philos)
 	pthread_mutex_lock(philos->meal_lock);
 	time = gettime(milliseconds) - (size_t)philos->last_meal_counter;
 	pthread_mutex_unlock(philos->meal_lock);
-	if (time >= philos->program->time_to_die)
+	if (time > philos->program->time_to_die)
 	{
 		print_msg("philo dead", philos);
 		return (true);
