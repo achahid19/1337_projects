@@ -13,7 +13,7 @@
 #include "philo.h"
 
 void		init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[]);
-static void	init_program(t_program *program, t_philo *philos, char **args);
+static void	init_program(t_program *program, t_philo *philos, t_fork *forks, char **args);
 static void	init_forks(t_fork *forks, t_philo *philos, int pnum);
 static void	init_philo(t_philo *philos, t_program *program, size_t i);
 static void	assign_forks(t_philo *philos, int philos_number, size_t index);
@@ -33,7 +33,7 @@ void	init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[])
 
 	i = 0;
 	philos_number = ft_atol(args[1]);
-	init_program(program, philos, args);
+	init_program(program, philos, forks, args);
 	init_forks(forks, philos, philos_number);
 	while (i < (size_t)philos_number)
 	{
@@ -43,8 +43,6 @@ void	init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[])
 		philos++;
 		forks++;
 	}
-	philos = NULL;
-	forks = NULL;
 }
 
 /**
@@ -59,7 +57,6 @@ static void	init_philo(t_philo *philos, t_program *program, size_t i)
 {
 	philos->id = i + 1;
 	philos->full = false;
-	philos->last_meal_counter = gettime(milliseconds);		
 	philos->number_of_meals_consumed = 0;
 	philos->program = program;
 	philos->simulation_start = 0;
@@ -68,6 +65,7 @@ static void	init_philo(t_philo *philos, t_program *program, size_t i)
 	philos->meal_lock = &program->meal_lock;
 	philos->full_lock = &program->full_lock;
 	philos->simulation_start = gettime(milliseconds);
+	philos->last_meal_counter = gettime(milliseconds);
 }
 
 /**
@@ -80,29 +78,30 @@ static void	init_philo(t_philo *philos, t_program *program, size_t i)
  * 
  * Return: void.
 */
-static void	init_program(t_program *program, t_philo *philos, char **args)
+static void	init_program(t_program *p, t_philo *philos, t_fork *forks, char **args)
 {
-	if (pthread_mutex_init(&program->dead_lock, NULL))
-		print_error("Error initializing program's mutex!\n");
-	if (pthread_mutex_init(&program->meal_lock, NULL))
-		print_error("Error initializing program's mutex!\n");
-	if (pthread_mutex_init(&program->write_lock, NULL))
-		print_error("Error initializing program's mutex!\n");
-	if (pthread_mutex_init(&program->full_lock, NULL))
-		print_error("Error initializing program's mutex!\n");
-	program->philos = philos;
-	program->philo_num = ft_atol(args[1]);
-	program->time_to_die = ft_atol(args[2]);
-	program->time_to_eat = ft_atol(args[3]);
-	program->time_to_sleep = ft_atol(args[4]);
-	program->simulation_end = false;	
+	if (pthread_mutex_init(&p->dead_lock, NULL))
+		destroy_print_error("Error initializing program's mutex!\n", p, p->forks);
+	if (pthread_mutex_init(&p->meal_lock, NULL))
+		destroy_print_error("Error initializing program's mutex!\n", p, p->forks);
+	if (pthread_mutex_init(&p->write_lock, NULL))
+		destroy_print_error("Error initializing program's mutex!\n", p, p->forks);
+	if (pthread_mutex_init(&p->full_lock, NULL))
+		destroy_print_error("Error initializing program's mutex!\n", p, p->forks);
+	p->philos = philos;
+	p->forks = forks;
+	p->philo_num = ft_atol(args[1]);
+	p->time_to_die = ft_atol(args[2]);
+	p->time_to_eat = ft_atol(args[3]);
+	p->time_to_sleep = ft_atol(args[4]);
+	p->simulation_end = false;	
 	if (args[5])
-		program->num_of_times_to_eat = ft_atol(args[5]);
+		p->num_of_times_to_eat = ft_atol(args[5]);
 	else
-		program->num_of_times_to_eat = -1;
-	if (program->time_to_die <= 60 ||
-		program->time_to_eat <= 60 ||
-		program->time_to_sleep <= 60)
+		p->num_of_times_to_eat = -1;
+	if (p->time_to_die <= 60 ||
+		p->time_to_eat <= 60 ||
+		p->time_to_sleep <= 60)
 		print_error("Use a timestamp major than 60ms");
 }
 
@@ -123,14 +122,13 @@ static void init_forks(t_fork *forks, t_philo *philos, int pnum)
 	{
 		forks->fork_id = i;
 		if (pthread_mutex_init(&forks->fork, NULL) != 0)
-			print_error("Error with Mutex!\n");
+			destroy_print_error("Error with Mutex!\n", philos->program,
+				philos->program->forks);
 		philos->forks = forks; // each philo points to his right fork.
 		i++;
 		forks++;
 		philos++;
 	}
-	forks = NULL;
-	philos = NULL;
 }
 
 /**

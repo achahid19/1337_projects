@@ -12,8 +12,6 @@
 
 #include "philo.h"
 
-void	mutex_destroy(t_program *p, t_fork *forks);
-
 /**
  * main - Entry point
  * Description: the main is a TL;DR of the program
@@ -36,26 +34,4 @@ int	main(int ac, char *av[])
 	mutex_destroy(&program, forks);
 
 	return (0);
-}
-
-/**
- * mutex_destroy - clear all initialized mutexes
- * @p: pointer to program data list
- * @forsk: pointer to forks list
- * 
- * Return: void.
-*/
-void	mutex_destroy(t_program *p, t_fork *forks)
-{
-	size_t	i;
-
-	i = 0;
-	pthread_mutex_destroy(&p->dead_lock);
-	pthread_mutex_destroy(&p->meal_lock);
-	pthread_mutex_destroy(&p->write_lock);
-	while (i < p->philo_num)
-	{
-		pthread_mutex_destroy(&forks->fork);
-		i++;
-	}
 }

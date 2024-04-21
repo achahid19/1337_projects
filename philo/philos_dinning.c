@@ -16,8 +16,6 @@ void		philos_dinner(t_philo *philos, t_program *program);
 static void	threads_create(t_philo *philos, pthread_t *monitoring, int philo_num);
 static void	threads_create_await(t_program *p, pthread_t monitoring);
 static void	*routine(void *philos);
-t_bool		dead_loop(t_philo *philo);
-t_bool		full_loop(t_philo *philo);
 
 /**
  * philos_call - create, join threads (philos).
@@ -31,18 +29,18 @@ void	philos_dinner(t_philo *philos, t_program *program)
 	pthread_t	monitoring;
 
 	if (program->num_of_times_to_eat == 0)
-		print_error("no dinner to eat!\n");
+		destroy_print_error("no dinner to eat!\n", program, philos->forks);
 	if (program->philo_num == 1)
 	{
 		pthread_mutex_lock(&philos->first_fork->fork);
 		philos_syncro(program->time_to_die + 1);
 		pthread_mutex_unlock(&philos->first_fork->fork);
 		print_msg("died", philos);
+		mutex_destroy(program, philos->forks);
 		return ;
 	}
 	threads_create(philos, &monitoring, program->philo_num);
 	threads_create_await(program, monitoring);
-	philos = NULL;
 }
 
 /**
@@ -62,16 +60,17 @@ static void	threads_create(t_philo *philos, pthread_t *monitoring, int philo_num
 	index = 0;
 	// monitore all philos through the program
 	if (pthread_create(monitoring, NULL, monitore, philos->program) != 0)
-		print_error("Error creating monitoring thread!\n");
+		destroy_print_error("Error creating monitoring thread!\n",
+			philos->program, philos->program->forks);
 	while (index < (size_t)philo_num)
 	{
 		if (pthread_create(&philos->thread, NULL, routine, (void *)philos) != 0)
-			print_error("Error creating threads!\n");
+			destroy_print_error("Error creating threads!\n",
+				philos->program, philos->program->forks);
 		index++;
 		if (index < (size_t)philo_num)
 			philos++;
 	}
-	philos = NULL;
 }
 
 /**
@@ -91,11 +90,11 @@ static void	threads_create_await(t_program *p, pthread_t monitoring)
 	index = 0;
 
 	if (pthread_join(monitoring, NULL) != 0)
-		print_error("Error while joining monitoring thread\n");
+		destroy_print_error("Error while joining monitoring thread\n", p, p->forks);
 	while (index < (size_t)philos_num)
 	{
 		if (pthread_join(p->philos->thread, NULL) != 0)
-			print_error("Error while joinning threads!\n");
+			destroy_print_error("Error while joinning threads!\n", p, p->forks);
 		index++;
 		p->philos++;
 	}
@@ -126,34 +125,4 @@ static void	*routine(void *philos)
 		thinking(p);
 	}
 	return (NULL);
-}
-
-/**
- * dead_loop - checks continueously for
- * a philosopher death.
- * @philo: pointer to philosophers
- * 
- * Return: state of life; true if death, else false.
-*/
-t_bool	dead_loop(t_philo *philo)
-{
-	pthread_mutex_lock(philo->dead_lock);
-	if (philo->program->simulation_end == true)
-	{
-		pthread_mutex_unlock(philo->dead_lock);
-		return (true);
-	}
-	pthread_mutex_unlock(philo->dead_lock);
-	return (false);
-}
-
-/**
- * full_loop -
-*/
-t_bool	full_loop(t_philo *philo)
-{
-	pthread_mutex_lock(philo->full_lock);
-	if (philo->full == true)
-		return (pthread_mutex_unlock(philo->full_lock), true);
-	return (pthread_mutex_unlock(philo->full_lock), false);
 }
