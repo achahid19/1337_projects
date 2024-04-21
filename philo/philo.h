@@ -30,9 +30,7 @@ typedef enum e_bool // define a set of named integer constant
 
 typedef enum e_time
 {
-	microseconds = 0,
-	milliseconds = 1,
-	seconds = 2
+	milliseconds = 1
 }	t_time;
 
 typedef struct s_fork // Array of forks.
@@ -58,10 +56,12 @@ typedef struct s_philo
 	t_fork			*second_fork;
 	t_fork			*forks; // array to forks
 	t_program		*program;
+	/* mutexes */
 	pthread_mutex_t	*write_lock;
 	pthread_mutex_t	*dead_lock;
 	pthread_mutex_t	*meal_lock;
 	pthread_mutex_t	*full_lock;
+	/* simmulation starts */
 	long			simulation_start;
 }	t_philo;
 
@@ -72,7 +72,6 @@ typedef struct s_program
 	pthread_mutex_t	meal_lock;
 	pthread_mutex_t	write_lock;
 	pthread_mutex_t	full_lock;
-	/**/
 	size_t			philo_num; // Also numbers of forks
 	size_t			time_to_die;
 	size_t			time_to_eat;
@@ -82,36 +81,34 @@ typedef struct s_program
 	t_bool			simulation_end; // philo's death or full meals.
 }	t_program;
 
-/* utilities functions */
-size_t		ft_strlen(const char *str);
-long		ft_atol(const char *str);
-
 /* parsing */
 t_bool		check_inputs(char *args[]);
 
-/* errors */
-void		print_error(const char *error);
+/* syncro */
+long		gettime(long time_code);
+void		philos_syncro(size_t milliseconds);
 
-/* philos */
+/* Simulation */
 void		init_data(t_philo *philos, t_fork *forks,
 				t_program *program, char *args[]);
 void		philos_dinner(t_philo *philos, t_program *program);
-void		philos_syncro(size_t milliseconds);
-long		gettime(long time_code);
+void		*monitore(void *program);
 
-t_bool		dead_loop(t_philo *philo);
+/* Actions */
 void		eating(t_philo *philo);
 void		sleeping(t_philo *philo);
 void		thinking(t_philo *philo);
 
-void		*monitore(void *program);
-
-void		print_msg(char *msg, t_philo *philo);
-void		mutex_destroy(t_program *p, t_fork *forks);
-
+/* Utilies */
 t_bool		dead_loop(t_philo *philo);
 t_bool		full_loop(t_philo *philo);
+size_t		ft_strlen(const char *str);
+long		ft_atol(const char *str);
 
+/* print_exit */
+void		print_error(const char *error);
 void		destroy_print_error(const char *error, t_program *p, t_fork *forks);
+void		mutex_destroy(t_program *p, t_fork *forks);
+void		print_msg(char *msg, t_philo *philo);
 
 #endif /* PHILO_H */
