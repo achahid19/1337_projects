@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 void			*monitore(void *program);
 static void		monitor_checker(t_philo *philos);

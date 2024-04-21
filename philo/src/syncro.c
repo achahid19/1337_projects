@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 void		philos_syncro(size_t milliseconds);
 long		gettime(long time_code);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 void		init_data(t_philo *philos, t_fork *forks,
 				t_program *program, char *args[]);

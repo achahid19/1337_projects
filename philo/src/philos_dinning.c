@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 void		philos_dinner(t_philo *philos, t_program *program);
 static void	threads_create(t_philo *philos, pthread_t *monitoring,

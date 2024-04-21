@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 size_t		ft_strlen(const char *str);
 long		ft_atol(const char *str);

@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "philo.h"
+#include "../includes/philo.h"
 
 t_bool			check_inputs(char *args[]);
 static t_bool	check_arg(char *arg);
