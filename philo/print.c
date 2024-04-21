@@ -13,7 +13,7 @@
 #include "philo.h"
 
 void	print_error(const char *error);
-void	print_msg(char *msg, t_philo *philo, t_bool dead);
+void	print_msg(char *msg, t_philo *philo);
 
 /**
  * print_error
@@ -27,18 +27,15 @@ void	print_error(const char *error)
 /**
  * print_mgs
 */
-void	print_msg(char *msg, t_philo *philo, t_bool dead)
+void	print_msg(char *msg, t_philo *philo)
 {
 	size_t	time;
 	
-	pthread_mutex_lock(philo->write_lock);
+	//pthread_mutex_lock(philo->write_lock);
 	pthread_mutex_lock(philo->dead_lock);
-	if (dead == false)
-		time = gettime(milliseconds) - philo->simulation_start;
-	else if (dead == true)
-		time = gettime(milliseconds) - philo->last_meal_counter;
+	time = gettime(milliseconds) - philo->simulation_start;
 	if (philo->program->simulation_end == false)
 		printf("%ld %d %s\n", time, philo->id, msg);
 	pthread_mutex_unlock(philo->dead_lock);
-	pthread_mutex_unlock(philo->write_lock);
+	//pthread_mutex_unlock(philo->write_lock);
 }

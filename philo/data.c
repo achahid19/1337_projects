@@ -66,6 +66,7 @@ static void	init_philo(t_philo *philos, t_program *program, size_t i)
 	philos->dead_lock = &program->dead_lock;
 	philos->write_lock = &program->write_lock;
 	philos->meal_lock = &program->meal_lock;
+	philos->simulation_start = gettime(milliseconds);
 }
 
 /**

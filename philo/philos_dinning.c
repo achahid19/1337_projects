@@ -36,7 +36,7 @@ void	philos_dinner(t_philo *philos, t_program *program)
 		pthread_mutex_lock(&philos->first_fork->fork);
 		philos_syncro(program->time_to_die);
 		pthread_mutex_unlock(&philos->first_fork->fork);
-		print_msg("died", philos, true);
+		print_msg("died", philos);
 		return ;
 	}
 	threads_create(philos, &monitoring, program->philo_num);
@@ -117,7 +117,6 @@ static void	*routine(void *philos)
 	// make the even philos wait to clear the contention zone.
 	if (p->id % 2 == 0)
 		philos_syncro(1);
-	p->simulation_start = gettime(milliseconds);
 	while (dead_loop(philos) == false)
 	{
 		eating(p);
