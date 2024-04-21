@@ -44,11 +44,9 @@ void	*monitore(void *program)
 		if (index == p->philo_num)
 			index = 0;
 	}
-	//pthread_mutex_lock(&p->write_lock); // data race between print_msg (read) and monitor (write).
 	pthread_mutex_lock(&p->dead_lock); // data race between dead_loop (read) and monitor (write).
 	p->simulation_end = true;
 	pthread_mutex_unlock(&p->dead_lock);
-	//pthread_mutex_unlock(&p->write_lock);
 	return (NULL);
 }
 
@@ -61,25 +59,23 @@ static t_bool	full_checker(t_philo *philos)
 	size_t 	all_full;
 
 	index = 0;
-	all_full = 1;
-	while ((size_t)philos[index].id < philos->program->philo_num)
+	all_full = 0;
+	while (index < philos->program->philo_num)
 	{
 		// prevent data race, read from full
-		
 		pthread_mutex_lock(philos->meal_lock);
 		if (philos[index].full == true)
 			all_full++;
 		pthread_mutex_unlock(philos->meal_lock);
 		if (all_full == philos->program->philo_num)
 		{
-
 			printf("full status: %ld\n", all_full);
 			return (true);
 		}
 		index++;
 		if (index == philos->program->philo_num)
 		{
-			all_full = 1;
+			all_full = 0;
 			index = 0;
 		}
 	}
