@@ -105,7 +105,7 @@ void	thinking(t_philo *philo);
 
 void	*monitore(void *program);
 
-void	print_msg(char *msg, t_philo *philo, t_bool dead);
+void	print_msg(char *msg, t_philo *philo);
 void	mutex_destroy(t_program *p, t_fork *forks);
 
 # endif /* PHILO_H */
