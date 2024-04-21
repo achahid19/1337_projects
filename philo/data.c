@@ -12,8 +12,10 @@
 
 #include "philo.h"
 
-void		init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[]);
-static void	init_program(t_program *program, t_philo *philos, t_fork *forks, char **args);
+void		init_data(t_philo *philos, t_fork *forks,
+				t_program *program, char *args[]);
+static void	init_program(t_program *program, t_philo *philos,
+				t_fork *forks, char **args);
 static void	init_forks(t_fork *forks, t_philo *philos, int pnum);
 static void	init_philo(t_philo *philos, t_program *program, size_t i);
 static void	assign_forks(t_philo *philos, int philos_number, size_t index);
@@ -26,10 +28,11 @@ static void	assign_forks(t_philo *philos, int philos_number, size_t index);
  * 
  * Return: void.
 */
-void	init_data(t_philo *philos, t_fork *forks, t_program *program, char *args[])
+void	init_data(t_philo *philos, t_fork *forks,
+			t_program *program, char *args[])
 {
 	size_t	i;
-	int 	philos_number;
+	int		philos_number;
 
 	i = 0;
 	philos_number = ft_atol(args[1]);
@@ -78,30 +81,31 @@ static void	init_philo(t_philo *philos, t_program *program, size_t i)
  * 
  * Return: void.
 */
-static void	init_program(t_program *p, t_philo *philos, t_fork *forks, char **args)
+static void	init_program(t_program *p, t_philo *philos,
+				t_fork *forks, char **args)
 {
 	if (pthread_mutex_init(&p->dead_lock, NULL))
-		destroy_print_error("Error initializing program's mutex!\n", p, p->forks);
+		destroy_print_error("Error init program's mutex!\n", p, p->forks);
 	if (pthread_mutex_init(&p->meal_lock, NULL))
-		destroy_print_error("Error initializing program's mutex!\n", p, p->forks);
+		destroy_print_error("Error init program's mutex!\n", p, p->forks);
 	if (pthread_mutex_init(&p->write_lock, NULL))
-		destroy_print_error("Error initializing program's mutex!\n", p, p->forks);
+		destroy_print_error("Error initprogram's mutex!\n", p, p->forks);
 	if (pthread_mutex_init(&p->full_lock, NULL))
-		destroy_print_error("Error initializing program's mutex!\n", p, p->forks);
+		destroy_print_error("Error init program's mutex!\n", p, p->forks);
 	p->philos = philos;
 	p->forks = forks;
 	p->philo_num = ft_atol(args[1]);
 	p->time_to_die = ft_atol(args[2]);
 	p->time_to_eat = ft_atol(args[3]);
 	p->time_to_sleep = ft_atol(args[4]);
-	p->simulation_end = false;	
+	p->simulation_end = false;
 	if (args[5])
 		p->num_of_times_to_eat = ft_atol(args[5]);
 	else
 		p->num_of_times_to_eat = -1;
-	if (p->time_to_die <= 60 ||
-		p->time_to_eat <= 60 ||
-		p->time_to_sleep <= 60)
+	if (p->time_to_die <= 60
+		|| p->time_to_eat <= 60
+		|| p->time_to_sleep <= 60)
 		print_error("Use a timestamp major than 60ms");
 }
 
@@ -113,7 +117,7 @@ static void	init_program(t_program *p, t_philo *philos, t_fork *forks, char **ar
  * 
  * Return: void.
 */
-static void init_forks(t_fork *forks, t_philo *philos, int pnum)
+static void	init_forks(t_fork *forks, t_philo *philos, int pnum)
 {
 	size_t	i;
 
@@ -124,7 +128,7 @@ static void init_forks(t_fork *forks, t_philo *philos, int pnum)
 		if (pthread_mutex_init(&forks->fork, NULL) != 0)
 			destroy_print_error("Error with Mutex!\n", philos->program,
 				philos->program->forks);
-		philos->forks = forks; // each philo points to his right fork.
+		philos->forks = forks;
 		i++;
 		forks++;
 		philos++;
@@ -147,9 +151,6 @@ static void	assign_forks(t_philo *philos, int philos_number, size_t index)
 {
 	if (philos->id % 2 != 0)
 	{
-		// data stucture is circulaire, so for the last philo the fork on
-			// his left is the fork of the assigned to the first philo 
-			// at first place... (forks needs to be syncronized over philos!!)
 		if (index < (size_t)philos_number - 1)
 			philos->first_fork = philos->forks + 1;
 		else

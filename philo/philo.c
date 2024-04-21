@@ -32,6 +32,5 @@ int	main(int ac, char *av[])
 	init_data(philos, forks, &program, av);
 	philos_dinner(philos, &program);
 	mutex_destroy(&program, forks);
-
 	return (0);
 }

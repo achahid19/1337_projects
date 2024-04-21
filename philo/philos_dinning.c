@@ -13,7 +13,8 @@
 #include "philo.h"
 
 void		philos_dinner(t_philo *philos, t_program *program);
-static void	threads_create(t_philo *philos, pthread_t *monitoring, int philo_num);
+static void	threads_create(t_philo *philos, pthread_t *monitoring,
+				int philo_num);
 static void	threads_create_await(t_program *p, pthread_t monitoring);
 static void	*routine(void *philos);
 
@@ -53,12 +54,12 @@ void	philos_dinner(t_philo *philos, t_program *program)
  * 
  * Return: void.
 */
-static void	threads_create(t_philo *philos, pthread_t *monitoring, int philo_num)
+static void	threads_create(t_philo *philos, pthread_t *monitoring,
+				int philo_num)
 {
 	size_t		index;
 
 	index = 0;
-	// monitore all philos through the program
 	if (pthread_create(monitoring, NULL, monitore, philos->program) != 0)
 		destroy_print_error("Error creating monitoring thread!\n",
 			philos->program, philos->program->forks);
@@ -88,17 +89,15 @@ static void	threads_create_await(t_program *p, pthread_t monitoring)
 
 	philos_num = p->philo_num;
 	index = 0;
-
 	if (pthread_join(monitoring, NULL) != 0)
-		destroy_print_error("Error while joining monitoring thread\n", p, p->forks);
+		destroy_print_error("Error: joining monitoring thread\n", p, p->forks);
 	while (index < (size_t)philos_num)
 	{
 		if (pthread_join(p->philos->thread, NULL) != 0)
-			destroy_print_error("Error while joinning threads!\n", p, p->forks);
+			destroy_print_error("Error: joinning threads!\n", p, p->forks);
 		index++;
 		p->philos++;
 	}
-	// update program's pointer to philos
 	p->philos = p->philos - index;
 }
 
@@ -111,14 +110,13 @@ static void	threads_create_await(t_program *p, pthread_t monitoring)
 */
 static void	*routine(void *philos)
 {
-	t_philo *p;
+	t_philo	*p;
 
 	p = (t_philo *)philos;
-	// make the even philos wait to clear the contention zone.
 	if (p->id % 2)
 		philos_syncro(1);
 	while (dead_loop(philos) == false
-			&& full_loop(philos) == false)
+		&& full_loop(philos) == false)
 	{
 		eating(p);
 		sleeping(p);

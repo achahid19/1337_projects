@@ -40,7 +40,7 @@ void	destroy_print_error(const char *error, t_program *p, t_fork *forks)
 void	print_msg(char *msg, t_philo *philo)
 {
 	size_t	time;
-	
+
 	time = gettime(milliseconds) - philo->simulation_start;
 	pthread_mutex_lock(philo->dead_lock);
 	if (philo->program->simulation_end == false)

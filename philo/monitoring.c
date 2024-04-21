@@ -34,7 +34,7 @@ void	*monitore(void *program)
 	p = (t_program *)program;
 	philo = p->philos;
 	monitor_checker(philo);
-	pthread_mutex_lock(&p->dead_lock); // data race between dead_loop (read) and monitor (write).
+	pthread_mutex_lock(&p->dead_lock);
 	p->simulation_end = true;
 	pthread_mutex_unlock(&p->dead_lock);
 	return (NULL);
@@ -46,16 +46,14 @@ void	*monitore(void *program)
 static void	monitor_checker(t_philo *philos)
 {
 	size_t	index;
-	size_t 	all_full;
+	size_t	all_full;
 
 	index = 0;
 	all_full = 0;
 	while (true)
 	{
-		// check for death
 		if (death_checker(&philos[index]) == true)
 			return ;
-		// check for full
 		if (full_checker(&philos[index], &all_full) == true)
 			return ;
 		index++;
@@ -74,7 +72,6 @@ static t_bool	death_checker(t_philo *philos)
 {
 	size_t	time;
 
-	// to read from last_meal_counter
 	pthread_mutex_lock(philos->meal_lock);
 	time = gettime(milliseconds) - (size_t)philos->last_meal_counter;
 	pthread_mutex_unlock(philos->meal_lock);
@@ -91,9 +88,9 @@ static t_bool	death_checker(t_philo *philos)
 */
 static t_bool	full_checker(t_philo *philos, size_t *all_full)
 {
-	// prevent data race, read from full
 	pthread_mutex_lock(philos->meal_lock);
-	if (philos->number_of_meals_consumed == philos->program->num_of_times_to_eat)
+	if (philos->number_of_meals_consumed
+		== philos->program->num_of_times_to_eat)
 	{
 		pthread_mutex_lock(philos->full_lock);
 		philos->full = true;

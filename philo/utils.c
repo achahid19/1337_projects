@@ -31,7 +31,6 @@ size_t	ft_strlen(const char *str)
 	length = 0;
 	while (*(str + length))
 		length++;
-
 	return (length);
 }
 
@@ -61,7 +60,6 @@ long	ft_atol(const char *str)
 		result = (result * 10) + (*str - '0');
 		str++;
 	}
-
 	return (result * sign);
 }
 

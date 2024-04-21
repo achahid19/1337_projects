@@ -12,11 +12,11 @@
 
 #include "philo.h"
 
-t_bool					check_inputs(char *args[]);
-static t_bool			check_arg(char *arg);
-static inline t_bool	is_digit_space(char c, int space);
-static t_bool			valid_num(char *args[], size_t index);
-static t_bool			overflow_check(const char *arg);
+t_bool			check_inputs(char *args[]);
+static t_bool	check_arg(char *arg);
+static t_bool	is_digit_space(char c, int space);
+static t_bool	valid_num(char *args[], size_t index);
+static t_bool	overflow_check(const char *arg);
 
 /**
  * check_input - iterates over arguments, and call check_arg
@@ -27,22 +27,17 @@ static t_bool			overflow_check(const char *arg);
 */
 t_bool	check_inputs(char *args[])
 {
-	// check av[1] to av[4] or av[5].
-	// skip the program name
 	size_t	index;
 
 	index = 1;
 	while (args[index])
 	{
-		// checks if the arg contains only digits.
 		if (check_arg(args[index]) == false)
 			return (false);
-		// checks if the number is valid
 		if (valid_num(args, index) == false)
 			return (false);
 		index++;
 	}
-
 	return (true);
 }
 
@@ -62,20 +57,17 @@ static t_bool	check_arg(char *arg)
 	digit = false;
 	while (*arg)
 	{
-		// check for digits, in case we only have spaces.
 		if (is_digit_space(*arg, 0) == true)
 			digit = true;
-		// check if the character is not a digit or not a space
 		else if (is_digit_space(*arg, 1) == false)
 		{
 			status = false;
-			break;
+			break ;
 		}
 		arg++;
 	}
 	if (digit == false)
 		return (false);
-
 	return (status);
 }
 
@@ -89,12 +81,10 @@ static t_bool	check_arg(char *arg)
  * 
  * Return: boolean.
 */
-static inline t_bool	is_digit_space(char c, int space)
+static t_bool	is_digit_space(char c, int space)
 {
-	// Want to check only for digits
 	if (space == 0)
 		return (c >= '0' && c <= '9');
-
 	return ((c >= '0' && c <= '9') || (c >= 9 && c <= 13) || c == ' ');
 }
 
@@ -123,7 +113,6 @@ static t_bool	valid_num(char *args[], size_t index)
 		if (num == 0)
 			return (false);
 	}
-
 	return (true);
 }
 
@@ -138,6 +127,5 @@ static t_bool	overflow_check(const char *arg)
 	long	num;
 
 	num = ft_atol(arg);
-
 	return (num > INT_MAX);
 }
