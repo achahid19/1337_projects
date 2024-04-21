@@ -93,8 +93,13 @@ static t_bool	full_checker(t_philo *philos, size_t *all_full)
 {
 	// prevent data race, read from full
 	pthread_mutex_lock(philos->meal_lock);
-	if (philos->full == true)
+	if (philos->number_of_meals_consumed == philos->program->num_of_times_to_eat)
+	{
+		pthread_mutex_lock(philos->full_lock);
+		philos->full = true;
+		pthread_mutex_unlock(philos->full_lock);
 		*all_full = *all_full + 1;
+	}
 	pthread_mutex_unlock(philos->meal_lock);
 	if (*all_full == philos->program->philo_num)
 		return (true);

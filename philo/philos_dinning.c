@@ -17,6 +17,7 @@ static void	threads_create(t_philo *philos, pthread_t *monitoring, int philo_num
 static void	threads_create_await(t_program *p, pthread_t monitoring);
 static void	*routine(void *philos);
 t_bool		dead_loop(t_philo *philo);
+t_bool		full_loop(t_philo *philo);
 
 /**
  * philos_call - create, join threads (philos).
@@ -117,7 +118,8 @@ static void	*routine(void *philos)
 	// make the even philos wait to clear the contention zone.
 	if (p->id % 2)
 		philos_syncro(1);
-	while (dead_loop(philos) == false)
+	while (dead_loop(philos) == false
+			&& full_loop(philos) == false)
 	{
 		eating(p);
 		sleeping(p);
@@ -143,4 +145,15 @@ t_bool	dead_loop(t_philo *philo)
 	}
 	pthread_mutex_unlock(philo->dead_lock);
 	return (false);
+}
+
+/**
+ * full_loop -
+*/
+t_bool	full_loop(t_philo *philo)
+{
+	pthread_mutex_lock(philo->full_lock);
+	if (philo->full == true)
+		return (pthread_mutex_unlock(philo->full_lock), true);
+	return (pthread_mutex_unlock(philo->full_lock), false);
 }
