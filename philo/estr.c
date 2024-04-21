@@ -24,23 +24,18 @@ void	thinking(t_philo *philo);
 */
 void	eating(t_philo *philo)
 {
-	/* if (philo->full == false)
-	{ */
-		pthread_mutex_lock(&philo->first_fork->fork);
-		print_msg("has taken a fork", philo);
-		pthread_mutex_lock(&philo->second_fork->fork);
-		print_msg("has taken a fork", philo);
-		pthread_mutex_lock(philo->meal_lock);
-		print_msg("is eating", philo);
-		philo->last_meal_counter = gettime(milliseconds);
-		philo->number_of_meals_consumed++;
-		/* if (philo->number_of_meals_consumed == philo->program->num_of_times_to_eat)
-			philo->full = true; */
-		pthread_mutex_unlock(philo->meal_lock);
-		philos_syncro(philo->program->time_to_eat);
-		pthread_mutex_unlock(&philo->second_fork->fork);
-		pthread_mutex_unlock(&philo->first_fork->fork);
-	/* } */
+	pthread_mutex_lock(&philo->first_fork->fork);
+	print_msg("has taken a fork", philo);
+	pthread_mutex_lock(&philo->second_fork->fork);
+	print_msg("has taken a fork", philo);
+	pthread_mutex_lock(philo->meal_lock);
+	print_msg("is eating", philo);
+	philo->last_meal_counter = gettime(milliseconds);
+	philo->number_of_meals_consumed++;
+	pthread_mutex_unlock(philo->meal_lock);
+	philos_syncro(philo->program->time_to_eat);
+	pthread_mutex_unlock(&philo->second_fork->fork);
+	pthread_mutex_unlock(&philo->first_fork->fork);
 }
 
 /**
