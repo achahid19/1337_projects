@@ -50,25 +50,30 @@ t_bool	check_inputs(char *args[])
 */
 static t_bool	check_arg(char *arg)
 {
-	t_bool	status;
 	t_bool	digit;
 
-	status = true;
 	digit = false;
 	while (*arg)
 	{
 		if (is_digit_space(*arg, 0) == true)
 			digit = true;
-		else if (is_digit_space(*arg, 1) == false)
+		if (is_digit_space(*arg, 1) == false)
+			return (false);
+		else if (is_digit_space(*arg, 2) == true && digit == true)
 		{
-			status = false;
+			while (*arg)
+			{
+				if (is_digit_space(*arg, 2) == false)
+					return (false);
+				arg++;
+			}
 			break ;
 		}
 		arg++;
 	}
 	if (digit == false)
 		return (false);
-	return (status);
+	return (true);
 }
 
 /**
@@ -85,7 +90,9 @@ static t_bool	is_digit_space(char c, int space)
 {
 	if (space == 0)
 		return (c >= '0' && c <= '9');
-	return ((c >= '0' && c <= '9') || (c >= 9 && c <= 13) || c == ' ');
+	else if (space == 1)
+		return ((c >= '0' && c <= '9') || (c >= 9 && c <= 13) || c == ' ');
+	return ((c >= 9 && c <= 13) || c == ' ');
 }
 
 /**
