@@ -107,7 +107,7 @@ static t_bool	valid_num(char *args[], size_t index)
 	{
 		if (index == 1)
 		{
-			if (num > 200)
+			if (num > PHILO_LIMIT)
 				return (false);
 		}
 		if (num == 0)

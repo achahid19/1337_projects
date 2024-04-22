@@ -103,10 +103,6 @@ static void	init_program(t_program *p, t_philo *philos,
 		p->num_of_times_to_eat = ft_atol(args[5]);
 	else
 		p->num_of_times_to_eat = -1;
-	if (p->time_to_die <= 60
-		|| p->time_to_eat <= 60
-		|| p->time_to_sleep <= 60)
-		print_error("Use a timestamp major than 60ms");
 }
 
 /**
