@@ -94,7 +94,7 @@ static void	threads_create_await(t_program *p, pthread_t monitoring)
 	while (index < (size_t)philos_num)
 	{
 		if (pthread_join(p->philos->thread, NULL) != 0)
-			destroy_print_error("Error: joinning threads!\n", p, p->forks);
+			destroy_print_error("Error: joining threads!\n", p, p->forks);
 		index++;
 		p->philos++;
 	}
@@ -113,7 +113,7 @@ static void	*routine(void *philos)
 	t_philo	*p;
 
 	p = (t_philo *)philos;
-	if (p->id % 2)
+	if (p->id % 2 == 0)
 		philos_syncro(1);
 	while (dead_loop(philos) == false
 		&& full_loop(philos) == false)

@@ -74,12 +74,8 @@ t_bool	dead_loop(t_philo *philo)
 {
 	pthread_mutex_lock(philo->dead_lock);
 	if (philo->program->simulation_end == true)
-	{
-		pthread_mutex_unlock(philo->dead_lock);
-		return (true);
-	}
-	pthread_mutex_unlock(philo->dead_lock);
-	return (false);
+		return (pthread_mutex_unlock(philo->dead_lock), true);
+	return (pthread_mutex_unlock(philo->dead_lock), false);
 }
 
 /**

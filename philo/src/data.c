@@ -161,7 +161,7 @@ static void	assign_forks(t_philo *philos, int philos_number, size_t index)
 	{
 		philos->first_fork = philos->forks;
 		if (index < (size_t)philos_number - 1)
-			philos->second_fork = philos->forks +1;
+			philos->second_fork = philos->forks + 1;
 		else
 			philos->second_fork = philos->forks - index;
 	}
