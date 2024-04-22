@@ -46,7 +46,7 @@ void	eating(t_philo *philo)
 */
 void	sleeping(t_philo *philo)
 {
-	print_msg("is seelping", philo);
+	print_msg("is sleeping", philo);
 	philos_syncro(philo->program->time_to_sleep);
 }
 

@@ -77,7 +77,7 @@ static t_bool	death_checker(t_philo *philos)
 	pthread_mutex_unlock(philos->meal_lock);
 	if (time > philos->program->time_to_die)
 	{
-		print_msg("philo dead", philos);
+		print_msg("died", philos);
 		return (true);
 	}
 	return (false);
