@@ -6,7 +6,8 @@ CFLAGS = -Wall -Wextra -Werror
 
 SANITIZER = -fsanitize=thread
 
-SRC = $(addprefix src/, data.c  estr.c  monitoring.c  parsing.c  philo.c  philos_dinning.c  print.c  syncro.c  utils.c)
+SRC = $(addprefix src/, data.c  estr.c  monitoring.c  parsing.c  philo.c \
+		philos_dinning.c  print.c  syncro.c  utils.c)
 
 OBJ = $(SRC:.c=.o)
 
@@ -19,7 +20,7 @@ NAME = philo
 all: $(NAME)
 
 $(NAME): $(OBJ) $(INCLUDES)
-		@$(CC) $(CFLAGS) $(OBJ) $(SANITIZER) -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJ) $(SANITIZER) -o $(NAME)
 		@echo "philo program compiled 💯"
 
 clean:
