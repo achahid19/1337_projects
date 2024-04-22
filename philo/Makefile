@@ -4,7 +4,7 @@ CC = cc
 
 CFLAGS = -Wall -Wextra -Werror
 
-SANITIZER = -fsanitize=thread
+# SANITIZER = -fsanitize=thread
 
 SRC = $(addprefix src/, data.c  estr.c  monitoring.c  parsing.c  philo.c \
 		philos_dinning.c  print.c  syncro.c  utils.c)
