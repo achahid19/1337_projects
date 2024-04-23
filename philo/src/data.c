@@ -16,7 +16,7 @@ void		init_data(t_philo *philos, t_fork *forks,
 				t_program *program, char *args[]);
 static void	init_program(t_program *program, t_philo *philos,
 				t_fork *forks, char **args);
-static void	init_forks(t_fork *forks, t_philo *philos, int pnum);
+static void	init_forks(t_fork *forks, t_program *p, t_philo *philos, int pnum);
 static void	init_philo(t_philo *philos, t_program *program, size_t i);
 static void	assign_forks(t_philo *philos, int philos_number, size_t index);
 
@@ -37,7 +37,7 @@ void	init_data(t_philo *philos, t_fork *forks,
 	i = 0;
 	philos_number = ft_atol(args[1]);
 	init_program(program, philos, forks, args);
-	init_forks(forks, philos, philos_number);
+	init_forks(forks, program, philos, philos_number);
 	while (i < (size_t)philos_number)
 	{
 		init_philo(philos, program, i);
@@ -85,13 +85,13 @@ static void	init_program(t_program *p, t_philo *philos,
 				t_fork *forks, char **args)
 {
 	if (pthread_mutex_init(&p->dead_lock, NULL))
-		destroy_print_error("Error init program's mutex!\n", p, p->forks);
+		mutex_destroy(p, "Error init program's mutex!\n", 0, false);
 	if (pthread_mutex_init(&p->meal_lock, NULL))
-		destroy_print_error("Error init program's mutex!\n", p, p->forks);
+		mutex_destroy(p, "Error init program's mutex!\n", 1, false);
 	if (pthread_mutex_init(&p->write_lock, NULL))
-		destroy_print_error("Error initprogram's mutex!\n", p, p->forks);
+		mutex_destroy(p, "Error init program's mutex!\n", 2, false);
 	if (pthread_mutex_init(&p->full_lock, NULL))
-		destroy_print_error("Error init program's mutex!\n", p, p->forks);
+		mutex_destroy(p, "Error init program's mutex!\n", 3, false);
 	p->philos = philos;
 	p->forks = forks;
 	p->philo_num = ft_atol(args[1]);
@@ -113,7 +113,7 @@ static void	init_program(t_program *p, t_philo *philos,
  * 
  * Return: void.
 */
-static void	init_forks(t_fork *forks, t_philo *philos, int pnum)
+static void	init_forks(t_fork *forks, t_program *p, t_philo *philos, int pnum)
 {
 	size_t	i;
 
@@ -121,9 +121,9 @@ static void	init_forks(t_fork *forks, t_philo *philos, int pnum)
 	while (i < (size_t)pnum)
 	{
 		forks->fork_id = i;
-		if (pthread_mutex_init(&forks->fork, NULL) != 0)
-			destroy_print_error("Error with Mutex!\n", philos->program,
-				philos->program->forks);
+		if (pthread_mutex_init(&forks->fork, NULL))
+			mutex_destroy(p, "Error init forks's mutex!\n",
+				4, i);
 		philos->forks = forks;
 		i++;
 		forks++;

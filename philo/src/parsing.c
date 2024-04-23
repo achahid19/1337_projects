@@ -56,7 +56,7 @@ static t_bool	check_arg(char *arg)
 	{
 		if (is_digit_space(*arg, 0) == true)
 			digit = true;
-		if (is_digit_space(*arg, 1) == false)
+		else if (is_digit_space(*arg, 1) == false)
 			return (false);
 		else if (is_digit_space(*arg, 2) == true && digit == true)
 		{

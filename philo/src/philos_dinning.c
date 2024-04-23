@@ -30,14 +30,14 @@ void	philos_dinner(t_philo *philos, t_program *program)
 	pthread_t	monitoring;
 
 	if (program->num_of_times_to_eat == 0)
-		destroy_print_error("no dinner to eat!\n", program, philos->forks);
+		mutex_destroy(program, "no dinner to eat!\n", 4, program->philo_num);
 	if (program->philo_num == 1)
 	{
 		pthread_mutex_lock(&philos->first_fork->fork);
 		philos_syncro(program->time_to_die + 1);
 		pthread_mutex_unlock(&philos->first_fork->fork);
 		print_msg("died", philos);
-		mutex_destroy(program, philos->forks);
+		mutex_destroy(program, NULL, 4, program->philo_num);
 		return ;
 	}
 	threads_create(philos, &monitoring, program->philo_num);
@@ -60,14 +60,14 @@ static void	threads_create(t_philo *philos, pthread_t *monitoring,
 	size_t		index;
 
 	index = 0;
-	if (pthread_create(monitoring, NULL, monitore, philos->program) != 0)
-		destroy_print_error("Error creating monitoring thread!\n",
-			philos->program, philos->program->forks);
+	if (pthread_create(monitoring, NULL, monitore, philos->program))
+		mutex_destroy(philos->program, "Error creating monitoring thread!\n",
+			4, philos->program->philo_num);
 	while (index < (size_t)philo_num)
 	{
-		if (pthread_create(&philos->thread, NULL, routine, (void *)philos) != 0)
-			destroy_print_error("Error creating threads!\n",
-				philos->program, philos->program->forks);
+		if (pthread_create(&philos->thread, NULL, routine, (void *)philos))
+			mutex_destroy(philos->program, "Error creating threads!\n",
+				4, philos->program->philo_num);
 		index++;
 		if (index < (size_t)philo_num)
 			philos++;
@@ -90,11 +90,11 @@ static void	threads_create_await(t_program *p, pthread_t monitoring)
 	philos_num = p->philo_num;
 	index = 0;
 	if (pthread_join(monitoring, NULL) != 0)
-		destroy_print_error("Error: joining monitoring thread\n", p, p->forks);
+		mutex_destroy(p, "Error: joining monitoring thread\n", 4, p->philo_num);
 	while (index < (size_t)philos_num)
 	{
 		if (pthread_join(p->philos->thread, NULL) != 0)
-			destroy_print_error("Error: joining threads!\n", p, p->forks);
+			mutex_destroy(p, "Error: joining threads!\n", 4, p->philo_num);
 		index++;
 		p->philos++;
 	}

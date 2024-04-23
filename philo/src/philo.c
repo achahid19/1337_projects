@@ -31,6 +31,6 @@ int	main(int ac, char *av[])
 		print_error("Invalid input!\n");
 	init_data(philos, forks, &program, av);
 	philos_dinner(philos, &program);
-	mutex_destroy(&program, forks);
+	mutex_destroy(&program, NULL, 4, program.philo_num);
 	return (0);
 }

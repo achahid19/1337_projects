@@ -16,7 +16,6 @@ size_t		ft_strlen(const char *str);
 long		ft_atol(const char *str);
 t_bool		dead_loop(t_philo *philo);
 t_bool		full_loop(t_philo *philo);
-void		mutex_destroy(t_program *p, t_fork *forks);
 
 /**
  * ft_strlen - Get the length of str
@@ -87,27 +86,4 @@ t_bool	full_loop(t_philo *philo)
 	if (philo->full == true)
 		return (pthread_mutex_unlock(philo->full_lock), true);
 	return (pthread_mutex_unlock(philo->full_lock), false);
-}
-
-/**
- * mutex_destroy - clear all initialized mutexes
- * @p: pointer to program data list
- * @forks: pointer to forks list
- * 
- * Return: void.
-*/
-void	mutex_destroy(t_program *p, t_fork *forks)
-{
-	size_t	i;
-
-	i = 0;
-	pthread_mutex_destroy(&p->dead_lock);
-	pthread_mutex_destroy(&p->meal_lock);
-	pthread_mutex_destroy(&p->write_lock);
-	pthread_mutex_destroy(&p->full_lock);
-	while (i < p->philo_num)
-	{
-		pthread_mutex_destroy(&forks->fork);
-		i++;
-	}
 }

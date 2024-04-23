@@ -21,6 +21,8 @@ void	destroy_print_error(const char *error, t_program *p, t_fork *forks);
 */
 void	print_error(const char *error)
 {
+	if (error == NULL)
+		return ;
 	write(2, error, ft_strlen(error));
 	exit(-1);
 }
@@ -28,11 +30,11 @@ void	print_error(const char *error)
 /**
  * destroy_print_error -
 */
-void	destroy_print_error(const char *error, t_program *p, t_fork *forks)
+/* void	destroy_print_error(const char *error, t_program *p, t_fork *forks)
 {
-	print_error(error);
 	mutex_destroy(p, forks);
-}
+	print_error(error);
+} */
 
 /**
  * print_mgs -
