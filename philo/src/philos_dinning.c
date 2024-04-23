@@ -66,8 +66,13 @@ static void	threads_create(t_philo *philos, pthread_t *monitoring,
 	while (index < (size_t)philo_num)
 	{
 		if (pthread_create(&philos->thread, NULL, routine, (void *)philos))
+		{
+			if (pthread_join(*monitoring, NULL))
+				mutex_destroy(philos->program, "Error joining Moni thread\n",
+					4, philos->program->philo_num);
 			mutex_destroy(philos->program, "Error creating threads!\n",
 				4, philos->program->philo_num);
+		}
 		index++;
 		if (index < (size_t)philo_num)
 			philos++;
@@ -89,11 +94,11 @@ static void	threads_create_await(t_program *p, pthread_t monitoring)
 
 	philos_num = p->philo_num;
 	index = 0;
-	if (pthread_join(monitoring, NULL) != 0)
+	if (pthread_join(monitoring, NULL))
 		mutex_destroy(p, "Error: joining monitoring thread\n", 4, p->philo_num);
 	while (index < (size_t)philos_num)
 	{
-		if (pthread_join(p->philos->thread, NULL) != 0)
+		if (pthread_join(p->philos->thread, NULL))
 			mutex_destroy(p, "Error: joining threads!\n", 4, p->philo_num);
 		index++;
 		p->philos++;
