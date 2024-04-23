@@ -7,7 +7,7 @@ CFLAGS = -Wall -Wextra -Werror
 # SANITIZER = -fsanitize=thread
 
 SRC = $(addprefix src/, data.c  estr.c  monitoring.c  parsing.c  philo.c \
-		philos_dinning.c  print.c  syncro.c  utils.c)
+		philos_dinning.c  print.c  syncro.c  libft_utils.c philo_utils.c)
 
 OBJ = $(SRC:.c=.o)
 
