@@ -108,7 +108,8 @@ long		ft_atol(const char *str);
 /* print_exit */
 void		print_error(const char *error);
 void		destroy_print_error(const char *error, t_program *p, t_fork *forks);
-void		mutex_destroy(t_program *p, t_fork *forks);
+void		mutex_destroy(t_program *p, char *error,
+				int destroy_code, int destroy_index);
 void		print_msg(char *msg, t_philo *philo);
 
 #endif /* PHILO_H */
