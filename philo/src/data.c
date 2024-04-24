@@ -49,29 +49,6 @@ void	init_data(t_philo *philos, t_fork *forks,
 }
 
 /**
- * init_philo - init each philosopher related data
- * @philos: pointer to philos data list
- * @program: pointer to program struct
- * @i: iteration counter
- * 
- * Return: void.
-*/
-static void	init_philo(t_philo *philos, t_program *program, size_t i)
-{
-	philos->id = i + 1;
-	philos->full = false;
-	philos->number_of_meals_consumed = 0;
-	philos->program = program;
-	philos->simulation_start = 0;
-	philos->dead_lock = &program->dead_lock;
-	philos->write_lock = &program->write_lock;
-	philos->meal_lock = &program->meal_lock;
-	philos->full_lock = &program->full_lock;
-	philos->simulation_start = gettime(milliseconds);
-	philos->last_meal_counter = gettime(milliseconds);
-}
-
-/**
  * init_program - initialize program related data,
  * gathering mutexes and arguments needed for
  * simulation monitoring
@@ -103,6 +80,29 @@ static void	init_program(t_program *p, t_philo *philos,
 		p->num_of_times_to_eat = ft_atol(args[5]);
 	else
 		p->num_of_times_to_eat = -1;
+}
+
+/**
+ * init_philo - init each philosopher related data
+ * @philos: pointer to philos data list
+ * @program: pointer to program struct
+ * @i: iteration counter
+ * 
+ * Return: void.
+*/
+static void	init_philo(t_philo *philos, t_program *program, size_t i)
+{
+	philos->id = i + 1;
+	philos->full = false;
+	philos->number_of_meals_consumed = 0;
+	philos->program = program;
+	philos->simulation_start = 0;
+	philos->dead_lock = &program->dead_lock;
+	philos->write_lock = &program->write_lock;
+	philos->meal_lock = &program->meal_lock;
+	philos->full_lock = &program->full_lock;
+	philos->simulation_start = gettime(milliseconds);
+	philos->last_meal_counter = gettime(milliseconds);
 }
 
 /**
