@@ -14,7 +14,7 @@
 # define PHILO_H
 
 # include <stdio.h> // for debugging
-# include <unistd.h>
+# include <unistd.h> // usleep
 # include <stdlib.h>
 # include <pthread.h>
 # include <limits.h>
