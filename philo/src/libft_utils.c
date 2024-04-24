@@ -14,8 +14,6 @@
 
 size_t		ft_strlen(const char *str);
 long		ft_atol(const char *str);
-t_bool		dead_loop(t_philo *philo);
-t_bool		full_loop(t_philo *philo);
 
 /**
  * ft_strlen - Get the length of str
@@ -60,30 +58,4 @@ long	ft_atol(const char *str)
 		str++;
 	}
 	return (result * sign);
-}
-
-/**
- * dead_loop - checks continueously for
- * a philosopher death.
- * @philo: pointer to philosophers
- * 
- * Return: state of life; true if death, else false.
-*/
-t_bool	dead_loop(t_philo *philo)
-{
-	pthread_mutex_lock(philo->dead_lock);
-	if (philo->program->simulation_end == true)
-		return (pthread_mutex_unlock(philo->dead_lock), true);
-	return (pthread_mutex_unlock(philo->dead_lock), false);
-}
-
-/**
- * full_loop -
-*/
-t_bool	full_loop(t_philo *philo)
-{
-	pthread_mutex_lock(philo->full_lock);
-	if (philo->full == true)
-		return (pthread_mutex_unlock(philo->full_lock), true);
-	return (pthread_mutex_unlock(philo->full_lock), false);
 }
