@@ -96,7 +96,6 @@ static void	init_philo(t_philo *philos, t_program *program, size_t i)
 	philos->full = false;
 	philos->number_of_meals_consumed = 0;
 	philos->program = program;
-	philos->simulation_start = 0;
 	philos->dead_lock = &program->dead_lock;
 	philos->write_lock = &program->write_lock;
 	philos->meal_lock = &program->meal_lock;
