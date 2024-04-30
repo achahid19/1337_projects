@@ -18,7 +18,7 @@ static t_bool	init_program(t_program *program, t_philo *philos,
 					t_fork *forks, char **args);
 static t_bool	init_forks(t_fork *forks, t_program *p,
 					t_philo *philos, int pnum);
-static t_bool	init_philo(t_philo *philos, t_program *program, size_t i);
+static void		init_philo(t_philo *philos, t_program *program, size_t i);
 static void		assign_forks(t_philo *philos, int philos_number, size_t index);
 
 /**
@@ -43,8 +43,7 @@ t_bool	init_data(t_philo *philos, t_fork *forks,
 		return (false);
 	while (i < (size_t)philos_number)
 	{
-		if (init_philo(philos, program, i) == false)
-			return (false);
+		init_philo(philos, program, i);
 		assign_forks(philos, philos_number, i);
 		i++;
 		philos++;
@@ -96,7 +95,7 @@ static t_bool	init_program(t_program *p, t_philo *philos,
  * 
  * Return: void.
 */
-static t_bool	init_philo(t_philo *philos, t_program *program, size_t i)
+static void	init_philo(t_philo *philos, t_program *program, size_t i)
 {
 	philos->id = i + 1;
 	philos->full = false;
@@ -107,12 +106,7 @@ static t_bool	init_philo(t_philo *philos, t_program *program, size_t i)
 	philos->meal_lock = &program->meal_lock;
 	philos->full_lock = &program->full_lock;
 	philos->simulation_start = gettime(milliseconds);
-	if (philos->simulation_start == false)
-		return (false);
 	philos->last_meal_counter = gettime(milliseconds);
-	if (philos->last_meal_counter == false)
-		return (false);
-	return (true);
 }
 
 /**

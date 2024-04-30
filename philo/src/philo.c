@@ -34,7 +34,8 @@ int	main(int ac, char *av[])
 	}
 	if (init_data(philos, forks, &program, av) == false)
 		return (failure);
-	philos_dinner(philos, &program);
+	if (philos_dinner(philos, &program) == false)
+		return (failure);
 	mutex_destroy(&program, NULL, 4, program.philo_num);
 	return (0);
 }

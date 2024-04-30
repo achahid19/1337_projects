@@ -12,7 +12,7 @@
 
 #include "../includes/philo.h"
 
-void		philos_dinner(t_philo *philos, t_program *program);
+t_bool		philos_dinner(t_philo *philos, t_program *program);
 static void	threads_create(t_philo *philos, pthread_t *monitoring,
 				int philo_num);
 static void	threads_create_await(t_program *p, pthread_t monitoring);
@@ -25,12 +25,12 @@ static void	*routine(void *philos);
  * 
  * Return: void.
 */
-void	philos_dinner(t_philo *philos, t_program *program)
+t_bool	philos_dinner(t_philo *philos, t_program *program)
 {
 	pthread_t	monitoring;
 
 	if (program->num_of_times_to_eat == 0)
-		mutex_destroy(program, "no dinner to eat!\n", 4, program->philo_num);
+		return (true);
 	if (program->philo_num == 1)
 	{
 		pthread_mutex_lock(&philos->first_fork->fork);
@@ -38,11 +38,11 @@ void	philos_dinner(t_philo *philos, t_program *program)
 		philos_syncro(program->time_to_die + 1);
 		pthread_mutex_unlock(&philos->first_fork->fork);
 		print_msg("died", philos);
-		mutex_destroy(program, NULL, 4, program->philo_num);
-		return ;
+		return (true);
 	}
 	threads_create(philos, &monitoring, program->philo_num);
 	threads_create_await(program, monitoring);
+	return (true);
 }
 
 /**
