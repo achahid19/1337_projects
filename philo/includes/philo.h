@@ -25,7 +25,8 @@
 typedef enum e_bool // define a set of named integer constant
 {
 	false = 0,
-	true = 1
+	true = 1,
+	failure = 2
 }	t_bool;
 
 typedef enum e_time
@@ -89,7 +90,7 @@ long		gettime(long time_code);
 void		philos_syncro(size_t milliseconds);
 
 /* Simulation */
-void		init_data(t_philo *philos, t_fork *forks,
+t_bool		init_data(t_philo *philos, t_fork *forks,
 				t_program *program, char *args[]);
 void		philos_dinner(t_philo *philos, t_program *program);
 void		*monitore(void *program);
