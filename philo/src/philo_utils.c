@@ -114,13 +114,12 @@ t_bool	join_all(t_philo *philos, size_t index, pthread_t *monitoring)
 	size_t	join;
 
 	join = 0;
-
 	if (monitoring != NULL)
 	{
 		if (pthread_join(*monitoring, NULL))
 		{
 			mutex_destroy(philos->program, "Error: join monitor thread\n",
-						4, philos->program->philo_num);
+				4, philos->program->philo_num);
 			return (false);
 		}
 	}
@@ -129,8 +128,8 @@ t_bool	join_all(t_philo *philos, size_t index, pthread_t *monitoring)
 		if (pthread_join(philos[join].thread, NULL))
 		{
 			mutex_destroy(philos->program, "Error: join thread\n",
-					4, philos->program->philo_num);
-				return (false);
+				4, philos->program->philo_num);
+			return (false);
 		}
 		join++;
 	}
