@@ -11,6 +11,8 @@ OBJ = $(SRC:.c=.o)
 
 INCLUDES = includes/philo.h
 
+# SAN = -fsanitize=thread
+
 NAME = philo
 
 # Targets
@@ -18,7 +20,7 @@ NAME = philo
 all: $(NAME)
 
 $(NAME): $(OBJ) $(INCLUDES)
-		$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJ) $(SAN) -o $(NAME)
 		@echo "philo program compiled 💯"
 
 clean:
