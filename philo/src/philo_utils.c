@@ -74,7 +74,7 @@ static void	mutex_destroy_helper(t_program *p, char *error,
 	while (i < di)
 	{
 		if (pthread_mutex_destroy(&p->forks[i].fork))
-			error = "Error: mutex destroy!\n";
+			error = "Error: mutex destro22y!\n";
 		i++;
 	}
 	print_error(error);
@@ -104,4 +104,35 @@ t_bool	full_loop(t_philo *philo)
 	if (philo->full == true)
 		return (pthread_mutex_unlock(philo->full_lock), true);
 	return (pthread_mutex_unlock(philo->full_lock), false);
+}
+
+/**
+ * join_all - join created thread if a thread fails
+*/
+t_bool	join_all(t_philo *philos, size_t index, pthread_t *monitoring)
+{
+	size_t	join;
+
+	join = 0;
+
+	if (monitoring != NULL)
+	{
+		if (pthread_join(*monitoring, NULL))
+		{
+			mutex_destroy(philos->program, "Error: join monitor thread\n",
+						4, philos->program->philo_num);
+			return (false);
+		}
+	}
+	while (join < index)
+	{
+		if (pthread_join(philos[join].thread, NULL))
+		{
+			mutex_destroy(philos->program, "Error: join thread\n",
+					4, philos->program->philo_num);
+				return (false);
+		}
+		join++;
+	}
+	return (true);
 }

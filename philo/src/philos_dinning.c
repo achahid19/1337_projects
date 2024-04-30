@@ -12,11 +12,11 @@
 
 #include "../includes/philo.h"
 
-t_bool		philos_dinner(t_philo *philos, t_program *program);
-static void	threads_create(t_philo *philos, pthread_t *monitoring,
+t_bool			philos_dinner(t_philo *philos, t_program *program);
+static t_bool	threads_create(t_philo *philos, pthread_t *monitoring,
 				int philo_num);
-static void	threads_create_await(t_program *p, pthread_t monitoring);
-static void	*routine(void *philos);
+static t_bool	threads_create_await(t_program *p, pthread_t monitoring);
+static void		*routine(void *philos);
 
 /**
  * philos_call - create, join threads (philos).
@@ -40,8 +40,10 @@ t_bool	philos_dinner(t_philo *philos, t_program *program)
 		print_msg("died", philos);
 		return (true);
 	}
-	threads_create(philos, &monitoring, program->philo_num);
-	threads_create_await(program, monitoring);
+	if (threads_create(philos, &monitoring, program->philo_num) == false)
+		return (false);
+	if (threads_create_await(program, monitoring) == false)
+		return (false);
 	return (true);
 }
 
@@ -55,29 +57,33 @@ t_bool	philos_dinner(t_philo *philos, t_program *program)
  * 
  * Return: void.
 */
-static void	threads_create(t_philo *philos, pthread_t *monitoring,
+static t_bool	threads_create(t_philo *philos, pthread_t *monitoring,
 				int philo_num)
 {
 	size_t		index;
 
 	index = 0;
 	if (pthread_create(monitoring, NULL, monitore, philos->program))
-		mutex_destroy(philos->program, "Error creating monitoring thread!\n",
+	{
+		mutex_destroy(philos->program, "Error: monitoring thread!\n",
 			4, philos->program->philo_num);
+		return (false);
+	}
 	while (index < (size_t)philo_num)
 	{
 		if (pthread_create(&philos->thread, NULL, routine, (void *)philos))
 		{
-			if (pthread_join(*monitoring, NULL))
-				mutex_destroy(philos->program, "Error joining Moni thread\n",
-					4, philos->program->philo_num);
+			if (join_all(philos - index, index, monitoring) == false)
+				return (false);
 			mutex_destroy(philos->program, "Error creating threads!\n",
 				4, philos->program->philo_num);
+			return (false);
 		}
 		index++;
 		if (index < (size_t)philo_num)
 			philos++;
 	}
+	return (true);
 }
 
 /**
@@ -88,23 +94,31 @@ static void	threads_create(t_philo *philos, pthread_t *monitoring,
  * 
  * Return: void.
 */
-static void	threads_create_await(t_program *p, pthread_t monitoring)
+static t_bool	threads_create_await(t_program *p, pthread_t monitoring)
 {
 	int		philos_num;
 	size_t	index;
 
 	philos_num = p->philo_num;
 	index = 0;
-	if (pthread_join(monitoring, NULL))
+	if (pthread_join(monitoring, NULL) == 0)
+	{
+		join_all(p->philos, p->philo_num, NULL);
 		mutex_destroy(p, "Error: joining monitoring thread\n", 4, p->philo_num);
+		return (false);
+	}
 	while (index < (size_t)philos_num)
 	{
 		if (pthread_join(p->philos->thread, NULL))
+		{
 			mutex_destroy(p, "Error: joining threads!\n", 4, p->philo_num);
+			return (false);
+		}
 		index++;
 		p->philos++;
 	}
 	p->philos = p->philos - index;
+	return (true);
 }
 
 /**
