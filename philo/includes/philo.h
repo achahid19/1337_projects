@@ -106,9 +106,9 @@ t_bool		full_loop(t_philo *philo);
 size_t		ft_strlen(const char *str);
 long		ft_atol(const char *str);
 
-/* print_exit */
+/* exit */
 void		print_error(const char *error);
-void		mutex_destroy(t_program *p, char *error,
+t_bool		mutex_destroy(t_program *p, char *error,
 				int destroy_code, int destroy_index);
 void		print_msg(char *msg, t_philo *philo);
 t_bool		join_all(t_philo *philos, size_t index, pthread_t *monitore);
