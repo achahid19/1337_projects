@@ -92,7 +92,7 @@ void		philos_syncro(size_t milliseconds);
 /* Simulation */
 t_bool		init_data(t_philo *philos, t_fork *forks,
 				t_program *program, char *args[]);
-void		philos_dinner(t_philo *philos, t_program *program);
+t_bool		philos_dinner(t_philo *philos, t_program *program);
 void		*monitore(void *program);
 
 /* Actions */
@@ -111,5 +111,6 @@ void		print_error(const char *error);
 void		mutex_destroy(t_program *p, char *error,
 				int destroy_code, int destroy_index);
 void		print_msg(char *msg, t_philo *philo);
+t_bool		join_all(t_philo *philos, size_t index, pthread_t *monitore);
 
 #endif /* PHILO_H */
