@@ -34,6 +34,7 @@ void	philos_dinner(t_philo *philos, t_program *program)
 	if (program->philo_num == 1)
 	{
 		pthread_mutex_lock(&philos->first_fork->fork);
+		print_msg("has taken a fork", philos);
 		philos_syncro(program->time_to_die + 1);
 		pthread_mutex_unlock(&philos->first_fork->fork);
 		print_msg("died", philos);

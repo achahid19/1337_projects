@@ -28,8 +28,12 @@ int	main(int ac, char *av[])
 	t_program	program;
 
 	if (ac < 5 || ac > 6 || check_inputs(av) == false)
+	{
 		print_error("Invalid input!\n");
-	init_data(philos, forks, &program, av);
+		return (failure);
+	}
+	if (init_data(philos, forks, &program, av) == false)
+		return (failure);
 	philos_dinner(philos, &program);
 	mutex_destroy(&program, NULL, 4, program.philo_num);
 	return (0);

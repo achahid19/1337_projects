@@ -12,12 +12,12 @@
 
 #include "../includes/philo.h"
 
-void		mutex_destroy(t_program *p, char *error,
-				int destroy_code, int destroy_index);
-void		mutex_destroy_helper(t_program *p, char *error,
-				int di);
-t_bool		dead_loop(t_philo *philo);
-t_bool		full_loop(t_philo *philo);
+void			mutex_destroy(t_program *p, char *error,
+					int destroy_code, int destroy_index);
+static void		mutex_destroy_helper(t_program *p, char *error,
+					int di, int destroy_code);
+t_bool			dead_loop(t_philo *philo);
+t_bool			full_loop(t_philo *philo);
 
 /**
  * mutex_destroy - clear all initialized mutexes
@@ -33,41 +33,48 @@ void	mutex_destroy(t_program *p, char *error,
 		print_error(error);
 	else if (destroy_code == 1)
 	{
-		pthread_mutex_destroy(&p->dead_lock);
+		if (pthread_mutex_destroy(&p->dead_lock))
+			error = "Error: mutex destroy!\n";
 		print_error(error);
 	}
 	else if (destroy_code == 2)
 	{
-		pthread_mutex_destroy(&p->dead_lock);
-		pthread_mutex_destroy(&p->meal_lock);
+		if (pthread_mutex_destroy(&p->dead_lock))
+			error = "Error: mutex destroy!\n";
+		if (pthread_mutex_destroy(&p->meal_lock))
+			error = "Error: mutex destroy!\n";
 		print_error(error);
 	}
-	else if (destroy_code == 3)
-	{
-		pthread_mutex_destroy(&p->dead_lock);
-		pthread_mutex_destroy(&p->meal_lock);
-		pthread_mutex_destroy(&p->write_lock);
-		print_error(error);
-	}
-	else if (destroy_code == 4)
-		mutex_destroy_helper(p, error, destroy_index);
+	else if (destroy_code == 4 || destroy_code == 3)
+		mutex_destroy_helper(p, error, destroy_index, destroy_code);
 }
 
 /**
  * mutex_destroy_helper -
 */
-void	mutex_destroy_helper(t_program *p, char *error,	int di)
+static void	mutex_destroy_helper(t_program *p, char *error,
+			int di, int destroy_code)
 {
 	int	i;
 
 	i = 0;
-	pthread_mutex_destroy(&p->dead_lock);
-	pthread_mutex_destroy(&p->meal_lock);
-	pthread_mutex_destroy(&p->write_lock);
-	pthread_mutex_destroy(&p->full_lock);
+	if (destroy_code == 3 || destroy_code == 4)
+	{
+		if (pthread_mutex_destroy(&p->dead_lock))
+			error = "Error: mutex destroy!\n";
+		if (pthread_mutex_destroy(&p->meal_lock))
+			error = "Error: mutex destroy!\n";
+		if (pthread_mutex_destroy(&p->write_lock))
+			error = "Error: mutex destroy!\n";
+		if (destroy_code == 3)
+			return (print_error(error));
+	}
+	if (pthread_mutex_destroy(&p->full_lock))
+		error = "Error: mutex destroy!\n";
 	while (i < di)
 	{
-		pthread_mutex_destroy(&p->forks[i].fork);
+		if (pthread_mutex_destroy(&p->forks[i].fork))
+			error = "Error: mutex destroy!\n";
 		i++;
 	}
 	print_error(error);

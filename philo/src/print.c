@@ -23,8 +23,7 @@ void	print_error(const char *error)
 {
 	if (error == NULL)
 		return ;
-	write(2, error, ft_strlen(error));
-	exit(-1);
+	printf("%s", error);
 }
 
 /**

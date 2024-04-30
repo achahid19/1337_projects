@@ -12,13 +12,14 @@
 
 #include "../includes/philo.h"
 
-void		init_data(t_philo *philos, t_fork *forks,
-				t_program *program, char *args[]);
-static void	init_program(t_program *program, t_philo *philos,
-				t_fork *forks, char **args);
-static void	init_forks(t_fork *forks, t_program *p, t_philo *philos, int pnum);
-static void	init_philo(t_philo *philos, t_program *program, size_t i);
-static void	assign_forks(t_philo *philos, int philos_number, size_t index);
+t_bool			init_data(t_philo *philos, t_fork *forks,
+					t_program *program, char *args[]);
+static t_bool	init_program(t_program *program, t_philo *philos,
+					t_fork *forks, char **args);
+static t_bool	init_forks(t_fork *forks, t_program *p,
+					t_philo *philos, int pnum);
+static t_bool	init_philo(t_philo *philos, t_program *program, size_t i);
+static void		assign_forks(t_philo *philos, int philos_number, size_t index);
 
 /**
  * init_data - initialize the data related to each philosopher
@@ -28,7 +29,7 @@ static void	assign_forks(t_philo *philos, int philos_number, size_t index);
  * 
  * Return: void.
 */
-void	init_data(t_philo *philos, t_fork *forks,
+t_bool	init_data(t_philo *philos, t_fork *forks,
 			t_program *program, char *args[])
 {
 	size_t	i;
@@ -36,16 +37,20 @@ void	init_data(t_philo *philos, t_fork *forks,
 
 	i = 0;
 	philos_number = ft_atol(args[1]);
-	init_program(program, philos, forks, args);
-	init_forks(forks, program, philos, philos_number);
+	if (init_program(program, philos, forks, args) == false)
+		return (false);
+	if (init_forks(forks, program, philos, philos_number) == false)
+		return (false);
 	while (i < (size_t)philos_number)
 	{
-		init_philo(philos, program, i);
+		if (init_philo(philos, program, i) == false)
+			return (false);
 		assign_forks(philos, philos_number, i);
 		i++;
 		philos++;
 		forks++;
 	}
+	return (true);
 }
 
 /**
@@ -58,17 +63,17 @@ void	init_data(t_philo *philos, t_fork *forks,
  * 
  * Return: void.
 */
-static void	init_program(t_program *p, t_philo *philos,
+static t_bool	init_program(t_program *p, t_philo *philos,
 				t_fork *forks, char **args)
 {
 	if (pthread_mutex_init(&p->dead_lock, NULL))
-		mutex_destroy(p, "Error init program's mutex!\n", 0, false);
+		return (mutex_destroy(p, "Error: program's mutex!\n", 0, false), false);
 	if (pthread_mutex_init(&p->meal_lock, NULL))
-		mutex_destroy(p, "Error init program's mutex!\n", 1, false);
+		return (mutex_destroy(p, "Error: program's mutex!\n", 1, false), false);
 	if (pthread_mutex_init(&p->write_lock, NULL))
-		mutex_destroy(p, "Error init program's mutex!\n", 2, false);
+		return (mutex_destroy(p, "Error: program's mutex!\n", 2, false), false);
 	if (pthread_mutex_init(&p->full_lock, NULL))
-		mutex_destroy(p, "Error init program's mutex!\n", 3, false);
+		return (mutex_destroy(p, "Error: program's mutex!\n", 3, false), false);
 	p->philos = philos;
 	p->forks = forks;
 	p->philo_num = ft_atol(args[1]);
@@ -80,6 +85,7 @@ static void	init_program(t_program *p, t_philo *philos,
 		p->num_of_times_to_eat = ft_atol(args[5]);
 	else
 		p->num_of_times_to_eat = -1;
+	return (true);
 }
 
 /**
@@ -90,7 +96,7 @@ static void	init_program(t_program *p, t_philo *philos,
  * 
  * Return: void.
 */
-static void	init_philo(t_philo *philos, t_program *program, size_t i)
+static t_bool	init_philo(t_philo *philos, t_program *program, size_t i)
 {
 	philos->id = i + 1;
 	philos->full = false;
@@ -101,7 +107,12 @@ static void	init_philo(t_philo *philos, t_program *program, size_t i)
 	philos->meal_lock = &program->meal_lock;
 	philos->full_lock = &program->full_lock;
 	philos->simulation_start = gettime(milliseconds);
+	if (philos->simulation_start == false)
+		return (false);
 	philos->last_meal_counter = gettime(milliseconds);
+	if (philos->last_meal_counter == false)
+		return (false);
+	return (true);
 }
 
 /**
@@ -112,7 +123,8 @@ static void	init_philo(t_philo *philos, t_program *program, size_t i)
  * 
  * Return: void.
 */
-static void	init_forks(t_fork *forks, t_program *p, t_philo *philos, int pnum)
+static t_bool	init_forks(t_fork *forks, t_program *p,
+					t_philo *philos, int pnum)
 {
 	size_t	i;
 
@@ -121,13 +133,16 @@ static void	init_forks(t_fork *forks, t_program *p, t_philo *philos, int pnum)
 	{
 		forks->fork_id = i;
 		if (pthread_mutex_init(&forks->fork, NULL))
-			mutex_destroy(p, "Error init forks's mutex!\n",
-				4, i);
+		{
+			mutex_destroy(p, "Error init forks's mutex!\n", 4, i);
+			return (false);
+		}
 		philos->forks = forks;
 		i++;
 		forks++;
 		philos++;
 	}
+	return (true);
 }
 
 /**
