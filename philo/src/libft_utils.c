@@ -12,23 +12,23 @@
 
 #include "../includes/philo.h"
 
-size_t		ft_strlen(const char *str);
 long		ft_atol(const char *str);
+size_t		ft_strlen(const char *str);
 
 /**
- * ft_strlen - Get the length of str
+ * ft_strlen - get the length of a str
  * @str: pointer to the string
  * 
  * Return: string's length
 */
 size_t	ft_strlen(const char *str)
 {
-	size_t	length;
+	int	len;
 
-	length = 0;
-	while (*(str + length))
-		length++;
-	return (length);
+	len = 0;
+	while (str[len])
+		len++;
+	return (len);
 }
 
 /**

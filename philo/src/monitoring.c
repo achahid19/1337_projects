@@ -50,7 +50,7 @@ static void	monitor_checker(t_philo *philos)
 	if (pthread_create(&full_monitor, NULL, full_checker, philos))
 		mutex_destroy(philos->program, "Error: create full monitor thread\n",
 			4, philos->program->philo_num);
-	while (philos->program->simulation_end == false)
+	while (dead_loop(philos) == false)
 	{
 		if (death_checker(&philos[index]) == true)
 			break ;
@@ -101,7 +101,7 @@ void	*full_checker(void *p)
 	i = 0;
 	all_full = 0;
 	while (i < philos->program->philo_num
-		&& philos->program->simulation_end == false)
+		&& dead_loop(philos) == false)
 	{
 		full_check_helper(&philos[i], &all_full);
 		i++;

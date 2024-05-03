@@ -76,7 +76,7 @@ static t_bool	threads_create(t_philo *philos, pthread_t *monitoring,
 		{
 			if (join_all(philos - index, index, monitoring) == false)
 				return (false);
-			mutex_destroy(philos->program, "Error creating threads!\n",
+			mutex_destroy(philos->program, "Error: creating threads!\n",
 				4, philos->program->philo_num);
 			return (false);
 		}

@@ -14,7 +14,6 @@
 
 void	print_error(const char *error);
 void	print_msg(char *msg, t_philo *philo);
-void	destroy_print_error(const char *error, t_program *p, t_fork *forks);
 
 /**
  * print_error
@@ -23,17 +22,8 @@ void	print_error(const char *error)
 {
 	if (error == NULL)
 		return ;
-	printf("%s", error);
+	write(2, error, ft_strlen(error));
 }
-
-/**
- * destroy_print_error -
-*/
-/* void	destroy_print_error(const char *error, t_program *p, t_fork *forks)
-{
-	mutex_destroy(p, forks);
-	print_error(error);
-} */
 
 /**
  * print_mgs -
