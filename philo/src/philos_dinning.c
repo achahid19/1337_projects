@@ -16,7 +16,6 @@ t_bool			philos_dinner(t_philo *philos, t_program *program);
 static t_bool	threads_create(t_philo *philos, pthread_t *monitoring,
 					int philo_num);
 static t_bool	threads_create_await(t_program *p, pthread_t monitoring);
-static t_bool	pthread_join_helper(pthread_t *monitoring, t_program *p);
 static void		*routine(void *philos);
 
 /**
@@ -74,8 +73,7 @@ static t_bool	threads_create(t_philo *philos, pthread_t *monitoring,
 	{
 		if (pthread_create(&philos->thread, NULL, routine, (void *)philos))
 		{
-			if (join_all(philos - index, index, monitoring) == false)
-				return (false);
+			join_all(philos - index, index, monitoring);
 			mutex_destroy(philos->program, "Error: creating threads!\n",
 				4, philos->program->philo_num);
 			return (false);
@@ -97,45 +95,30 @@ static t_bool	threads_create(t_philo *philos, pthread_t *monitoring,
 */
 static t_bool	threads_create_await(t_program *p, pthread_t monitoring)
 {
-	int		philos_num;
 	size_t	index;
+	t_bool	status;
 
-	philos_num = p->philo_num;
 	index = 0;
-	pthread_join_helper(&monitoring, p);
-	while (index < (size_t)philos_num)
+	status = true;
+	if (pthread_join(monitoring, NULL))
+	{
+		print_error("Error: Joining monitoring thread\n");
+		status = false;
+	}
+	while (index < p->philo_num)
 	{
 		if (pthread_join(p->philos->thread, NULL))
 		{
-			if (index + 1 < (size_t)philos_num)
-			{
-				if (join_all(&p->philos[index + 1], p->philo_num - 1, NULL)
-					== false)
-					return (false);
-			}
-			mutex_destroy(p, "Error: joining threads!\n", 4, p->philo_num);
-			return (false);
+			print_error("Error: Joining thread\n");
+			status = false;
 		}
 		index++;
 		p->philos++;
 	}
+	if (status == false)
+		mutex_destroy(p, NULL, 4, p->philo_num);
 	p->philos = p->philos - index;
-	return (true);
-}
-
-/**
- * pthread_join_helper -
-*/
-static t_bool	pthread_join_helper(pthread_t *monitoring, t_program *p)
-{
-	if (pthread_join(*monitoring, NULL))
-	{
-		if (join_all(p->philos, p->philo_num, NULL) == false)
-			return (false);
-		mutex_destroy(p, "Error: joining monitoring thread\n", 4, p->philo_num);
-		return (false);
-	}
-	return (true);
+	return (status);
 }
 
 /**

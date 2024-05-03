@@ -18,7 +18,7 @@ static t_bool	mutex_destroy_helper(t_program *p, char *error,
 					int di, int destroy_code);
 t_bool			dead_loop(t_philo *philo);
 t_bool			full_loop(t_philo *philo);
-t_bool			join_all(t_philo *philos, size_t index,
+void			join_all(t_philo *philos, size_t index,
 					pthread_t *monitoring);
 
 /**
@@ -117,29 +117,15 @@ t_bool	full_loop(t_philo *philo)
 /**
  * join_all - join created thread if a thread fails
 */
-t_bool	join_all(t_philo *philos, size_t index, pthread_t *monitoring)
+void	join_all(t_philo *philos, size_t index, pthread_t *monitoring)
 {
 	size_t	join;
 
 	join = 0;
-	if (monitoring != NULL)
-	{
-		if (pthread_join(*monitoring, NULL))
-		{
-			mutex_destroy(philos->program, "Error: join monitor thread\n",
-				4, philos->program->philo_num);
-			return (false);
-		}
-	}
+	pthread_join(*monitoring, NULL);
 	while (join < index)
 	{
-		if (pthread_join(philos[join].thread, NULL))
-		{
-			mutex_destroy(philos->program, "Error: join thread\n",
-				4, philos->program->philo_num);
-			return (false);
-		}
+		pthread_join(philos[join].thread, NULL);
 		join++;
 	}
-	return (true);
 }
