@@ -95,7 +95,7 @@ t_bool		init_data(t_philo *philos, t_fork *forks,
 t_bool		philos_dinner(t_philo *philos, t_program *program);
 void		*monitore(void *program);
 
-/* Actions */
+/* threads cycle */
 void		eating(t_philo *philo);
 void		sleeping(t_philo *philo);
 void		thinking(t_philo *philo);
@@ -108,9 +108,9 @@ size_t		ft_strlen(const char *str);
 
 /* exit */
 void		print_error(const char *error);
+void		print_msg(char *msg, t_philo *philo);
 t_bool		mutex_destroy(t_program *p, char *error,
 				int destroy_code, int destroy_index);
-void		print_msg(char *msg, t_philo *philo);
-t_bool		join_all(t_philo *philos, size_t index, pthread_t *monitore);
+void		join_all(t_philo *philos, size_t index, pthread_t *monitore);
 
 #endif /* PHILO_H */
