@@ -2,7 +2,7 @@
 
 CC = cc
 
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=thread
 
 SRC = $(addprefix src/, data.c  estr.c  monitoring.c  parsing.c  philo.c \
 		philos_dinning.c  print.c  syncro.c  libft_utils.c philo_utils.c)
@@ -11,8 +11,6 @@ OBJ = $(SRC:.c=.o)
 
 INCLUDES = includes/philo.h
 
-# SAN = -fsanitize=thread
-
 NAME = philo
 
 # Targets
@@ -20,7 +18,7 @@ NAME = philo
 all: $(NAME)
 
 $(NAME): $(OBJ) $(INCLUDES)
-		$(CC) $(CFLAGS) $(OBJ) $(SAN) -o $(NAME)
+		$(CC) $(CFLAGS) $(OBJ) -o $(NAME)
 		@echo "philo program compiled 💯"
 
 clean:
