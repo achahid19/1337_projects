@@ -26,7 +26,7 @@ typedef enum e_bool // define a set of named integer constant
 {
 	false = 0,
 	true = 1,
-	failure = 2
+	failure = 255
 }	t_bool;
 
 typedef enum e_time
@@ -103,8 +103,8 @@ void		thinking(t_philo *philo);
 /* Utilies */
 t_bool		dead_loop(t_philo *philo);
 t_bool		full_loop(t_philo *philo);
-size_t		ft_strlen(const char *str);
 long		ft_atol(const char *str);
+size_t		ft_strlen(const char *str);
 
 /* exit */
 void		print_error(const char *error);
