@@ -1,0 +1,10 @@
+.vscode
+*~
+*.o
+miniHell
+minishell
+garbage_objs
+libft.a
+test
+test2
+.nfs*
