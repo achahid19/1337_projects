@@ -15,14 +15,16 @@ int	main(void) {
 			addContact(phoneBook);
 		}
 		else if (command == "SEARCH") {
-
+			searchContact(phoneBook);
 		}
 		else if (command == "EXIT") {
-
+			std::cout << "Program exited Succesfully!" << std::endl;
+			break ;
 		}
 		if (std::cin.eof() == true)
 			break ;
 	};
+	return 0;
 };
 
 /**
@@ -139,4 +141,55 @@ void	Contact::setPNumber(std::string phoneNumber) {
  */
 void	Contact::setSPhrase(std::string secretPhrase) {
 	this->secretPhrase = secretPhrase;
+}
+
+/**
+ * searchContact -
+ */
+void	searchContact(PhoneBook phoneBook) {
+	std::string	value;
+	int			index;
+	t_infos		contact;
+
+	while (true) {
+		getValue("Enter Contact's index: ", value);
+		// check the length.
+		if (value.length() > 1) {
+			if (isDigits(value) == false) {
+				std::cout << "Enter only digits values" << std::endl;
+				continue ;
+			}
+			std::cout << "Not a valid index! Retry (0-7)" << std::endl;
+			continue ;
+		}
+		// check if only digits values entered.
+		if (isDigits(value) == false) {
+			std::cout << "Enter only digits values" << std::endl;
+			continue ;
+		}
+		// convert the character to digit.
+		index = value[0] - 48;
+		// check if its a valid number.
+		if (index >= 8) {
+			std::cout << "Not a valid index! Retry (0-7)" << std::endl;
+			continue ;
+		}
+		break ;
+	}
+	// now we have the appropriate index.
+	
+}
+
+/**
+ * isDigits -
+ */
+bool	isDigits(std::string str) {
+	int	index = 0;
+
+	while (str[index]) {
+		if (str[index] < '0' || str[index] > '9')
+			return (false);
+		index++;
+	}
+	return (true);
 }
