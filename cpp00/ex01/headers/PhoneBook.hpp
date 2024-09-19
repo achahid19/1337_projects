@@ -8,13 +8,14 @@ private:
 	Contact		contacts[8];
 	static int	contactsCounter;
 public:
-	// functionalities
+	// functionalities / Interface user.
 	void	addFirstName(std::string firstName);
 	void	addLastName(std::string lastName);
 	void	addNickName(std::string nickName);
 	void	addPhoneNumber(std::string phoneNumber);
 	void	addSecretPhrase(std::string secretPhrase);
 	void	bumpCounter();
+	void	showContact(std::size_t	index);
 };
 
-#endif
+#endif /* PHONEBOOK_HPP */

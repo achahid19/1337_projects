@@ -149,7 +149,6 @@ void	Contact::setSPhrase(std::string secretPhrase) {
 void	searchContact(PhoneBook phoneBook) {
 	std::string	value;
 	int			index;
-	t_infos		contact;
 
 	while (true) {
 		getValue("Enter Contact's index: ", value);
@@ -174,10 +173,9 @@ void	searchContact(PhoneBook phoneBook) {
 			std::cout << "Not a valid index! Retry (0-7)" << std::endl;
 			continue ;
 		}
-		break ;
+		// now we have the appropriate index.
+		phoneBook.showContact(index);
 	}
-	// now we have the appropriate index.
-	
 }
 
 /**
@@ -192,4 +190,53 @@ bool	isDigits(std::string str) {
 		index++;
 	}
 	return (true);
+}
+
+/**
+ * getFName -
+ */
+std::string	Contact::getFName() {
+	return (this->firstName);
+};
+
+/**
+ * getLName -
+ */
+std::string	Contact::getLName() {
+	return (this->lastName);
+}
+
+/**
+ * getNName -
+ */
+std::string	Contact::getNName() {
+	return (this->nickName);
+}
+
+/**
+ * getPNumber -
+ */
+std::string	Contact::getPNumber() {
+	return (this->phoneNumber);
+}
+
+/**
+ * getSPhrase -
+ */
+std::string	Contact::getSPhrase() {
+	return (this->secretPhrase);
+}
+
+/**
+ * showContact -
+ */
+void	PhoneBook::showContact(std::size_t index) {
+	if (contacts[index].getFName().empty() == true)
+	{
+		std::cout << "Empty index: no registred contact yet!" << std::endl;
+		return ;
+	}
+	std::cout << contacts[index].getFName() << std::endl;
+	std::cout << contacts[index].getLName() << std::endl;
+	std::cout << contacts[index].getNName() << std::endl;
 }
