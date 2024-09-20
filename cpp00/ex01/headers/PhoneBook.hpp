@@ -16,6 +16,7 @@ public:
 	void	addSecretPhrase(std::string secretPhrase);
 	void	bumpCounter();
 	void	showContact(std::size_t	index);
+	std::string truncateString(size_t index, std::size_t width);
 };
 
 #endif /* PHONEBOOK_HPP */

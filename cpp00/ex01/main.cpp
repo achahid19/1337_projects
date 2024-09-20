@@ -2,6 +2,7 @@
 #include "headers/Contact.hpp"
 #include "headers/PhoneBook.hpp"
 #include <iostream>
+#include <iomanip>
 
 int	PhoneBook::contactsCounter = 0;
 
@@ -231,12 +232,21 @@ std::string	Contact::getSPhrase() {
  * showContact -
  */
 void	PhoneBook::showContact(std::size_t index) {
+	std::string	value;
 	if (contacts[index].getFName().empty() == true)
 	{
 		std::cout << "Empty index: no registred contact yet!" << std::endl;
 		return ;
 	}
-	std::cout << contacts[index].getFName() << std::endl;
-	std::cout << contacts[index].getLName() << std::endl;
-	std::cout << contacts[index].getNName() << std::endl;
+	std::cout << std::setw(10) << std::right << "Index" << "|";
+	std::cout << std::setw(10) << std::right << "First Name" << "|";
+	std::cout << std::setw(10) << std::right << "Last Name" << "|";
+	std::cout << std::setw(10) << std::right << "Nick Name" << std::endl;
+	std::cout << std::setw(10) << std::right << index << "|";
+	value = truncateString(index, 10);
+	std::cout << std::setw(10) << std::right << value << "|";
+	value = truncateString(index, 10);
+	std::cout << std::setw(10) << std::right << value << "|";
+	value = truncateString(index, 10);
+	std::cout << std::setw(10) << std::right << value << std::endl;
 }
