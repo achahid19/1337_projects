@@ -12,10 +12,32 @@
 
 #include "headers/main.hpp"
 
+void		addContact(PhoneBook &phoneBook);
 void		getValue(std::string prompt, std::string &value);
+void		searchContact(PhoneBook phoneBook);
 bool		isDigits(std::string str);
 std::string	resize(std::string value);
 bool		getIndex(std::size_t &index, int contactsCounter);
+
+/**
+ * getInfos - prompt the user for infos required,
+ * then add them to the phonebook as a new contact.
+ */
+void	addContact(PhoneBook &phoneBook) {
+	std::string	value;
+
+	getValue("Enter First Name: ", value);
+	phoneBook.addFirstName(value);
+	getValue("Enter Last Name: ", value);
+	phoneBook.addLastName(value);
+	getValue("Enter Nick Name: ", value);
+	phoneBook.addNickName(value);
+	getValue("Enter Phone Number: ", value);
+	phoneBook.addPhoneNumber(value);
+	getValue("Enter Secret Phrase: ", value);
+	phoneBook.addSecretPhrase(value);
+	phoneBook.bumpCounter();
+};
 
 /**
  * getValue - retrieve the value of the current prompt
@@ -33,6 +55,23 @@ void	getValue(std::string prompt, std::string &value) {
 		break ;
 	}
 };
+
+/**
+ * searchContact -
+ */
+void	searchContact(PhoneBook phoneBook) {
+	std::size_t	index;
+
+	// show all the contacts
+	if (phoneBook.showContacts() == false) {
+		std::cout << "[Warning]: Empty table." << std::endl;
+		return ;
+	}
+	// retrieve the index choosen by user.
+	if (getIndex(index, phoneBook.getContactsCounter()) == false)
+		return ;
+	phoneBook.displayContact(index);
+}
 
 /**
  * isDigits -

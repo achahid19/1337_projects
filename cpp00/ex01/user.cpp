@@ -71,3 +71,44 @@ std::string	Contact::getPNumber() {
 std::string	Contact::getSPhrase() {
 	return (this->secretPhrase);
 }
+
+bool	PhoneBook::showContacts() {
+	if (contacts[0].getFName().empty() == true)
+		return false;
+	std::cout << std::setw(TABLE_WIDTH) << std::right << "Index" << "|";
+	std::cout << std::setw(TABLE_WIDTH) << std::right << "First Name" << "|";
+	std::cout << std::setw(TABLE_WIDTH) << std::right << "Last Name" << "|";
+	std::cout << std::setw(TABLE_WIDTH) << std::right << "Nick Name" << std::endl;
+	for (std::size_t index = 0; index < contactsCounter; index++) {
+		std::cout << std::setw(TABLE_WIDTH) << std::right << index << "|";
+		std::cout << std::setw(TABLE_WIDTH) << std::right << resize(contacts[index].getFName()) << "|";
+		std::cout << std::setw(TABLE_WIDTH) << std::right << resize(contacts[index].getLName()) << "|";
+		std::cout << std::setw(TABLE_WIDTH) << std::right << resize(contacts[index].getNName()) << std::endl;
+	};
+	return true;
+}
+
+void	PhoneBook::displayContact(std::size_t index) {
+	std::cout << "-> First Name   : " << contacts[index].getFName() << std::endl;
+	std::cout << "-> Last Name    : " << contacts[index].getLName() << std::endl;
+	std::cout << "-> Nick Name    : " << contacts[index].getNName() << std::endl;
+	std::cout << "-> Phone Number : " << contacts[index].getPNumber() << std::endl;
+	std::cout << "-> Secret Phrase: " << contacts[index].getSPhrase() << std::endl;
+}
+
+void	PhoneBook::counterInit(void) {
+	contactsCounter = 0;
+	contactsIndex = 0;
+}
+
+void	PhoneBook::bumpCounter(void) {
+	if (contactsCounter < MAX_CONTACTS)
+		contactsCounter++;
+	contactsIndex++;
+	if (contactsIndex >= MAX_CONTACTS)
+		contactsIndex = 0;
+}
+
+int		PhoneBook::getContactsCounter(void) {
+	return (contactsCounter);
+}
