@@ -21,3 +21,4 @@ void		searchContact(PhoneBook phoneBook);
 bool		isDigits(std::string str);
 std::string	resize(std::string value);
 bool		getIndex(std::size_t &index, int contactsCounter);
+void		cmdMenu();

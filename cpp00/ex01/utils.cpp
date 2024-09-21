@@ -12,6 +12,7 @@
 
 #include "headers/main.hpp"
 
+void		cmdMenu();
 void		addContact(PhoneBook &phoneBook);
 void		getValue(std::string prompt, std::string &value);
 bool		spaceChecker(std::string value);
@@ -21,6 +22,16 @@ void		searchContact(PhoneBook phoneBook);
 bool		isDigits(std::string str);
 std::string	resize(std::string value);
 bool		getIndex(std::size_t &index, int contactsCounter);
+
+/**
+ * commandMenu -
+ */
+void	cmdMenu() {
+	std::cout << "[CHOOSE A COMMAND]" << std::endl;
+	std::cout << "-> ADD" << std::endl;
+	std::cout << "-> SEARCH" << std::endl;
+	std::cout << "-> EXIT" << std::endl;
+};
 
 /**
  * getInfos - prompt the user for infos required,

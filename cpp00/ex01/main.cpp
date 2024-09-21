@@ -18,6 +18,7 @@ int	main(void) {
 
 	phoneBook.counterInit();
 	while (true) {
+		cmdMenu();
 		getline(std::cin, command);
 		if (command == "ADD") {
 			addContact(phoneBook);
