@@ -14,6 +14,9 @@
 
 void		addContact(PhoneBook &phoneBook);
 void		getValue(std::string prompt, std::string &value);
+bool		spaceChecker(std::string value);
+bool		isSpace(char c);
+bool		spaceChecker(std::string value);
 void		searchContact(PhoneBook phoneBook);
 bool		isDigits(std::string str);
 std::string	resize(std::string value);
@@ -52,9 +55,33 @@ void	getValue(std::string prompt, std::string &value) {
 			return ;
 		if (value.empty())
 			continue ;
+		if (spaceChecker(value) == true)
+			continue ;
 		break ;
 	}
 };
+
+/**
+ * spaceChekcer -
+ */
+bool	spaceChecker(std::string value) {
+	bool	whiteSpaces = true;
+
+	for (std::size_t index = 0; value[index]; index++) {
+		if (isSpace(value[index]) == true)	{
+			whiteSpaces = false;
+			break ;
+		}
+	}
+	return (whiteSpaces);
+}
+
+/**
+ * isSpace -
+ */
+bool	isSpace(char c) {
+	return ((c < 8 || c > 13) && c != ' ');
+}
 
 /**
  * searchContact -
