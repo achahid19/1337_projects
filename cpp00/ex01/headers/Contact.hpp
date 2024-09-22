@@ -24,11 +24,11 @@ private:
 	std::string	secretPhrase;
 public:
 	// setters.
-	void		setFName(std::string firstName);
-	void		setLName(std::string lastName);
-	void		setNName(std::string nickName);
-	void		setPNumber(std::string phoneNumber);
-	void		setSPhrase(std::string secretPhrase);
+	void		setFName(const std::string firstName);
+	void		setLName(const std::string lastName);
+	void		setNName(const std::string nickName);
+	void		setPNumber(const std::string phoneNumber);
+	void		setSPhrase(const std::string secretPhrase);
 	// getters.
 	std::string	getFName();
 	std::string	getLName();

@@ -12,6 +12,8 @@
 
 #include "headers/main.hpp"
 
+inline void	displayMsg(const std::string msg, const char* color);
+
 int	main(void) {
 	std::string	command;
 	PhoneBook	phoneBook;
@@ -27,7 +29,7 @@ int	main(void) {
 			searchContact(phoneBook);
 		}
 		else if (command == "EXIT") {
-			std::cout << "Program exited Succesfully!" << std::endl;
+			displayMsg("Program Exited Succesfully!", GREEN);
 			break ;
 		}
 		if (std::cin.eof() == true)
@@ -35,3 +37,10 @@ int	main(void) {
 	};
 	return 0;
 };
+
+/**
+ * displayMsg -
+ */
+inline void	displayMsg(const std::string msg, const char* color) {
+	std::cout << color << msg << RESET << std::endl;
+}

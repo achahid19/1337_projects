@@ -15,19 +15,25 @@
 void		cmdMenu();
 void		addContact(PhoneBook &phoneBook);
 void		getValue(std::string prompt, std::string &value);
-bool		spaceChecker(std::string value);
+bool		spaceChecker(const std::string value);
 bool		isSpace(char c);
-bool		spaceChecker(std::string value);
 void		searchContact(PhoneBook phoneBook);
-bool		isDigits(std::string str);
+bool		isDigits(const std::string str);
 std::string	resize(std::string value);
 bool		getIndex(std::size_t &index, int contactsCounter);
+
+/**
+ * displayMsg -
+ */
+inline void	displayMsg(const std::string msg, const char* color) {
+	std::cout << color << msg << RESET << std::endl;
+}
 
 /**
  * commandMenu -
  */
 void	cmdMenu() {
-	std::cout << "[CHOOSE A COMMAND]" << std::endl;
+	displayMsg("[CHOOSE A COMMAND]", GREEN);
 	std::cout << "-> ADD" << std::endl;
 	std::cout << "-> SEARCH" << std::endl;
 	std::cout << "-> EXIT" << std::endl;
@@ -56,11 +62,11 @@ void	addContact(PhoneBook &phoneBook) {
 /**
  * getValue - retrieve the value of the current prompt
  */
-void	getValue(std::string prompt, std::string &value) {
+void	getValue(const std::string prompt, std::string &value) {
 	if (std::cin.eof())
 		return ;
 	while (true) {
-		std::cout << prompt;
+		std::cout << prompt << std::endl;
 		getline(std::cin, value);
 		if (std::cin.eof())
 			return ;
@@ -75,7 +81,7 @@ void	getValue(std::string prompt, std::string &value) {
 /**
  * spaceChekcer -
  */
-bool	spaceChecker(std::string value) {
+bool	spaceChecker(const std::string value) {
 	bool	whiteSpaces = true;
 
 	for (std::size_t index = 0; value[index]; index++) {
@@ -102,7 +108,7 @@ void	searchContact(PhoneBook phoneBook) {
 
 	// show all the contacts
 	if (phoneBook.showContacts() == false) {
-		std::cout << "[Warning]: Empty table." << std::endl;
+		displayMsg("[WARNING]: Empty table.", RED);
 		return ;
 	}
 	// retrieve the index choosen by user.
@@ -114,7 +120,7 @@ void	searchContact(PhoneBook phoneBook) {
 /**
  * isDigits -
  */
-bool	isDigits(std::string str) {
+bool	isDigits(const std::string str) {
 	int	index = 0;
 
 	while (str[index]) {
@@ -150,27 +156,27 @@ bool	getIndex(std::size_t &index, int contactsCounter) {
 		// check the length.
 		if (value.length() > 1) {
 			if (isDigits(value) == false) {
-				std::cout << "Enter only digits values" << std::endl;
+				displayMsg("[WARNING]: Enter only digits values", RED);
 				continue ;
 			}
-			std::cout << "Not a valid index! Retry (0-7)" << std::endl;
+			displayMsg("[WARNING]: Not a valid index! Retry (0-7)", RED);
 			continue ;
 		}
 		// check if only digits values entered.
 		if (isDigits(value) == false) {
-			std::cout << "Enter only digits values" << std::endl;
+			displayMsg("[WARNING]: Enter only digits values", RED);
 			continue ;
 		}
 		// convert the character to digit.
 		index = value[0] - 48;
 		// check if its a valid number.
 		if (index >= 8) {
-			std::cout << "Not a valid index! Retry (0-7)" << std::endl;
+			displayMsg("[WARNING]: Not a valid index! Retry (0-7)", RED);
 			continue ;
 		}
 		// Display the contact's index.
-		else if (index >= contactsCounter)
-			std::cout << "No registred contact for this index." << std::endl;
+		else if ((int)index >= contactsCounter)
+			displayMsg("[WARNING]: No registred contact for this index.", RED);
 		else
 			break ;
 	}
