@@ -150,10 +150,8 @@ bool	getIndex(std::size_t &index, int contactsCounter) {
 
 	while (true) {
 		getValue("Enter Contact's index: ", value);
-		// EOF
 		if (std::cin.eof())
 			return (false);
-		// check the length.
 		if (value.length() > 1) {
 			if (isDigits(value) == false) {
 				displayMsg("[WARNING]: Enter only digits values", RED);
@@ -162,19 +160,15 @@ bool	getIndex(std::size_t &index, int contactsCounter) {
 			displayMsg("[WARNING]: Not a valid index! Retry (0-7)", RED);
 			continue ;
 		}
-		// check if only digits values entered.
 		if (isDigits(value) == false) {
 			displayMsg("[WARNING]: Enter only digits values", RED);
 			continue ;
 		}
-		// convert the character to digit.
 		index = value[0] - 48;
-		// check if its a valid number.
 		if (index >= 8) {
 			displayMsg("[WARNING]: Not a valid index! Retry (0-7)", RED);
 			continue ;
 		}
-		// Display the contact's index.
 		else if ((int)index >= contactsCounter)
 			displayMsg("[WARNING]: No registred contact for this index.", RED);
 		else
