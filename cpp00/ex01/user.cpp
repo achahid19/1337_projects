@@ -93,15 +93,15 @@ bool	PhoneBook::showContacts() {
 }
 
 void	PhoneBook::displayContact(std::size_t index) {
-	std::cout <<  PURPLE << "-> First Name   : " <<
+	std::cout <<  PURPLE << "-> First Name     : " <<
 		contacts[index].getFName() << std::endl;
-	std::cout << "-> Last Name    : " <<
+	std::cout << "-> Last Name      : " <<
 		contacts[index].getLName() << std::endl;
-	std::cout << "-> Nick Name    : " <<
+	std::cout << "-> Nick Name      : " <<
 		contacts[index].getNName() << std::endl;
-	std::cout << "-> Phone Number : " <<
+	std::cout << "-> Phone Number   : " <<
 		contacts[index].getPNumber() << std::endl;
-	std::cout << "-> Secret Phrase: " <<
+	std::cout << "-> Darkest Secret : " <<
 		contacts[index].getSPhrase() << RESET << std::endl;
 }
 

@@ -54,7 +54,7 @@ void	addContact(PhoneBook &phoneBook) {
 	phoneBook.addNickName(value);
 	getValue("Enter Phone Number: ", value);
 	phoneBook.addPhoneNumber(value);
-	getValue("Enter Secret Phrase: ", value);
+	getValue("Enter Darkest Secret: ", value);
 	phoneBook.addSecretPhrase(value);
 	phoneBook.bumpCounter();
 };
