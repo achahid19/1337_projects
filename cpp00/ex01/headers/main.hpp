@@ -10,15 +10,25 @@
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef MAIN_H
+#define MAIN_H
+
 #include "Contact.hpp"
 #include "PhoneBook.hpp"
 #include <iostream>
 #include <iomanip>
 
+#define RED "\033[1;31m"
+#define GREEN "\033[1;32m"
+#define PURPLE "\033[0;35m"
+#define RESET "\033[0m"
+
+void		cmdMenu();
 void		addContact(PhoneBook &phoneBook);
-void		getValue(std::string prompt, std::string &value);
+void		getValue(const std::string prompt, std::string &value);
 void		searchContact(PhoneBook phoneBook);
-bool		isDigits(std::string str);
+bool		isDigits(const std::string str);
 std::string	resize(std::string value);
 bool		getIndex(std::size_t &index, int contactsCounter);
-void		cmdMenu();
+
+#endif /* MAIN_H */
