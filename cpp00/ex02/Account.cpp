@@ -1,3 +1,15 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   Account.cpp                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: achahid- <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2024/09/25 09:12:47 by achahid-          #+#    #+#             */
+/*   Updated: 2024/09/25 09:12:56 by achahid-         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "Account.hpp"
 
 int	Account::_nbAccounts = 0;
@@ -18,7 +30,7 @@ Account::Account( int initial_deposit )  {
 }
 
 /**
- * Deconstructor -
+ * Destructure -
  */
 Account::~Account( void ) {
 	std::cout << "index:";
