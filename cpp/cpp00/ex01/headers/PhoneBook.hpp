@@ -22,8 +22,10 @@ private:
 	Contact	contacts[MAX_CONTACTS];
 	int		contactsCounter;
 	size_t	contactsIndex;
+
 public:
-	// functionalities / Interface user.
+	PhoneBook();
+
 	void	addFirstName(std::string firstName);
 	void	addLastName(std::string lastName);
 	void	addNickName(std::string nickName);
@@ -32,7 +34,6 @@ public:
 	bool	showContacts();
 	void	displayContact(std::size_t index);
 	void	bumpCounter();
-	void	counterInit();
 	int		getContactsCounter();
 };
 

@@ -18,7 +18,6 @@ int	main(void) {
 	std::string	command;
 	PhoneBook	phoneBook;
 
-	phoneBook.counterInit();
 	while (true) {
 		cmdMenu();
 		getline(std::cin, command);

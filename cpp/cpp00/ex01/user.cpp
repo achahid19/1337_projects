@@ -12,6 +12,11 @@
 
 #include "headers/main.hpp"
 
+PhoneBook::PhoneBook() {
+	contactsCounter = 0;
+	contactsIndex = 0;
+}
+
 void	PhoneBook::addFirstName(const std::string firstName){
 	contacts[contactsIndex].setFName(firstName);
 }
@@ -79,7 +84,7 @@ bool	PhoneBook::showContacts() {
 	std::cout << std::setw(TABLE_WIDTH) << std::right << "First Name" << "|";
 	std::cout << std::setw(TABLE_WIDTH) << std::right << "Last Name" << "|";
 	std::cout << std::setw(TABLE_WIDTH) << std::right << "Nick Name" << std::endl;
-	for (std::size_t index = 0; (int)index < contactsCounter; index++) {
+	for (std::size_t index = 0; (int)index < getContactsCounter(); index++) {
 		std::cout << std::setw(TABLE_WIDTH) <<
 			std::right << index << "|";
 		std::cout << std::setw(TABLE_WIDTH) <<
@@ -103,11 +108,6 @@ void	PhoneBook::displayContact(std::size_t index) {
 		contacts[index].getPNumber() << std::endl;
 	std::cout << "-> Darkest Secret : " <<
 		contacts[index].getSPhrase() << RESET << std::endl;
-}
-
-void	PhoneBook::counterInit(void) {
-	contactsCounter = 0;
-	contactsIndex = 0;
 }
 
 void	PhoneBook::bumpCounter(void) {

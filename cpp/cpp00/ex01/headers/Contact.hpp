@@ -22,6 +22,7 @@ private:
 	std::string	nickName;
 	std::string	phoneNumber;
 	std::string	secretPhrase;
+
 public:
 	// setters.
 	void		setFName(const std::string firstName);

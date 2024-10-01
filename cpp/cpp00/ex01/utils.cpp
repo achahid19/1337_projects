@@ -70,9 +70,7 @@ void	getValue(const std::string prompt, std::string &value) {
 		getline(std::cin, value);
 		if (std::cin.eof())
 			return ;
-		if (value.empty())
-			continue ;
-		if (spaceChecker(value) == true)
+		if (value.empty() || spaceChecker(value) == true)
 			continue ;
 		break ;
 	}
@@ -85,7 +83,7 @@ bool	spaceChecker(const std::string value) {
 	bool	whiteSpaces = true;
 
 	for (std::size_t index = 0; value[index]; index++) {
-		if (isSpace(value[index]) == true)	{
+		if (isSpace(value[index]) == false)	{
 			whiteSpaces = false;
 			break ;
 		}
@@ -97,7 +95,7 @@ bool	spaceChecker(const std::string value) {
  * isSpace -
  */
 bool	isSpace(char c) {
-	return ((c < 8 || c > 13) && c != ' ');
+	return ((c >= 8 && c <= 13) || c == ' ');
 }
 
 /**
@@ -106,12 +104,10 @@ bool	isSpace(char c) {
 void	searchContact(PhoneBook phoneBook) {
 	std::size_t	index;
 
-	// show all the contacts
 	if (phoneBook.showContacts() == false) {
 		displayMsg("[WARNING]: Empty table.", RED);
 		return ;
 	}
-	// retrieve the index choosen by user.
 	if (getIndex(index, phoneBook.getContactsCounter()) == false)
 		return ;
 	phoneBook.displayContact(index);
