@@ -4,10 +4,9 @@
 int	main(int ac, char **av) {
 	std::string	str;
 
-	(void)ac;
-	if (av[1] == NULL)
+	if (ac == 1)
 		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
-	else
+	else if (ac > 1)
 	{
 		for (size_t index = 1; av[index]; index++)
 		{
