@@ -2,27 +2,21 @@
 #include <cctype>
 
 int	main(int ac, char **av) {
-	int	index = 1;
+	std::string	str;
 
 	(void)ac;
-	if (av[index] == NULL)
+	if (av[1] == NULL)
 		std::cout << "* LOUD AND UNBEARABLE FEEDBACK NOISE *" << std::endl;
 	else
 	{
-		int j;
-		while (av[index])
+		for (size_t index = 1; av[index]; index++)
 		{
-			j = 0;
-			while (av[index][j])
-			{
-				av[index][j] = toupper(av[index][j]);
-				j++;
-			}
-			std::cout << av[index];
-			index++;
-			if (av[index] == NULL)
-				std::cout << std::endl;
+			str = av[index];
+			for (size_t j = 0; str[j]; j++)
+				str[j] = toupper(str[j]);
+			std::cout << str;
 		}
+		std::cout << std::endl;
 	}
 	return 0;
 }
