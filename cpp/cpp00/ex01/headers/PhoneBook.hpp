@@ -31,10 +31,10 @@ public:
 	void	addNickName(std::string nickName);
 	void	addPhoneNumber(std::string phoneNumber);
 	void	addSecretPhrase(std::string secretPhrase);
-	bool	showContacts();
-	void	displayContact(std::size_t index);
+	bool	showContacts() const;
+	void	displayContact(std::size_t index) const;
 	void	bumpCounter();
-	int		getContactsCounter();
+	int		getContactsCounter() const;
 };
 
 #endif /* PHONEBOOK_HPP */

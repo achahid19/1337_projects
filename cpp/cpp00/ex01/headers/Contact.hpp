@@ -31,11 +31,11 @@ public:
 	void		setPNumber(const std::string phoneNumber);
 	void		setSPhrase(const std::string secretPhrase);
 	// getters.
-	std::string	getFName();
-	std::string	getLName();
-	std::string getNName();
-	std::string	getPNumber();
-	std::string	getSPhrase();
+	std::string	getFName() const;
+	std::string	getLName() const;
+	std::string getNName() const;
+	std::string	getPNumber() const;
+	std::string	getSPhrase() const;
 };
 
 #endif

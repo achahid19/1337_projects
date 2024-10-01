@@ -57,27 +57,27 @@ void	Contact::setSPhrase(const std::string secretPhrase) {
 	this->secretPhrase = secretPhrase;
 }
 
-std::string	Contact::getFName() {
+std::string	Contact::getFName() const {
 	return (this->firstName);
 };
 
-std::string	Contact::getLName() {
+std::string	Contact::getLName() const {
 	return (this->lastName);
 }
 
-std::string	Contact::getNName() {
+std::string	Contact::getNName() const {
 	return (this->nickName);
 }
 
-std::string	Contact::getPNumber() {
+std::string	Contact::getPNumber() const {
 	return (this->phoneNumber);
 }
 
-std::string	Contact::getSPhrase() {
+std::string	Contact::getSPhrase() const {
 	return (this->secretPhrase);
 }
 
-bool	PhoneBook::showContacts() {
+bool	PhoneBook::showContacts() const {
 	if (contacts[0].getFName().empty() == true)
 		return false;
 	std::cout << std::setw(TABLE_WIDTH) << std::right << "Index" << "|";
@@ -97,7 +97,7 @@ bool	PhoneBook::showContacts() {
 	return true;
 }
 
-void	PhoneBook::displayContact(std::size_t index) {
+void	PhoneBook::displayContact(std::size_t index) const {
 	std::cout <<  PURPLE << "-> First Name     : " <<
 		contacts[index].getFName() << std::endl;
 	std::cout << "-> Last Name      : " <<
@@ -118,6 +118,6 @@ void	PhoneBook::bumpCounter(void) {
 		contactsIndex = 0;
 }
 
-int		PhoneBook::getContactsCounter(void) {
+int		PhoneBook::getContactsCounter(void) const {
 	return (contactsCounter);
 }
