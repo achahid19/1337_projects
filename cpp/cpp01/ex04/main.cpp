@@ -18,38 +18,34 @@ int main(int argc, char *argv[]) {
 		return 1;
 	}
 
-	std::string filename = argv[1];
-	std::string s1 = argv[2];
-	std::string s2 = argv[3];
+	const char	*filename = argv[1];
+	const char	*s1 = argv[2];
+	const char	*s2 = argv[3];
 
-	// Open the input file
 	std::ifstream inputFile(filename);
 	if (!inputFile) {
-		std::cerr << "Error: Cannot open file " << filename << "\n";
+		std::cerr << "Error: Cannot open file " << filename << std::endl;
 		return 1;
 	}
 
-	// Read the file content into a string
 	std::string content;
 	std::getline(inputFile, content, '\0');
 	inputFile.close();
 
-	// Perform the replacement
 	replaceAllOccurrences(content, s1, s2);
 
-	// Create the new output file with .replace extension
-	std::string newFilename = filename + ".replace";
+	char	newFilename[100];
+	std::strcpy(newFilename, filename);
+	std::strcat(newFilename, ".replace");
 	std::ofstream outputFile(newFilename);
 	if (!outputFile) {
-		std::cerr << "Error: Cannot create file " << newFilename << "\n";
+		std::cerr << "Error: Cannot create file " << newFilename << std::endl;
 		return 1;
 	}
 
-	// Write the modified content to the new file
 	outputFile << content;
 	outputFile.close();
 
-	std::cout << "File processed and saved as " << newFilename << "\n";
-
+	std::cout << "File processed and saved as " << newFilename << std::endl;
 	return 0;
 }
