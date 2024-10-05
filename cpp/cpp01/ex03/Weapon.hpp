@@ -9,8 +9,8 @@ private:
 public:
 	Weapon( const std::string t );
 
-	std::string getType( void ) const;
-	void		setType( const std::string t );
+	const std::string&	getType( void ) const;
+	void				setType( const std::string t );
 };
 
 #endif /* WEAPON_HPP */
