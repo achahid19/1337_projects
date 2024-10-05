@@ -1,11 +1,11 @@
 #include "Zombie.h"
 
-void    Zombie::annouce( void ) {
+void	Zombie::annouce( void ) {
 	std::cout << name << ": ";
 	std::cout << "BraiiiiiiinnnzzzZ..." << std::endl;
 };
 
-void    Zombie::setName( std::string newZombieName ) {
+void	Zombie::setName( std::string newZombieName ) {
 	name = newZombieName;
 };
 

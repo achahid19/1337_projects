@@ -14,13 +14,14 @@ NAME = Zombie
 
 all: $(NAME)
 
-$(NAME): $(SRRC) $(HEADERS)
-		@$(CPP) $(CFLAGS) $(SRCS) -o $(NAME)
+$(NAME): $(SRCS) $(HEADERS)
+	@$(CPP) $(CFLAGS) $(SRCS) -o $(NAME)
 
 clean:
-		@rm -rf $(NAME)
+	@rm -rf $(NAME)
 
 fclean: clean
+	@find . -type f ! \( -name "*.cpp" -o -name "*.hpp" -o -name "*.h" -o -name "Makefile" \) -delete
 
 re: fclean all
 
