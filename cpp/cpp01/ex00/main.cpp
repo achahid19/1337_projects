@@ -1,17 +1,11 @@
 #include "Zombie.h"
 
 int main( void ) {
-    Zombie* Mob = newZombie("Andy");
-    Zombie* newMobs = zombieHorde(ZOMBIE_HORDE, "common");
+	Zombie* Mob = newZombie("Andy");
 
-    Mob->annouce();
-    randomChump("Otto");
-    delete(Mob);
-    std::cout << "-------------------" << std::endl;
-    for (size_t index = 0; index < ZOMBIE_HORDE; index++)  {
-        newMobs[index].annouce();
-    };
-    // release the buffer of zombies objects.
-    delete [] newMobs;
-    return (0);
+	Mob->annouce();
+	randomChump("Otto");
+	delete(Mob);
+	std::cout << "-------------------" << std::endl;
+	return (0);
 }

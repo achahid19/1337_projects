@@ -1,7 +1,7 @@
 #include "Zombie.h"
 
 void    Zombie::annouce( void ) {
-	std::cout << name << ": ";
+	std::cout << getName() << ": ";
 	std::cout << "BraiiiiiiinnnzzzZ..." << std::endl;
 };
 
