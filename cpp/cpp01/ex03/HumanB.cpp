@@ -6,8 +6,10 @@ HumanB::HumanB( const std::string n ) {
 };
 
 void	HumanB::attack( void ) {
-	if (!weapon)
+	if (!weapon) {
+		std::cout << "[ Set a weapon to attack ]" << std::endl;
 		return ;
+	}
 	std::cout << name;
 	std::cout << " attacks with their ";
 	std::cout << weapon->getType() << std::endl;
