@@ -9,9 +9,9 @@ private:
 public:
 	~Zombie( void );
 
-	void		annouce( void );
-	void		setName( std::string newZombieName );
-	std::string	getName( void );
+	void				annouce( void );
+	void				setName( const std::string newZombieName );
+	const std::string	getName( void ) const;
 	};
 
 #endif /* ZOMBIE_HPP */
