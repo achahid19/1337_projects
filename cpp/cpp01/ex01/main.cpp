@@ -11,7 +11,6 @@ int	main( void ) {
 	for (size_t index = 0; index < ZOMBIE_HORDE; index++)  {
 		newMobs[index].annouce();
 	};
-	// release the buffer of zombies objects.
 	delete [] newMobs;
 	return (0);
 }

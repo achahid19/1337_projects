@@ -2,7 +2,7 @@
 #include "Zombie.hpp"
 
 #ifndef ZOMBIE_HORDE
-#define ZOMBIE_HORDE 2
+#define ZOMBIE_HORDE 3
 #endif /* ZOMBIE_HORDE */
 
 Zombie*	newZombie( std::string name );

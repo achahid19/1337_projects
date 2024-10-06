@@ -5,11 +5,11 @@ void	Zombie::annouce( void ) {
 	std::cout << "BraiiiiiiinnnzzzZ..." << std::endl;
 };
 
-void	Zombie::setName( std::string newZombieName ) {
+void	Zombie::setName( const std::string newZombieName ) {
 	name = newZombieName;
 };
 
-std::string	Zombie::getName() {
+const std::string	Zombie::getName() const {
 	return (name);
 }
 
