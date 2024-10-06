@@ -13,7 +13,7 @@ Harl::Harl() {
 
 void	Harl::complain( std::string level ) {
 	for (size_t index = 0; index < LOGS_LEVEL; index++) {
-		if (level == logs[index].level) {
+		if (level == this->logs[index].level) {
 			(this->*logs[index].function)();
 				break;
 		}
@@ -21,17 +21,17 @@ void	Harl::complain( std::string level ) {
 }
 
 void	Harl::debug( void ) {
-	std::cout << "Debug" << std::endl;
+	std::cout << "[ Debug ]" << std::endl;
 }
 
 void	Harl::info( void ) {
-	std::cout << "Info" << std::endl;
+	std::cout << "[ Info ]" << std::endl;
 }
 
 void	Harl::warning( void ) {
-	std::cout << "Warning" << std::endl;
+	std::cout << "[ Warning ]" << std::endl;
 }
 
 void	Harl::error( void ) {
-	std::cout << "Error" << std::endl;
+	std::cout << "[ Error ]" << std::endl;
 }

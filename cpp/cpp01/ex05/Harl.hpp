@@ -19,11 +19,11 @@ public:
 
 class Harl {
 private:
-	void debug( void );
-	void info( void );
-	void warning ( void );
-	void error ( void );
-	t_levels logs[LOGS_LEVEL];
+	void 		debug( void );
+	void 		info( void );
+	void 		warning ( void );
+	void 		error ( void );
+	t_levels	logs[LOGS_LEVEL];
 
 public:
 	Harl();
