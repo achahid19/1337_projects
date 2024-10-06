@@ -2,7 +2,7 @@
 
 int	main( int ac, char **av ) {
 	if (ac != 2) {
-		std::cout << "[ USAGE ]: ./haltFtilter <Level>" << std::endl;
+		std::cerr << "[ USAGE ]: ./haltFtilter <Level>" << std::endl;
 		return 1;
 	}
 	Harl	levels(av[1]);
