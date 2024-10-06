@@ -5,10 +5,8 @@ int	main( int ac, char **av ) {
 		std::cout << "[ USAGE ]: ./haltFtilter <Level>" << std::endl;
 		return 1;
 	}
-
-	int		logLevel;
-	Harl	levels(av[1], logLevel);
+	Harl	levels(av[1]);
 	
-	levels.complain(logLevel);
+	levels.complain();
 	return 0;
 }

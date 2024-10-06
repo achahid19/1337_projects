@@ -11,15 +11,18 @@
 
 class Harl {
 private:
-	void debug( void );
-	void info( void );
-	void warning ( void );
-	void error ( void );
+	void		debug( void );
+	void		info( void );
+	void		warning ( void );
+	void		error ( void );
+	std::string	_level;
+	int			_logLevel;
 
 public:
-	Harl( std::string level, int &logLevel );
+	Harl( const std::string level );
 
-	void complain( int level );
+	void complain( void );
+	int	getLogLevel( void ) const;
 };
 
 #endif /* HARL_HPP */
