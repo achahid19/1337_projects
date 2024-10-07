@@ -1,35 +1,34 @@
 #include "Harl.hpp"
 
 Harl::Harl( std::string level ) {
-	this->_level = level;
+	if (level == "DEBUG") {
+		_logLevel = DEBUG;
+	}
+	else if (level == "INFO") {
+		_logLevel = INFO;
+	}
+	else if (level == "WARNING") {
+		_logLevel = WARNING;
+	}
+	else if (level == "ERROR") {
+		_logLevel = ERROR;
+	}
+	else
+		_logLevel = OFF;
 };
 
-int Harl::getLogLevel( void ) const {
-	if (this->_level == "DEBUG") {
-		return(DEBUG);
-	}
-	else if (this->_level == "INFO") {
-		return(INFO);
-	}
-	else if (this->_level == "WARNING") {
-		return(WARNING);
-	}
-	else if (this->_level == "ERROR") {
-		return(ERROR);
-	}
-	return(OFF);
-}
 
 void	Harl::complain() {
-	_logLevel = getLogLevel();
-
 	switch (_logLevel) {
 		case DEBUG:
 			debug();
+			// intentional fallthrough
 		case INFO:
 			info();
+			// intentional fallthrough
 		case WARNING:
 			warning();
+			// intentional fallthrough
 		case ERROR:
 			error();
 			break ;
