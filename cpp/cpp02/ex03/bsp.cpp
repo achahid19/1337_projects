@@ -17,17 +17,14 @@ static float   triangleArea( Point const& a, Point const& b, Point const& c) {
 };
 
 bool	Point::bsp( Point const a, Point const b, Point const c, Point const point ) {
-	// Need to calculate the area of the triangle
-	// creates a functions that calculates the area of a triangle
-	float area1 = triangleArea(a, b, c);
-    float area2 = triangleArea(point, b, c);
-    float area3 = triangleArea(a, point, c);
-    float area4 = triangleArea(a, b, point);
+    /* Calculate the area of triangle abc */
+	float area = triangleArea(a, b, c);
+    /* Calculate the area of triangle pbc */
+    float area1 = triangleArea(point, b, c);
+    /* Calculate the area of triangle apc */
+    float area2 = triangleArea(a, point, c);
+    /* Calculate the area of triangle abp */
+    float area3 = triangleArea(a, b, point);
 
-    std::cout << area1 << std::endl;
-    std::cout << area2 << std::endl;
-    std::cout << area3 << std::endl;
-    std::cout << area4 << std::endl;
-
-    return (area1 == area2 + area3 + area4);
+    return (area1 == area1 + area2 + area3);
 }
