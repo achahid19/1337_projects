@@ -55,7 +55,7 @@ void	ClapTrap::beRepaired( unsigned int amount ) {
 	if (pointsChecker() == false)
 		return ;
 	std::cout << "Repairing health for " << amount;
-	std::cout << "hit points" << std::endl;
+	std::cout << " hit points" << std::endl;
 	_hitPoints += amount;
 	_hitPoints > MAX_HEALTH ? _hitPoints = MAX_HEALTH : _hitPoints = _hitPoints;
 	_energyPoints--;
