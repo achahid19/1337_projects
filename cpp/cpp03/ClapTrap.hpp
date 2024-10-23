@@ -23,7 +23,7 @@ public:
 	ClapTrap( const std::string& name );
 	ClapTrap( const ClapTrap& other );
 	ClapTrap& operator=( const ClapTrap& other );
-	~ClapTrap( void );
+	virtual ~ClapTrap( void );
 	
 	/* member functions */
 	void	attack( const std::string& target );
@@ -32,8 +32,16 @@ public:
 	bool	pointsChecker( void );
 
 	/* Getters */
-	int		getHitPoints( void );
-	int		getEnergyPoints( void );
+	int			getHitPoints( void ) const;
+	int			getEnergyPoints( void ) const;
+	int			getAttackDamage( void ) const;
+	std::string	getName( void ) const;
+	
+	/* Setters */
+	void	setName( const std::string& name );
+	void	setHitPoints( int hitPoints );
+	void	setEnergyPoints( int energyPoints );
+	void	setAttackDamage( int attackDamage );
 };
 
 #endif /* CLAPTRAP_HPP */

@@ -3,7 +3,7 @@
 /* Canonical Form */
 ClapTrap::ClapTrap( const std::string& name ) {
 	std::cout << GREEN;
-	std::cout << "[ClapTrap]: Constructor Called!" << RESET_COLOR << std::endl;
+	std::cout << "[ ClapTrap ]: Constructor Called!" << RESET_COLOR << std::endl;
 	_name = name;
 	_hitPoints = MAX_HEALTH;
 	_energyPoints = MAX_ENERGY;
@@ -12,13 +12,13 @@ ClapTrap::ClapTrap( const std::string& name ) {
 
 ClapTrap::ClapTrap( const ClapTrap& other ) {
 	std::cout << GREEN;
-	std::cout << "[ClapTrap]: Copy Constructor Called!" << RESET_COLOR << std::endl;
+	std::cout << "[ ClapTrap ]: Copy Constructor Called!" << RESET_COLOR << std::endl;
 	*this=(other);
 }
 
 ClapTrap& ClapTrap::operator=( const ClapTrap& other ) {
 	std::cout << GREEN;
-	std::cout << "[ClapTrap]: Copy Assignment Called!" << RESET_COLOR << std::endl;
+	std::cout << "[ ClapTrap ]: Copy Assignment Called!" << RESET_COLOR << std::endl;
 	if (this != &other) {
 		_name = other._name;
 		_hitPoints = other._hitPoints;
@@ -30,7 +30,7 @@ ClapTrap& ClapTrap::operator=( const ClapTrap& other ) {
 
 ClapTrap::~ClapTrap( void ) {
 	std::cout << GREEN;
-	std::cout << "[ClapTrap]: Destructor Called!" << RESET_COLOR << std::endl;
+	std::cout << "[ ClapTrap ]: Destructor Called!" << RESET_COLOR << std::endl;
 }
 
 /* Member Functions */
@@ -73,10 +73,36 @@ bool	ClapTrap::pointsChecker( void ) {
 	return true;
 }
 
-int		ClapTrap::getHitPoints( void ) {
+/* Getters */
+int		ClapTrap::getHitPoints( void ) const {
 	return _hitPoints;
 }
 
-int		ClapTrap::getEnergyPoints( void ) {
+int		ClapTrap::getEnergyPoints( void ) const {
 	return _energyPoints;
+}
+
+int		ClapTrap::getAttackDamage( void ) const {
+	return _attackDamage;
+}
+
+std::string	ClapTrap::getName( void ) const {
+	return _name;
+}
+
+/* Setters */
+void	ClapTrap::setName( const std::string& name ) {
+	_name = name;
+}
+
+void	ClapTrap::setHitPoints( int hitPoints ) {
+	_hitPoints = hitPoints;
+}
+
+void	ClapTrap::setEnergyPoints( int energyPoints ) {
+	_energyPoints = energyPoints;
+}
+
+void	ClapTrap::setAttackDamage( int attackDamage ) {
+	_attackDamage = attackDamage;
 }
