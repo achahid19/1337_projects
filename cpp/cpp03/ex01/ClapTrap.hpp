@@ -3,9 +3,6 @@
 
 #include <iostream>
 
-#define MAX_HEALTH 10
-#define MAX_ENERGY 10
-
 #define RED "\033[1;31m"
 #define GREEN "\033[1;32m"
 #define PURPLE "\033[1;35m"

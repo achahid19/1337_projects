@@ -5,8 +5,8 @@ ClapTrap::ClapTrap( const std::string& name ) {
 	std::cout << GREEN;
 	std::cout << "[ ClapTrap ]: Constructor Called!" << RESET_COLOR << std::endl;
 	_name = name;
-	_hitPoints = MAX_HEALTH;
-	_energyPoints = MAX_ENERGY;
+	_hitPoints = 10;
+	_energyPoints = 10;
 	_attackDamage = 0;
 };
 
@@ -57,7 +57,6 @@ void	ClapTrap::beRepaired( unsigned int amount ) {
 	std::cout << "Repairing health for " << amount;
 	std::cout << " hit points" << std::endl;
 	_hitPoints += amount;
-	_hitPoints > MAX_HEALTH ? _hitPoints = MAX_HEALTH : _hitPoints = _hitPoints;
 	_energyPoints--;
 }
 
