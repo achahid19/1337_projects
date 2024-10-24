@@ -9,6 +9,7 @@ public:
 	~ScavTrap( void );
 
 	void	guardGate( void );
+	void	attack( const std::string& target );
 };
 
 #endif /* SCAVTRAP_HPP */

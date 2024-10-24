@@ -72,6 +72,10 @@ bool	ClapTrap::pointsChecker( void ) {
 	return true;
 }
 
+void	ClapTrap::dumpEnergyPoints( void ) {
+	_energyPoints--;
+}
+
 /* Getters */
 int		ClapTrap::getHitPoints( void ) const {
 	return _hitPoints;

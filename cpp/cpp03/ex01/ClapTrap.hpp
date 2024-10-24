@@ -23,22 +23,23 @@ public:
 	virtual ~ClapTrap( void );
 	
 	/* member functions */
-	void	attack( const std::string& target );
-	void	takeDamage( unsigned int amount );
-	void	beRepaired( unsigned int amount );
-	bool	pointsChecker( void );
+	virtual void	attack( const std::string& target );
+	void			takeDamage( unsigned int amount );
+	void			beRepaired( unsigned int amount );
+	bool			pointsChecker( void );
+	void			dumpEnergyPoints( void );
 
 	/* Getters */
-	int			getHitPoints( void ) const;
-	int			getEnergyPoints( void ) const;
-	int			getAttackDamage( void ) const;
-	std::string	getName( void ) const;
+	int				getHitPoints( void ) const;
+	int				getEnergyPoints( void ) const;
+	int				getAttackDamage( void ) const;
+	std::string		getName( void ) const;
 	
 	/* Setters */
-	void	setName( const std::string& name );
-	void	setHitPoints( int hitPoints );
-	void	setEnergyPoints( int energyPoints );
-	void	setAttackDamage( int attackDamage );
+	void			setName( const std::string& name );
+	void			setHitPoints( int hitPoints );
+	void			setEnergyPoints( int energyPoints );
+	void			setAttackDamage( int attackDamage );
 };
 
 #endif /* CLAPTRAP_HPP */
