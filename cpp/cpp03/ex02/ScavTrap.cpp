@@ -1,5 +1,12 @@
 #include "ScavTrap.hpp"
 
+ScavTrap::ScavTrap( void ) : ClapTrap() {
+	std::cout << "[ ScavTrap ]: Constructor called!" << std::endl;
+	setHitPoints(100);
+	setEnergyPoints(50);
+	setAttackDamage(20);
+};
+
 ScavTrap::ScavTrap( const std::string& name ) : ClapTrap(name) {
 	std::cout << "[ ScavTrap ]: Constructor called!" << std::endl;
 	setName(name);

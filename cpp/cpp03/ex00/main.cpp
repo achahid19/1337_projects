@@ -4,7 +4,7 @@
 inline void	pointsChecker(ClapTrap* clapTrap);
 
 int	main( void ) {
-	ClapTrap clapTrap("itks");
+	ClapTrap clapTrap;
 
 	clapTrap.takeDamage(5);
 	pointsChecker(&clapTrap);

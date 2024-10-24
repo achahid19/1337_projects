@@ -1,6 +1,15 @@
 #include "ClapTrap.hpp"
 
 /* Canonical Form */
+ClapTrap::ClapTrap( void ) {
+	std::cout << GREEN;
+	std::cout << "[ ClapTrap ]: Constructor Called!" << RESET_COLOR << std::endl;
+	_name = "no_name";
+	_hitPoints = 10;
+	_energyPoints = 10;
+	_attackDamage = 0;
+};
+
 ClapTrap::ClapTrap( const std::string& name ) {
 	std::cout << GREEN;
 	std::cout << "[ ClapTrap ]: Constructor Called!" << RESET_COLOR << std::endl;
