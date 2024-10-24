@@ -1,17 +1,26 @@
 #include "ClapTrap.hpp"
-#include "ScavTrap.hpp"
 #include <cassert>
 
 inline void	pointsChecker(ClapTrap* clapTrap);
 
 int	main( void ) {
-	ScavTrap copy("test");
-	ClapTrap *base = new ScavTrap(copy);
+	ClapTrap clapTrap("itks");
 
-	std::cout << base->getName() << std::endl;
-	std::cout << base->getEnergyPoints() << std::endl;
-	//base->guardGate();
-	delete base;
+	clapTrap.takeDamage(5);
+	pointsChecker(&clapTrap);
+	clapTrap.attack("jule");
+	clapTrap.attack("jule");
+	clapTrap.attack("jule");
+	clapTrap.attack("jule");
+	clapTrap.attack("jule");
+	clapTrap.attack("jule");
+	clapTrap.takeDamage(3);
+	clapTrap.attack("jule");
+	pointsChecker(&clapTrap);
+	clapTrap.attack("jule");
+	pointsChecker(&clapTrap);
+	clapTrap.beRepaired(3);
+	pointsChecker(&clapTrap);
 	return 0;
 }
 
