@@ -20,7 +20,7 @@ SRCS = *.cpp
 
 HEADERS = Fixed.hpp Point.hpp
 
-NAME = rawBits
+NAME = bsp
 
 # Targets
 

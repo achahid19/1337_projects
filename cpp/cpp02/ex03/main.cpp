@@ -14,23 +14,15 @@
 #include "Point.hpp"
 
 int	main( void ) {
-	/* Fixed a;
-	Fixed const b( Fixed( 5.05f ) * Fixed( 2 ) );
-
-	std::cout << a << std::endl;
-	std::cout << ++a << std::endl;
-	std::cout << a << std::endl;
-	std::cout << a++ << std::endl;
-	std::cout << a << std::endl;
-	std::cout << b << std::endl;
-	std::cout << Fixed::max( a, b ) << std::endl; */
-
 	Point	z;
-	Point	a;
-	Point   b(20, 0);
+	Point	a(1, 1);
+	Point   b(20, 1);
 	Point   c(10, 30);
-	Point	point(10, 15);
+	Point	point(15, 20);
+	bool	result;
 
-	std::cout << z.bsp(a, b, c, point) << std::endl;
+	result = z.bsp(a, b, c, point);
+	result == false ? std::cout << "false" : std::cout << "true";
+	std::cout << std::endl;
 	return 0;
 };
