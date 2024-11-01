@@ -25,7 +25,7 @@ DiamondTrap::~DiamondTrap( void ) {
 
 /* Member functions */
 
-void	DiamondTrap::attack( std::string target ) {
+void	DiamondTrap::attack( const std::string &target ) {
 	ScavTrap::attack(target);
 };
 

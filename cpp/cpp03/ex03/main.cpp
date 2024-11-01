@@ -5,7 +5,6 @@
 inline void	pointsChecker(ClapTrap* clapTrap);
 
 int	main( void ) {
-	//ScavTrap copy("test");
 	DiamondTrap *base = new DiamondTrap("itks");
 
 	std::cout << base->getName() << std::endl;

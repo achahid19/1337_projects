@@ -20,7 +20,7 @@ public:
 	~DiamondTrap( void );
 	
 	/* Member fucntions */
-	void	attack( std::string target );
+	void	attack( const std::string &target );
 	void	whoAmI( void ) const;
 };
 
