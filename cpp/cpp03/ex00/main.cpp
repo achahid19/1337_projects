@@ -19,7 +19,12 @@ int	main( void ) {
 	pointsChecker(&clapTrap);
 	clapTrap.attack("jule");
 	pointsChecker(&clapTrap);
-	clapTrap.beRepaired(3);
+	clapTrap.beRepaired(1);
+	pointsChecker(&clapTrap);
+	clapTrap.takeDamage(10);
+	clapTrap.attack("last");
+	clapTrap.attack("last");
+	
 	pointsChecker(&clapTrap);
 	return 0;
 }

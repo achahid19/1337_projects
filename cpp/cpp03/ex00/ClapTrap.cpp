@@ -57,7 +57,7 @@ void	ClapTrap::takeDamage( unsigned int amount ) {
 		return ;
 	std::cout << "clapTrap took " << amount << " damage hit points" << std::endl;
 	_hitPoints -= amount;
-	_hitPoints < 0 ? _hitPoints = 0 : _hitPoints = _hitPoints;
+	if (_hitPoints < 0) _hitPoints = 0;
 }
 
 void	ClapTrap::beRepaired( unsigned int amount ) {
@@ -70,15 +70,10 @@ void	ClapTrap::beRepaired( unsigned int amount ) {
 }
 
 bool	ClapTrap::pointsChecker( void ) {
-	if (_energyPoints == 0) {
-		std::cout << RED << "[ No energy points left! ]" << RESET_COLOR << std::endl;
-		return false;
-	}
-	if (_hitPoints == 0) {
-		std::cout << RED << "[ Low health ]" << RESET_COLOR << std::endl;
-		return false;
-	}
-	return true;
+	if (_energyPoints && _hitPoints) return true;
+	if (_energyPoints == 0) std::cout << RED << "[ No energy points left! ]" << RESET_COLOR << std::endl;
+	if (_hitPoints == 0) std::cout << RED << "[ Low health ]" << RESET_COLOR << std::endl;
+	return false;
 }
 
 /* Getters */
