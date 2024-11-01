@@ -5,12 +5,12 @@
 inline void	pointsChecker(ClapTrap* clapTrap);
 
 int	main( void ) {
-	//ScavTrap copy("test");
-	ClapTrap *base = new ScavTrap;
+	ClapTrap *base = new ScavTrap("Julien");
 
 	std::cout << base->getName() << std::endl;
 	std::cout << base->getEnergyPoints() << std::endl;
 	base->attack("simple target");
+	base->takeDamage(99);
 	pointsChecker(base);
 	//base->guardGate();
 	delete base;
