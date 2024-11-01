@@ -6,7 +6,6 @@
 inline void	pointsChecker(ClapTrap* clapTrap);
 
 int	main( void ) {
-	//ScavTrap copy("test");
 	FragTrap *base = new FragTrap("itks");
 
 	std::cout << base->getName() << std::endl;
