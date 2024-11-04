@@ -13,7 +13,23 @@ ScavTrap::ScavTrap( const std::string& name ) : ClapTrap(name) {
 	setHitPoints(100);
 	setEnergyPoints(50);
 	setAttackDamage(20);
-};
+}
+
+ScavTrap::ScavTrap( const ScavTrap &other ) : ClapTrap() {
+	std::cout << "[ ScavTrap ]: Copy Constructor called" << std::endl;
+	*this = other;
+}
+
+ScavTrap& ScavTrap::operator=( const ScavTrap &other ) {
+	std::cout << "[ ScavTrap ]: Copy Assignement called" << std::endl;
+	if (this != &other) {
+		setName(other.getName());
+		setHitPoints(other.getHitPoints());
+		setEnergyPoints(other.getEnergyPoints());
+		setAttackDamage(other.getAttackDamage());
+	}
+	return *this;
+}
 
 ScavTrap::~ScavTrap( void ) {
 	std::cout << "[ ScavTrap ]: Destructor called!" << std::endl;
