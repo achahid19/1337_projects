@@ -6,7 +6,7 @@
 inline void	pointsChecker(ClapTrap* clapTrap);
 
 int	main( void ) {
-	FragTrap *base = new FragTrap("itks");
+	FragTrap *base = new FragTrap("Julien");
 
 	std::cout << base->getName() << std::endl;
 	std::cout << base->getEnergyPoints() << std::endl;
