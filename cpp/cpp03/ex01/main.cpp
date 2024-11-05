@@ -5,7 +5,10 @@
 inline void	pointsChecker(ClapTrap* clapTrap);
 
 int	main( void ) {
-	ClapTrap *base = new ScavTrap("Julien");
+	ScavTrap test("no");
+	ClapTrap *base = new ScavTrap(test);
+
+	
 
 	std::cout << base->getName() << std::endl;
 	std::cout << base->getEnergyPoints() << std::endl;

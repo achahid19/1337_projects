@@ -5,7 +5,7 @@
 inline void	pointsChecker(ClapTrap* clapTrap);
 
 int	main( void ) {
-	DiamondTrap *base = new DiamondTrap("itks");
+	DiamondTrap *base = new DiamondTrap("giga");
 
 	std::cout << base->getName() << std::endl;
 	std::cout << base->getEnergyPoints() << std::endl;

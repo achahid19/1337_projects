@@ -21,10 +21,8 @@ int	main( void ) {
 	pointsChecker(&clapTrap);
 	clapTrap.beRepaired(1);
 	pointsChecker(&clapTrap);
-	clapTrap.takeDamage(10);
-	clapTrap.attack("last");
-	clapTrap.attack("last");
-	
+	//clapTrap.takeDamage(10);
+	//clapTrap.attack("last");
 	pointsChecker(&clapTrap);
 	return 0;
 }
