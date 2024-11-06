@@ -9,7 +9,7 @@
 #define RESET_COLOR "\033[0m"
 
 class ClapTrap {
-private:
+protected:
 	std::string	_name;
 	int			_hitPoints; // Health of ClapTrap
 	int			_energyPoints;

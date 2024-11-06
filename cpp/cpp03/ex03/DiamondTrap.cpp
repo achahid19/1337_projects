@@ -1,12 +1,12 @@
 #include "DiamondTrap.hpp"
 
 DiamondTrap::DiamondTrap( void )
-		: ClapTrap(), __name__(ClapTrap::getName() + "_clap_trap")
+		: ClapTrap(), __name__(ClapTrap::_name + "_clap_trap")
 {
 	std::cout << "[ DiamondTrap ]: Default Constructor Called!" << std::endl;
-	this->setHitPoints(FragTrap::getHitPoints());
-	this->setEnergyPoints(ScavTrap::getEnergyPoints());
-	this->setAttackDamage(FragTrap::getAttackDamage());
+	this->_hitPoints = FragTrap::_hitPoints;
+	this->_energyPoints = ScavTrap::_energyPoints;
+	this->_attackDamage = FragTrap::_attackDamage;
 };
 
 DiamondTrap::DiamondTrap( const DiamondTrap &other ) : ClapTrap( other ), ScavTrap( other ), FragTrap( other ) {
@@ -17,11 +17,11 @@ DiamondTrap::DiamondTrap( const DiamondTrap &other ) : ClapTrap( other ), ScavTr
 DiamondTrap& DiamondTrap::operator=( const DiamondTrap &other ) {
 	std::cout << "[ DiamondTrap ]: Copy Assignment called" << std::endl;
 	if (this != &other) {
-		setName(other.getName());
-		setHitPoints(other.getHitPoints());
-		setEnergyPoints(other.getEnergyPoints());
-		setAttackDamage(other.getAttackDamage());
-		__name__ = other.getName() + "_clap_trap";
+		this->_name = other._name;
+		this->_hitPoints = other._hitPoints;
+		this->_energyPoints = other._energyPoints;
+		this->_attackDamage = other._attackDamage;
+		__name__ = other._name + "_clap_trap";
 	}
 	return *this;
 }
@@ -30,10 +30,10 @@ DiamondTrap::DiamondTrap( const std::string& name )
 		: ClapTrap(), __name__(name + "_clap_trap")
 {
 	std::cout << "[ DiamondTrap ]: Constructor Called!" << std::endl;
-	this->setName(name);
-	this->setHitPoints(FragTrap::getHitPoints());
-	this->setEnergyPoints(ScavTrap::getEnergyPoints());
-	this->setAttackDamage(FragTrap::getAttackDamage());
+	this->_name = name;
+	this->_hitPoints = FragTrap::_hitPoints;
+	this->_energyPoints = ScavTrap::_energyPoints;
+	this->_attackDamage = FragTrap::_attackDamage;
 };
 
 DiamondTrap::~DiamondTrap( void ) {
@@ -47,6 +47,6 @@ void	DiamondTrap::attack( const std::string &target ) {
 };
 
 void	DiamondTrap::whoAmI( void ) const {
-	std::cout << "DiamondTrap's Name -> " << this->getName() << " and ";
-	std::cout << "ClapTrap's Name -> " <<  __name__ << std::endl;
+	std::cout << "DiamondTrap's Name -> " << this->_name << " and ";
+	std::cout << "ClapTrap's Name -> " <<  this->__name__ << std::endl;
 }

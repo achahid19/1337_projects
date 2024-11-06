@@ -2,13 +2,10 @@
 #include "ScavTrap.hpp"
 #include <cassert>
 
-inline void	pointsChecker(ClapTrap* clapTrap);
+inline void	pointsChecker(ScavTrap* clapTrap);
 
 int	main( void ) {
-	ScavTrap test("no");
-	ClapTrap *base = new ScavTrap(test);
-
-	
+	ClapTrap *base = new ScavTrap("X");
 
 	std::cout << base->getName() << std::endl;
 	std::cout << base->getEnergyPoints() << std::endl;
