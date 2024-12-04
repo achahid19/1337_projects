@@ -8,7 +8,8 @@ Dog::Dog( void ) : Animal() {
     type = "Dog";
 }
 
-Dog::Dog( const Dog& other ) : Dog() {
+Dog::Dog( const Dog& other ) {
+    this->type = "Dog";
     std::cout << RED;
     std::cout << "[ Dog ]: Copy Constructor called.";
     std::cout << RESET_COLOR << std::endl;
@@ -16,6 +17,7 @@ Dog::Dog( const Dog& other ) : Dog() {
 }
 
 const Dog& Dog::operator=( const Dog &other ) const {
+    (void)other;
     std::cout << RED;
     std::cout << "[ Dog ]: Copy Assignment operator called.";
     std::cout << RESET_COLOR << std::endl;

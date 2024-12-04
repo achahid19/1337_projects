@@ -8,7 +8,8 @@ Cat::Cat( void ) : Animal() {
     type = "Cat";
 }
 
-Cat::Cat( const Cat& other ) : Cat() {
+Cat::Cat( const Cat& other ) {
+    this->type = "Cat";
     std::cout << YELLOW;
     std::cout << "[ Cat ]: Copy Constructor called.";
     std::cout << RESET_COLOR << std::endl;
@@ -16,6 +17,7 @@ Cat::Cat( const Cat& other ) : Cat() {
 }
 
 const Cat& Cat::operator=( const Cat &other ) const {
+    (void)other;
     std::cout << YELLOW;
     std::cout << "[ Cat ]: Copy Assignment operator called.";
     std::cout << RESET_COLOR << std::endl;
