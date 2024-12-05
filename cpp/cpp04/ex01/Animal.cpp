@@ -32,7 +32,7 @@ Animal::~Animal( void ) {
 /* Member functions */
 void	Animal::makeSound( void ) const {
 	std::cout << PURPLE;
-	std::cout << "[ Animal ]: WOOOOOOO!";
+	std::cout << "[ Animal ]: No Sound!";
 	std::cout << RESET_COLOR << std::endl;
 }
 
