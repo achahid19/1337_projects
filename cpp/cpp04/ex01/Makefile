@@ -10,7 +10,7 @@ OBJ_DIR = .garbage_objs
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
-HEADERS = *.hpp
+HEADERS = Animal.hpp Dog.hpp Cat.hpp Brain.hpp
 
 NAME = Animal
 
