@@ -11,6 +11,9 @@
 #define BLUE    "\033[1;34m"
 #define RESET_COLOR "\033[0m"
 
+// Animal is an abstract class now
+// since it contains at least 1 pure
+// virtual function.
 class Animal {
 protected:
 	std::string	type;
