@@ -21,16 +21,15 @@ Dog::Dog( const Dog& other ) {
 
 const Dog& Dog::operator=( const Dog &other ) const {
     (void)other;
-    if (this == &other) {
-        return *this;
-    }
-    // make deep copy of the Brain object
-    for (size_t i = 0; i < IDEAS; i++) {
-        this->brain_ptr->setIdea(i, other.brain_ptr->getIdea(i));
-    }
     std::cout << RED;
     std::cout << "[ Dog ]: Copy Assignment operator called.";
     std::cout << RESET_COLOR << std::endl;
+    if (this == &other) {
+        return *this;
+    }
+    for (size_t i = 0; i < IDEAS; i++) {
+        this->brain_ptr->setIdea(i, other.brain_ptr->getIdea(i));
+    }
     return *this;
 }
 
