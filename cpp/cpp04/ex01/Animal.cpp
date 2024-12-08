@@ -1,14 +1,12 @@
 #include "Animal.hpp"
 
-Animal::Animal( void ) {
+Animal::Animal( void ) : type("animalDefaultName") {
 	std::cout << GREEN;
 	std::cout << "[ Animal ]: Default Constructor called.";
 	std::cout << RESET_COLOR << std::endl;
-	type = "animalDefaultName";
 }
 
-Animal::Animal( const Animal &other ) {
-	type = "animalDefaultName";
+Animal::Animal( const Animal &other ) : type("animalDefaultName") {
 	std::cout << GREEN;
 	std::cout << "[ Animal ]: Copy Constructor Called.";
 	std::cout << RESET_COLOR << std::endl;

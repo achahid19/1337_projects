@@ -19,14 +19,27 @@ int main( void ) {
     std::cout << "            Deep Copy test         " << std::endl;
     std::cout << "-----------------------------------" << std::endl;
 
-    const Cat* cat = new Cat();
-    const Cat  testCopyCat;
 
-    cat->getBrain()->setIdea(0, "This is a cat");
-    testCopyCat = *cat;
-    cat->getBrain()->setIdea(0, "This is a dogCat");
+    const   Cat* cat = new Cat();
+    const   Cat  catCopy;
 
-    std::cout << testCopyCat.getBrain()->getIdea(0) << std::endl;
+    for (size_t i = 0; i < IDEAS; i++)
+        cat->getBrain()->setIdea(i, "this is a cat");
+
+    catCopy = *cat;
+
+    std::cout << "-----------" << std::endl;
+
+    for (size_t i = 0; i < IDEAS; i++)
+        std::cout << catCopy.getBrain()->getIdea(i) << std::endl;
+    
+     for (size_t i = 0; i < IDEAS; i++)
+        cat->getBrain()->setIdea(i, "this is a dog");
+    
+    for (size_t i = 0; i < IDEAS; i++)
+        std::cout << catCopy.getBrain()->getIdea(i) << std::endl;
+        
     delete cat;
+
     return 0;
 }
