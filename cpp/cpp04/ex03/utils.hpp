@@ -1,8 +1,9 @@
 #include <iostream>
-//#include "AMateria.hpp"
+#include "AMateria.hpp"
 #include "Cure.hpp"
 #include "Ice.hpp"
 #include "ICharacter.hpp"
+#include "IMateriaSource.hpp"
 
 #define RED "\033[1;31m"
 #define GREEN "\033[1;32m"
