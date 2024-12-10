@@ -9,8 +9,6 @@ MateriaSource::MateriaSource( void ) {
 
 MateriaSource::MateriaSource( const MateriaSource& other ) {
     print("[ MateriaSource ]: Copy Constructor Called", PURPLE);
-    for (size_t i = 0; i < LEARN_SLOTS; i++)
-        learnM[i] = NULL;
     *this=(other);
 }
 
@@ -20,7 +18,7 @@ MateriaSource&  MateriaSource::operator=( const MateriaSource& other ) {
         for (size_t i = 0; i < LEARN_SLOTS; i++) {
             if (learnM[i] != NULL)
                 delete learnM[i];
-            learnM[i] = other.learnM[i];
+            learnM[i] = other.learnM[i]->clone();
         }
     }
     return *this;
@@ -36,6 +34,8 @@ MateriaSource::~MateriaSource( void ) {
 
 /* Interface */
 void    MateriaSource::learnMateria( AMateria* m ) {
+    if (m == NULL)
+        return ;
     size_t	i = 0;
 
 	for (; i < LEARN_SLOTS; i++)
@@ -65,4 +65,3 @@ AMateria*   MateriaSource::createMateria( std::string const &type ) {
     print("Didn't learnt this type yet!", PURPLE);
     return (NULL);
 }
-

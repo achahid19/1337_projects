@@ -10,16 +10,12 @@ AMateria::AMateria( void ) {
 
 AMateria::AMateria( const AMateria& other ) {
     print("[ Materia ]: Copy Constructor Called", BLUE);
-    type = "Materia";
     *this=(other);
 }
 
 AMateria&  AMateria::operator=( const AMateria &other ) {
+    (void)other;
     print("[ Materia ]: Copy Assignment Called", BLUE);
-    if (this != &other)
-    {
-        // make a deep copy if needed.
-    }
     return *this;
 }
 
@@ -28,10 +24,7 @@ AMateria::~AMateria( void ) {
 }
 
 /* Interface */
-
-// test this constructor by parameter, is it
-// working for derived classes.
-AMateria::AMateria( std::string const& type ) : type(type) {
+AMateria::AMateria( std::string const& _type ) : type(_type) {
     print("[ Materia ]: Constructor by parameter called", BLUE);
 }
 

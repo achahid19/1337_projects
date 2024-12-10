@@ -1,10 +1,6 @@
 #include "ICharacter.hpp"
 #include "utils.hpp"
 
-/* ICharacter::~ICharacter( void ) {
-	print("[ ICharacter ]: Destructor Called", GREEN);
-} */
-
 /* Canonical form of Character */
 Character::Character( void ) : name("DefaultCharacterName") {
 	print("[ Character ]: Default Constructor Called", GREEN);
@@ -12,10 +8,8 @@ Character::Character( void ) : name("DefaultCharacterName") {
 		slots[i] = NULL;
 }
 
-Character::Character( const Character& other ) : name("DefaultCharacterName") {
+Character::Character( const Character& other ) {
 	print("[ Character ]: Copy Constructor Called", GREEN);
-	for (size_t i = 0; i < AMATERIA_SLOTS; i++)
-		slots[i] = NULL;
 	*this=(other);
 }
 
@@ -28,7 +22,7 @@ Character&	Character::operator=( const Character& other ) {
 		{
 			if (this->slots[i] != NULL)
 				delete slots[i];
-			this->slots[i] = other.slots[i];
+			this->slots[i] = other.slots[i]->clone();
 		}
 	}
 	return *this;
@@ -36,7 +30,6 @@ Character&	Character::operator=( const Character& other ) {
 
 Character::~Character( void ) {
 	print("[ Character ]: Default destructor called", GREEN);
-	// free resources.
 	for (size_t i = 0; i < AMATERIA_SLOTS; i++)
 	{
 		if (slots[i])
@@ -46,10 +39,11 @@ Character::~Character( void ) {
 
 Character::Character( std::string const &_name ) : name(_name) {
 	print("[ Character ]: Constructor by parameter called", GREEN);
+	for (size_t i = 0; i < AMATERIA_SLOTS; i++)
+		slots[i] = NULL;
 }
 
 /* Interface */
-
 
 std::string const&	Character::getName( void ) const {
 	return name;
@@ -58,13 +52,13 @@ std::string const&	Character::getName( void ) const {
 void	Character::equip( AMateria *m ) {
 	size_t	i = 0;
 
-	for (; i < AMATERIA_SLOTS; i++)
-	{
+	if (m == NULL)
+		return ;
+	for (; i < AMATERIA_SLOTS; i++) {
 		if (slots[i] == NULL)
 			break ;
 	}
-	if (i == AMATERIA_SLOTS)
-	{
+	if (i == AMATERIA_SLOTS) {
 		print("No slot left", RED);
 		return ;
 	}
@@ -72,15 +66,18 @@ void	Character::equip( AMateria *m ) {
 }
 
 void	Character::unequip( int idx ) {
+	if (idx < 0 || idx >= AMATERIA_SLOTS)
+		return ;
 	// save the address on the main.
 	slots[idx] = NULL;
 }
 
 void	Character::use( int idx, ICharacter& target ) {
-	if (idx >= AMATERIA_SLOTS)
+	if (idx < 0 || idx >= AMATERIA_SLOTS)
 	{
 		print("No slot at this index", RED);
 		return ;
 	}
-	slots[idx]->use( target );
+	if (slots[idx] != NULL)
+		slots[idx]->use( target );
 }
