@@ -17,9 +17,7 @@ Character&	Character::operator=( const Character& other ) {
 	print("[ Character ]: Copy Assignment Called", GREEN);
 	if (this != &other) {
 		this->name = other.getName();
-		// to be test this copy, should be deep one.
-		for (size_t i = 0; other.slots[i] != NULL; i++)
-		{
+		for (size_t i = 0; other.slots[i] != NULL; i++) {
 			if (this->slots[i] != NULL)
 				delete slots[i];
 			this->slots[i] = other.slots[i]->clone();
@@ -30,11 +28,8 @@ Character&	Character::operator=( const Character& other ) {
 
 Character::~Character( void ) {
 	print("[ Character ]: Default destructor called", GREEN);
-	for (size_t i = 0; i < AMATERIA_SLOTS; i++)
-	{
-		if (slots[i])
-			delete slots[i];
-	}
+	for (size_t i = 0; i < AMATERIA_SLOTS; i++)	
+		if (slots[i]) delete slots[i];
 }
 
 Character::Character( std::string const &_name ) : name(_name) {
@@ -68,7 +63,6 @@ void	Character::equip( AMateria *m ) {
 void	Character::unequip( int idx ) {
 	if (idx < 0 || idx >= AMATERIA_SLOTS)
 		return ;
-	// save the address on the main.
 	slots[idx] = NULL;
 }
 
