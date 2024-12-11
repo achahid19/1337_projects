@@ -59,9 +59,10 @@ AMateria*   MateriaSource::createMateria( std::string const &type ) {
         return NULL;
     }            
     for (; i < LEARN_SLOTS; i++) {
-        if (learnM[i]->getType() == type)
+        if (learnM[i] == NULL) break ;
+        else if (learnM[i]->getType() == type)
             return learnM[i]->clone();
     }
-    print("Didn't learnt this type yet!", PURPLE);
+    print("Didn't learn this type yet!", RED);
     return (NULL);
 }
