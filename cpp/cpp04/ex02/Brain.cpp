@@ -18,6 +18,10 @@ const Brain& Brain::operator=( const Brain& other ) {
     std::cout << BLUE;
     std::cout << "[ Brain ]: Copy Assignment Called";
     std::cout << RESET_COLOR << std::endl;
+    if (this == &other) return *this;
+    for (size_t i = 0; i < IDEAS; i++) {
+        this->setIdea(i, other.getIdea(i));
+    }
     return *this;
 }
 

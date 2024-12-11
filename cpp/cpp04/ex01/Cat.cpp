@@ -11,7 +11,7 @@ Cat::Cat( void ) : Animal() {
 
 Cat::Cat( const Cat& other ) {
     this->type = "Cat";
-    brain_ptr = new Brain();
+    this->brain_ptr = new Brain();
     std::cout << YELLOW;
     std::cout << "[ Cat ]: Copy Constructor called.";
     std::cout << RESET_COLOR << std::endl;
