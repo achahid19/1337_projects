@@ -23,7 +23,6 @@ AMateria::~AMateria( void ) {
     print("[ Materia ]: Destructor Called", BLUE);
 }
 
-/* Interface */
 AMateria::AMateria( std::string const& _type ) : type(_type) {
     print("[ Materia ]: Constructor by parameter called", BLUE);
 }

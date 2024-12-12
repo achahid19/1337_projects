@@ -22,7 +22,6 @@ Ice::~Ice( void ) {
 	print("[ Ice ]: Destructor Called", YELLOW);
 }
 
-/* Interface */
 AMateria*	Ice::clone( void ) const {
 	return new Ice(*this);
 }

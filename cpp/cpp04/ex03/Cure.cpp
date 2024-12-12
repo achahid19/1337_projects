@@ -22,7 +22,6 @@ Cure::~Cure( void ) {
 	print("[ Cure ]: Destructor Called", YELLOW);
 }
 
-/* Interface */
 AMateria*	Cure::clone( void ) const {
 	return new Cure(*this);
 }

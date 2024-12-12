@@ -17,7 +17,7 @@ public:
 	AMateria( const AMateria& other );
 	AMateria& operator=( const AMateria &other );
 	virtual ~AMateria( void );
-	/* Interface */
+
 	AMateria( std::string const& _type );
 
 	std::string const& getType( void ) const; //returns the materia's type.

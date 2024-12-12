@@ -3,6 +3,7 @@
 #include "Cat.hpp"
 
 int main( void ) {
+    //Animal  test;
     Animal* arr[IDEAS];
 
     for (size_t i = 0; i < IDEAS / 2; i++) {

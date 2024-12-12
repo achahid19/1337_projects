@@ -35,5 +35,15 @@ int main( void ) {
     delete z;
     std::cout << "--------" << std::endl;
 
+   /*  std::cout << "------WrongAnimal & WrongCat--------" << std::endl;
+    const WrongAnimal *wrongAnimal = new WrongAnimal;
+    const WrongAnimal *wrongCat = new WrongCat;
+
+    wrongAnimal->makeSound();
+    wrongCat->makeSound();
+
+    delete wrongAnimal;
+    delete wrongCat; */
+
     return 0;
 }

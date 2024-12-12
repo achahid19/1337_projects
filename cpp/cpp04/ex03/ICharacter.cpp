@@ -38,8 +38,6 @@ Character::Character( std::string const &_name ) : name(_name) {
 		slots[i] = NULL;
 }
 
-/* Interface */
-
 std::string const&	Character::getName( void ) const {
 	return name;
 }
@@ -67,9 +65,8 @@ void	Character::unequip( int idx ) {
 }
 
 void	Character::use( int idx, ICharacter& target ) {
-	if (idx < 0 || idx >= AMATERIA_SLOTS)
-	{
-		print("No slot at this index", RED);
+	if (idx < 0 || idx >= AMATERIA_SLOTS) {
+		print("No slot in this index", RED);
 		return ;
 	}
 	if (slots[idx] != NULL)

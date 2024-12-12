@@ -22,9 +22,14 @@ public:
 
 	/* Member functions */
 	virtual void	makeSound( void ) const;
-	
+
 	/* getter */
 	const std::string&	getType( void ) const;
 };
+
+/* class WrongAnimal {
+public:
+	void	makeSound( void ) const;
+}; */
 
 #endif /* ANIMAL_HPP */

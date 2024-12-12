@@ -12,7 +12,6 @@ public:
 	Ice& operator=( const Ice& other );
 	~Ice( void );
 	
-	/* Interface */
 	AMateria* clone( void ) const;
 	void use( ICharacter& target );
 };

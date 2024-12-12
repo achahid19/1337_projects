@@ -15,4 +15,8 @@ public:
     void    makeSound( void ) const;
 };
 
+/* class WrongCat : public WrongAnimal {
+
+}; */
+
 #endif /* CAT_HPP */

@@ -23,7 +23,7 @@ public:
 	MateriaSource( const MateriaSource& other );
 	MateriaSource& operator=( const MateriaSource& other );
 	~MateriaSource( void );
-	/* Interface */
+
 	void		learnMateria( AMateria* );
 	AMateria*	createMateria( std::string const &type );
 };

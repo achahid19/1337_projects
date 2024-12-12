@@ -38,3 +38,9 @@ void	Animal::makeSound( void ) const {
 const std::string&	Animal::getType( void ) const {
 	return (type);
 }
+
+/* void	WrongAnimal::makeSound( void ) const {
+	std::cout << PURPLE;
+	std::cout << "[ Animal ]: No sound!";
+	std::cout << RESET_COLOR << std::endl;
+} */

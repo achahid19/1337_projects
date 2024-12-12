@@ -41,5 +41,13 @@ int main( void ) {
         
     delete cat;
 
+   /*  Dog basic;
+    {
+        Dog tmp = basic;
+    }
+
+    basic.getBrain()->setIdea(0, "Brain still alive");
+    std::cout << basic.getBrain()->getIdea(0) << std::endl; */
+
     return 0;
 }

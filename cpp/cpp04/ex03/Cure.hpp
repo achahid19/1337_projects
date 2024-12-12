@@ -12,7 +12,6 @@ public:
 	Cure& operator=( const Cure& other );
 	~Cure( void );
 	
-	/* Interface */
 	AMateria* clone( void ) const;
 	void use( ICharacter& target );
 };

@@ -32,7 +32,6 @@ MateriaSource::~MateriaSource( void ) {
     }
 }
 
-/* Interface */
 void    MateriaSource::learnMateria( AMateria* m ) {
     if (m == NULL)
         return ;
