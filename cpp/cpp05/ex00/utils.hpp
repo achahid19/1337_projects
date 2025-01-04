@@ -2,7 +2,8 @@
 #define UTILS_HPP
 
 #include <iostream>
-#include "exceptions.hpp"
+
+#define NO_GRADE -1
 
 #define RED "\033[1;31m"
 #define GREEN "\033[1;32m"

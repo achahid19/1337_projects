@@ -1,29 +1,30 @@
 #include "Bureaucrat.hpp"
 
+// Exceptions Bureaucrat's methods
+const std::string	Bureaucrat::GradeTooHighException( void ) const {
+	return this->getName() + "::GradeTooHighException";
+}
+const std::string	Bureaucrat::GradeTooLowException( void ) const {
+	return this->getName() + "::GradeTooLowException";
+}
+
 // Canonical form
 Bureaucrat::Bureaucrat( void ) : name("bureaucrat_instance"), grade(150) {
 	print("[ Bureaucrat ]: Default constructor called", GREEN);
 }
 
-Bureaucrat::Bureaucrat( const std::string& name, unsigned int grade ) : name(name) {
-	print("[ Bureaucrat ]: Parametric constructor called", GREEN);
-	if (grade < 1) {
-		try {
-			throw GradeTooHighException();
-		}
-		catch (GradeTooHighException &e) {
-			print(e.what(), RED);
-		}
+// Constructor by parameter
+Bureaucrat::Bureaucrat( const std::string& _name, int _grade )
+			: name(_name), grade(NO_GRADE) {
+	print("[ Bureaucrat ]: constructor by parameter called", GREEN);
+	try {
+		if (_grade < 1) throw GradeTooHighException();
+		else if (_grade > 150) throw GradeTooLowException();
+		else grade = _grade;
 	}
-	else if (grade > 150) {
-		try {
-			throw GradeTooLowException();
-		}
-		catch (GradeTooLowException &e) {
-			print(e.what(), RED);
-		}
+	catch (const std::string& err) {
+		print(err, RED);
 	}
-	else this->grade = grade;
 }
 
 Bureaucrat::Bureaucrat( const Bureaucrat& other ) : name(other.getName()) {
@@ -45,13 +46,23 @@ Bureaucrat::~Bureaucrat( void ) {
 
 // methods
 void	Bureaucrat::incrementGrade( void ) {
-	if (grade > 1) grade--;
-	else print("Max grade reached!", RED);
+	try {
+		if (grade == 1) throw GradeTooHighException();
+		else grade--;
+	}
+	catch (const std::string& err) {
+		print(err, RED);
+	}
 }
 
 void	Bureaucrat::decrementGrade( void ) {
-	if (grade < 150) grade++;
-	else print("Min grade reached", RED);
+	try {
+		if (grade == 150) throw GradeTooLowException();
+		else grade++;
+	}
+	catch (const std::string& err) {
+		print(err, RED);
+	}
 }
 
 // getter
@@ -59,7 +70,7 @@ const std::string&	Bureaucrat::getName( void ) const {
 	return name;
 }
 
-unsigned int	Bureaucrat::getGrade( void ) const {
+int	Bureaucrat::getGrade( void ) const {
 	return grade;
 }
 
