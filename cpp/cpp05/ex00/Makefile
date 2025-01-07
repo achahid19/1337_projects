@@ -4,13 +4,13 @@ CC = c++
 
 CFLAGS = -Wall -Wextra -Werror -std=c++98
 
-SRC = main.cpp utils.cpp Bureaucrat.cpp
+SRC = main.cpp Bureaucrat.cpp
 
 OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.cpp=.o))
 
 OBJ_DIR = .garbage_objs
 
-HEADERS = Bureaucrat.hpp utils.hpp
+HEADERS = Bureaucrat.hpp
 
 NAME = Bureaucrat
 

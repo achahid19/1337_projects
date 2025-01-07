@@ -1,39 +1,36 @@
 #include "Bureaucrat.hpp"
 
-// Exceptions Bureaucrat's methods
-const std::string	Bureaucrat::GradeTooHighException( void ) const {
-	return this->getName() + "::GradeTooHighException";
-}
-const std::string	Bureaucrat::GradeTooLowException( void ) const {
-	return this->getName() + "::GradeTooLowException";
-}
-
 // Canonical form
 Bureaucrat::Bureaucrat( void ) : name("bureaucrat_instance"), grade(150) {
-	print("[ Bureaucrat ]: Default constructor called", GREEN);
+	std::cout << GREEN << "[ Bureaucrat ]: Default constructor called";
+	std::cout << RESET_COLOR << std::endl;
 }
 
-// Constructor by parameter
+	// Constructor by parameter
 Bureaucrat::Bureaucrat( const std::string& _name, int _grade )
 			: name(_name), grade(NO_GRADE) {
-	print("[ Bureaucrat ]: constructor by parameter called", GREEN);
+	std::cout << GREEN << "[ Bureaucrat ]: constructor by parameter called";
+	std::cout << RESET_COLOR << std::endl;
 	try {
 		if (_grade < 1) throw GradeTooHighException();
 		else if (_grade > 150) throw GradeTooLowException();
 		else grade = _grade;
 	}
 	catch (const std::string& err) {
-		print(err, RED);
+		std::cout << RED << err;
+		std::cout << RESET_COLOR << std::endl;
 	}
 }
 
 Bureaucrat::Bureaucrat( const Bureaucrat& other ) : name(other.getName()) {
-	print("[ Bureaucrat ]: Copy Constructor called", GREEN);
+	std::cout << GREEN << "[ Bureaucrat ]: Copy Constructor called";
+	std::cout << RESET_COLOR << std::endl;
 	*this=(other);
 }
 
 Bureaucrat& Bureaucrat::operator=( const Bureaucrat& other ) {
-	print("[ Bureaucrat ]: Copy Assignment called", GREEN);
+	std::cout << GREEN << "[ Bureaucrat ]: Copy Assignment called";
+	std::cout << RESET_COLOR << std::endl;
 	if (this != &other) {
 		grade = other.getGrade();
 	}
@@ -41,7 +38,8 @@ Bureaucrat& Bureaucrat::operator=( const Bureaucrat& other ) {
 }
 
 Bureaucrat::~Bureaucrat( void ) {
-	print("[ Bureaucrat ]: Default destructor called", GREEN);
+	std::cout << GREEN << "[ Bureaucrat ]: Default destructor called";
+	std::cout << RESET_COLOR << std::endl;
 }
 
 // methods
@@ -51,7 +49,8 @@ void	Bureaucrat::incrementGrade( void ) {
 		else grade--;
 	}
 	catch (const std::string& err) {
-		print(err, RED);
+		std::cout << RED << err;
+		std::cout << RESET_COLOR << std::endl;
 	}
 }
 
@@ -61,11 +60,20 @@ void	Bureaucrat::decrementGrade( void ) {
 		else grade++;
 	}
 	catch (const std::string& err) {
-		print(err, RED);
+		std::cout << RED << err;
+		std::cout << RESET_COLOR << std::endl;
 	}
 }
 
-// getter
+// Exceptions Bureaucrat's methods
+const std::string	Bureaucrat::GradeTooHighException( void ) const {
+	return this->getName() + "::GradeTooHighException";
+}
+const std::string	Bureaucrat::GradeTooLowException( void ) const {
+	return this->getName() + "::GradeTooLowException";
+}
+
+// getters
 const std::string&	Bureaucrat::getName( void ) const {
 	return name;
 }

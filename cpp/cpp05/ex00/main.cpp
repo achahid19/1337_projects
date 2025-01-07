@@ -1,9 +1,9 @@
 #include "Bureaucrat.hpp"
 
 int main( void ) {
-    Bureaucrat b1;
-    Bureaucrat b2 = b1;
-    Bureaucrat b3;
+    Bureaucrat b1("b1", 150);
+    Bureaucrat b2("b2", 150);
+    Bureaucrat b3("b3", 150);
     Bureaucrat b4("b4", 10);
     Bureaucrat b5("b5", 151);
     Bureaucrat b6("b6", -1);
@@ -19,6 +19,8 @@ int main( void ) {
 
     b1.incrementGrade();
     b2.decrementGrade();
+    b2.decrementGrade();
+    b2.incrementGrade();
 
     std::cout << b1 << std::endl;
     std::cout << b2 << std::endl;
