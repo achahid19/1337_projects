@@ -9,16 +9,12 @@ Form::Form( void ) : name("Form_instance"), is_signed(false),
 
 Form::Form( const std::string _name, int _grade_sign, int _grade_execute) :
 		name(_name), is_signed(false),
-		grade_sign(DEFAULT_SIGN_G), grade_execute(DEFAULT_EXEC_G) {
+		grade_sign(_grade_sign), grade_execute(_grade_execute) {
 	std::cout << PURPLE << "[ Form ]: Constructor by parameter called";
 	std::cout << RESET_COLOR << std::endl;
 	try {
 		if (_grade_sign < 1 || _grade_execute < 1) throw GradeTooHighException();
 		else if (_grade_sign > 150 || _grade_execute > 150) throw GradeTooLowException();
-		else {
-			grade_sign = _grade_sign;
-			grade_execute = _grade_execute;
-		}
 	}
 	catch (const std::string& err) {
 		std::cout << RED << err;
@@ -26,7 +22,8 @@ Form::Form( const std::string _name, int _grade_sign, int _grade_execute) :
 	}
 }
 
-Form::Form( const Form& other ) : name(other.getName()) {
+Form::Form( const Form& other ) : name(other.getName() + "_copy"),
+		grade_sign(other.getSignGrade()), grade_execute(other.getExecGrade()) {
 	std::cout << PURPLE << "[ Form ]: Copy Constructor called";
 	std::cout << RESET_COLOR << std::endl;
 	*this=(other);
@@ -36,8 +33,6 @@ Form& Form::operator=( const Form& other ) {
 	std::cout << PURPLE << "[ Form ]: Copy Assignment called";
 	std::cout << RESET_COLOR << std::endl;
 	if (this != &other) {
-		grade_sign = other.getSignGrade();
-		grade_execute = other.getExecGrade();
 		is_signed = other.getIsSigned();
 	}
 	return *this;

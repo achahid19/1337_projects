@@ -20,8 +20,8 @@ class Form {
 private:
 	const std::string 	name;
 	bool				is_signed;
-	int					grade_sign;
-	int					grade_execute;
+	const int			grade_sign;
+	const int			grade_execute;
 	// Exceptions handling
 	const std::string	GradeTooHighException( void ) const;
 	const std::string	GradeTooLowException( void ) const;

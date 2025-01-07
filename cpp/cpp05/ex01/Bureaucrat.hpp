@@ -10,6 +10,8 @@
 #define BLUE    "\033[1;34m"
 #define RESET_COLOR "\033[0m"
 
+#define DEFAULT_GRADE 150
+
 #include <iostream>
 #include "Form.hpp"
 
