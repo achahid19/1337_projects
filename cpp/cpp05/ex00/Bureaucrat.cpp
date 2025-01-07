@@ -1,7 +1,7 @@
 #include "Bureaucrat.hpp"
 
 // Canonical form
-Bureaucrat::Bureaucrat( void ) : name("bureaucrat_instance"), grade(150) {
+Bureaucrat::Bureaucrat( void ) : name("bureaucrat_instance"), grade(DEFAULT_GRADE) {
 	std::cout << GREEN << "[ Bureaucrat ]: Default constructor called";
 	std::cout << RESET_COLOR << std::endl;
 }
@@ -22,7 +22,7 @@ Bureaucrat::Bureaucrat( const std::string& _name, int _grade )
 	}
 }
 
-Bureaucrat::Bureaucrat( const Bureaucrat& other ) : name(other.getName()) {
+Bureaucrat::Bureaucrat( const Bureaucrat& other ) : name(other.getName() + "_copy") {
 	std::cout << GREEN << "[ Bureaucrat ]: Copy Constructor called";
 	std::cout << RESET_COLOR << std::endl;
 	*this=(other);

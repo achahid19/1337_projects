@@ -9,6 +9,7 @@
 #define RESET_COLOR "\033[0m"
 
 #define NO_GRADE -1
+#define DEFAULT_GRADE 150
 
 #include <iostream>
 
