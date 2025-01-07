@@ -3,12 +3,18 @@
 
 int main( void ) {
     Bureaucrat b1("b1", 140);
-    Bureaucrat b2("b2", 90);
-    Form        f1("f1", 101, 100);
+    Bureaucrat b2("b2", 91);
+    Bureaucrat b3("b3", 80);
+    Form       f1("f1", 101, 90);
 
     b1.signForm(f1);
+    std::cout << f1 << std::endl;
     b2.signForm(f1);
     std::cout << f1 << std::endl;
+    b3.signForm(f1);
+    std::cout << f1 << std::endl;
+    /* b1.signForm(f1);
+    std::cout << f1 << std::endl; */
     return 0;
 }
 

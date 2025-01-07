@@ -1,7 +1,16 @@
 #ifndef BUREAUCRAT_H
 #define BUREAUCRAT_H
 
-#include "utils.hpp"
+#define NO_GRADE -1
+
+#define RED "\033[1;31m"
+#define GREEN "\033[1;32m"
+#define PURPLE "\033[1;35m"
+#define YELLOW "\033[1;33m"
+#define BLUE    "\033[1;34m"
+#define RESET_COLOR "\033[0m"
+
+#include <iostream>
 #include "Form.hpp"
 
 class Form;

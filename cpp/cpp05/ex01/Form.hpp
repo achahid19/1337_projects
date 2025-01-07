@@ -1,7 +1,17 @@
 #ifndef FORM_HPP
 #define FORM_HPP
 
-#include "utils.hpp"
+#define DEFAULT_SIGN_G 100
+#define DEFAULT_EXEC_G 90
+
+#define RED "\033[1;31m"
+#define GREEN "\033[1;32m"
+#define PURPLE "\033[1;35m"
+#define YELLOW "\033[1;33m"
+#define BLUE    "\033[1;34m"
+#define RESET_COLOR "\033[0m"
+
+#include <iostream>
 #include "Bureaucrat.hpp"
 
 class Bureaucrat;
