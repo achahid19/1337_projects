@@ -29,7 +29,6 @@ public:
 	// Canonical form
 	Form( void );
 	Form( const std::string _name, int _grade_sign, int _grade_execute);
-	Form( const std::string& name, int grade );
 	Form( const Form& other );
 	Form& operator=( const Form& other );
 	~Form( void );
