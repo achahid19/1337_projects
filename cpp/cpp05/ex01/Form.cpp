@@ -71,10 +71,7 @@ const std::string	Form::GradeTooLowException( void ) const {
 // methods
 void	Form::beSigned( Bureaucrat& Bureaucrat ) {
 	try {
-		if (Bureaucrat.getGrade() <= grade_sign
-			&& Bureaucrat.getGrade() <= grade_execute) {
-			is_signed = true;
-		}
+		if (Bureaucrat.getGrade() <= grade_sign) is_signed = true;
 		else is_signed = false, throw GradeTooLowException();
 	}
 	catch (const std::string& err) {

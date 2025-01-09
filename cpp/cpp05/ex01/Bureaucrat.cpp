@@ -75,11 +75,7 @@ void	Bureaucrat::signForm( Form& form ) {
 	else {
 		std::cout << YELLOW << this->getName();
 		std::cout << " couldn't sign " << form.getName();
-		std::cout << " because ";
-		if (this->getGrade() > form.getSignGrade())
-			std::cout << "not enough grade to be signed ";
-		else
-			std::cout << "not enought grade to be executed ";
+		std::cout << " because not enough grade to be signed";
 		std::cout << RESET_COLOR << std::endl;
 	}
 }
