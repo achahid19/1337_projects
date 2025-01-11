@@ -1,104 +1,91 @@
 #include "Bureaucrat.hpp"
 
 // Canonical form
-Bureaucrat::Bureaucrat( void ) : name("bureaucrat_instance"), grade(DEFAULT_GRADE) {
-	std::cout << GREEN << "[ Bureaucrat ]: Default constructor called";
-	std::cout << RESET_COLOR << std::endl;
+Bureaucrat::Bureaucrat( void ) : _name("bureaucrat_instance"), _grade(DEFAULT_GRADE) {
+	/* std::cout << GREEN << "[ Bureaucrat ]: Default constructor called";
+	std::cout << RESET_COLOR << std::endl; */
 }
 
 	// Constructor by parameter
-Bureaucrat::Bureaucrat( const std::string& _name, int _grade )
-			: name(_name), grade(NO_GRADE) {
-	std::cout << GREEN << "[ Bureaucrat ]: constructor by parameter called";
-	std::cout << RESET_COLOR << std::endl;
-	try {
-		if (_grade < 1) throw GradeTooHighException();
-		else if (_grade > 150) throw GradeTooLowException();
-		else grade = _grade;
-	}
-	catch (const std::string& err) {
-		std::cout << RED << err;
-		std::cout << RESET_COLOR << std::endl;
-	}
+Bureaucrat::Bureaucrat( const std::string& name, int grade )
+			: _name(name), _grade(NO_GRADE) {
+	/* std::cout << GREEN << "[ Bureaucrat ]: constructor by parameter called";
+	std::cout << RESET_COLOR << std::endl; */
+	if (grade < 1) throw Bureaucrat::GradeTooHighException();
+	else if (grade > 150) throw Bureaucrat::GradeTooLowException();
+	else _grade = grade;
 }
 
-Bureaucrat::Bureaucrat( const Bureaucrat& other ) : name(other.getName() + "_copy") {
-	std::cout << GREEN << "[ Bureaucrat ]: Copy Constructor called";
-	std::cout << RESET_COLOR << std::endl;
+Bureaucrat::Bureaucrat( const Bureaucrat& other ) : _name(other.getName() + "_copy") {
+	/* std::cout << GREEN << "[ Bureaucrat ]: Copy Constructor called";
+	std::cout << RESET_COLOR << std::endl; */
 	*this=(other);
 }
 
 Bureaucrat& Bureaucrat::operator=( const Bureaucrat& other ) {
-	std::cout << GREEN << "[ Bureaucrat ]: Copy Assignment called";
-	std::cout << RESET_COLOR << std::endl;
+	/* std::cout << GREEN << "[ Bureaucrat ]: Copy Assignment called";
+	std::cout << RESET_COLOR << std::endl; */
 	if (this != &other) {
-		grade = other.getGrade();
+		_grade = other.getGrade();
 	}
 	return *this;
 }
 
 Bureaucrat::~Bureaucrat( void ) {
-	std::cout << GREEN << "[ Bureaucrat ]: Default destructor called";
-	std::cout << RESET_COLOR << std::endl;
+	/* std::cout << GREEN << "[ Bureaucrat ]: Default destructor called";
+	std::cout << RESET_COLOR << std::endl; */
 }
 
 // methods
 void	Bureaucrat::incrementGrade( void ) {
-	try {
-		if (grade == 1) throw GradeTooHighException();
-		else grade--;
-	}
-	catch (const std::string& err) {
-		std::cout << RED << err;
-		std::cout << RESET_COLOR << std::endl;
-	}
+	_grade--;
+	if (_grade < 1) throw Bureaucrat::GradeTooHighException();
 }
 
 void	Bureaucrat::decrementGrade( void ) {
-	try {
-		if (grade == 150) throw GradeTooLowException();
-		else grade++;
-	}
-	catch (const std::string& err) {
-		std::cout << RED << err;
-		std::cout << RESET_COLOR << std::endl;
-	}
+	_grade++;
+	if (_grade > 150) throw Bureaucrat::GradeTooLowException();
 }
 
 void	Bureaucrat::signForm( Form& form ) {
-	form.beSigned(*this);
-	if (form.getIsSigned() == true) {
+	try {
+		form.beSigned(*this);
 		std::cout << YELLOW << this->getName();
 		std::cout << " signed " << form.getName();
 		std::cout << RESET_COLOR << std::endl;
 	}
-	else {
+	catch (Form::GradeTooLowException& e) {
 		std::cout << YELLOW << this->getName();
 		std::cout << " couldn't sign " << form.getName();
-		std::cout << " because not enough grade to be signed";
+		std::cout << " because he don't have enough grade to sign!";
+		std::cout << std::endl;
+		std::cout << "Bureaucrat Grade: " << this->getGrade();
+		std::cout << " - required Grade to Sign: " << form.getSignGrade();
 		std::cout << RESET_COLOR << std::endl;
+		throw Form::GradeTooLowException();
 	}
 }
 
 // Exceptions Bureaucrat's methods
-const std::string	Bureaucrat::GradeTooHighException( void ) const {
-	return this->getName() + "::GradeTooHighException";
+const char*	Bureaucrat::GradeTooHighException::what() const throw() {
+	return "Bureaucrat::GradeTooHighException";
 }
-const std::string	Bureaucrat::GradeTooLowException( void ) const {
-	return this->getName() + "::GradeTooLowException";
+
+const char*	Bureaucrat::GradeTooLowException::what() const throw() {
+	return "Bureaucrat::GradeTooLowException";
 }
 
 // getters
 const std::string&	Bureaucrat::getName( void ) const {
-	return name;
+	return _name;
 }
 
 int	Bureaucrat::getGrade( void ) const {
-	return grade;
+	return _grade;
 }
 
 // overload insertion operator
 std::ostream& operator<<(std::ostream& os, const Bureaucrat& Bureaucrat) {
-	os << Bureaucrat.getName() << ", bureaucrat grade " << Bureaucrat.getGrade();
+	os << Bureaucrat.getName() << ", bureaucrat _grade " << Bureaucrat.getGrade();
 	return os;
 }

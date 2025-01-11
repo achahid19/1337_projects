@@ -2,17 +2,46 @@
 #include "Form.hpp"
 
 int main( void ) {
-    Bureaucrat b1("b1", 140);
-    Bureaucrat b2("b2", 91);
-    Bureaucrat b3("b3", 102);
-    Form       f1("f1", 101, 90);
+    try {
+        Bureaucrat b1("b1", 100);
+        Form       f1("f1", 110, 90);
 
-    b1.signForm(f1);
-    std::cout << f1 << std::endl;
-    b2.signForm(f1);
-    std::cout << f1 << std::endl;
-    b3.signForm(f1);
-    std::cout << f1 << std::endl;
+        b1.signForm(f1);
+        std::cout << f1 << std::endl;
+    }
+    catch (std::exception& e) {
+        std::cout << RED << e.what();
+        std::cout << RESET_COLOR << std::endl;
+    }
+
+    try {
+        Bureaucrat b2("b2", 100);
+        Form       f2("f2", 99, 80);
+
+        b2.signForm(f2);
+        std::cout << f2 << std::endl;
+    }
+    catch (std::exception& e) {
+        std::cout << RED << e.what();
+        std::cout << RESET_COLOR << std::endl;
+    }
+
+    try {
+        Form    f3("f3", 0, 0);
+    }
+    catch (std::exception& e) {
+        std::cout << RED << e.what();
+        std::cout << RESET_COLOR << std::endl;
+    }
+
+    try {
+        Form    f4("f4", 100, 160);
+    }
+    catch (std::exception& e) {
+        std::cout << RED << e.what();
+        std::cout << RESET_COLOR << std::endl;
+    }
+
     return 0;
 }
 

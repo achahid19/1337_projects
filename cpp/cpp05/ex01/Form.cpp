@@ -1,83 +1,71 @@
 #include "Form.hpp"
 
 // Canonical form
-Form::Form( void ) : name("Form_instance"), is_signed(false),
-					grade_sign(DEFAULT_SIGN_G), grade_execute(DEFAULT_EXEC_G) {
-	std::cout << PURPLE << "[ Form ]: Default constructor called";
-	std::cout << RESET_COLOR << std::endl;
+Form::Form( void ) : _name("Form_instance"), _is_signed(false),
+					_grade_sign(DEFAULT_SIGN_G), _grade_execute(DEFAULT_EXEC_G) {
+	/* std::cout << PURPLE << "[ Form ]: Default constructor called";
+	std::cout << RESET_COLOR << std::endl; */
 }
 
-Form::Form( const std::string _name, int _grade_sign, int _grade_execute) :
-		name(_name), is_signed(false),
-		grade_sign(_grade_sign), grade_execute(_grade_execute) {
-	std::cout << PURPLE << "[ Form ]: Constructor by parameter called";
-	std::cout << RESET_COLOR << std::endl;
-	try {
-		if (_grade_sign < 1 || _grade_execute < 1) throw GradeTooHighException();
-		else if (_grade_sign > 150 || _grade_execute > 150) throw GradeTooLowException();
-	}
-	catch (const std::string& err) {
-		std::cout << RED << err;
-		std::cout << RESET_COLOR << std::endl;
-	}
+Form::Form( const std::string name, int grade_sign, int grade_execute) :
+		_name(name), _is_signed(false),
+		_grade_sign(grade_sign), _grade_execute(grade_execute) {
+	/* std::cout << PURPLE << "[ Form ]: Constructor by parameter called";
+	std::cout << RESET_COLOR << std::endl; */
+	if (grade_sign < 1 || grade_execute < 1) throw Form::GradeTooHighException();
+	else if (grade_sign > 150 || grade_execute > 150) throw Form::GradeTooLowException();
 }
 
-Form::Form( const Form& other ) : name(other.getName() + "_copy"),
-		grade_sign(other.getSignGrade()), grade_execute(other.getExecGrade()) {
-	std::cout << PURPLE << "[ Form ]: Copy Constructor called";
-	std::cout << RESET_COLOR << std::endl;
+Form::Form( const Form& other ) : _name(other.getName() + "_copy"),
+		_grade_sign(other.getSignGrade()), _grade_execute(other.getExecGrade()) {
+	/* std::cout << PURPLE << "[ Form ]: Copy Constructor called";
+	std::cout << RESET_COLOR << std::endl; */
 	*this=(other);
 }
 
 Form& Form::operator=( const Form& other ) {
-	std::cout << PURPLE << "[ Form ]: Copy Assignment called";
-	std::cout << RESET_COLOR << std::endl;
+	/* std::cout << PURPLE << "[ Form ]: Copy Assignment called";
+	std::cout << RESET_COLOR << std::endl; */
 	if (this != &other) {
-		is_signed = other.getIsSigned();
+		_is_signed = other.getIsSigned();
 	}
 	return *this;
 }
 
 Form::~Form( void ) {
-	std::cout << PURPLE << "[ Form ]: Default destructor called";
-	std::cout << RESET_COLOR << std::endl;
+	/* std::cout << PURPLE << "[ Form ]: Default destructor called";
+	std::cout << RESET_COLOR << std::endl; */
 }
 
 // getters
 const std::string& Form::getName( void ) const {
-	return name;
+	return _name;
 }
 
 int	Form::getSignGrade( void ) const {
-	return grade_sign;
+	return _grade_sign;
 }
 
 int	Form::getExecGrade( void ) const {
-	return grade_execute;
+	return _grade_execute;
 }
 
 bool	Form::getIsSigned( void ) const {
-	return is_signed;
+	return _is_signed;
 }
 
-// Exceptions Form's methods
-const std::string	Form::GradeTooHighException( void ) const {
-	return this->getName() + ";Form::GradeTooHighException";
+// Exceptions override what() method msg.
+const char*	Form::GradeTooHighException::what() const throw() {
+	return "Form::GradeTooHighException";
 }
-const std::string	Form::GradeTooLowException( void ) const {
-	return this->getName() + ";Form::GradeTooLowException";
+const char*	Form::GradeTooLowException::what() const throw() {
+	return "Form::GradeTooLowException";
 }
 
 // methods
 void	Form::beSigned( Bureaucrat& Bureaucrat ) {
-	try {
-		if (Bureaucrat.getGrade() <= grade_sign) is_signed = true;
-		else is_signed = false, throw GradeTooLowException();
-	}
-	catch (const std::string& err) {
-		std::cout << RED << err;
-		std::cout << RESET_COLOR << std::endl;
-	}
+	if (Bureaucrat.getGrade() <= _grade_sign) _is_signed = true;
+	else _is_signed = false, throw Form::GradeTooLowException();
 }
 
 // overload insertion operator

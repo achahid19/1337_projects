@@ -18,13 +18,11 @@ class Bureaucrat;
 
 class Form {
 private:
-	const std::string 	name;
-	bool				is_signed;
-	const int			grade_sign;
-	const int			grade_execute;
-	// Exceptions handling
-	const std::string	GradeTooHighException( void ) const;
-	const std::string	GradeTooLowException( void ) const;
+	const std::string 	_name;
+	bool				_is_signed;
+	const int			_grade_sign;
+	const int			_grade_execute;
+
 public:
 	// Canonical form
 	Form( void );
@@ -41,6 +39,15 @@ public:
 	int      			getSignGrade( void ) const;
 	int					getExecGrade( void ) const;
 	bool				getIsSigned( void ) const;
+
+	// Exceptions handling
+	class	GradeTooHighException : public std::exception {
+		virtual const char*	what() const throw();
+	};
+
+	class	GradeTooLowException : public std::exception {
+		virtual const char*	what() const throw();
+	};
 };
 
 // overlaod insertion operator "<<"
