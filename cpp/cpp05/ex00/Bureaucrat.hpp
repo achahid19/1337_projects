@@ -12,14 +12,13 @@
 #define DEFAULT_GRADE 150
 
 #include <iostream>
+#include <exception>
 
 class Bureaucrat {
 private:
 	const std::string 	name;
 	int					grade;
-	// Exceptions handling
-	const std::string	GradeTooHighException( void ) const;
-	const std::string	GradeTooLowException( void ) const;
+
 public:
 	// Canonical form
 	Bureaucrat( void );
@@ -35,6 +34,17 @@ public:
 	// Getter, Setter
 	const std::string&  getName( void ) const;
 	int      			getGrade( void ) const;
+
+	// Exceptions
+	class GradeTooHighException : public std::exception {
+		public:
+			virtual const char* what() const throw();
+	};
+
+	class GradeTooLowException : public std::exception {
+		public:
+			virtual const char* what() const throw();
+	};
 };
 
 // overlaod insertion operator "<<"

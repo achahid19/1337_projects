@@ -11,15 +11,9 @@ Bureaucrat::Bureaucrat( const std::string& _name, int _grade )
 			: name(_name), grade(NO_GRADE) {
 	std::cout << GREEN << "[ Bureaucrat ]: constructor by parameter called";
 	std::cout << RESET_COLOR << std::endl;
-	try {
-		if (_grade < 1) throw GradeTooHighException();
-		else if (_grade > 150) throw GradeTooLowException();
-		else grade = _grade;
-	}
-	catch (const std::string& err) {
-		std::cout << RED << err;
-		std::cout << RESET_COLOR << std::endl;
-	}
+	if (_grade < 1) throw Bureaucrat::GradeTooHighException();
+	else if (_grade > 150) throw Bureaucrat::GradeTooLowException();
+	else grade = _grade;
 }
 
 Bureaucrat::Bureaucrat( const Bureaucrat& other ) : name(other.getName() + "_copy") {
@@ -44,33 +38,22 @@ Bureaucrat::~Bureaucrat( void ) {
 
 // methods
 void	Bureaucrat::incrementGrade( void ) {
-	try {
-		if (grade == 1) throw GradeTooHighException();
-		else grade--;
-	}
-	catch (const std::string& err) {
-		std::cout << RED << err;
-		std::cout << RESET_COLOR << std::endl;
-	}
+	grade--;
+	if (grade < 1) throw Bureaucrat::GradeTooHighException();
 }
 
 void	Bureaucrat::decrementGrade( void ) {
-	try {
-		if (grade == 150) throw GradeTooLowException();
-		else grade++;
-	}
-	catch (const std::string& err) {
-		std::cout << RED << err;
-		std::cout << RESET_COLOR << std::endl;
-	}
+	grade++;
+	if (grade > 150) throw Bureaucrat::GradeTooLowException();
 }
 
 // Exceptions Bureaucrat's methods
-const std::string	Bureaucrat::GradeTooHighException( void ) const {
-	return this->getName() + "::GradeTooHighException";
+const char*	Bureaucrat::GradeTooHighException::what() const throw() {
+	return "Bureaucrat::GradeTooHighException";
 }
-const std::string	Bureaucrat::GradeTooLowException( void ) const {
-	return this->getName() + "::GradeTooLowException";
+
+const char*	Bureaucrat::GradeTooLowException::what() const throw() {
+	return "Bureaucrat::GradeTooLowException";
 }
 
 // getters
