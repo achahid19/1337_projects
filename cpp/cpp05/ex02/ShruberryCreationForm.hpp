@@ -23,14 +23,16 @@ public:
 
     // Excepitons
     class   UnsignedException : public std::exception {
-    public:
-        virtual const char* what() const throw();
+        public:
+            virtual const char* what() const throw();
     };
     class	GradeTooHighException : public std::exception {
-		virtual const char*	what() const throw();
+        public:
+		    virtual const char*	what() const throw();
 	};
 	class	GradeTooLowException : public std::exception {
-		virtual const char*	what() const throw();
+        public:
+		    virtual const char*	what() const throw();
 	};
 };
 

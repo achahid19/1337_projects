@@ -29,7 +29,7 @@ public:
 	AForm( const std::string _name, int _grade_sign, int _grade_execute);
 	AForm( const AForm& other );
 	AForm& operator=( const AForm& other );
-	~AForm( void );
+	virtual ~AForm( void );
 
 	// methods
 	void				beSigned( Bureaucrat& bureaucrat );
@@ -43,11 +43,13 @@ public:
 
 	// Exceptions handling
 	class	GradeTooHighException : public std::exception {
-		virtual const char*	what() const throw();
+		public:
+			virtual const char*	what() const throw();
 	};
 
 	class	GradeTooLowException : public std::exception {
-		virtual const char*	what() const throw();
+		public:
+			virtual const char*	what() const throw();
 	};
 };
 
