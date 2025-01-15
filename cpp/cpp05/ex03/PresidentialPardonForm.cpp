@@ -26,6 +26,7 @@ PresidentialPardonForm& PresidentialPardonForm::operator=( const PresidentialPar
 	/* std::cout << BLUE;
 	std::cout << "[ PresidentialPardonForm ]: Assignment operator called";
 	std::cout << RESET_COLOR << std::endl; */
+	(void)copy;
 	return *this;
 }
 

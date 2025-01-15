@@ -25,6 +25,7 @@ ShruberryCreationForm& ShruberryCreationForm::operator=( const ShruberryCreation
 	/* std::cout << BLUE;
 	std::cout << "[ ShruberryCreationForm ]: Assignment operator called";
 	std::cout << RESET_COLOR << std::endl; */
+	(void)copy;
 	return *this;
 }
 

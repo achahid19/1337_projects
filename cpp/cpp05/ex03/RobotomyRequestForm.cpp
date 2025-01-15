@@ -26,6 +26,7 @@ RobotomyRequestForm& RobotomyRequestForm::operator=( const RobotomyRequestForm& 
 	/* std::cout << BLUE;
 	std::cout << "[ RobotomyRequestForm ]: Assignment operator called";
 	std::cout << RESET_COLOR << std::endl; */
+	(void)copy;
 	return *this;
 }
 

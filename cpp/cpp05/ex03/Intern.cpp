@@ -19,6 +19,7 @@ Intern::Intern( const Intern& copy ) {
 Intern& Intern::operator=( const Intern& copy ) {
 	std::cout << YELLOW << "[ Intern ]: Copy Assignment called!";
 	std::cout << RESET_COLOR << std::endl;
+	(void)copy;
 	return *this;
 }
 
@@ -29,31 +30,37 @@ Intern::~Intern( void ) {
 
 // methods
 
-AForm*	makeShruberryForm( std::string target ) {
+static AForm*	makeShruberryForm( std::string target ) {
 	return (new ShruberryCreationForm(target));
 }
 
-AForm*	makeRobotomyForm( std::string target ) {
+static AForm*	makeRobotomyForm( std::string target ) {
 	return (new RobotomyRequestForm(target));
 }
 
-AForm*	makePresidentialForm( std::string target ) {
+static AForm*	makePresidentialForm( std::string target ) {
 	return (new PresidentialPardonForm(target));
 }
 
 AForm*	Intern::makeForm(std::string formName, const std::string target) {
-	int	position, formStatus = false;
+	int	position;
+	std::string formsNames[] = {"shruberry",
+								"robotomy",
+								"presidential"};
+	AForm*	(*f[])(std::string target) = {	&makeShruberryForm, // creates methods for each type of form TODO
+											&makeRobotomyForm,
+											&makePresidentialForm};
 
 	for (size_t i = 0; i < formName.length(); i++)
 		formName[i] = tolower(formName[i]);
 	std::cout << "Check: " << formName << std::endl;
 	for (size_t i = 0; i < FORMS; i++) {
-		position = formName.find(forms[i].form);
-		if (position != std::string::npos) {
+		position = formName.find(formsNames[i]);
+		if ((size_t)position != std::string::npos) {
 			std::cout << "Creating the form" << std::endl;
-			std::cout << "Intern creates " << forms[i].form;
+			std::cout << "Intern creates " << formsNames[i];
 			std::cout << " form" << std::endl;
-			return ((forms[i].func)(target));
+			return ((f[i])(target));
 		}
 	}
 	std::cout << "The requested form does not exist!" << std::endl;
