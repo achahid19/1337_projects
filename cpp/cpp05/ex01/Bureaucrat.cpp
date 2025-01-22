@@ -59,10 +59,9 @@ void	Bureaucrat::signForm( Form& form ) {
 		std::cout << " couldn't sign " << form.getName();
 		std::cout << " because he don't have enough grade to sign!";
 		std::cout << std::endl;
-		std::cout << "Bureaucrat Grade: " << this->getGrade();
+		std::cout << "-> Bureaucrat Grade: " << this->getGrade();
 		std::cout << " - required Grade to Sign: " << form.getSignGrade();
 		std::cout << RESET_COLOR << std::endl;
-		throw Form::GradeTooLowException();
 	}
 }
 
