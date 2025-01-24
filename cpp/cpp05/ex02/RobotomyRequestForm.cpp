@@ -35,20 +35,27 @@ RobotomyRequestForm::~RobotomyRequestForm( void ) {
 	std::cout << RESET_COLOR << std::endl; */
 }
 
+// helper function (DRY)
+void	drillingNoise( Bureaucrat const& executor ) {
+	std::cout << GREEN << executor.getName();
+	std::cout << ": Vrrrrr Vrrrrr Vrrrrr..." << RESET_COLOR << std::endl, sleep(1);
+}
+
 // methods
 void	RobotomyRequestForm::execute( Bureaucrat const & executor ) const {
 	if (this->getIsSigned() == false) {
-		std::cout << GREEN << "drrrrr drrrrr drrrrr drrrrl!" << RESET_COLOR << std::endl, sleep(1);
+		drillingNoise(executor);
 		std::cout << RED << "Robotomy failed!" << RESET_COLOR << std::endl;
 		throw RobotomyRequestForm::UnsignedException();
 	}
 	if (executor.getGrade() > this->getExecGrade()) {
-		std::cout << GREEN << "drrrrr drrrrr drrrrr drrrrl!" << RESET_COLOR << std::endl, sleep(1);
+		drillingNoise(executor);
 		std::cout << RED << "Robotomy failed!" << RESET_COLOR << std::endl;
 		throw RobotomyRequestForm::GradeTooLowException();
 	}
-	std::cout << GREEN << "drrrrr drrrrr drrrrr drrrrl!" << std::endl, sleep(1);
-	std::cout << this->_target << " had been robotomized succefully 50% of the time";
+	drillingNoise(executor);
+	std::cout << GREEN << this->_target;
+	std::cout << " had been robotomized succefully 50% of the time";
 	std::cout << RESET_COLOR << std::endl;
 }
 
