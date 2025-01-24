@@ -128,7 +128,7 @@ int main( void ) {
     }
 
     try {
-        Bureaucrat b3("b3", 80);
+        Bureaucrat b3("b3", 8);
         PresidentialPardonForm r("alien");
         
         b3.signForm(r);
