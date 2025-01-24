@@ -63,7 +63,6 @@ void	Bureaucrat::signForm( AForm& form ) {
 		std::cout << this->getName() << " Grade: " << this->getGrade();
 		std::cout << " - required Grade to Sign: " << form.getSignGrade();
 		std::cout << RESET_COLOR << std::endl;
-		throw AForm::GradeTooLowException();
 	}
 }
 
