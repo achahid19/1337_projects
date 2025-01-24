@@ -60,6 +60,10 @@ void	RobotomyRequestForm::execute( Bureaucrat const & executor ) const {
 	std::cout << RESET_COLOR << std::endl;
 }
 
+AForm*	RobotomyRequestForm::makeRobotomyForm( const std::string &target ) {
+	return (new RobotomyRequestForm(target));
+}
+
 // Exceptions
 const char*	RobotomyRequestForm::UnsignedException::what() const throw() {
 	return "Robotomy Form: Trying to execute an unsigned form!";

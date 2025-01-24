@@ -16,7 +16,8 @@ public:
     ~PresidentialPardonForm( void );
 
     // methods
-    void	execute( Bureaucrat const &executor ) const;
+    void            execute( Bureaucrat const &executor ) const;
+    static AForm*	makePresidentialForm( const std::string &target );
 
     // Excepitons
     class   UnsignedException : public std::exception {

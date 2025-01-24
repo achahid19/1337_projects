@@ -5,6 +5,8 @@
 #include "AForm.hpp"
 #include <cctype>
 #include "ShruberryCreationForm.hpp"
+#include "RobotomyRequestForm.hpp"
+#include "PresidentialPardonForm.hpp"
 
 #define FORMS 3
 

@@ -5,7 +5,34 @@
 #include <fstream>
 #include "AForm.hpp"
 
-#define TREE "          &&& &&  & &&\n      && &\\/&\\|& ()|/ @, &&\n      &\\/(/&/&||/& /_/)_&/_&\n   &() &\\/&|()|/&\\/ '%\" & ()\n  &_\\_&&_\\ |& |&&/&__%_/_& &&\n&&   && & &| &| /& & % ()& /&&\n ()&_---()&\\&\\|&&-&&--%---()~\n     &&     \\|||\n             |||\n             |||\n             |||\n       , -=-~  .-^- _\n"
+#define TREE "                                .\n\
+                                              .         ;  \n\
+                 .              .              ;%     ;;   \n\
+                   ,           ,                :;%  %;   \n\
+                    :         ;                   :;%;'     .,   \n\
+           ,.        %;     %;            ;        %;'    ,;\n\
+             ;       ;%;  %%;        ,     %;    ;%;    ,%'\n\
+              %;       %;%;      ,  ;       %;  ;%;   ,%;' \n\
+               ;%;      %;        ;%;        % ;%;  ,%;'\n\
+                `%;.     ;%;     %;'         `;%%;.%;'\n\
+                 `:;%.    ;%%. %@;        %; ;@%;%'\n\
+                    `:%;.  :;ks%;          %;@%;'\n\
+                      `@%:.  :;%.         ;@@%;'   \n\
+                        `@%.  `;@%.      ;@@%;         \n\
+                          `@%%. `@%%    ;@@%;        \n\
+                            ;@%. :@%%  %@@%;       \n\
+                              %@ks%%%ks%%:;     \n\
+                                #@%%%%%:;;\n\
+                                %@@%%%::;\n\
+                                %@@@%(o);  . '         \n\
+                                %@@@o%;:(.,'         \n\
+                            `.. %@@@o%::;         \n\
+                               `)@@@o%::;         \n\
+                                %@@(o)::;        \n\
+                               .%@@@@%::;         \n\
+                               ;%@@@@%::;.          \n\
+                              ;%@@@@%%:;;;. \n\
+                          ...;%@@@@@%%:;;;;,..    Ks.Dev \n"
 
 class ShruberryCreationForm : public AForm {
 private:
@@ -19,7 +46,8 @@ public:
     ~ShruberryCreationForm( void );
 
     // methods
-    void	execute( Bureaucrat const &executor ) const;
+    void	        execute( Bureaucrat const &executor ) const;
+    static AForm*   makeShruberryForm( const std::string &target );
 
     // Excepitons
     class   UnsignedException : public std::exception {

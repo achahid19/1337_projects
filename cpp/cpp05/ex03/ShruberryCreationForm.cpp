@@ -53,6 +53,10 @@ void	ShruberryCreationForm::execute( Bureaucrat const &executor ) const {
 	outfile.close();
 }
 
+AForm*	ShruberryCreationForm::makeShruberryForm( const std::string &target ) {
+	return (new ShruberryCreationForm(target));
+}
+
 // operator overload
 std::ostream&	operator<<(std::ostream &os, const ShruberryCreationForm& form) {
 	os << form.getName() << " form, signed: " << std::boolalpha;

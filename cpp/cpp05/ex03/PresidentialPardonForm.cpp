@@ -46,6 +46,10 @@ void	PresidentialPardonForm::execute( Bureaucrat const & executor ) const {
 	std::cout << RESET_COLOR << std::endl;
 }
 
+AForm*	PresidentialPardonForm::makePresidentialForm( const std::string &target ) {
+	return (new PresidentialPardonForm(target));
+}
+
 // Exceptions
 const char*	PresidentialPardonForm::UnsignedException::what() const throw() {
 	return "Presidential Form: Trying to execute an unsigned form!";
