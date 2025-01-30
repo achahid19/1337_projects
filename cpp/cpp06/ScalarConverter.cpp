@@ -7,9 +7,36 @@ char	ScalarConverter::c;
 long	ScalarConverter::i;
 double	ScalarConverter::d;
 float	ScalarConverter::f;
+bool	ScalarConverter::iOutOfRange = false;
+bool	ScalarConverter::dOutOfRange = false;
 
 static char	getType( const std::string &literal );
-static void	mutlipleSignCheck( const std::string &literal );
+static void	signCheck( const std::string &literal );
+static void	decimalPointCheck( const std::string &literal );
+
+static long	convertToInt( const std::string &literal ) {
+	long	i;
+	
+	signCheck(literal);
+	i = std::atol(literal.c_str());
+	std::cout << "i is: " << i << std::endl;
+	return i;
+}
+
+static double	convertToDouble( const std::string &literal ) {
+	double	d;
+	
+	signCheck(literal), decimalPointCheck(literal);
+	d = std::strtod(literal.c_str(), NULL);
+	return d;
+}
+
+/* static char	convertToChar( const std::string &literal ) {
+	char	c;
+
+	c = literal[0];
+	return c;
+} */
 
 void	ScalarConverter::converter( const std::string &literal ) {
 	t_conv_types	convertionTypes[] = {
@@ -33,10 +60,14 @@ void	ScalarConverter::converter( const std::string &literal ) {
 						convertOthers(convertionTypes, type); // Converts explicitly to the other types.
 						break ;
 				case 'i':
-						mutlipleSignCheck(literal);
-						ScalarConverter::i = std::atol(literal.c_str());
+						ScalarConverter::i = convertToInt(literal);
 						if (ScalarConverter::i > __INT_MAX__ || ScalarConverter::i < __INT_MIN__)
-							ScalarConverter::i = INT_OUT_OF_RANGE;
+							ScalarConverter::iOutOfRange = true;
+						convertOthers(convertionTypes, type);
+						break ;
+				case 'd':
+						ScalarConverter::d = convertToDouble(literal);
+						if (errno == ERANGE) ScalarConverter::dOutOfRange = true;
 						convertOthers(convertionTypes, type);
 						break ;
 			}
@@ -86,16 +117,47 @@ void	ScalarConverter::convertOthers(t_conv_types *ct, char type ) {
 		if (ct[i].conversion_status == false) {
 			switch(ct[i].type) {
 				case 'c':
-						if (type == 'i') {
-							if (ScalarConverter::i < 33 || ScalarConverter::i > 126) {
-								c = CHAR_NON_PRINTABLE;
-								break ;
-							}
-							ScalarConverter::c = static_cast<char>(ScalarConverter::i);
+						switch (type) {
+							case 'i':
+									if (ScalarConverter::i < 33 || ScalarConverter::i > 126) {
+										ScalarConverter::c = CHAR_NON_PRINTABLE;
+										break ;
+									}
+									ScalarConverter::c = static_cast<char>(ScalarConverter::i);
+									break ;
+							case 'd':
+									if (ScalarConverter::d < 33 || ScalarConverter::d > 126) {
+										ScalarConverter::c = CHAR_NON_PRINTABLE;
+										break ;
+									}
+									ScalarConverter::c = static_cast<char>(ScalarConverter::d);
+									break ;
+						}
+				case 'i':
+						switch (type) {
+							case 'c':
+									ScalarConverter::i = static_cast<char>(ScalarConverter::c);
+									break ;
+							case 'd':
+									if (ScalarConverter::d > __INT_MAX__ || ScalarConverter::d < __INT_MIN__) {
+										// converting double to int, must check if the value
+										// is representable into an int data type
+										ScalarConverter::iOutOfRange = true;
+										break ;
+									}
+									ScalarConverter::i = static_cast<double>(ScalarConverter::d);
+									break ;
 						}
 						break ;
-				case 'i':
-						if (type == 'c') ScalarConverter::i = static_cast<int>(ScalarConverter::c);
+				case 'd':
+						switch (type) {
+							case 'c':
+									ScalarConverter::d = static_cast<char>(ScalarConverter::c);
+									break ;
+							case 'i':
+									ScalarConverter::d = static_cast<int>(ScalarConverter::i);
+									break ;
+						}
 						break ;
 			}
 		}
@@ -110,20 +172,32 @@ void	ScalarConverter::displaySystem( void ) {
 		default:
 				std::cout << "char: " << ScalarConverter::c << std::endl;
 	}
-	switch (i) {
-		case INT_OUT_OF_RANGE:
-				std::cout << "int: value out of range" << std::endl;
-				break ;
-		default:
-				std::cout << "int: " << ScalarConverter::i << std::endl;
-	}
+	if (ScalarConverter::iOutOfRange == true)
+		std::cout << "int: value out of range" << std::endl;
+	else
+		std::cout << "int: " << ScalarConverter::i << std::endl;
+	std::cout << std::fixed << std::setprecision(SET_D_PRECISION);
+	std::cout << "double: " << ScalarConverter::d << std::endl;
 };
 
-static void	mutlipleSignCheck( const std::string &literal ) {
+static void	signCheck( const std::string &literal ) {
 	for (size_t i = 0; literal[i]; i++) {
-		if (isdigit(literal[i])) break ; // after the digit atol handles to extract the number;
-		else if ((literal[i] == '+' || literal[i] == '-') &&
-			(literal[i + 1] == '+' || literal[i + 1] == '-'))
+		if ((literal[i] == '+' || literal[i] == '-') && i != 0)
 			throw ScalarConverter::ImpossibleConversion();
+	}
+}
+
+static void	decimalPointCheck( const std::string &literal ) {
+	// the decimal points:
+		// must not be duplicated
+		// has a digit on his right
+	int	decimalCounter = 0;
+
+	for (size_t i = 0; literal[i]; i++) {
+		if (decimalCounter > 1) throw ScalarConverter::ImpossibleConversion();
+		if (literal[i] == '.') {
+			if (isdigit(literal[i + 1]) == false) throw ScalarConverter::ImpossibleConversion();
+			decimalCounter++;
+		}
 	}
 }

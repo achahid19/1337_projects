@@ -2,14 +2,18 @@
 #define SCALARCONVERTER_HPP
 
 #include <iostream>
-#include <exception>
-#include <stdexcept>
+#include <exception> // exception handling
+#include <stdexcept> // exception handling
 #include <cctype>
-#include <cstdlib>
+#include <cstdlib> // for INT_MAX
+#include <iomanip> // for std::fixed and std::setprecision
+#include <cerrno> // for errno and ERANGE
 
 #define __INT_MIN__ -2147483648
 #define INT_OUT_OF_RANGE -2147483649
 #define CHAR_NON_PRINTABLE -1
+
+#define SET_D_PRECISION 2
 
 typedef struct s_conv_types {
 	char	type;
@@ -22,7 +26,8 @@ private:
 	static long		i;
 	static double	d;
 	static float	f;
-
+	static bool		iOutOfRange;
+	static bool		dOutOfRange;
 	// prevent from initiating this static class
 	// since the delete keyword to delete member funtions
 	// was introduced in C++11
