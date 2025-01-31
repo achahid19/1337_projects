@@ -27,7 +27,6 @@ private:
 	static double	d;
 	static float	f;
 	static bool		iOutOfRange;
-	static bool		dOutOfRange;
 	// prevent from initiating this static class
 	// since the delete keyword to delete member funtions
 	// was introduced in C++11

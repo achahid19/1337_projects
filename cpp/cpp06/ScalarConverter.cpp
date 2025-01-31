@@ -8,7 +8,6 @@ long	ScalarConverter::i;
 double	ScalarConverter::d;
 float	ScalarConverter::f;
 bool	ScalarConverter::iOutOfRange = false;
-bool	ScalarConverter::dOutOfRange = false;
 
 static char	getType( const std::string &literal );
 static void	signCheck( const std::string &literal );
@@ -86,7 +85,6 @@ void	ScalarConverter::converter( const std::string &literal ) {
 						break ;
 				case 'd':
 						ScalarConverter::d = convertToDouble(literal);
-						if (errno == ERANGE) ScalarConverter::dOutOfRange = true;
 						convertOthers(convertionTypes, type);
 						break ;
 				case 'f':
