@@ -108,7 +108,6 @@ const char*	ScalarConverter::ImpossibleConversion::what() const throw() {
 }
 
 static char	getType( const std::string &literal ) {
-	bool	digit_status = false;
 	bool	decimal_status = false;
 	bool	float_status = false;
 
@@ -126,7 +125,6 @@ static char	getType( const std::string &literal ) {
 			literal[i] != '-' &&
 			literal[i] != '+')
 			throw ScalarConverter::ImpossibleConversion();
-		if (std::isdigit(literal[i]) == true) digit_status = true;
 		else if (literal[i] == '.') decimal_status = true;
 		else if (literal[i] == 'f') float_status = true;
 	}
