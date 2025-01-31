@@ -19,24 +19,43 @@ static long	convertToInt( const std::string &literal ) {
 	
 	signCheck(literal);
 	i = std::atol(literal.c_str());
-	std::cout << "i is: " << i << std::endl;
 	return i;
 }
 
 static double	convertToDouble( const std::string &literal ) {
 	double	d;
+	char	*endPtr;
 	
-	signCheck(literal), decimalPointCheck(literal);
-	d = std::strtod(literal.c_str(), NULL);
-	return d;
+	errno = 0;
+	signCheck(literal);
+	decimalPointCheck(literal);
+	d = std::strtod(literal.c_str(), &endPtr);
+    return d;
 }
 
-/* static char	convertToChar( const std::string &literal ) {
-	char	c;
+static void	floatCharCheck( const std::string &literal ) {
+	bool	decimalP = false; // check for digit + f case.
 
-	c = literal[0];
-	return c;
-} */
+	for (size_t i = 0; literal[i]; i++) {
+		if (literal[i] == 'f') {
+			if (isdigit(literal[i - 1]) == false || literal[i + 1] != '\0')
+				throw ScalarConverter::ImpossibleConversion();
+		}
+		else if (literal[i] == '.') decimalP = true;
+	}
+	if (decimalP == false) throw ScalarConverter::ImpossibleConversion();
+}
+
+static float	convertToFloat( const std::string &literal ) {
+	float	f;
+
+	signCheck(literal);
+	decimalPointCheck(literal);
+	floatCharCheck(literal);
+	f = std::strtof(literal.c_str(), NULL);
+
+	return f;
+}
 
 void	ScalarConverter::converter( const std::string &literal ) {
 	t_conv_types	convertionTypes[] = {
@@ -68,6 +87,10 @@ void	ScalarConverter::converter( const std::string &literal ) {
 				case 'd':
 						ScalarConverter::d = convertToDouble(literal);
 						if (errno == ERANGE) ScalarConverter::dOutOfRange = true;
+						convertOthers(convertionTypes, type);
+						break ;
+				case 'f':
+						ScalarConverter::f = convertToFloat(literal);
 						convertOthers(convertionTypes, type);
 						break ;
 			}
@@ -132,11 +155,18 @@ void	ScalarConverter::convertOthers(t_conv_types *ct, char type ) {
 									}
 									ScalarConverter::c = static_cast<char>(ScalarConverter::d);
 									break ;
+							case 'f':
+									if (ScalarConverter::f < 33 || ScalarConverter::f > 126) {
+										ScalarConverter::c = CHAR_NON_PRINTABLE;
+										break ;
+									}
+									ScalarConverter::c = static_cast<char>(ScalarConverter::f);
+									break ;
 						}
 				case 'i':
 						switch (type) {
 							case 'c':
-									ScalarConverter::i = static_cast<char>(ScalarConverter::c);
+									ScalarConverter::i = static_cast<int>(ScalarConverter::c);
 									break ;
 							case 'd':
 									if (ScalarConverter::d > __INT_MAX__ || ScalarConverter::d < __INT_MIN__) {
@@ -145,20 +175,41 @@ void	ScalarConverter::convertOthers(t_conv_types *ct, char type ) {
 										ScalarConverter::iOutOfRange = true;
 										break ;
 									}
-									ScalarConverter::i = static_cast<double>(ScalarConverter::d);
+									ScalarConverter::i = static_cast<int>(ScalarConverter::d);
+									break ;
+							case 'f':
+									if (ScalarConverter::f > (float)__INT_MAX__ || ScalarConverter::f < (float)__INT_MIN__) {
+										// converting double to int, must check if the value
+										// is representable into an int data type
+										ScalarConverter::iOutOfRange = true;
+										break ;
+									}
+									ScalarConverter::i = static_cast<int>(ScalarConverter::f);
 									break ;
 						}
 						break ;
 				case 'd':
 						switch (type) {
 							case 'c':
-									ScalarConverter::d = static_cast<char>(ScalarConverter::c);
+									ScalarConverter::d = static_cast<double>(ScalarConverter::c);
 									break ;
 							case 'i':
-									ScalarConverter::d = static_cast<int>(ScalarConverter::i);
+									ScalarConverter::d = static_cast<double>(ScalarConverter::i);
+									break ;
+							case 'f':
+									ScalarConverter::d = static_cast<double>(ScalarConverter::f);
 									break ;
 						}
 						break ;
+				case 'f':
+						switch (type) {
+							case 'c':
+									ScalarConverter::f = static_cast<float>(ScalarConverter::c);
+							case 'i':
+									ScalarConverter::f = static_cast<float>(ScalarConverter::i);
+							case 'd':
+									ScalarConverter::f = static_cast<float>(ScalarConverter::d);
+						}
 			}
 		}
 	}
@@ -177,6 +228,7 @@ void	ScalarConverter::displaySystem( void ) {
 	else
 		std::cout << "int: " << ScalarConverter::i << std::endl;
 	std::cout << std::fixed << std::setprecision(SET_D_PRECISION);
+	std::cout << "float: " << ScalarConverter::f << "f" << std::endl;
 	std::cout << "double: " << ScalarConverter::d << std::endl;
 };
 

@@ -8,9 +8,9 @@
 #include <cstdlib> // for INT_MAX
 #include <iomanip> // for std::fixed and std::setprecision
 #include <cerrno> // for errno and ERANGE
+#include <cfloat> // DBL_MIN, DBL_MAX
 
 #define __INT_MIN__ -2147483648
-#define INT_OUT_OF_RANGE -2147483649
 #define CHAR_NON_PRINTABLE -1
 
 #define SET_D_PRECISION 2
