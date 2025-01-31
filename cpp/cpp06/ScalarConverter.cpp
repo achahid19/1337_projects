@@ -9,52 +9,13 @@ double	ScalarConverter::d;
 float	ScalarConverter::f;
 bool	ScalarConverter::iOutOfRange = false;
 
-static char	getType( const std::string &literal );
-static void	signCheck( const std::string &literal );
-static void	decimalPointCheck( const std::string &literal );
-
-static long	convertToInt( const std::string &literal ) {
-	long	i;
-	
-	signCheck(literal);
-	i = std::atol(literal.c_str());
-	return i;
-}
-
-static double	convertToDouble( const std::string &literal ) {
-	double	d;
-	char	*endPtr;
-	
-	errno = 0;
-	signCheck(literal);
-	decimalPointCheck(literal);
-	d = std::strtod(literal.c_str(), &endPtr);
-    return d;
-}
-
-static void	floatCharCheck( const std::string &literal ) {
-	bool	decimalP = false; // check for digit + f case.
-
-	for (size_t i = 0; literal[i]; i++) {
-		if (literal[i] == 'f') {
-			if (isdigit(literal[i - 1]) == false || literal[i + 1] != '\0')
-				throw ScalarConverter::ImpossibleConversion();
-		}
-		else if (literal[i] == '.') decimalP = true;
-	}
-	if (decimalP == false) throw ScalarConverter::ImpossibleConversion();
-}
-
-static float	convertToFloat( const std::string &literal ) {
-	float	f;
-
-	signCheck(literal);
-	decimalPointCheck(literal);
-	floatCharCheck(literal);
-	f = std::strtof(literal.c_str(), NULL);
-
-	return f;
-}
+static char		getType( const std::string &literal );
+static long		convertToInt( const std::string &literal );
+static double	convertToDouble( const std::string &literal );
+static float	convertToFloat( const std::string &literal );
+static void		signCheck( const std::string &literal );
+static void		decimalPointCheck( const std::string &literal );
+static void		floatCharCheck( const std::string &literal );
 
 void	ScalarConverter::converter( const std::string &literal ) {
 	t_conv_types	convertionTypes[] = {
@@ -95,14 +56,6 @@ void	ScalarConverter::converter( const std::string &literal ) {
 		}
 	}
 	displaySystem();
-}
-
-const char*	ScalarConverter::InvalidArgs::what() const throw() {
-	return "Invalid Args!";
-}
-
-const char*	ScalarConverter::ImpossibleConversion::what() const throw() {
-	return "ImpossibleConversion";
 }
 
 static char	getType( const std::string &literal ) {
@@ -228,6 +181,36 @@ void	ScalarConverter::displaySystem( void ) {
 	std::cout << "double: " << ScalarConverter::d << std::endl;
 };
 
+static long		convertToInt( const std::string &literal ) {
+	long	i;
+	
+	signCheck(literal);
+	i = std::atol(literal.c_str());
+	return i;
+}
+
+static double	convertToDouble( const std::string &literal ) {
+	double	d;
+	
+	errno = 0;
+	signCheck(literal);
+	decimalPointCheck(literal);
+	d = std::strtod(literal.c_str(), NULL);
+
+    return d;
+}
+
+static float	convertToFloat( const std::string &literal ) {
+	float	f;
+
+	signCheck(literal);
+	decimalPointCheck(literal);
+	floatCharCheck(literal);
+	f = std::strtof(literal.c_str(), NULL);
+
+	return f;
+}
+
 static void	signCheck( const std::string &literal ) {
 	for (size_t i = 0; literal[i]; i++) {
 		if ((literal[i] == '+' || literal[i] == '-') && i != 0)
@@ -248,4 +231,25 @@ static void	decimalPointCheck( const std::string &literal ) {
 			decimalCounter++;
 		}
 	}
+}
+
+static void	floatCharCheck( const std::string &literal ) {
+	bool	decimalP = false; // check for digit + f case.
+
+	for (size_t i = 0; literal[i]; i++) {
+		if (literal[i] == 'f') {
+			if (isdigit(literal[i - 1]) == false || literal[i + 1] != '\0')
+				throw ScalarConverter::ImpossibleConversion();
+		}
+		else if (literal[i] == '.') decimalP = true;
+	}
+	if (decimalP == false) throw ScalarConverter::ImpossibleConversion();
+}
+
+const char*	ScalarConverter::InvalidArgs::what() const throw() {
+	return "Invalid Args!";
+}
+
+const char*	ScalarConverter::ImpossibleConversion::what() const throw() {
+	return "ImpossibleConversion";
 }
