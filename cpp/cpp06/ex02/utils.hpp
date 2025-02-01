@@ -11,6 +11,12 @@
 class RandomGenerator {
 public:
 	RandomGenerator() {
+		/*
+			Without srand() → The sequence of random numbers 
+			is always the same every time you run the program.
+			you can set a fixed seed, like srand(42),
+			ensuring the same sequence is generated every time.
+		*/
 		std::srand(std::time(0));
 	}
 
