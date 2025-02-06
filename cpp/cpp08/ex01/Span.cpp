@@ -24,7 +24,6 @@ Span&	Span::operator=( Span& copy ) {
 
 Span::~Span( void ) {
     std::cout << "[ Span ]: Default destructor called!" << std::endl;
-	_v.clear();
 }
 
 // Methods
