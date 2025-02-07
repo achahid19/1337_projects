@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <vector>
+#include <algorithm>
 
 class Span {
 private:
@@ -18,10 +19,12 @@ public:
 	~Span( void );
 
 	// Mehotds
-	void	addNumber( int	number );
+	void			addNumber( int	number );
+	unsigned int	shortestSpan( void );
+	unsigned int	longestSpan( void );
 
 	// Overload operator to access obj[index]
-	int	operator[]( unsigned int i );
+	int&	operator[]( unsigned int i );
 
 	// size getter
 	size_t	getSize( void );
