@@ -1,15 +1,20 @@
 #include "Span.hpp"
 
 int	main( void ) {
-	Span	obj(10000);
+	Span						obj(7);
+	std::vector<unsigned int> 	values(1, 3);
+	char						arr[6] = {
+									100, 10, 39, 49, 48, 50
+								};
 
 	try {
-		for(size_t i = 1; i < obj.getSize() + 1; i++) {
-			obj.addNumber(i); // TODO; avoid thousand of calls, implement range of iterators.
-		}
+		obj.fill(values.begin(), values.end());
+		obj.fill(arr, arr + sizeof(arr) / sizeof(arr[0]));
+		std::cout << "Container elements: ";
 		for (size_t i = 0; i < obj.getSize(); i++) {
-			std::cout << obj[i] << std::endl;
+			std::cout << obj[i] << " ";
 		}
+		std::cout << std::endl;
 	}
 	catch(std::exception& e) {
 		std::cout << e.what() << std::endl;

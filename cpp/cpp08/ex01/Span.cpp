@@ -4,7 +4,7 @@ Span::Span( void ) : _it(_v.begin()) {
     std::cout << "[ Span ]: Default constructor called!" << std::endl;
 }
 
-Span::Span( unsigned int N ) : _v(std::vector<int>(N)), _it(_v.begin()) {
+Span::Span( unsigned int N ) : _v(std::vector<unsigned int>(N)), _it(_v.begin()) {
     std::cout << "[ Span ]: Parametrized constructor called!" << std::endl;
 }
 
@@ -16,7 +16,7 @@ Span::Span( Span& copy ) {
 Span&	Span::operator=( Span& copy ) {
 	std::cout << "[ Span ]: Copy Assignment called!" << std::endl;
 	if (this != &copy) {
-		_v = std::vector<int>(copy.getSize());
+		_v = std::vector<unsigned int>(copy.getSize());
 		_it = _v.begin();
 	}
 	return *this;
@@ -36,15 +36,21 @@ void    Span::addNumber( int number ) {
 
 unsigned int	Span::shortestSpan( void ) {
 	std::vector<int>	_vCopy;
+	size_t				shortestSpan = __UINT64_MAX__;
 	
 	if (_v.size() <= 1) throw std::runtime_error("Unsufficient elements on the span!");
 	_vCopy.assign(_v.begin(), _v.end()); // copy content of _v to _vCopy and overwrite
 	std::sort(_vCopy.begin(), _vCopy.end());
 	// remove duplicates from _vCopy
-	_vCopy.erase(std::unique(_vCopy.begin(), _vCopy.end()), _vCopy.end());
-	std::vector<int>::iterator it = _vCopy.begin();
-	if (*it == 0 && _vCopy.size() > 2) it++;
-	return std::abs(*it - *(it + 1));
+	//_vCopy.erase(std::unique(_vCopy.begin(), _vCopy.end()), _vCopy.end());
+	std::vector<int>::reverse_iterator it = _vCopy.rbegin();
+	for ((void)it; it != _vCopy.rend(); it++) {
+		if (it != _vCopy.rend() - 1) {
+			if (shortestSpan > (unsigned int)(*it - *(it + 1)))
+				shortestSpan = *it - *(it + 1);
+		}
+	}
+	return shortestSpan;
 }
 
 unsigned int	Span::longestSpan( void ) {
@@ -57,7 +63,7 @@ unsigned int	Span::longestSpan( void ) {
 }
 
 // Operator Overload
-int& Span::operator[]( unsigned int i ) {
+unsigned int& Span::operator[]( unsigned int i ) {
     if (i >= _v.size())
         throw   std::out_of_range("index out of range");
     return _v.at(i);
