@@ -33,7 +33,7 @@ clean:
 
 fclean: clean
 	@rm -rf $(NAME) $(OBJ_DIR)
-	@find . -maxdepth 1 -type f ! \( -name "*.cpp" -o -name "*.hpp" -o -name "Makefile" \) -print -delete
+	@find . -maxdepth 1 -type f ! \( -name "*.cpp" -o -name "*.hpp" -o -name "Makefile" -o -name "*.tpp" \) -print -delete
 	@echo "Cleaning Done!"
 
 re: fclean all

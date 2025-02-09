@@ -3,42 +3,29 @@
 
 #include <iostream>
 #include <stack>
-#include <vector>
 #include <deque>
 
 template <typename T>
 class MutantStack : public std::stack<T> {
 public:
     // canonical form
-    MutantStack( void ) {}; 
-    MutantStack( const MutantStack& copy ) : std::stack<T>(copy) {*this=(copy);};
-    MutantStack&    operator=( const MutantStack& copy ) {
-        (void)copy;
-        return *this;
-    };
-    ~MutantStack( void ) {};
+    MutantStack( void ); 
+    MutantStack( const MutantStack& copy );
+    MutantStack&    operator=( const MutantStack& copy );
+    ~MutantStack( void );
 
     // define iterator types
     typedef typename std::deque<T>::iterator iterator;
     typedef typename std::deque<T>::const_iterator const_iterator;
     
     // methods
-    iterator    begin( void ) {
-        return this->c.begin();
-    }
+    iterator    begin( void );
+    iterator    end( void );
 
-    iterator    end( void ) {
-        return this->c.end();
-    }
-
-    const_iterator    begin( void ) const {
-        return this->c.begin();
-    }
-
-    const_iterator    end( void ) const {
-        return this->c.end();
-    }
+    const_iterator    begin( void ) const;
+    const_iterator    end( void ) const;
 };
 
+#include "MutantStack.tpp"
 
 #endif  /* MUTANTSTACK_HPP */
