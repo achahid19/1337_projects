@@ -52,6 +52,7 @@ int main(int, char**)
     {
         numbers[i] = rand();
     }
+    
     delete [] mirror;//
     return 0;
 }
