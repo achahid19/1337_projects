@@ -15,7 +15,7 @@ int main( void ) {
     try {
         Form    f3("f3", 0, 0);
     }
-    catch (std::exception &e){
+    catch (Form::GradeTooHighException &e) {
         std::cout << RED << e.what();
         std::cout << RESET_COLOR << std::endl;
     }
@@ -23,7 +23,7 @@ int main( void ) {
     try {
         Form    f4("f4", 100, 160);
     }
-    catch (std::exception &e){
+    catch (Form::GradeTooLowException &e) {
         std::cout << RED << e.what();
         std::cout << RESET_COLOR << std::endl;
     }

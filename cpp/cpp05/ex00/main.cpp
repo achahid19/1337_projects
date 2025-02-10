@@ -5,7 +5,7 @@ int main( void ) {
         Bureaucrat b1("b1", -1);
         std::cout << b1 << std::endl;
     }
-    catch (std::exception& e) {
+    catch (Bureaucrat::GradeTooHighException& e) {
         std::cout << RED << e.what();
         std::cout << RESET_COLOR << std::endl;
     }
@@ -14,7 +14,7 @@ int main( void ) {
         std::cout << b2 << std::endl;
         b2.decrementGrade();
     }
-    catch (std::exception& e) {
+    catch (Bureaucrat::GradeTooLowException& e) {
         std::cout << RED << e.what();
         std::cout << RESET_COLOR << std::endl;
     }
