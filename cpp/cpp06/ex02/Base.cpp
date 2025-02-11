@@ -5,11 +5,6 @@ Base::~Base( void ) {};
 // utilities
 class	Base;
 
-typedef struct s_node {
-	size_t	index;
-	Base*	(*f)(void);
-}	t_node;
-
 static Base*	generateA( void ) {
 	return new A();
 }
@@ -25,13 +20,13 @@ static Base*	generateC( void ) {
 Base*	generate( void ) {
 	RandomGenerator	math;
 	int 			i = math.getRandomNumber(0, 2);
-	t_node			generateDerive[] = {
-						{0, generateA},
-						{1, generateB},
-						{2, generateC},
+	Base*			(*generateDerive[])(void) = {
+						generateA,
+						generateB,
+						generateC,
 					};
 	
-	return generateDerive[i].f();
+	return generateDerive[i]();
 }
 
 void	identity( Base* p ) {
