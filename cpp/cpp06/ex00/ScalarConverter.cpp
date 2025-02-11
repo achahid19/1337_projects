@@ -75,7 +75,7 @@ static char	getType( const std::string &literal ) {
 			literal[i] != 'f' &&
 			literal[i] != '-' &&
 			literal[i] != '+')
-			throw ScalarConverter::ImpossibleConversion();
+			throw std::runtime_error("Invalid argument!");
 		else if (literal[i] == '.') decimal_status = true;
 		else if (literal[i] == 'f') float_status = true;
 	}
@@ -87,6 +87,7 @@ static char	getType( const std::string &literal ) {
 void	ScalarConverter::convertOthers(t_conv_types *ct, char type ) {
 	for (size_t i = 0; i < 4; i++) {
 		if (ct[i].conversion_status == false) {
+			ct[i].conversion_status = true;
 			switch(ct[i].type) {
 				case 'c':
 						switch (type) {
@@ -170,7 +171,10 @@ void	ScalarConverter::displaySystem( void ) {
 				std::cout << "char: Non displayable" << std::endl;
 				break ;
 		default:
-				std::cout << "char: " << ScalarConverter::c << std::endl;
+				if (c == ' ')
+					std::cout << "char: Non displayable" << std::endl;
+				else
+					std::cout << "char: " << ScalarConverter::c << std::endl;
 	}
 	if (ScalarConverter::iOutOfRange == true)
 		std::cout << "int: value out of range" << std::endl;
@@ -244,10 +248,6 @@ static void	floatCharCheck( const std::string &literal ) {
 		else if (literal[i] == '.') decimalP = true;
 	}
 	if (decimalP == false) throw ScalarConverter::ImpossibleConversion();
-}
-
-const char*	ScalarConverter::InvalidArgs::what() const throw() {
-	return "Invalid Args!";
 }
 
 const char*	ScalarConverter::ImpossibleConversion::what() const throw() {

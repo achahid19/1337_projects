@@ -13,7 +13,7 @@
 #define __INT_MIN__ -2147483648
 #define CHAR_NON_PRINTABLE -1
 
-#define SET_D_PRECISION 2
+#define SET_D_PRECISION 1
 
 typedef struct s_conv_types {
 	char	type;
@@ -34,16 +34,12 @@ private:
 	ScalarConverter( void );
 	ScalarConverter( const ScalarConverter &copy );
 	ScalarConverter& operator=( const ScalarConverter &copy );
+	~ScalarConverter( void );
 
 public:
 	static void	converter( const std::string &literal );
 	static void	convertOthers( t_conv_types *ct, char type );
 	static void	displaySystem( void );
-
-	class	InvalidArgs : public std::exception {
-		public:
-			virtual const char*	what() const throw();
-	};
 
 	class	ImpossibleConversion: public std::exception {
 		public:
