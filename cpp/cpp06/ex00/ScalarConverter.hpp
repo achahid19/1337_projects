@@ -3,16 +3,11 @@
 
 #include <iostream>
 #include <exception> // exception handling
-#include <stdexcept> // exception handling
-#include <cctype>
-#include <cstdlib> // for INT_MAX
+#include <cstdlib> // atoi, alol...
+#include <limits.h> // INT_MIN, INT_MAX
 #include <iomanip> // for std::fixed and std::setprecision
-#include <cerrno> // for errno and ERANGE
-#include <cfloat> // DBL_MIN, DBL_MAX
 
-#define __INT_MIN__ -2147483648
 #define CHAR_NON_PRINTABLE -1
-
 #define SET_D_PRECISION 1
 
 typedef struct s_conv_types {

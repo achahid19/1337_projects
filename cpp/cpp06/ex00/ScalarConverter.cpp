@@ -1,8 +1,5 @@
 #include "ScalarConverter.hpp"
 
-// Define static members
-// In C++, static data members need to be defined outside
-// the class definition to allocate memory for them.
 char	ScalarConverter::c;
 long	ScalarConverter::i;
 double	ScalarConverter::d;
@@ -24,9 +21,6 @@ void	ScalarConverter::converter( const std::string &literal ) {
 		{'d', false},
 		{'f', false},
 	};
-	// get the type: utility ?
-		// 1. define the type of the literal to convert into it.
-		// 2. throw exception the literal does not make any sense.
 	char	type = getType(literal);
 
 	for (size_t i = 0; i < 4; i++) {
@@ -36,11 +30,11 @@ void	ScalarConverter::converter( const std::string &literal ) {
 			switch(type) {
 				case 'c':
 						ScalarConverter::c = literal[0];
-						convertOthers(convertionTypes, type); // Converts explicitly to the other types.
+						convertOthers(convertionTypes, type);
 						break ;
 				case 'i':
 						ScalarConverter::i = convertToInt(literal);
-						if (ScalarConverter::i > __INT_MAX__ || ScalarConverter::i < __INT_MIN__)
+						if (ScalarConverter::i > INT_MAX || ScalarConverter::i < INT_MIN)
 							ScalarConverter::iOutOfRange = true;
 						convertOthers(convertionTypes, type);
 						break ;
@@ -66,9 +60,6 @@ static char	getType( const std::string &literal ) {
 		if (std::isdigit(literal[0])) return 'i';
 		return 'c';
 	}
-	// check if the literal is valid (General Check)
-		// digits, decimal and 'f' for floats
-		// check status to get the type
 	for (size_t i = 0; literal[i]; i++) {
 		if (std::isdigit(literal[i]) == false &&
 			literal[i] != '.' &&
@@ -119,18 +110,16 @@ void	ScalarConverter::convertOthers(t_conv_types *ct, char type ) {
 									ScalarConverter::i = static_cast<int>(ScalarConverter::c);
 									break ;
 							case 'd':
-									if (ScalarConverter::d > __INT_MAX__ || ScalarConverter::d < __INT_MIN__) {
-										// converting double to int, must check if the value
-										// is representable into an int data type
+									if (ScalarConverter::d > INT_MAX
+										|| ScalarConverter::d < INT_MIN) {
 										ScalarConverter::iOutOfRange = true;
 										break ;
 									}
 									ScalarConverter::i = static_cast<int>(ScalarConverter::d);
 									break ;
 							case 'f':
-									if (ScalarConverter::f > (float)__INT_MAX__ || ScalarConverter::f < (float)__INT_MIN__) {
-										// converting double to int, must check if the value
-										// is representable into an int data type
+									if (ScalarConverter::f > (float)INT_MAX
+										|| ScalarConverter::f < (float)INT_MIN) {
 										ScalarConverter::iOutOfRange = true;
 										break ;
 									}
@@ -168,18 +157,19 @@ void	ScalarConverter::convertOthers(t_conv_types *ct, char type ) {
 void	ScalarConverter::displaySystem( void ) {
 	switch (c) {
 		case CHAR_NON_PRINTABLE:
+		case ' ':
 				std::cout << "char: Non displayable" << std::endl;
 				break ;
 		default:
-				if (c == ' ')
-					std::cout << "char: Non displayable" << std::endl;
-				else
-					std::cout << "char: " << ScalarConverter::c << std::endl;
+				std::cout << "char: " << ScalarConverter::c << std::endl;
 	}
-	if (ScalarConverter::iOutOfRange == true)
-		std::cout << "int: value out of range" << std::endl;
-	else
-		std::cout << "int: " << ScalarConverter::i << std::endl;
+	switch (static_cast<int>(ScalarConverter::iOutOfRange)) {
+		case true:
+				std::cout << "int: value out of range" << std::endl;
+				break ;
+		default:
+				std::cout << "int: " << ScalarConverter::i << std::endl;
+	}
 	std::cout << std::fixed << std::setprecision(SET_D_PRECISION);
 	std::cout << "float: " << ScalarConverter::f << "f" << std::endl;
 	std::cout << "double: " << ScalarConverter::d << std::endl;
@@ -196,7 +186,6 @@ static long		convertToInt( const std::string &literal ) {
 static double	convertToDouble( const std::string &literal ) {
 	double	d;
 	
-	errno = 0;
 	signCheck(literal);
 	decimalPointCheck(literal);
 	d = std::strtod(literal.c_str(), NULL);
@@ -223,22 +212,20 @@ static void	signCheck( const std::string &literal ) {
 }
 
 static void	decimalPointCheck( const std::string &literal ) {
-	// the decimal points:
-		// must not be duplicated
-		// has a digit on his right
 	int	decimalCounter = 0;
 
 	for (size_t i = 0; literal[i]; i++) {
 		if (decimalCounter > 1) throw ScalarConverter::ImpossibleConversion();
 		if (literal[i] == '.') {
-			if (isdigit(literal[i + 1]) == false) throw ScalarConverter::ImpossibleConversion();
+			if (isdigit(literal[i + 1]) == false)
+				throw ScalarConverter::ImpossibleConversion();
 			decimalCounter++;
 		}
 	}
 }
 
 static void	floatCharCheck( const std::string &literal ) {
-	bool	decimalP = false; // check for digit + f case.
+	bool	decimalP = false;
 
 	for (size_t i = 0; literal[i]; i++) {
 		if (literal[i] == 'f') {
