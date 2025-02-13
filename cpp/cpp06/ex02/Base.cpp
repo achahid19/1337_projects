@@ -34,9 +34,6 @@ void	identity( Base* p ) {
 	B*	b;
 	C*	c;
 
-	// dynamic_cast does run-time checking (RTTI)
-		// we can check if cast is done.
-		// for our use to check the identity of the base class pointer.
 	a = dynamic_cast<A*>(p);
 	if (a) {
 		std::cout << "Type is: A!" << std::endl;
