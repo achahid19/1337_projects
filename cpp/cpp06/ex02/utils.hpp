@@ -5,13 +5,12 @@
 #include "A.hpp"
 #include "B.hpp"
 #include "C.hpp"
-#include <ctime> // time
-#include <cstdlib> // rand and srand
+#include <ctime>
+#include <cstdlib>
 
 class RandomGenerator {
 public:
 	RandomGenerator() {
-		// generate new sequence of random numbers
 		std::srand(std::time(0));
 	}
 
