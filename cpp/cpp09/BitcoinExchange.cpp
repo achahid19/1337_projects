@@ -1,6 +1,6 @@
 #include "BitcoinExchange.hpp"
 
-// c++98 does not support this methods.
+// c++98 does not support this methods - split & trim.
 static inline std::vector<std::string>	split( std::string& str, const std::string delimiters);
 static inline void						trim( std::string& input );
 static inline bool						isNumber( std::string &n );
