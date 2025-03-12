@@ -26,9 +26,8 @@ void    BitcoinExchange::executeRequest(const char *fileName) {
 		trim(key_value[0]);
 		key = key_value[0];
 		value = std::atoi(key_value[1].c_str());
-		if (checkValue(value) == false || checkDate(key, request) == false)
-			goto here;
-		this->findBtcRates(key, value);
+		if (checkDate(key, request) == true && checkValue(value) == true)
+			this->findBtcRates(key, value);
 here:	request.clear();
 	}
 }
