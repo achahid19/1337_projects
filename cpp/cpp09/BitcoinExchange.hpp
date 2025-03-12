@@ -4,17 +4,20 @@
 #include <fstream>
 #include <vector>
 #include <iostream>
-
-typedef std::vector< std::pair<std::string, int> > vector_pair;
+#include <map>
 
 class BitcoinExchange {
 private:
-    vector_pair _requestData;
+	std::map<std::string, double>	_bitcoinRates;
+	
+	void	loadBtcRates();
+
 public:
-    void    loadRequestFile(const char *fileName);
+    void    executeRequest(const char *fileName);
 
     // display method for the file in key - value way.
-    void    displayRequest();
+	void	displayBtcRates();
+	void	getBtc(std::string key);
 };
 
 
