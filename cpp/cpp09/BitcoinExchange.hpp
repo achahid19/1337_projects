@@ -11,13 +11,14 @@ private:
 	std::map<std::string, double>	_bitcoinRates;
 	
 	void	loadBtcRates();
+	void	findBtcRates( std::string &key, int &value ) const;
 
 public:
     void    executeRequest(const char *fileName);
 
     // display method for the file in key - value way.
-	void	displayBtcRates();
-	void	getBtc(std::string key);
+	void	displayBtcRates() const;
+	void	getBtc(std::string key) const;
 };
 
 
