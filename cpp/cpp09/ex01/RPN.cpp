@@ -26,7 +26,7 @@ void	RPN::rpn( void ) {
 	// loop over the string, push into s until size is 2
 	for (std::string::iterator it = _n.begin(); it != _n.end(); it++) {
 		if (isspace(*it) == true) continue;
-		else if (isOperand(*it) == false) {
+		else if (isOperand(*it) == false && s.size() < 2) {
 			s.push(*it - 48);
 		}
 		else if (s.size() == 2) {
@@ -47,10 +47,13 @@ void	RPN::rpn( void ) {
 						break ;
 				case '/':
 						s.push(op1 / op2);
+						break ;
+				default:
+						goto here;
 			}
 		}
 		else {
-			throw std::runtime_error("Error: RPN calculation");
+here:		throw std::runtime_error("Error: RPN calculation");
 		}
 	}
 	std::cout << "result: " << s.top() << std::endl;
