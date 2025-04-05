@@ -5,9 +5,9 @@ int	main( void ) {
 
 	mstack.push(5);
 	mstack.push(17);
-	std::cout << mstack.top() << std::endl;
+	//std::cout << mstack.top() << std::endl;
 	mstack.pop();
-	std::cout << mstack.size() << std::endl;
+	//std::cout << mstack.size() << std::endl;
 	mstack.push(3);
 	mstack.push(5);
 	mstack.push(737);
@@ -15,14 +15,25 @@ int	main( void ) {
 	mstack.push(0);
 	MutantStack<int>::iterator it = mstack.begin();
 	MutantStack<int>::iterator ite = mstack.end();
+
+	MutantStack<int>::const_iterator const_it = mstack.begin();
+	MutantStack<int>::const_iterator const_ite = mstack.end();
+
 	++it;
 	--it;
-	while (it != ite)
+	--ite;
+	while (ite != it)
 	{
-		std::cout << *it << std::endl;
-		++it;
+		std::cout << *ite << std::endl;
+		--ite;
 	}
 
+	std::cout << "Const iterator testing:" << std::endl;
+	const_ite--;
+	for (; const_ite != const_it; const_ite--) {
+		std::cout << *const_ite << std::endl;
+	}
+	
 	return 0;
 }
 
