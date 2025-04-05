@@ -8,7 +8,11 @@ int	main( void ) {
 	try {
 		obj.fill(nums.begin(), nums.end());
 		std::cout << "Container elements: ";
-		for (std::vector<unsigned int>::const_iterator it = obj.begin(); it != obj.end(); it++) {
+		for (
+			std::vector<unsigned int>::const_iterator it = obj.begin();
+			it != obj.end();
+			it++
+		) {
 			std::cout << *it << " ";
 		}
 		std::cout << std::endl;
