@@ -38,7 +38,7 @@ unsigned int	Span::shortestSpan( void ) {
 	
 	std::vector<unsigned int>::const_iterator 	i = _v.begin();
 	std::vector<unsigned int>::const_iterator 	j;
-	int											shortSpan = INT_MAX;
+	unsigned int								shortSpan = UINT_MAX;
 
 	for ((void)i; i != _v.end(); i++) {
 		for (j = i + 1; j != _v.end(); j++) {
