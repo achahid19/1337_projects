@@ -61,15 +61,19 @@ unsigned int	Span::longestSpan( void ) {
 }
 
 void	Span::generateUniqueRandomNums( 
-	std::set<int> &nums,
-	unsigned int	approximativeGenNums,
-	unsigned int	maxRange
+		std::set<int> &nums,
+		unsigned int	approximativeGenNums,
+		unsigned int	maxRange
 	) {
-	srand(static_cast<unsigned int>(time(0)));
+		srand(static_cast<unsigned int>(time(0)));
 
-	for (size_t i = 0; i < approximativeGenNums + (approximativeGenNums / 8); i++) {
-		nums.insert(rand() % maxRange + 1);
-	}
+		for (
+				size_t i = 0;
+				i < approximativeGenNums + (approximativeGenNums / 8); 
+				i++
+			) {
+			nums.insert(rand() % maxRange + 1);
+		}
 }
 
 std::vector<unsigned int>::const_iterator	Span::begin( void ) {
