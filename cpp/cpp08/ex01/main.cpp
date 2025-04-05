@@ -1,18 +1,15 @@
 #include "Span.hpp"
 
 int	main( void ) {
-	Span						obj(7);
-	std::vector<unsigned int> 	values(1, 3);
-	char						arr[6] = {
-									100, 10, 39, 49, 48, 50
-								};
+	Span			obj(100);
+	std::set<int>	nums;
 
+	obj.generateUniqueRandomNums(nums, 10, 1000);
 	try {
-		obj.fill(values.begin(), values.end());
-		obj.fill(arr, arr + sizeof(arr) / sizeof(arr[0]));
+		obj.fill(nums.begin(), nums.end());
 		std::cout << "Container elements: ";
-		for (size_t i = 0; i < obj.getSize(); i++) {
-			std::cout << obj[i] << " ";
+		for (std::vector<unsigned int>::const_iterator it = obj.begin(); it != obj.end(); it++) {
+			std::cout << *it << " ";
 		}
 		std::cout << std::endl;
 	}
@@ -20,11 +17,16 @@ int	main( void ) {
 		std::cout << e.what() << std::endl;
 	}
 
-	size_t shortesSpan = obj.shortestSpan();
-	std::cout << "Shortest Span: " << shortesSpan << std::endl;
-	
-	size_t longestSpan = obj.longestSpan();
-	std::cout << "Longest Span: " << longestSpan << std::endl;
+	try {
+		size_t shortesSpan = obj.shortestSpan();
+		std::cout << "Shortest Span: " << shortesSpan << std::endl;
+
+		size_t longestSpan = obj.longestSpan();
+		std::cout << "Longest Span: " << longestSpan << std::endl;
+	}
+	catch(std::exception &e) {
+		std::cout << e.what() << std::endl;
+	}
 
 	return 0;
 }

@@ -4,12 +4,16 @@
 #include <iostream>
 #include <vector>
 #include <algorithm>
+#include <limits.h>
+#include <set>
+#include <ctime>
+#include <cstdlib>
 
 
 class Span {
 private:
-	std::vector<unsigned int>			_v;
-	std::vector<unsigned int>::iterator	_it;
+	std::vector<unsigned int>	_v;
+	size_t						_N;
 	
 public:
 	// Canonical form
@@ -27,11 +31,15 @@ public:
 	void			fill( iterator begin, iterator end ) {
 		for ((void)begin; begin != end; begin++) addNumber(*begin);	
 	}
-	// Overload operator to access obj[index]
-	unsigned int&	operator[]( unsigned int i );
-
-	// size getter
-	size_t	getSize( void );
+	void			generateUniqueRandomNums(
+		std::set<int> &set, 
+		unsigned int approximativeGenNums,
+		unsigned int maxRange
+	);
+	
+	// vector iterators - READ-ONLY
+	std::vector<unsigned int>::const_iterator	begin( void );
+	std::vector<unsigned int>::const_iterator	end( void );
 };
 
 #endif // SPAN_HPP
