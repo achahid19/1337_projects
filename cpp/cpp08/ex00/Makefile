@@ -22,7 +22,7 @@ $(OBJ_DIR):
 	@mkdir -p $(OBJ_DIR)
 
 $(OBJ_DIR)/%.o : %.cpp | $(OBJ_DIR)
-	@$(CC) $(CPPFLAGS) -c $< -o $@
+	$(CC) $(CPPFLAGS) -c $< -o $@
 
 $(NAME): $(OBJ) $(HEADERS)
 	@$(CC) $(CPPFLAGS) $(OBJ) -o $(NAME)
