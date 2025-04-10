@@ -5,6 +5,8 @@
 #include <vector>
 #include <iostream>
 #include <map>
+#include <cstdlib>
+#include <iomanip>
 
 class BitcoinExchange {
 private:
@@ -14,12 +16,17 @@ private:
 	void	findBtcRates( std::string &key, int &value ) const;
 
 public:
+	// canonical form
+	BitcoinExchange( void );
+	BitcoinExchange( BitcoinExchange& copy );
+	BitcoinExchange& operator=( BitcoinExchange& copy );
+	~BitcoinExchange( void );
+
     void    executeRequest(const char *fileName);
 
-    // display method for the file in key - value way.
+    // display method for the file in key - value format.
 	void	displayBtcRates() const;
 	void	getBtc(std::string key) const;
 };
-
 
 #endif /* BITCOINEXCHANGE_HPP */
