@@ -2,7 +2,7 @@
 #define BITCOINEXCHANGE_HPP
 
 #include <fstream>
-#include <vector>
+#include <deque>
 #include <iostream>
 #include <map>
 #include <cstdlib>

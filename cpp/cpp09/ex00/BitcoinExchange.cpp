@@ -1,12 +1,13 @@
 #include "BitcoinExchange.hpp"
 
 // c++98 does not support this methods - split & trim.
-static inline std::vector<std::string>	split( std::string& str, const std::string delimiters);
+static inline std::string*				split( std::string& str, const std::string delimiters);
 static inline void						trim( std::string& input );
 static inline bool						isNumber( std::string &n );
 static inline void						inputFileChecking( std::ifstream &inputFile, std::string &request );
-static inline bool						checkValue( int &value );
+static inline bool						checkValue( int &value, std::string& request );
 static inline bool						checkDate( std::string &date, std::string &request );
+static inline size_t					gridSize(std::string *ptr, size_t maxSize);
 
 // Canonical form
 BitcoinExchange::BitcoinExchange( void ) {};
@@ -21,20 +22,20 @@ void    BitcoinExchange::executeRequest(const char *fileName) {
 	std::ifstream							inputFile(fileName);
 	std::string								request, key;
 	int										value;
-	std::vector<std::string>				key_value;
+	std::string								*key_value;
 	
 	inputFileChecking(inputFile, request);
 	this->loadBtcRates();
 	while(std::getline(inputFile, request, '\n')) {
 		key_value = ::split(request, "|");
-		if (key_value.size() != 2 || ::isNumber(key_value[1]) == false) {
+		if (gridSize(key_value, 3) != 2 || ::isNumber(key_value[1]) == false) {
 			std::cerr <<  "Error: bad input -> " << request << std::endl;
 			goto here;
 		};
 		::trim(key_value[0]);
 		key = key_value[0];
 		value = std::atoi(key_value[1].c_str());
-		if (::checkDate(key, request) && ::checkValue(value))
+		if (::checkDate(key, request) && ::checkValue(value, request))
 			BitcoinExchange::findBtcRates(key, value);
 here:	request.clear();
 	}
@@ -49,7 +50,7 @@ void	BitcoinExchange::loadBtcRates() {
 	if (!csvFile) throw std::runtime_error("Error: Btc rates DB not found");
 	std::getline(csvFile, row, '\n'), row.clear();
 	while (std::getline(csvFile, row, '\n')) {
-		std::vector<std::string> key_value = split(row, ",");
+		std::string *key_value = split(row, ",");
 
 		_bitcoinRates.insert(
 			std::make_pair(key_value[0], std::atof(key_value[1].c_str()))
@@ -99,14 +100,16 @@ void	BitcoinExchange::getBtc(std::string key) const {
 
 // hepler functions
 
-static inline std::vector<std::string> split(std::string& str, const std::string delimiters) {
-	std::vector<std::string> 	tokens;
+static inline std::string*	split(std::string& str, const std::string delimiters) {
+	std::string					*tokens = new std::string [5];
+	size_t						index = 0;
 	size_t 						start = 0;
 	size_t 						end = str.find_first_of(delimiters);
 
 	while (end != std::string::npos) {
 		if (end != start) { // Avoid empty tokens
-			tokens.push_back(str.substr(start, end - start));
+			tokens[index++] = str.substr(start, end - start);
+			if (index == 5) return tokens;
 		}
 		start = end + 1;
 		end = str.find_first_of(delimiters, start);
@@ -114,7 +117,7 @@ static inline std::vector<std::string> split(std::string& str, const std::string
 
 	// Add the last token
 	if (start < str.length()) {
-		tokens.push_back(str.substr(start));
+		tokens[index] = (str.substr(start));
 	}
 
 	return tokens;
@@ -151,24 +154,27 @@ static inline void	inputFileChecking(std::ifstream &inputFile, std::string &requ
 	if (!inputFile) throw std::runtime_error("Error: file not found!");
 	std::getline(inputFile, request, '\n'); // skip the first line.
 	if (request.empty()) throw std::runtime_error("Error: Empty file");
+	else if (request.find("Date | Value") == std::string::npos)
+		throw std::runtime_error("Error: Invalid Format!");
 	request.clear();
 }
 
-static inline bool	checkValue(int &value) {
-	bool status = (value < 0 || value > 1000) ? false : true;
+static inline bool	checkValue(int &value, std::string& request) {
+	bool status = (value <= 0 || value > 1000) ? false : true;
 
-	if (value < 0) std::cerr << "Error: not a positive number!" << std::endl;
+	if (value == 0) std::cerr << "Error: bad input -> " << request  << std::endl;
+	else if (value < 0) std::cerr << "Error: not a positive number!" << std::endl;
 	else if(value > 1000) std::cerr << "Error: too large number!" << std::endl;
 
 	return status;
 }
 
 static inline bool	checkDate(std::string &key, std::string &request) {
-	std::vector<std::string>	dateCheck = split(key, "-");
+	std::string*	dateCheck = split(key, "-");
 	int							month, day;
 
 	// check size of containers + size of strings (date format -> year-month-day)
-	if (dateCheck.size() != 3 || dateCheck[0].size() != 4
+	if (gridSize(dateCheck, 4) != 3 || dateCheck[0].size() != 4
 		|| dateCheck[1].size() != 2 || dateCheck[2].size() != 2) {
 		goto INV_FORMAT;
 	}
@@ -185,4 +191,16 @@ INV_FORMAT: {
 	std::cerr <<  "Error: bad input -> " << request << std::endl; 
 	return false;
 	}
+}
+
+static inline size_t	gridSize(std::string *ptr, size_t maxSize) {
+	size_t s = 0;
+
+	if (ptr == NULL || maxSize == 0) return s;
+	while (!ptr->empty()) {
+		s++;
+		if (s == maxSize) break ;
+		ptr++;
+	}
+	return s;
 }
