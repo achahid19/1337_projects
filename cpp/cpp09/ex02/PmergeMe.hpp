@@ -6,7 +6,6 @@
 #include <deque>
 #include <cstdlib>
 #include <vector>
-#include <algorithm>
 
 class PmergeMe {
 public:
