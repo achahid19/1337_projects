@@ -3,14 +3,17 @@
 // Canonical form
 PmergeMe::PmergeMe( void ) {};
 PmergeMe::PmergeMe( PmergeMe& copy ) { *this=copy; };
-PmergeMe& PmergeMe::operator=( PmergeMe& copy ) { return *this; };
+PmergeMe& PmergeMe::operator=( PmergeMe& copy ) { 
+	(void)copy;
+	return *this; 
+};
 PmergeMe::~PmergeMe( void ) {};
 
 template <typename T1, typename T2>
 static void	makePairs(
 	T1 &pairs,
 	T2 &arr,
-	size_t *odd_element_index	
+	int *odd_element_index	
 );
 template <typename T>
 static void	insertOdd(T &main_chain, int value);
@@ -31,8 +34,8 @@ std::vector<int> PmergeMe::fordJohnsonSort(std::vector<int> &arr) {
 		return arr;
 	}
 	
-	size_t 								odd_element_index = -1;
-	std::vector<std::pair<int, int>>	pairs;
+	int 								odd_element_index = -1;
+	std::vector< std::pair<int, int> >	pairs;
 	
 	makePairs(pairs, arr, &odd_element_index);
 	
@@ -63,8 +66,8 @@ std::deque<int> PmergeMe::fordJohnsonSort(std::deque<int> &arr) {
 		return arr;
 	}
 	
-	size_t 								odd_element_index = -1;
-	std::deque<std::pair<int, int>>		pairs;
+	int 								odd_element_index = -1;
+	std::deque< std::pair<int, int> >		pairs;
 	
 	makePairs(pairs, arr, &odd_element_index);
 	
@@ -93,7 +96,7 @@ template <typename T1, typename T2>
 static void	makePairs(
 	T1 &pairs,
 	T2 &arr,
-	size_t *odd_element_index	
+	int *odd_element_index	
 ) {
 	for (size_t i = 0; i < arr.size(); i += 2) {
 		if (i + 1 < arr.size()) {
@@ -101,9 +104,9 @@ static void	makePairs(
 			int b = arr[i + 1];
 			
 			if (a > b) {
-				pairs.push_back({a, b});
+				pairs.push_back(std::make_pair(a, b));
 			} else {
-				pairs.push_back({b, a});
+				pairs.push_back(std::make_pair(b, a));
 			}
 		} else {
 			*odd_element_index = i;
@@ -113,7 +116,7 @@ static void	makePairs(
 
 template <typename T>
 static void	insertOdd(T &main_chain, int value) {
-	auto insert_pos = std::lower_bound(
+	typename T::iterator insert_pos = std::lower_bound(
 		main_chain.begin(), main_chain.end(), value
 	);
 	main_chain.insert(insert_pos, value);
@@ -125,7 +128,7 @@ static void	insertLosers(T &main_chain, T &losers) {
 		int loser = losers[i];
 		
 		// Find insertion point using binary search
-		auto insert_pos = std::lower_bound(
+		typename T::iterator insert_pos = std::lower_bound(
 			main_chain.begin(), main_chain.end(), loser
 		);
 		main_chain.insert(insert_pos, loser);
