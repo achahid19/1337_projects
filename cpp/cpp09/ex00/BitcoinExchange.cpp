@@ -22,7 +22,7 @@ void    BitcoinExchange::executeRequest(const char *fileName) {
 	std::ifstream							inputFile(fileName);
 	std::string								request, key;
 	int										value;
-	std::string								*key_value;
+	std::string								*key_value = NULL;
 	
 	inputFileChecking(inputFile, request);
 	this->loadBtcRates();
@@ -38,11 +38,11 @@ void    BitcoinExchange::executeRequest(const char *fileName) {
 		if (::checkDate(key, request) && ::checkValue(value, request))
 			BitcoinExchange::findBtcRates(key, value);
 here:	request.clear();
+		delete [] key_value;
 	}
 }
 
 // private-methods
-
 void	BitcoinExchange::loadBtcRates() {
 	std::ifstream	csvFile("./data.csv");
 	std::string		row;
@@ -56,6 +56,7 @@ void	BitcoinExchange::loadBtcRates() {
 			std::make_pair(key_value[0], std::atof(key_value[1].c_str()))
 		);
 		row.clear();
+		delete [] key_value;
 	}
 }
 
@@ -115,7 +116,6 @@ static inline std::string*	split(std::string& str, const std::string delimiters)
 		end = str.find_first_of(delimiters, start);
 	}
 
-	// Add the last token
 	if (start < str.length()) {
 		tokens[index] = (str.substr(start));
 	}
@@ -152,7 +152,7 @@ static inline bool	isNumber(std::string &n) {
 
 static inline void	inputFileChecking(std::ifstream &inputFile, std::string &request) {
 	if (!inputFile) throw std::runtime_error("Error: file not found!");
-	std::getline(inputFile, request, '\n'); // skip the first line.
+	std::getline(inputFile, request, '\n');
 	if (request.empty()) throw std::runtime_error("Error: Empty file");
 	else if (request.find("Date | Value") == std::string::npos)
 		throw std::runtime_error("Error: Invalid Format!");
@@ -173,7 +173,7 @@ static inline bool	checkDate(std::string &key, std::string &request) {
 	std::string*	dateCheck = split(key, "-");
 	int							month, day;
 
-	// check size of containers + size of strings (date format -> year-month-day)
+	// (date format -> year-month-day)
 	if (gridSize(dateCheck, 4) != 3 || dateCheck[0].size() != 4
 		|| dateCheck[1].size() != 2 || dateCheck[2].size() != 2) {
 		goto INV_FORMAT;
@@ -184,12 +184,11 @@ static inline bool	checkDate(std::string &key, std::string &request) {
 		|| ( day > 31 || day < 0 ) ) {
 		goto INV_FORMAT;
 	}
-
-	return true;
+	return (delete [] dateCheck, true);
 
 INV_FORMAT: {
 	std::cerr <<  "Error: bad input -> " << request << std::endl; 
-	return false;
+	return (delete [] dateCheck ,false);
 	}
 }
 
