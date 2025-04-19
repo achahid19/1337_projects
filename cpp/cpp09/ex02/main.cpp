@@ -1,5 +1,8 @@
 #include "PmergeMe.hpp"
 
+// linux cmd to run the program with unique random value
+// ./program_name shuf -i 1-100000 #range -n 3000 # total numbers | tr "\n" " "
+
 int main(int ac, char **av) {
     std::vector<int> v;
     std::deque<int>  d;
@@ -48,7 +51,7 @@ int main(int ac, char **av) {
     std::cout << "Time to process a range of : " << v.size() << " elements ";
     std::cout << "with std::vector : " << vTimer << " us" << std::endl;
     std::cout << "Time to process a range of : " << d.size() << " elements ";
-    std::cout << "with std::duque : " << dTimer << " us" << std::endl;
+    std::cout << "with std::deque : " << dTimer << " us" << std::endl;
     
     return 0;
 }
