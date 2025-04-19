@@ -1,5 +1,11 @@
 #include "PmergeMe.hpp"
 
+// Canonical form
+PmergeMe::PmergeMe( void ) {};
+PmergeMe::PmergeMe( PmergeMe& copy ) { *this=copy; };
+PmergeMe& PmergeMe::operator=( PmergeMe& copy ) { return *this; };
+PmergeMe::~PmergeMe( void ) {};
+
 template <typename T1, typename T2>
 static void	makePairs(
 	T1 &pairs,
@@ -20,7 +26,7 @@ static void	insertLosers(
 // step3: Simply using lower_bound (binary search) to insert
 // 		  each loser into the main_chain.
 std::vector<int> PmergeMe::fordJohnsonSort(std::vector<int> &arr) {
-	// Base cases
+	// Base case
 	if (arr.size() <= 1) {
 		return arr;
 	}
@@ -49,6 +55,39 @@ std::vector<int> PmergeMe::fordJohnsonSort(std::vector<int> &arr) {
 
 	return main_chain;
 }
+
+// for deque to avoid generic function
+std::deque<int> PmergeMe::fordJohnsonSort(std::deque<int> &arr) {
+	// Base case
+	if (arr.size() <= 1) {
+		return arr;
+	}
+	
+	size_t 								odd_element_index = -1;
+	std::deque<std::pair<int, int>>		pairs;
+	
+	makePairs(pairs, arr, &odd_element_index);
+	
+	std::deque<int>	winners;
+	for (size_t i = 0; i < pairs.size(); ++i) {
+		winners.push_back(pairs[i].first);
+	}
+
+	std::deque<int>	sorted_winners = fordJohnsonSort(winners);
+	std::deque<int>	main_chain = sorted_winners;
+	
+	if (odd_element_index != -1)
+		insertOdd(main_chain, arr[odd_element_index]);
+	
+	std::deque<int>	losers;
+	for (size_t i = 0; i < pairs.size(); i++) {
+		losers.push_back(pairs[i].second);
+	}
+	insertLosers(main_chain, losers);
+
+	return main_chain;
+}
+
 
 template <typename T1, typename T2>
 static void	makePairs(
@@ -91,36 +130,4 @@ static void	insertLosers(T &main_chain, T &losers) {
 		);
 		main_chain.insert(insert_pos, loser);
 	}
-}
-
-// for deque to avoid generic function
-std::deque<int> PmergeMe::fordJohnsonSort(std::deque<int> &arr) {
-	// Base cases
-	if (arr.size() <= 1) {
-		return arr;
-	}
-	
-	size_t 								odd_element_index = -1;
-	std::deque<std::pair<int, int>>		pairs;
-	
-	makePairs(pairs, arr, &odd_element_index);
-	
-	std::deque<int>	winners;
-	for (size_t i = 0; i < pairs.size(); ++i) {
-		winners.push_back(pairs[i].first);
-	}
-
-	std::deque<int>	sorted_winners = fordJohnsonSort(winners);
-	std::deque<int>	main_chain = sorted_winners;
-	
-	if (odd_element_index != -1)
-		insertOdd(main_chain, arr[odd_element_index]);
-	
-	std::deque<int>	losers;
-	for (size_t i = 0; i < pairs.size(); i++) {
-		losers.push_back(pairs[i].second);
-	}
-	insertLosers(main_chain, losers);
-
-	return main_chain;
 }
