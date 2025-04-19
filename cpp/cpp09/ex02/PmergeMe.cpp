@@ -1,66 +1,170 @@
 #include "PmergeMe.hpp"
 
-static inline void				insertSmallerElements(std::deque<int>& sorted, const std::list<int>& smaller);
-static inline std::list<int>	sortPairsAndGetLarger(std::list<int>& lst);
+static void	makePairs(
+	std::vector<std::pair<int, int>> &pairs,
+	std::vector<int> &arr,
+	size_t *odd_element_index	
+);
+static void	insertOdd(std::vector<int> &main_chain, int value);
+static void	insertLosers(
+	std::vector<int> &main_chain,
+	std::vector<int> &losers
+);
 
-// methods
+// simple implementation of the fordJohnsonSort
+// step1: Pairing elements and detecting winners and losers
+// step2: Recursively sorting the winners to form main_chain
+// step3: Simply using lower_bound (binary search) to insert
+// 		  each loser into the main_chain.
+std::vector<int> PmergeMe::fordJohnsonSort(std::vector<int> &arr) {
+	// Base cases
+	if (arr.size() <= 1) {
+		return arr;
+	}
+	
+	size_t 								odd_element_index = -1;
+	std::vector<std::pair<int, int>>	pairs;
+	
+	makePairs(pairs, arr, &odd_element_index);
+	
+	std::vector<int>	winners;
+	for (size_t i = 0; i < pairs.size(); ++i) {
+		winners.push_back(pairs[i].first);
+	}
 
-std::deque<int> PmergeMe::fordJohnsonSort(std::list<int>& lst) {
-    if (lst.size() <= 1) {
-        return std::deque<int>(lst.begin(), lst.end()); // Base case: already sorted
-    }
+	std::vector<int>	sorted_winners = fordJohnsonSort(winners);
+	std::vector<int>	main_chain = sorted_winners;
+	
+	if (odd_element_index != -1)
+		insertOdd(main_chain, arr[odd_element_index]);
+	
+	std::vector<int>	losers;
+	for (size_t i = 0; i < pairs.size(); i++) {
+		losers.push_back(pairs[i].second);
+	}
+	insertLosers(main_chain, losers);
 
-    // Step 1: Group elements into pairs and sort each pair
-    std::list<int> largerElements = sortPairsAndGetLarger(lst);
-
-    // Step 2: Recursively sort the larger elements
-    std::deque<int> sortedLarger = fordJohnsonSort(largerElements);
-
-    // Step 3: Insert the smaller elements into the sorted list
-    std::list<int> smallerElements;
-    std::list<int>::iterator it = lst.begin();
-
-    while (it != lst.end()) {
-        smallerElements.push_back(*it);
-        it = std::next(it, 2); // Move to the next smaller element
-		if (std::prev(it) == lst.end()) break ;
-    }
-
-    insertSmallerElements(sortedLarger, smallerElements);
-
-    return sortedLarger;
+	return main_chain;
 }
 
-// helper funcs
-
-// Function to sort pairs and return the larger elements
-static inline std::list<int> sortPairsAndGetLarger(std::list<int>& lst) {
-    std::list<int>				largerElements;
-    std::list<int>::iterator	it = lst.begin();
-	std::list<int>::iterator	next;
-
-    while (it != lst.end()) {
-        next = std::next(it);
-        if (next != lst.end()) {
-            if (*it > *next) {
-                largerElements.push_back(*it);
-                std::swap(*it, *next); // Sort the pair
-            } else {
-                largerElements.push_back(*next);
-            }
-            it = std::next(next); // Move to the next pair
-        } else {
-            break; // Handle odd-sized list
-        }
-    }
-    return largerElements;
+static void	makePairs(
+	std::vector<std::pair<int, int>> &pairs,
+	std::vector<int> &arr,
+	size_t *odd_element_index	
+) {
+	for (size_t i = 0; i < arr.size(); i += 2) {
+		if (i + 1 < arr.size()) {
+			int a = arr[i];
+			int b = arr[i + 1];
+			
+			if (a > b) {
+				pairs.push_back({a, b});
+			} else {
+				pairs.push_back({b, a});
+			}
+		} else {
+			*odd_element_index = i;
+		}
+	}
 }
 
-// Function to insert smaller elements into the sorted list
-static inline void insertSmallerElements(std::deque<int>& sorted, const std::list<int>& smaller) {
-    for (std::list<int>::const_iterator num = smaller.begin(); num != smaller.end(); num++) {
-        // Find the correct position using binary search
-        std::deque<int>::iterator pos = std::lower_bound(sorted.begin(), sorted.end(), *num);
-        sorted.insert(pos, *num);
-    }
+static void	insertOdd(std::vector<int> &main_chain, int value) {
+	auto insert_pos = std::lower_bound(
+		main_chain.begin(), main_chain.end(), value
+	);
+	main_chain.insert(insert_pos, value);
+}
+
+static void	insertLosers(std::vector<int> &main_chain, std::vector<int> &losers) {
+	for (size_t i = 0; i < losers.size(); ++i) {
+		int loser = losers[i];
+		
+		// Find insertion point using binary search
+		auto insert_pos = std::lower_bound(
+			main_chain.begin(), main_chain.end(), loser
+		);
+		main_chain.insert(insert_pos, loser);
+	}
+}
+
+// for deque to avoid generic functions
+
+static void	makePairs(
+	std::deque<std::pair<int, int>> &pairs,
+	std::deque<int> &arr,
+	size_t			*odd_element_index
+);
+static void	insertOdd(std::deque<int> &main_chain, int value);
+static void	insertLosers(std::deque<int> &main_chain, std::deque<int> &losers);
+
+
+std::deque<int> PmergeMe::fordJohnsonSort(std::deque<int> &arr) {
+	// Base cases
+	if (arr.size() <= 1) {
+		return arr;
+	}
+	
+	size_t 								odd_element_index = -1;
+	std::deque<std::pair<int, int>>		pairs;
+	
+	makePairs(pairs, arr, &odd_element_index);
+	
+	std::deque<int>	winners;
+	for (size_t i = 0; i < pairs.size(); ++i) {
+		winners.push_back(pairs[i].first);
+	}
+
+	std::deque<int>	sorted_winners = fordJohnsonSort(winners);
+	std::deque<int>	main_chain = sorted_winners;
+	
+	if (odd_element_index != -1)
+		insertOdd(main_chain, arr[odd_element_index]);
+	
+	std::deque<int>	losers;
+	for (size_t i = 0; i < pairs.size(); i++) {
+		losers.push_back(pairs[i].second);
+	}
+	insertLosers(main_chain, losers);
+
+	return main_chain;
+}
+
+static void	makePairs(
+	std::deque<std::pair<int, int>> &pairs,
+	std::deque<int> &arr,
+	size_t *odd_element_index	
+) {
+	for (size_t i = 0; i < arr.size(); i += 2) {
+		if (i + 1 < arr.size()) {
+			int a = arr[i];
+			int b = arr[i + 1];
+			
+			if (a > b) {
+				pairs.push_back({a, b});
+			} else {
+				pairs.push_back({b, a});
+			}
+		} else {
+			*odd_element_index = i;
+		}
+	}
+}
+
+static void	insertOdd(std::deque<int> &main_chain, int value) {
+	auto insert_pos = std::lower_bound(
+		main_chain.begin(), main_chain.end(), value
+	);
+	main_chain.insert(insert_pos, value);
+}
+
+static void	insertLosers(std::deque<int> &main_chain, std::deque<int> &losers) {
+	for (size_t i = 0; i < losers.size(); ++i) {
+		int loser = losers[i];
+		
+		// Find insertion point using binary search
+		auto insert_pos = std::lower_bound(
+			main_chain.begin(), main_chain.end(), loser
+		);
+		main_chain.insert(insert_pos, loser);
+	}
 }

@@ -2,12 +2,16 @@
 #define PMERGEME_HPP
 
 #include <iostream>
-#include <list>
+#include <ctime>
 #include <deque>
+#include <cstdlib>
+#include <vector>
+#include <algorithm>
 
 class PmergeMe {
 public:
-	std::deque<int>	fordJohnsonSort(std::list<int> &list);
+	std::vector<int> fordJohnsonSort(std::vector<int> &v);
+	std::deque<int>	fordJohnsonSort(std::deque<int> &d);
 };
 
 #endif /* PMERGEME_HPP */
