@@ -56,10 +56,7 @@ git clone https://github.com/achahid19/1337_projects.git
 # Navigate into the get_next_line directory
 cd 1337_projects/get_next_line
 
-# Compile the library
-make
 ```
-This will create libgnl.a, a static library file.
 
 ## Usage
 
