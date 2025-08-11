@@ -25,13 +25,13 @@ The `libft` project is designed to build a foundational understanding of C progr
 
 ---
 
-## 📖 Project Description
+## Project Description
 This repository contains a personal C library, **Libft**, which includes a collection of functions that are essential for handling strings, memory, and character manipulation.  
 The functions are reimplemented from the standard C library as well as a new set of utility functions created for the project.
 
 ---
 
-## ⚡ Functions
+## Functions
 
 ### **Part 1: Standard C Library Functions**
 - `ft_memset` – Fills memory with a constant byte.  
@@ -85,7 +85,7 @@ The functions are reimplemented from the standard C library as well as a new set
 
 ---
 
-## 🛠 Installation
+## Installation
 
 To compile and use the **libft** library:
 
@@ -100,7 +100,7 @@ cd 1337_projects/libft
 make
 ```
 
-## 🚀 Usage
+## Usage
 
 To use libft in your own C project, compile your source files and link them with the static library:
 ```bash
@@ -111,10 +111,10 @@ Flags explained:
 - `-lft`: Links against the `libft` library.
 - `-I.`: Includes the current directory for header files.
 
-## 👤 Author
+## Author
 - **Achahid** - [achahid19](https://github.com/achahid19)
 
-## 🙏 Acknowledgements
+## Acknowledgements
 This project is part of the **1337/42 school curriculum**.
  
 [![School](https://img.shields.io/badge/Notice-1337%20School-blue.svg)](https://1337.ma/en/)
