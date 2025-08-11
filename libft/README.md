@@ -112,7 +112,7 @@ Flags explained:
 - `-I.`: Includes the current directory for header files.
 
 ## Author
-- **Anas Chahid ksabi ©Ks_Dev** - [achahid19](https://github.com/achahid19)
+**© Anas Chahid ksabi **@KsDev**** - [achahid19](https://github.com/achahid19)
 
 ## Acknowledgements
 This project is part of the **1337/42 school curriculum**.
