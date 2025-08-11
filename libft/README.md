@@ -3,7 +3,8 @@
 A custom C library created as part of the **1337/42 school curriculum**.  
 The `libft` project is designed to build a foundational understanding of C programming by re-implementing a number of standard C library functions and creating new ones. This library serves as a cornerstone for future projects at the school.
 
-[![Notice](https://img.shields.io/badge/Notice-42%20School-blue.svg)](https://1337.ma/en/)
+[![School](https://img.shields.io/badge/Notice-1337%20School-blue.svg)](https://1337.ma/en/)
+[![School](https://img.shields.io/badge/Notice-42%20School-blue.svg)](https://42.fr/en/homepage/)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](https://opensource.org/license/mit/)
 [![Language](https://img.shields.io/badge/Language-C-orange.svg)](https://en.wikipedia.org/wiki/C_(programming_language))
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen.svg)
@@ -15,12 +16,12 @@ The `libft` project is designed to build a foundational understanding of C progr
 
 ## 📜 Table of Contents
 
-- [Project Description](#project-description)
-- [Functions](#functions)
-- [Installation](#installation)
-- [Usage](#usage)
-- [Author](#author)
-- [Acknowledgements](#acknowledgements)
+- [Project Description](#Project-description)
+- [Functions](#Functions)
+- [Installation](#Installation)
+- [Usage](#Usage)
+- [Author](#Author)
+- [Acknowledgements](#Acknowledgements)
 
 ---
 
