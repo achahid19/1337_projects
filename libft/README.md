@@ -9,10 +9,6 @@ The `libft` project is designed to build a foundational understanding of C progr
 [![Language](https://img.shields.io/badge/Language-C-orange.svg)](https://en.wikipedia.org/wiki/C_(programming_language))
 ![Status](https://img.shields.io/badge/Status-Completed-brightgreen.svg)
 
-![Note](https://img.shields.io/badge/Note-This%20project%20is%20part%20of%20the%201337%20school%20curriculum-blueviolet.svg)
-
-
----
 
 ## 📜 Table of Contents
 
@@ -116,6 +112,6 @@ Flags explained:
 
 ## Acknowledgements
 This project is part of the **1337/42 school curriculum**.
- 
+
 [![School](https://img.shields.io/badge/Notice-1337%20School-blue.svg)](https://1337.ma/en/)
 [![School](https://img.shields.io/badge/Notice-42%20School-blue.svg)](https://42.fr/en/homepage/)
