@@ -21,13 +21,13 @@ A project for the 1337/42 school curriculum, this repository contains a custom r
 ---
 
 ## Project Description
-The **ft_printf** project involves creating a function that replicates the behavior of the **printf** function from the standard C library. This includes correctly parsing a format string and printing corresponding arguments based on specified format specifiers. This project is a key step in understanding variadic functions and memory management in C.
+The `ft_printf` project involves creating a function that replicates the behavior of the `printf` function from the standard C library. This includes correctly parsing a format string and printing corresponding arguments based on specified format specifiers. This project is a key step in understanding variadic functions and memory management in C.
 
 ---
 
 ## Functions
 
-My ft_printf function supports the following format specifiers:
+My `ft_printf` function supports the following format specifiers:
 
 - **%c**: Prints a single character.
 
@@ -49,7 +49,7 @@ My ft_printf function supports the following format specifiers:
 
 ## Installation
 
-To use the **ft_printf** library, clone the repository and compile the source files to create a static library:
+To use the `ft_printf` library, clone the repository and compile the source files to create a static library:
 
 ```bash
 git clone
@@ -63,7 +63,7 @@ This will create **libftprintf.a**, a static library file.
 
 ## Usage
 
-To use the **ft_printf** function in your C programs, include the header file and link against the static library:
+To use the `ft_printf` function in your C programs, include the header file and link against the static library:
 
 ```c
 #include "ft_printf.h"
