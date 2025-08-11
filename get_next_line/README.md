@@ -63,12 +63,27 @@ cd 1337_projects/get_next_line
 To use `get_next_line` in your own C project, compile your source files and link them with the static library:
 
 ```bash
-gcc your_program.c -L. -lgnl -I. -o your_program
+gcc your_program.c get_next_line.c -o your_program -I/path/to get_next_line/includes
 ```
-Flags explained:
-- `-L.`: Tells the compiler to look for libraries in the current directory.
-- `-lgnl`: Links against the `libgnl.a` library.
-- `-I.`: Includes the current directory for header files.
+You can call the `get_next_line` function in your code as follows:
+
+```c
+#include "get_next_line.h"
+#include <stdio.h>
+
+int main() {
+	int fd = open("example.txt", O_RDONLY);
+	char *line;
+
+	while ((line = get_next_line(fd)) != NULL) {
+		printf("%s", line);
+		free(line); // Free the memory allocated for the line
+	}
+
+	close(fd);
+	return 0;
+}
+```
 
 ## Author
 **© Anas Chahid ksabi **@KsDev**** - [achahid19](https://github.com/achahid19)
