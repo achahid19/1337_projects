@@ -42,3 +42,12 @@ $> ./fractol Tricorn
 
 ### Tricorn Fractal >>
 <img src="./imgs/5.png" alt="Tricorn Set" width="500" />
+
+## Author
+**© Anas Chahid ksabi **@KsDev**** - [achahid19](https://github.com/achahid19)
+
+## Acknowledgements
+This project is part of the **1337/42 school curriculum**.
+
+[![School](https://img.shields.io/badge/Notice-1337%20School-blue.svg)](https://1337.ma/en/)
+[![School](https://img.shields.io/badge/Notice-42%20School-blue.svg)](https://42.fr/en/homepage/)
